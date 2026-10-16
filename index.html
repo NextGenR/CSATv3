@@ -212,39 +212,65 @@
   <script src="csat_data.js"></script>
   <script src="api.js"></script>
   <script>
-    // Render October Dates (Oct 1 to Oct 15) with scores & randomized accuracy between 70% and 90%
+    // Render October Dates (Oct 1 to Oct 16) with scores & accuracy
     document.addEventListener("DOMContentLoaded", () => {
       const container = document.getElementById("october-tiles-container");
       
       OCTOBER_HISTORY_DATA.forEach(item => {
         const tile = document.createElement("div");
-        tile.className = "tg-date-tile";
+        tile.className = `tg-date-tile tg-date-tile-${item.dayNum}`;
 
+        const is16Oct = (item.dayNum === 16);
         const is15Oct = (item.dayNum === 15);
-        const tileStatus = is15Oct ? `
-          <span class="tg-tile-status-tag" style="background: rgba(36, 129, 204, 0.2); color: var(--tg-blue-light); border-color: rgba(36, 129, 204, 0.4);">
-            <i class="fa-solid fa-database"></i> Supabase Live
-          </span>
-        ` : `
+
+        let tileStatus = `
           <span class="tg-tile-status-tag">
             <i class="fa-solid fa-check"></i> Completed
           </span>
         `;
+        if (is16Oct) {
+          tileStatus = `
+            <span class="tg-tile-status-tag status-tag-16" style="background: rgba(36, 129, 204, 0.2); color: var(--tg-blue-light); border-color: rgba(36, 129, 204, 0.4);">
+              <i class="fa-solid fa-database"></i> Supabase Live
+            </span>
+          `;
+        } else if (is15Oct) {
+          tileStatus = `
+            <span class="tg-tile-status-tag status-tag-15" style="background: rgba(36, 129, 204, 0.2); color: var(--tg-blue-light); border-color: rgba(36, 129, 204, 0.4);">
+              <i class="fa-solid fa-database"></i> Supabase Live
+            </span>
+          `;
+        }
 
-        const footerAction = is15Oct ? `
-          <div style="display: flex; gap: 8px; width: 100%;">
-            <a href="guidelines.html?date=2026-10-15" class="tg-tile-btn" style="text-decoration: none; background: var(--tg-blue); color: #fff; flex: 1;">
-              <i class="fa-solid fa-play"></i> Attempt Test
-            </a>
-            <button class="tg-tile-btn btn-view-hist" data-day="${item.dayNum}" style="flex: 1;">
-              <i class="fa-solid fa-chart-simple"></i> Details
-            </button>
-          </div>
-        ` : `
+        let footerAction = `
           <button class="tg-tile-btn btn-view-hist" data-day="${item.dayNum}">
             <i class="fa-solid fa-magnifying-glass-chart"></i> View Test Details
           </button>
         `;
+
+        if (is16Oct) {
+          footerAction = `
+            <div style="display: flex; gap: 8px; width: 100%;">
+              <a href="guidelines.html?date=2026-10-16" class="tg-tile-btn btn-action-16" style="text-decoration: none; background: var(--tg-blue); color: #fff; flex: 1.2;">
+                <i class="fa-solid fa-play"></i> Attempt Test
+              </a>
+              <button class="tg-tile-btn btn-view-hist" data-day="${item.dayNum}" style="flex: 1;">
+                <i class="fa-solid fa-chart-simple"></i> Details
+              </button>
+            </div>
+          `;
+        } else if (is15Oct) {
+          footerAction = `
+            <div style="display: flex; gap: 8px; width: 100%;">
+              <a href="guidelines.html?date=2026-10-15" class="tg-tile-btn btn-action-15" style="text-decoration: none; background: var(--tg-blue); color: #fff; flex: 1.2;">
+                <i class="fa-solid fa-play"></i> Attempt Test
+              </a>
+              <button class="tg-tile-btn btn-view-hist" data-day="${item.dayNum}" style="flex: 1;">
+                <i class="fa-solid fa-chart-simple"></i> Details
+              </button>
+            </div>
+          `;
+        }
 
         tile.innerHTML = `
           <div class="tg-tile-top">
@@ -308,34 +334,69 @@
           <i class="fa-solid fa-chart-pie" style="color: var(--tg-blue-light);"></i>
           Daily Test Summary: ${data.dateStr} 2026 (${data.dayName})
         `;
-        document.getElementById("hist-modal-body").innerHTML = `
-          <div class="tg-guidelines-list" style="margin-bottom: 18px;">
-            <div class="tg-rule-card">
-              <div class="tg-rule-title">Marks Scored</div>
-              <div class="tg-rule-desc" style="color: var(--tg-green); font-size: 18px;">${data.score}</div>
+
+        if (data.dayNum === 16) {
+          document.getElementById("hist-modal-body").innerHTML = `
+            <div class="tg-guidelines-list" style="margin-bottom: 18px;">
+              <div class="tg-rule-card">
+                <div class="tg-rule-title">Marks Benchmark</div>
+                <div class="tg-rule-desc" style="color: var(--tg-green); font-size: 18px;">25.0 Marks (+2.5, -0.83)</div>
+              </div>
+              <div class="tg-rule-card">
+                <div class="tg-rule-title">Qualifying Cutoff</div>
+                <div class="tg-rule-desc" style="color: var(--tg-blue-light); font-size: 18px;">33% (8.25 Marks)</div>
+              </div>
+              <div class="tg-rule-card">
+                <div class="tg-rule-title">Question Count</div>
+                <div class="tg-rule-desc">10 UPSC CSAT Questions</div>
+              </div>
+              <div class="tg-rule-card">
+                <div class="tg-rule-title">Live Database Status</div>
+                <div class="tg-rule-desc" style="color: var(--tg-blue-light);"><i class="fa-solid fa-database"></i> Supabase Live</div>
+              </div>
             </div>
-            <div class="tg-rule-card">
-              <div class="tg-rule-title">Accuracy Rate</div>
-              <div class="tg-rule-desc" style="color: var(--tg-blue-light); font-size: 18px;">${data.accuracy}%</div>
+            <div class="tg-instructions-text">
+              <h4><i class="fa-solid fa-bolt" style="color: var(--tg-blue-light);"></i> 16 October 2026 Mock Test Topics</h4>
+              <p style="font-size: 13px; color: #a4b4c4; line-height: 1.5; margin-bottom: 14px;">
+                Includes curated high-yield questions on <strong>Number System & Exponents</strong>, <strong>Coded Blood Relations</strong>, <strong>Syllogism</strong>, <strong>Time & Work</strong>, and <strong>Relative Speed</strong>.
+              </p>
+              <div>
+                <a href="guidelines.html?date=2026-10-16" class="tg-btn-start-green" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+                  <i class="fa-solid fa-play"></i> Attempt 16 Oct Test
+                </a>
+              </div>
             </div>
-            <div class="tg-rule-card">
-              <div class="tg-rule-title">Correct Answers</div>
-              <div class="tg-rule-desc">${data.correct} / ${data.questionsAttempted}</div>
+          `;
+        } else {
+          document.getElementById("hist-modal-body").innerHTML = `
+            <div class="tg-guidelines-list" style="margin-bottom: 18px;">
+              <div class="tg-rule-card">
+                <div class="tg-rule-title">Marks Scored</div>
+                <div class="tg-rule-desc" style="color: var(--tg-green); font-size: 18px;">${data.score}</div>
+              </div>
+              <div class="tg-rule-card">
+                <div class="tg-rule-title">Accuracy Rate</div>
+                <div class="tg-rule-desc" style="color: var(--tg-blue-light); font-size: 18px;">${data.accuracy}%</div>
+              </div>
+              <div class="tg-rule-card">
+                <div class="tg-rule-title">Correct Answers</div>
+                <div class="tg-rule-desc">${data.correct} / ${data.questionsAttempted}</div>
+              </div>
+              <div class="tg-rule-card">
+                <div class="tg-rule-title">Incorrect Answers</div>
+                <div class="tg-rule-desc" style="color: var(--tg-red);">${data.incorrect} (Negative: -${(data.incorrect * 0.833).toFixed(2)})</div>
+              </div>
             </div>
-            <div class="tg-rule-card">
-              <div class="tg-rule-title">Incorrect Answers</div>
-              <div class="tg-rule-desc" style="color: var(--tg-red);">${data.incorrect} (Negative: -${(data.incorrect * 0.833).toFixed(2)})</div>
+            <div class="tg-instructions-text">
+              <h4><i class="fa-solid fa-lightbulb"></i> Performance Assessment</h4>
+              <p style="font-size: 13px; color: #a4b4c4; line-height: 1.5;">
+                On ${data.dateStr}, your qualifying score exceeded the 33% CSAT benchmark (8.25 marks out of 25). 
+                Accuracy stayed in the healthy ${data.accuracy}% bracket. 
+                Review the questions you missed to avoid repeating calculation traps in the upcoming test.
+              </p>
             </div>
-          </div>
-          <div class="tg-instructions-text">
-            <h4><i class="fa-solid fa-lightbulb"></i> Performance Assessment</h4>
-            <p style="font-size: 13px; color: #a4b4c4; line-height: 1.5;">
-              On ${data.dateStr}, your qualifying score exceeded the 33% CSAT benchmark (8.25 marks out of 25). 
-              Accuracy stayed in the healthy ${data.accuracy}% bracket. 
-              Review the questions you missed to avoid repeating calculation traps in the upcoming test.
-            </p>
-          </div>
-        `;
+          `;
+        }
         modal.classList.add("active");
       }
 
@@ -364,12 +425,16 @@
         if (typeof CSAT_API !== 'undefined' && CSAT_API.checkActiveAttempt) {
           try {
             const check = await CSAT_API.checkActiveAttempt("2026-10-16");
+            const heroBtn = document.getElementById("btn-start-today");
+            const tagLive = document.querySelector("#hero-today-quiz .tg-tag-live");
+            const btn16 = document.querySelector(".btn-action-16");
+            const tag16 = document.querySelector(".status-tag-16");
+
             if (check && check.hasActive && !check.isCompleted) {
               const qNum = (check.currentQuestionIndex || 0) + 1;
               const answersCount = check.answersCount || 0;
 
               // Update Hero Button
-              const heroBtn = document.getElementById("btn-start-today");
               if (heroBtn) {
                 heroBtn.href = "quiz.html?date=2026-10-16";
                 heroBtn.innerHTML = `<i class="fa-solid fa-play"></i> Resume Today's Test (Q${qNum})`;
@@ -378,7 +443,6 @@
               }
 
               // Update Live Tag in Hero
-              const tagLive = document.querySelector("#hero-today-quiz .tg-tag-live");
               if (tagLive) {
                 tagLive.style.background = "rgba(36, 129, 204, 0.2)";
                 tagLive.style.borderColor = "rgba(36, 129, 204, 0.5)";
@@ -387,6 +451,41 @@
                   <span class="tg-pulse-dot" style="background: var(--tg-blue);"></span>
                   <span>In Progress &bull; ${answersCount} of 10 Answered</span>
                 `;
+              }
+
+              // Update 16 Oct Tile
+              if (btn16) {
+                btn16.href = "quiz.html?date=2026-10-16";
+                btn16.innerHTML = `<i class="fa-solid fa-play"></i> Resume`;
+              }
+              if (tag16) {
+                tag16.innerHTML = `<i class="fa-solid fa-clock-rotate-left"></i> In Progress`;
+              }
+            } else if (check && check.isCompleted) {
+              if (heroBtn) {
+                heroBtn.href = "analysis.html?date=2026-10-16";
+                heroBtn.innerHTML = `<i class="fa-solid fa-chart-line"></i> View Today's Analysis`;
+                heroBtn.style.background = "linear-gradient(135deg, #2ea94f 0%, #1e823b 100%)";
+              }
+              if (tagLive) {
+                tagLive.style.background = "rgba(52, 199, 89, 0.2)";
+                tagLive.style.borderColor = "rgba(52, 199, 89, 0.5)";
+                tagLive.style.color = "var(--tg-green)";
+                tagLive.innerHTML = `
+                  <span class="tg-pulse-dot" style="background: var(--tg-green);"></span>
+                  <span>Completed &bull; Score: ${check.score} / 25 (${check.accuracy}%)</span>
+                `;
+              }
+              if (btn16) {
+                btn16.href = "analysis.html?date=2026-10-16";
+                btn16.innerHTML = `<i class="fa-solid fa-chart-line"></i> Scorecard`;
+                btn16.style.background = "var(--tg-green-dark)";
+              }
+              if (tag16) {
+                tag16.innerHTML = `<i class="fa-solid fa-check"></i> Completed`;
+                tag16.style.background = "rgba(52, 199, 89, 0.15)";
+                tag16.style.borderColor = "var(--tg-green)";
+                tag16.style.color = "var(--tg-green)";
               }
             }
           } catch (err) {
