@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Active Quiz | CSAT Daily 10 Questions</title>
+  <!-- Font Awesome Traditional Icons from CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body style="background: var(--tg-bg-canvas);">
+
+  <!-- Telegram Wallpaper with subtle doodle pattern -->
+  <div class="tg-wallpaper"></div>
+
+  <div class="tg-quiz-fullscreen-view active" id="quiz-fullscreen-root">
+
+    <!-- TOP BAR 1: Question Navigator (1 to 10) + Submit (Green) & Exit (Red) -->
+    <header class="tg-quiz-top-bar-1">
+      <div class="tg-quiz-nav-left">
+        <div class="tg-quiz-brand">
+          <i class="fa-solid fa-graduation-cap" style="color: var(--tg-blue-light);"></i>
+          <span>CSAT Mock</span>
+        </div>
+
+        <!-- Question Numbers 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 -->
+        <nav class="tg-q-navigator-list" id="q-nav-list" aria-label="Question Navigator">
+          <!-- Injected via JavaScript -->
+        </nav>
+      </div>
+
+      <div class="tg-quiz-actions-right">
+        <!-- Language Switcher Pill -->
+        <button class="tg-lang-toggle-btn" id="btn-toggle-lang" title="Toggle Language (English / Hindi)">
+          <i class="fa-solid fa-language"></i> <span id="lang-indicator">English</span>
+        </button>
+
+        <!-- Submit Button in Green with Traditional Icon -->
+        <button class="tg-btn-quiz-submit" id="btn-quiz-submit">
+          <i class="fa-solid fa-circle-check"></i> Submit
+        </button>
+
+        <!-- Exit Button in Red with Traditional Icon -->
+        <button class="tg-btn-quiz-exit" id="btn-quiz-exit">
+          <i class="fa-solid fa-circle-xmark"></i> Exit
+        </button>
+      </div>
+    </header>
+
+    <!-- TOP BAR 2: Secondary Bar (Time Spent on Question + Chapter Name) -->
+    <div class="tg-quiz-secondary-bar">
+      <div class="tg-secondary-chapter">
+        <i class="fa-solid fa-book-bookmark"></i>
+        <span id="current-chapter-display">Chapter: Number System</span>
+      </div>
+
+      <div class="tg-secondary-timer">
+        <div>
+          <i class="fa-regular fa-clock" style="margin-right: 4px;"></i>
+          <span>This Question:</span>
+          <span class="tg-timer-badge" id="timer-question">00:00</span>
+        </div>
+        <div>
+          <i class="fa-solid fa-stopwatch" style="margin-right: 4px;"></i>
+          <span>Total Test Time:</span>
+          <span class="tg-timer-badge" id="timer-total">00:00</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN QUIZ STAGE: Smooth Horizontal Sliding Track -->
+    <main class="tg-quiz-stage">
+      <div class="tg-question-slider-track">
+        
+        <div class="tg-question-card" id="active-question-card">
+          <div>
+            <div class="tg-q-header-meta">
+              <span class="tg-q-number-title" id="q-title-number">Question 1 of 10</span>
+              <span class="tg-q-marks-tag">
+                <i class="fa-solid fa-award"></i> +2.50 marks &bull; -0.83 penalty
+              </span>
+            </div>
+
+            <!-- Question Statement -->
+            <div class="tg-q-statement" id="q-statement-text">
+              <!-- Statement text loaded dynamically -->
+            </div>
+
+            <!-- Options (A, B, C, D) -->
+            <div class="tg-options-group" id="q-options-container">
+              <!-- Options rendered dynamically -->
+            </div>
+          </div>
+
+          <!-- Bottom Controls -->
+          <div class="tg-quiz-bottom-controls">
+            <div>
+              <button class="tg-ctrl-btn" id="btn-prev-q">
+                <i class="fa-solid fa-arrow-left"></i> Previous
+              </button>
+            </div>
+
+            <div style="display: flex; gap: 10px;">
+              <button class="tg-ctrl-btn tg-btn-clear" id="btn-clear-response">
+                <i class="fa-solid fa-rotate-left"></i> Clear Response
+              </button>
+              <button class="tg-ctrl-btn tg-btn-review" id="btn-mark-review">
+                <i class="fa-regular fa-flag"></i> Mark for Review
+              </button>
+            </div>
+
+            <div>
+              <button class="tg-ctrl-btn" id="btn-next-q" style="background: var(--tg-blue); color: #fff;">
+                Next <i class="fa-solid fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- WARNING MODAL: Submit Test Confirmation -->
+  <div class="tg-modal-overlay" id="submit-warning-modal">
+    <div class="tg-confirm-dialog">
+      <div class="tg-confirm-icon warning-yellow">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+      </div>
+      <h3 class="tg-confirm-title">Submit Daily Practice Test?</h3>
+      <p class="tg-confirm-desc" id="submit-summary-desc">
+        You have attempted 8 of 10 questions. 2 questions remain unattempted.
+        Once submitted, your final scorecard and 3-tier strategic question analysis will be prepared.
+      </p>
+      <div class="tg-confirm-actions">
+        <button class="tg-btn-cancel" id="btn-cancel-submit">Return to Test</button>
+        <button class="tg-btn-start-green" id="btn-confirm-submit">
+          <i class="fa-solid fa-check"></i> Yes, Submit Test
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- WARNING MODAL: Exit Test Confirmation -->
+  <div class="tg-modal-overlay" id="exit-warning-modal">
+    <div class="tg-confirm-dialog">
+      <div class="tg-confirm-icon warning-red">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+      </div>
+      <h3 class="tg-confirm-title" style="color: var(--tg-red);">Exit Practice Test?</h3>
+      <p class="tg-confirm-desc">
+        Warning: If you exit now, your responses and timer progress for today's test will be discarded and cannot be resumed. Are you sure you want to leave?
+      </p>
+      <div class="tg-confirm-actions">
+        <button class="tg-btn-cancel" id="btn-cancel-exit">Cancel & Stay</button>
+        <button class="tg-btn-quiz-exit" id="btn-confirm-exit">
+          <i class="fa-solid fa-door-open"></i> Yes, Exit Test
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="csat_data.js"></script>
+  <script>
+    // Quiz State Management
+    let currentQIdx = 0;
+    let selectedLang = localStorage.getItem(CSAT_LANG_KEY) || "en";
+    let userAnswers = {}; // { qId: 'A' | 'B' | 'C' | 'D' }
+    let markedForReview = new Set();
+    let timePerQuestion = {}; // { qId: seconds }
+    let totalSeconds = 0;
+    let questionSeconds = 0;
+    let timerInterval = null;
+
+    // Load any saved state
+    const savedStateStr = localStorage.getItem(CSAT_STORAGE_KEY);
+    if (savedStateStr) {
+      try {
+        const state = JSON.parse(savedStateStr);
+        if (state.answers) userAnswers = state.answers;
+        if (state.language) selectedLang = state.language;
+        if (state.timePerQuestion) timePerQuestion = state.timePerQuestion;
+        if (state.currentQuestionIndex !== undefined) currentQIdx = state.currentQuestionIndex;
+      } catch (e) {
+        console.error("Failed to parse saved state", e);
+      }
+    }
+
+    // Initialize timers per question
+    CSAT_QUESTIONS.forEach(q => {
+      if (!timePerQuestion[q.id]) timePerQuestion[q.id] = 0;
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      renderNavigator();
+      updateLangIndicator();
+      renderQuestion(currentQIdx, "none");
+      startTimers();
+      setupEventListeners();
+    });
+
+    function startTimers() {
+      timerInterval = setInterval(() => {
+        totalSeconds++;
+        const currentQId = CSAT_QUESTIONS[currentQIdx].id;
+        timePerQuestion[currentQId] = (timePerQuestion[currentQId] || 0) + 1;
+        
+        // Update live displays
+        document.getElementById("timer-question").textContent = formatTime(timePerQuestion[currentQId]);
+        document.getElementById("timer-total").textContent = formatTime(totalSeconds);
+      }, 1000);
+    }
+
+    function formatTime(sec) {
+      const m = Math.floor(sec / 60).toString().padStart(2, "0");
+      const s = (sec % 60).toString().padStart(2, "0");
+      return `${m}:${s}`;
+    }
+
+    function renderNavigator() {
+      const list = document.getElementById("q-nav-list");
+      list.innerHTML = "";
+      CSAT_QUESTIONS.forEach((q, idx) => {
+        const btn = document.createElement("button");
+        btn.className = "tg-q-pill-btn";
+        btn.textContent = q.id;
+        btn.title = `Question ${q.id} (${q.chapter})`;
+
+        if (idx === currentQIdx) {
+          btn.classList.add("current");
+        } else if (userAnswers[q.id]) {
+          btn.classList.add("attempted");
+        } else if (markedForReview.has(q.id)) {
+          btn.classList.add("reviewed");
+        }
+
+        btn.addEventListener("click", () => {
+          if (idx !== currentQIdx) {
+            const direction = idx > currentQIdx ? "right" : "left";
+            currentQIdx = idx;
+            renderQuestion(currentQIdx, direction);
+          }
+        });
+
+        list.appendChild(btn);
+      });
+    }
+
+    function renderQuestion(idx, slideDirection = "right") {
+      const q = CSAT_QUESTIONS[idx];
+      const card = document.getElementById("active-question-card");
+
+      // Apply fast horizontal slide animation
+      card.classList.remove("slide-in-right", "slide-in-left");
+      void card.offsetWidth; // trigger reflow
+      if (slideDirection === "right") {
+        card.classList.add("slide-in-right");
+      } else if (slideDirection === "left") {
+        card.classList.add("slide-in-left");
+      }
+
+      // Secondary Bar Details
+      const chapterText = selectedLang === "hi" ? q.chapterHi : q.chapter;
+      document.getElementById("current-chapter-display").innerHTML = `
+        <i class="fa-solid fa-book-bookmark"></i>
+        <span>Chapter: <strong>${chapterText}</strong></span>
+      `;
+
+      // Question metadata
+      document.getElementById("q-title-number").textContent = `Question ${q.id} of 10`;
+      
+      // Question Statement & Options
+      const qContent = selectedLang === "hi" ? q.hi : q.en;
+      document.getElementById("q-statement-text").textContent = qContent.statement;
+
+      // Render Options
+      const optionsContainer = document.getElementById("q-options-container");
+      optionsContainer.innerHTML = "";
+
+      Object.entries(qContent.options).forEach(([letter, text]) => {
+        const row = document.createElement("div");
+        row.className = "tg-option-row";
+        if (userAnswers[q.id] === letter) {
+          row.classList.add("selected");
+        }
+
+        row.innerHTML = `
+          <div class="tg-opt-letter">${letter}</div>
+          <div class="tg-opt-text">${text}</div>
+        `;
+
+        row.addEventListener("click", () => {
+          userAnswers[q.id] = letter;
+          saveState();
+          renderQuestion(currentQIdx, "none");
+          renderNavigator();
+        });
+
+        optionsContainer.appendChild(row);
+      });
+
+      // Update Navigation Buttons state
+      document.getElementById("btn-prev-q").disabled = (idx === 0);
+      const nextBtn = document.getElementById("btn-next-q");
+      if (idx === CSAT_QUESTIONS.length - 1) {
+        nextBtn.innerHTML = `Finish <i class="fa-solid fa-flag-checkered"></i>`;
+      } else {
+        nextBtn.innerHTML = `Next <i class="fa-solid fa-arrow-right"></i>`;
+      }
+
+      // Update Mark for Review Button state
+      const reviewBtn = document.getElementById("btn-mark-review");
+      if (markedForReview.has(q.id)) {
+        reviewBtn.classList.add("marked");
+        reviewBtn.innerHTML = `<i class="fa-solid fa-flag"></i> Marked for Review`;
+      } else {
+        reviewBtn.classList.remove("marked");
+        reviewBtn.innerHTML = `<i class="fa-regular fa-flag"></i> Mark for Review`;
+      }
+
+      // Update question timer immediately
+      document.getElementById("timer-question").textContent = formatTime(timePerQuestion[q.id] || 0);
+
+      renderNavigator();
+      saveState();
+    }
+
+    function saveState() {
+      const state = {
+        answers: userAnswers,
+        marked: Array.from(markedForReview),
+        timePerQuestion: timePerQuestion,
+        currentQuestionIndex: currentQIdx,
+        language: selectedLang
+      };
+      localStorage.setItem(CSAT_STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function updateLangIndicator() {
+      const ind = document.getElementById("lang-indicator");
+      ind.textContent = selectedLang === "hi" ? "हिन्दी (HI)" : "English (EN)";
+    }
+
+    function setupEventListeners() {
+      // Previous Question
+      document.getElementById("btn-prev-q").addEventListener("click", () => {
+        if (currentQIdx > 0) {
+          currentQIdx--;
+          renderQuestion(currentQIdx, "left");
+        }
+      });
+
+      // Next Question
+      document.getElementById("btn-next-q").addEventListener("click", () => {
+        if (currentQIdx < CSAT_QUESTIONS.length - 1) {
+          currentQIdx++;
+          renderQuestion(currentQIdx, "right");
+        } else {
+          // Open Submit confirmation
+          openSubmitModal();
+        }
+      });
+
+      // Clear Response
+      document.getElementById("btn-clear-response").addEventListener("click", () => {
+        const qId = CSAT_QUESTIONS[currentQIdx].id;
+        delete userAnswers[qId];
+        saveState();
+        renderQuestion(currentQIdx, "none");
+        renderNavigator();
+      });
+
+      // Mark for Review
+      document.getElementById("btn-mark-review").addEventListener("click", () => {
+        const qId = CSAT_QUESTIONS[currentQIdx].id;
+        if (markedForReview.has(qId)) {
+          markedForReview.delete(qId);
+        } else {
+          markedForReview.add(qId);
+        }
+        renderQuestion(currentQIdx, "none");
+        renderNavigator();
+      });
+
+      // Language Switcher
+      document.getElementById("btn-toggle-lang").addEventListener("click", () => {
+        selectedLang = (selectedLang === "en") ? "hi" : "en";
+        localStorage.setItem(CSAT_LANG_KEY, selectedLang);
+        updateLangIndicator();
+        renderQuestion(currentQIdx, "none");
+      });
+
+      // Submit Button Trigger
+      document.getElementById("btn-quiz-submit").addEventListener("click", openSubmitModal);
+
+      // Exit Button Trigger
+      document.getElementById("btn-quiz-exit").addEventListener("click", () => {
+        document.getElementById("exit-warning-modal").classList.add("active");
+      });
+
+      // Cancel Exit
+      document.getElementById("btn-cancel-exit").addEventListener("click", () => {
+        document.getElementById("exit-warning-modal").classList.remove("active");
+      });
+
+      // Confirm Exit -> Redirects back to dashboard
+      document.getElementById("btn-confirm-exit").addEventListener("click", () => {
+        if (timerInterval) clearInterval(timerInterval);
+        localStorage.removeItem(CSAT_STORAGE_KEY);
+        if (document.exitFullscreen) {
+          document.exitFullscreen().catch(() => {}).finally(() => {
+            window.location.href = "index.html";
+          });
+        } else {
+          window.location.href = "index.html";
+        }
+      });
+
+      // Cancel Submit
+      document.getElementById("btn-cancel-submit").addEventListener("click", () => {
+        document.getElementById("submit-warning-modal").classList.remove("active");
+      });
+
+      // Confirm Submit -> Calculate results and open analysis
+      document.getElementById("btn-confirm-submit").addEventListener("click", finalizeAndSubmit);
+    }
+
+    function openSubmitModal() {
+      const attemptedCount = Object.keys(userAnswers).length;
+      const unattemptedCount = CSAT_QUESTIONS.length - attemptedCount;
+      document.getElementById("submit-summary-desc").innerHTML = `
+        You have answered <strong>${attemptedCount} of 10</strong> questions.<br>
+        <strong>${unattemptedCount} questions</strong> are currently unattempted.<br><br>
+        Are you ready to submit and view your detailed scorecard and strategic 3-tier analysis?
+      `;
+      document.getElementById("submit-warning-modal").classList.add("active");
+    }
+
+    function finalizeAndSubmit() {
+      if (timerInterval) clearInterval(timerInterval);
+
+      // Calculate Scores and Categorizations
+      let correctCount = 0;
+      let incorrectCount = 0;
+      let unattemptedCount = 0;
+
+      const questionResults = CSAT_QUESTIONS.map(q => {
+        const chosen = userAnswers[q.id];
+        let status = "unattempted";
+        let marks = 0;
+
+        if (chosen) {
+          if (chosen === q.correctAnswer) {
+            status = "correct";
+            correctCount++;
+            marks = 2.5;
+          } else {
+            status = "incorrect";
+            incorrectCount++;
+            marks = -0.833;
+          }
+        } else {
+          unattemptedCount++;
+          marks = 0;
+        }
+
+        return {
+          id: q.id,
+          chapter: q.chapter,
+          chapterHi: q.chapterHi,
+          category: q.category,
+          categoryTitle: q.categoryTitle,
+          difficulty: q.difficulty,
+          userChoice: chosen || null,
+          correctAnswer: q.correctAnswer,
+          status: status,
+          marksObtained: marks,
+          timeSpentSec: timePerQuestion[q.id] || 0,
+          attemptRate: q.attemptRate,
+          optionDistribution: q.optionDistribution,
+          statementEn: q.en.statement,
+          statementHi: q.hi.statement,
+          explanationEn: q.en.explanation,
+          explanationHi: q.hi.explanation,
+          optionsEn: q.en.options,
+          optionsHi: q.hi.options
+        };
+      });
+
+      const totalMarksObtained = (correctCount * 2.5) - (incorrectCount * 0.833);
+      const attemptedTotal = correctCount + incorrectCount;
+      const accuracyPercentage = attemptedTotal > 0 ? Math.round((correctCount / attemptedTotal) * 100) : 0;
+
+      const finalResult = {
+        testDate: "16 October 2026",
+        totalScore: Math.max(0, totalMarksObtained).toFixed(2),
+        rawScore: totalMarksObtained.toFixed(2),
+        maxMarks: 25.0,
+        accuracy: accuracyPercentage,
+        correctCount: correctCount,
+        incorrectCount: incorrectCount,
+        unattemptedCount: unattemptedCount,
+        totalTimeSeconds: totalSeconds,
+        language: selectedLang,
+        questionResults: questionResults
+      };
+
+      // Store in LocalStorage for analysis page
+      localStorage.setItem(CSAT_RESULT_KEY, JSON.stringify(finalResult));
+      localStorage.removeItem(CSAT_STORAGE_KEY);
+
+      // Exit fullscreen if active and navigate to analysis.html
+      if (document.fullscreenElement && document.exitFullscreen) {
+        document.exitFullscreen().catch(() => {}).finally(() => {
+          window.location.href = "analysis.html";
+        });
+      } else {
+        window.location.href = "analysis.html";
+      }
+    }
+  </script>
+</body>
+</html>

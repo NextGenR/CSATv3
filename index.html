@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSAT Daily 10 Questions | Daily Practice</title>
+  <!-- Font Awesome Traditional Icons from CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Telegram Wallpaper with subtle doodle pattern -->
+  <div class="tg-wallpaper"></div>
+
+  <div id="app-root">
+
+    <!-- LEFT SIDEBAR: Telegram Desktop Style -->
+    <aside class="tg-sidebar">
+      
+      <!-- Telegram Search & Menu Header -->
+      <div class="tg-sidebar-header">
+        <button class="tg-menu-btn" title="Menu" id="btn-sidebar-menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="tg-search-wrapper">
+          <i class="fa-solid fa-magnifying-glass tg-search-icon"></i>
+          <input type="text" class="tg-search-input" id="sidebar-search" placeholder="Search daily tests..." autocomplete="off">
+        </div>
+      </div>
+
+      <!-- Telegram Category Pills -->
+      <div class="tg-tabs-row">
+        <button class="tg-tab-pill active">
+          All <span class="tg-tab-count">1</span>
+        </button>
+        <button class="tg-tab-pill">
+          Practice
+        </button>
+        <button class="tg-tab-pill">
+          October 2026
+        </button>
+      </div>
+
+      <!-- Sections List (Only One Section: Daily 10 Questions) -->
+      <div class="tg-sections-list">
+        
+        <div class="tg-section-item active" id="section-daily-10">
+          <div class="tg-avatar">
+            <i class="fa-solid fa-book-open"></i>
+          </div>
+          <div class="tg-section-info">
+            <div class="tg-section-row-top">
+              <span class="tg-section-title">Daily 10 Questions</span>
+              <span class="tg-section-time">Today</span>
+            </div>
+            <div class="tg-section-row-bottom">
+              <span class="tg-section-preview">October 2026 CSAT Series</span>
+              <span class="tg-badge badge-green">Active</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Sidebar Footer Info -->
+      <div class="tg-sidebar-footer">
+        <div class="tg-app-version">
+          <span class="tg-status-dot"></span>
+          <span>CSAT Practice System</span>
+        </div>
+        <span><i class="fa-solid fa-shield-halved"></i> Daily Prep</span>
+      </div>
+
+    </aside>
+
+    <!-- RIGHT CANVAS / MAIN CONTENT AREA -->
+    <main class="tg-main-content">
+
+      <!-- Top Header Bar -->
+      <header class="tg-content-header">
+        <div class="tg-header-left">
+          <div class="tg-header-avatar">
+            <i class="fa-solid fa-calendar-days"></i>
+          </div>
+          <div class="tg-header-titles">
+            <h2>Daily 10 Questions - October 2026</h2>
+            <p>16 Daily Mock Tests Available &bull; CSAT Practice Tracker</p>
+          </div>
+        </div>
+        <div class="tg-header-right">
+          <div class="tg-header-stat-chip">
+            <i class="fa-solid fa-bullseye" style="color: var(--tg-blue-light);"></i>
+            <span>October Accuracy: <strong>82.4%</strong></span>
+          </div>
+          <div class="tg-header-stat-chip">
+            <i class="fa-solid fa-check-double" style="color: var(--tg-green);"></i>
+            <span>Completed: <strong>15/16</strong></span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main View Content Area -->
+      <div class="tg-view-scroll">
+        <div class="tg-view-inner">
+
+          <!-- HERO CARD: Quiz of Today -->
+          <section class="tg-hero-card" id="hero-today-quiz">
+            <div class="tg-hero-content">
+              <div class="tg-tag-live">
+                <span class="tg-pulse-dot"></span>
+                <span>Live Today &bull; 16 October 2026</span>
+              </div>
+              <h1 class="tg-hero-title">Quiz of Today: CSAT Mock 16</h1>
+              <p class="tg-hero-desc">
+                10 Curated CSAT Questions across Number System, Speed & Distance, Time & Work, Reasoning & Syllogism. Follows standard UPSC marking scheme (+2.5, -0.83).
+              </p>
+              <div class="tg-hero-meta">
+                <span><i class="fa-solid fa-list-ol"></i> 10 Questions</span>
+                <span><i class="fa-solid fa-award"></i> 25 Marks</span>
+                <span><i class="fa-regular fa-clock"></i> 15 Minutes Recommended</span>
+                <span><i class="fa-solid fa-language"></i> English & Hindi</span>
+              </div>
+            </div>
+            <div>
+              <a href="guidelines.html" class="tg-btn-take-quiz" id="btn-start-today">
+                <i class="fa-solid fa-play"></i>
+                Take Today's Test
+              </a>
+            </div>
+          </section>
+
+          <!-- SECTION: October Past Test History Tiles -->
+          <div class="tg-section-header-row">
+            <div>
+              <h2 class="tg-section-heading">
+                <i class="fa-solid fa-clock-rotate-left" style="color: var(--tg-blue-light);"></i>
+                October 2026 Daily Tests History
+              </h2>
+              <span class="tg-section-subtext">Click any date tile to view score breakdown and accuracy</span>
+            </div>
+            <div class="tg-header-stat-chip">
+              <span>Target: <strong>33% Qualifying CSAT (66/200)</strong></span>
+            </div>
+          </div>
+
+          <!-- DYNAMIC GRID OF TILES -->
+          <div class="tg-october-grid" id="october-tiles-container">
+            <!-- Tiles rendered dynamically via script -->
+          </div>
+
+        </div>
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- Past Test Review Modal -->
+  <div class="tg-modal-overlay" id="history-modal">
+    <div class="tg-modal-box">
+      <div class="tg-modal-header">
+        <h3 id="hist-modal-title">
+          <i class="fa-solid fa-chart-pie" style="color: var(--tg-blue-light);"></i>
+          Daily Test Summary
+        </h3>
+        <button class="tg-modal-close-btn" id="btn-close-hist-modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="tg-modal-body" id="hist-modal-body">
+        <!-- Injected via JavaScript -->
+      </div>
+      <div class="tg-modal-footer">
+        <button class="tg-btn-cancel" id="btn-close-hist-footer">Close</button>
+        <a href="guidelines.html" class="tg-btn-start-green" style="text-decoration: none;">
+          <i class="fa-solid fa-arrow-right"></i> Practice Today's Quiz
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="csat_data.js"></script>
+  <script>
+    // Render October Dates (Oct 1 to Oct 15) with scores & randomized accuracy between 70% and 90%
+    document.addEventListener("DOMContentLoaded", () => {
+      const container = document.getElementById("october-tiles-container");
+      
+      OCTOBER_HISTORY_DATA.forEach(item => {
+        const tile = document.createElement("div");
+        tile.className = "tg-date-tile";
+        tile.innerHTML = `
+          <div class="tg-tile-top">
+            <div>
+              <div class="tg-tile-date">${item.dateStr} 2026</div>
+              <div class="tg-tile-day">${item.dayName}</div>
+            </div>
+            <span class="tg-tile-status-tag">
+              <i class="fa-solid fa-check"></i> Completed
+            </span>
+          </div>
+
+          <div class="tg-tile-metrics">
+            <div class="tg-metric-box">
+              <span class="tg-metric-label">Score</span>
+              <span class="tg-metric-value">${item.score}</span>
+            </div>
+            <div class="tg-metric-box" style="text-align: right;">
+              <span class="tg-metric-label">Accuracy</span>
+              <span class="tg-metric-value accuracy-highlight">${item.accuracy}%</span>
+            </div>
+          </div>
+
+          <div class="tg-tile-footer">
+            <button class="tg-tile-btn btn-view-hist" data-day="${item.dayNum}">
+              <i class="fa-solid fa-magnifying-glass-chart"></i> View Test Details
+            </button>
+          </div>
+        `;
+
+        tile.querySelector(".btn-view-hist").addEventListener("click", (e) => {
+          e.stopPropagation();
+          showHistoryModal(item);
+        });
+
+        tile.addEventListener("click", () => {
+          showHistoryModal(item);
+        });
+
+        container.appendChild(tile);
+      });
+
+      // Search Filter
+      const searchInput = document.getElementById("sidebar-search");
+      searchInput.addEventListener("input", (e) => {
+        const q = e.target.value.toLowerCase();
+        const tiles = container.querySelectorAll(".tg-date-tile");
+        tiles.forEach(t => {
+          const text = t.textContent.toLowerCase();
+          t.style.display = text.includes(q) ? "flex" : "none";
+        });
+      });
+
+      // Modal Handlers
+      const modal = document.getElementById("history-modal");
+      const closeModal = () => modal.classList.remove("active");
+      document.getElementById("btn-close-hist-modal").addEventListener("click", closeModal);
+      document.getElementById("btn-close-hist-footer").addEventListener("click", closeModal);
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) closeModal();
+      });
+
+      function showHistoryModal(data) {
+        document.getElementById("hist-modal-title").innerHTML = `
+          <i class="fa-solid fa-chart-pie" style="color: var(--tg-blue-light);"></i>
+          Daily Test Summary: ${data.dateStr} 2026 (${data.dayName})
+        `;
+        document.getElementById("hist-modal-body").innerHTML = `
+          <div class="tg-guidelines-list" style="margin-bottom: 18px;">
+            <div class="tg-rule-card">
+              <div class="tg-rule-title">Marks Scored</div>
+              <div class="tg-rule-desc" style="color: var(--tg-green); font-size: 18px;">${data.score}</div>
+            </div>
+            <div class="tg-rule-card">
+              <div class="tg-rule-title">Accuracy Rate</div>
+              <div class="tg-rule-desc" style="color: var(--tg-blue-light); font-size: 18px;">${data.accuracy}%</div>
+            </div>
+            <div class="tg-rule-card">
+              <div class="tg-rule-title">Correct Answers</div>
+              <div class="tg-rule-desc">${data.correct} / ${data.questionsAttempted}</div>
+            </div>
+            <div class="tg-rule-card">
+              <div class="tg-rule-title">Incorrect Answers</div>
+              <div class="tg-rule-desc" style="color: var(--tg-red);">${data.incorrect} (Negative: -${(data.incorrect * 0.833).toFixed(2)})</div>
+            </div>
+          </div>
+          <div class="tg-instructions-text">
+            <h4><i class="fa-solid fa-lightbulb"></i> Performance Assessment</h4>
+            <p style="font-size: 13px; color: #a4b4c4; line-height: 1.5;">
+              On ${data.dateStr}, your qualifying score exceeded the 33% CSAT benchmark (8.25 marks out of 25). 
+              Accuracy stayed in the healthy ${data.accuracy}% bracket. 
+              Review the questions you missed to avoid repeating calculation traps in the upcoming test.
+            </p>
+          </div>
+        `;
+        modal.classList.add("active");
+      }
+    });
+  </script>
+</body>
+</html>

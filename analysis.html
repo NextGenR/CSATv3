@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detailed Analysis & Scorecard | CSAT Daily 10 Questions</title>
+  <!-- Font Awesome Traditional Icons from CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Telegram Wallpaper with subtle doodle pattern -->
+  <div class="tg-wallpaper"></div>
+
+  <div id="app-root" style="overflow-y: auto; display: block;">
+
+    <!-- TOP HEADER -->
+    <header class="tg-content-header" style="position: sticky; top: 0;">
+      <div class="tg-header-left">
+        <div class="tg-header-avatar">
+          <i class="fa-solid fa-chart-pie"></i>
+        </div>
+        <div class="tg-header-titles">
+          <h2>Detailed Test Analysis & Performance Breakdown</h2>
+          <p>UPSC CSAT Daily 10 Questions &bull; 16 October 2026 Test</p>
+        </div>
+      </div>
+      <div class="tg-header-right">
+        <a href="index.html" class="tg-btn-cancel" style="text-decoration: none; padding: 7px 16px; font-size: 13px;">
+          <i class="fa-solid fa-arrow-left"></i> Back to Daily 10
+        </a>
+        <button class="tg-btn-cancel" onclick="window.print()" style="padding: 7px 16px; font-size: 13px;">
+          <i class="fa-solid fa-print"></i> Print Scorecard
+        </button>
+      </div>
+    </header>
+
+    <!-- MAIN SCROLLABLE CONTENT -->
+    <main class="tg-view-scroll" style="padding: 28px 20px;">
+      <div class="tg-analysis-page">
+
+        <!-- OVERALL SCORECARD SUMMARY CARD -->
+        <section class="tg-analysis-top-card">
+          <div class="tg-summary-scores">
+            <div>
+              <span style="font-size: 11.5px; color: var(--tg-text-muted); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Final Score</span>
+              <div class="tg-score-pill-big" id="disp-total-score">
+                20.00 <span>/ 25.0</span>
+              </div>
+              <div style="margin-top: 6px;">
+                <span class="tg-tile-status-tag" id="disp-qualify-tag" style="font-size: 11px;">
+                  <i class="fa-solid fa-circle-check"></i> CSAT Qualifying Standard Met (>= 33%)
+                </span>
+              </div>
+            </div>
+
+            <div class="tg-summary-stats-col">
+              <div class="tg-stat-item-mini">
+                <span class="tg-stat-mini-label">Accuracy</span>
+                <span class="tg-stat-mini-val accuracy" id="disp-accuracy">80%</span>
+              </div>
+              <div class="tg-stat-item-mini">
+                <span class="tg-stat-mini-label">Correct (+2.5)</span>
+                <span class="tg-stat-mini-val correct" id="disp-correct-cnt">8 Qs</span>
+              </div>
+              <div class="tg-stat-item-mini">
+                <span class="tg-stat-mini-label">Incorrect (-0.83)</span>
+                <span class="tg-stat-mini-val incorrect" id="disp-incorrect-cnt">2 Qs</span>
+              </div>
+              <div class="tg-stat-item-mini">
+                <span class="tg-stat-mini-label">Unattempted</span>
+                <span class="tg-stat-mini-val unattempted" id="disp-unattempted-cnt">0 Qs</span>
+              </div>
+              <div class="tg-stat-item-mini">
+                <span class="tg-stat-mini-label">Total Time</span>
+                <span class="tg-stat-mini-val" id="disp-total-time" style="color: #ffffff;">09m 14s</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="tg-analysis-actions">
+            <a href="guidelines.html" class="tg-btn-take-quiz" style="padding: 10px 20px; font-size: 13.5px; text-decoration: none;">
+              <i class="fa-solid fa-rotate-right"></i> Retake Test
+            </a>
+          </div>
+        </section>
+
+        <!-- SECTION TITLE: 3 STRATEGIC TILES -->
+        <div style="margin-bottom: 14px;">
+          <h2 style="font-size: 17px; font-weight: 700; color: #ffffff; display: flex; align-items: center; gap: 8px;">
+            <i class="fa-solid fa-layer-group" style="color: var(--tg-blue-light);"></i>
+            Question Categorization & Strategy Assessment
+          </h2>
+          <p style="font-size: 12.5px; color: var(--tg-text-secondary); margin-top: 2px;">
+            Questions are categorized into three strategic groups to highlight decision-making, speed, and penalty control. Click any tile to inspect the questions.
+          </p>
+        </div>
+
+        <!-- 3 STRATEGIC CATEGORIZATION TILES -->
+        <div class="tg-strategic-tiles-row">
+
+          <!-- TILE 1: QUESTIONS WHICH SHOULD HAVE BEEN AVOIDED -->
+          <div class="tg-strategic-tile tile-avoided" id="tile-avoided" title="Click to view avoided questions">
+            <span class="tg-tile-badge-num" id="badge-avoided-count">2 Questions</span>
+            <div>
+              <div class="tg-strat-title">
+                <i class="fa-solid fa-ban" style="margin-right: 6px;"></i>
+                Questions Which Should Have Been Avoided
+              </div>
+              <p class="tg-strat-desc">
+                High-complexity traps, lengthy multi-step algebra, or high-risk negative penalty traps. Leaving these unattempted saves critical minutes in CSAT.
+              </p>
+            </div>
+            <div>
+              <div class="tg-strat-metrics">
+                <div class="tg-metric-box">
+                  <span class="tg-metric-label">Accuracy</span>
+                  <span class="tg-metric-value" id="val-avoided-acc" style="color: var(--tg-red);">50%</span>
+                </div>
+                <div class="tg-metric-box">
+                  <span class="tg-metric-label">Correct</span>
+                  <span class="tg-metric-value" id="val-avoided-correct" style="color: var(--tg-green);">1</span>
+                </div>
+                <div class="tg-metric-box">
+                  <span class="tg-metric-label">Incorrect</span>
+                  <span class="tg-metric-value" id="val-avoided-incorrect" style="color: var(--tg-red);">1</span>
+                </div>
+              </div>
+              <div class="tg-strat-view-btn">
+                <i class="fa-solid fa-eye"></i> View Questions & Solutions
+              </div>
+            </div>
+          </div>
+
+          <!-- TILE 2: QUESTION WHICH SHOULD HAVE NOT BEEN WRONG -->
+          <div class="tg-strategic-tile tile-not-wrong" id="tile-not-wrong" title="Click to view foundational questions">
+            <span class="tg-tile-badge-num" id="badge-not-wrong-count">4 Questions</span>
+            <div>
+              <div class="tg-strat-title">
+                <i class="fa-solid fa-circle-check" style="margin-right: 6px;"></i>
+                Questions Which Should Not Have Been Wrong
+              </div>
+              <p class="tg-strat-desc">
+                Direct, standard formula, high-yield foundational questions. Errors here are considered costly mistakes that severely lower your qualifying margin.
+              </p>
+            </div>
+            <div>
+              <div class="tg-strat-metrics">
+                <div class="tg-metric-box">
+                  <span class="tg-metric-label">Accuracy</span>
+                  <span class="tg-metric-value" id="val-not-wrong-acc" style="color: var(--tg-green);">100%</span>
+                </div>
+                <div class="tg-metric-box">
+                  <span class="tg-metric-label">Correct</span>
+                  <span class="tg-metric-value" id="val-not-wrong-correct" style="color: var(--tg-green);">4</span>
+                </div>
+                <div class="tg-metric-box">
+                  <span class="tg-metric-label">Incorrect</span>
+                  <span class="tg-metric-value" id="val-not-wrong-incorrect" style="color: var(--tg-red);">0</span>
+                </div>
+              </div>
+              <div class="tg-strat-view-btn">
+                <i class="fa-solid fa-eye"></i> View Questions & Solutions
+              </div>
+            </div>
+          </div>
+
+          <!-- TILE 3: QUESTIONS WHICH SHOULD BE ATTEMPTED -->
+          <div class="tg-strategic-tile tile-attempted" id="tile-attempted" title="Click to view solvable questions">
+            <span class="tg-tile-badge-num" id="badge-attempted-count">4 Questions</span>
+            <div>
+              <div class="tg-strat-title">
+                <i class="fa-solid fa-bullseye" style="margin-right: 6px;"></i>
+                Questions Which Should Be Attempted
+              </div>
+              <p class="tg-strat-desc">
+                Balanced, moderate solvable questions with clear logical structure. These form the steady foundation required to surpass the 66-mark barrier.
+              </p>
+            </div>
+            <div>
+              <div class="tg-strat-metrics">
+                <div class="tg-metric-box">
+                  <span class="tg-metric-label">Accuracy</span>
+                  <span class="tg-metric-value" id="val-attempted-acc" style="color: var(--tg-blue-light);">75%</span>
+                </div>
+                <div class="tg-metric-box">
+                  <span class="tg-metric-label">Correct</span>
+                  <span class="tg-metric-value" id="val-attempted-correct" style="color: var(--tg-green);">3</span>
+                </div>
+                <div class="tg-metric-box">
+                  <span class="tg-metric-label">Incorrect</span>
+                  <span class="tg-metric-value" id="val-attempted-incorrect" style="color: var(--tg-red);">1</span>
+                </div>
+              </div>
+              <div class="tg-strat-view-btn">
+                <i class="fa-solid fa-eye"></i> View Questions & Solutions
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- SECTION: CHAPTER-WISE DISTRIBUTION OF QUESTIONS -->
+        <section class="tg-analysis-section">
+          <h3 class="tg-analysis-sec-title">
+            <i class="fa-solid fa-book-open" style="color: var(--tg-blue-light);"></i>
+            Chapter-Wise Distribution of Questions & Performance
+          </h3>
+          <div class="tg-table-wrapper">
+            <table class="tg-table" id="chapter-distribution-table">
+              <thead>
+                <tr>
+                  <th>Chapter Name</th>
+                  <th>Questions</th>
+                  <th>Correct</th>
+                  <th>Incorrect</th>
+                  <th>Unattempted</th>
+                  <th>Time Spent</th>
+                  <th>Accuracy</th>
+                </tr>
+              </thead>
+              <tbody id="chapter-distribution-tbody">
+                <!-- Injected via JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- SECTION: QUESTION-WISE & OPTION-WISE ATTEMPT DISTRIBUTION -->
+        <section class="tg-analysis-section">
+          <h3 class="tg-analysis-sec-title">
+            <i class="fa-solid fa-chart-column" style="color: var(--tg-blue-light);"></i>
+            Question-Wise Attempt Rate & Option Selection Breakdown
+          </h3>
+          <p style="font-size: 12.5px; color: var(--tg-text-secondary); margin-bottom: 14px;">
+            Displays the percentage of test-takers who attempted each question, along with the detailed distribution of selections across Options A, B, C, and D.
+          </p>
+
+          <div class="tg-table-wrapper">
+            <table class="tg-table" id="question-distribution-table">
+              <thead>
+                <tr>
+                  <th style="width: 70px;">Q. No</th>
+                  <th>Chapter</th>
+                  <th style="width: 110px;">Attempt Rate</th>
+                  <th style="min-width: 260px;">Option Distribution (A / B / C / D %)</th>
+                  <th>Your Answer</th>
+                  <th>Correct Answer</th>
+                  <th>Time Spent</th>
+                  <th>Solution</th>
+                </tr>
+              </thead>
+              <tbody id="question-distribution-tbody">
+                <!-- Injected via JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- DRILL-DOWN CATEGORY MODAL -->
+  <div class="tg-modal-overlay" id="drilldown-modal">
+    <div class="tg-modal-box" style="max-width: 820px;">
+      <div class="tg-modal-header">
+        <h3 id="drilldown-modal-title">
+          <i class="fa-solid fa-list-check" style="color: var(--tg-blue-light);"></i>
+          Questions in Category
+        </h3>
+        <button class="tg-modal-close-btn" id="btn-close-drill-modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="tg-modal-body" id="drilldown-modal-body" style="max-height: 70vh;">
+        <!-- Injected via JavaScript -->
+      </div>
+      <div class="tg-modal-footer">
+        <button class="tg-btn-cancel" id="btn-close-drill-footer">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SINGLE QUESTION SOLUTION MODAL -->
+  <div class="tg-modal-overlay" id="single-solution-modal">
+    <div class="tg-modal-box" style="max-width: 760px;">
+      <div class="tg-modal-header">
+        <h3 id="sol-modal-title">
+          <i class="fa-solid fa-lightbulb" style="color: var(--tg-amber);"></i>
+          Question Explanation & Answer Key
+        </h3>
+        <button class="tg-modal-close-btn" id="btn-close-sol-modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="tg-modal-body" id="sol-modal-body">
+        <!-- Injected via JavaScript -->
+      </div>
+      <div class="tg-modal-footer">
+        <button class="tg-btn-cancel" id="btn-close-sol-footer">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="csat_data.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // 1. Retrieve Result Data from localStorage or generate realistic default
+      let resultData = null;
+      const rawStored = localStorage.getItem(CSAT_RESULT_KEY);
+      if (rawStored) {
+        try {
+          resultData = JSON.parse(rawStored);
+        } catch (e) {
+          console.error("Could not parse result", e);
+        }
+      }
+
+      // If no stored result (e.g. direct visit), populate realistic sample mock results
+      if (!resultData) {
+        resultData = generateSampleMockResult();
+      }
+
+      // 2. Render Scorecard Summary
+      renderScorecard(resultData);
+
+      // 3. Render 3 Strategic Tiles
+      renderStrategicTiles(resultData);
+
+      // 4. Render Chapter-wise Distribution
+      renderChapterDistribution(resultData);
+
+      // 5. Render Question & Option-wise Distribution
+      renderQuestionDistribution(resultData);
+
+      // 6. Setup Modal Listeners
+      setupModalListeners(resultData);
+    });
+
+    function generateSampleMockResult() {
+      // Realistic simulation: 8 correct, 2 incorrect, 80% accuracy, score = 20 - 1.66 = 18.33
+      let correctCnt = 0;
+      let incorrectCnt = 0;
+      const qResults = CSAT_QUESTIONS.map(q => {
+        // Let Q5 and Q9 be incorrect in default sample
+        const isWrong = (q.id === 5 || q.id === 9);
+        let chosen;
+        if (isWrong) {
+          chosen = q.correctAnswer === "A" ? "B" : "A";
+          incorrectCnt++;
+        } else {
+          chosen = q.correctAnswer;
+          correctCnt++;
+        }
+
+        return {
+          id: q.id,
+          chapter: q.chapter,
+          chapterHi: q.chapterHi,
+          category: q.category,
+          categoryTitle: q.categoryTitle,
+          difficulty: q.difficulty,
+          userChoice: chosen,
+          correctAnswer: q.correctAnswer,
+          status: isWrong ? "incorrect" : "correct",
+          marksObtained: isWrong ? -0.833 : 2.5,
+          timeSpentSec: q.recommendedTimeSec,
+          attemptRate: q.attemptRate,
+          optionDistribution: q.optionDistribution,
+          statementEn: q.en.statement,
+          statementHi: q.hi.statement,
+          explanationEn: q.en.explanation,
+          explanationHi: q.hi.explanation,
+          optionsEn: q.en.options,
+          optionsHi: q.hi.options
+        };
+      });
+
+      const totalMarks = (correctCnt * 2.5) - (incorrectCnt * 0.833);
+
+      return {
+        testDate: "16 October 2026",
+        totalScore: totalMarks.toFixed(2),
+        rawScore: totalMarks.toFixed(2),
+        maxMarks: 25.0,
+        accuracy: 80,
+        correctCount: correctCnt,
+        incorrectCount: incorrectCnt,
+        unattemptedCount: 0,
+        totalTimeSeconds: 685,
+        language: "en",
+        questionResults: qResults
+      };
+    }
+
+    function renderScorecard(res) {
+      document.getElementById("disp-total-score").innerHTML = `${res.totalScore} <span>/ ${res.maxMarks.toFixed(1)}</span>`;
+      document.getElementById("disp-accuracy").textContent = `${res.accuracy}%`;
+      document.getElementById("disp-correct-cnt").textContent = `${res.correctCount} Qs`;
+      document.getElementById("disp-incorrect-cnt").textContent = `${res.incorrectCount} Qs`;
+      document.getElementById("disp-unattempted-cnt").textContent = `${res.unattemptedCount} Qs`;
+
+      const m = Math.floor(res.totalTimeSeconds / 60).toString().padStart(2, "0");
+      const s = (res.totalTimeSeconds % 60).toString().padStart(2, "0");
+      document.getElementById("disp-total-time").textContent = `${m}m ${s}s`;
+
+      const qualifyTag = document.getElementById("disp-qualify-tag");
+      if (parseFloat(res.totalScore) >= 8.25) {
+        qualifyTag.className = "tg-tile-status-tag";
+        qualifyTag.innerHTML = `<i class="fa-solid fa-circle-check"></i> CSAT Qualifying Standard Met (>= 33%)`;
+      } else {
+        qualifyTag.className = "tg-tile-status-tag";
+        qualifyTag.style.borderColor = "var(--tg-red)";
+        qualifyTag.style.color = "var(--tg-red)";
+        qualifyTag.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> Below CSAT 33% Qualifying Benchmark`;
+      }
+    }
+
+    function renderStrategicTiles(res) {
+      const avoidedQs = res.questionResults.filter(q => q.category === "avoided");
+      const notWrongQs = res.questionResults.filter(q => q.category === "not_wrong");
+      const attemptedQs = res.questionResults.filter(q => q.category === "attempted");
+
+      function calcStats(list) {
+        const total = list.length;
+        const correct = list.filter(q => q.status === "correct").length;
+        const incorrect = list.filter(q => q.status === "incorrect").length;
+        const unattempted = list.filter(q => q.status === "unattempted").length;
+        const attempted = correct + incorrect;
+        const acc = attempted > 0 ? Math.round((correct / attempted) * 100) : 0;
+        return { total, correct, incorrect, unattempted, acc };
+      }
+
+      const sAvoided = calcStats(avoidedQs);
+      const sNotWrong = calcStats(notWrongQs);
+      const sAttempted = calcStats(attemptedQs);
+
+      // Tile 1: Avoided
+      document.getElementById("badge-avoided-count").textContent = `${sAvoided.total} Questions`;
+      document.getElementById("val-avoided-acc").textContent = `${sAvoided.acc}%`;
+      document.getElementById("val-avoided-correct").textContent = sAvoided.correct;
+      document.getElementById("val-avoided-incorrect").textContent = sAvoided.incorrect;
+
+      // Tile 2: Not Wrong
+      document.getElementById("badge-not-wrong-count").textContent = `${sNotWrong.total} Questions`;
+      document.getElementById("val-not-wrong-acc").textContent = `${sNotWrong.acc}%`;
+      document.getElementById("val-not-wrong-correct").textContent = sNotWrong.correct;
+      document.getElementById("val-not-wrong-incorrect").textContent = sNotWrong.incorrect;
+
+      // Tile 3: Attempted
+      document.getElementById("badge-attempted-count").textContent = `${sAttempted.total} Questions`;
+      document.getElementById("val-attempted-acc").textContent = `${sAttempted.acc}%`;
+      document.getElementById("val-attempted-correct").textContent = sAttempted.correct;
+      document.getElementById("val-attempted-incorrect").textContent = sAttempted.incorrect;
+    }
+
+    function renderChapterDistribution(res) {
+      const chapterMap = {};
+
+      res.questionResults.forEach(q => {
+        if (!chapterMap[q.chapter]) {
+          chapterMap[q.chapter] = {
+            name: q.chapter,
+            nameHi: q.chapterHi,
+            total: 0,
+            correct: 0,
+            incorrect: 0,
+            unattempted: 0,
+            timeSec: 0
+          };
+        }
+        chapterMap[q.chapter].total++;
+        if (q.status === "correct") chapterMap[q.chapter].correct++;
+        else if (q.status === "incorrect") chapterMap[q.chapter].incorrect++;
+        else chapterMap[q.chapter].unattempted++;
+        chapterMap[q.chapter].timeSec += q.timeSpentSec;
+      });
+
+      const tbody = document.getElementById("chapter-distribution-tbody");
+      tbody.innerHTML = "";
+
+      Object.values(chapterMap).forEach(ch => {
+        const attempted = ch.correct + ch.incorrect;
+        const acc = attempted > 0 ? Math.round((ch.correct / attempted) * 100) : 0;
+        const m = Math.floor(ch.timeSec / 60);
+        const s = ch.timeSec % 60;
+        const timeFormatted = `${m}m ${s}s`;
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>
+            <strong>${ch.name}</strong>
+            <div style="font-size: 11px; color: var(--tg-text-muted);">${ch.nameHi}</div>
+          </td>
+          <td>${ch.total}</td>
+          <td style="color: var(--tg-green); font-weight: 600;">${ch.correct}</td>
+          <td style="color: var(--tg-red); font-weight: 600;">${ch.incorrect}</td>
+          <td style="color: var(--tg-text-secondary);">${ch.unattempted}</td>
+          <td style="font-variant-numeric: tabular-nums;">${timeFormatted}</td>
+          <td>
+            <div class="tg-progress-bar-bg">
+              <div class="tg-progress-fill" style="width: ${acc}%;"></div>
+            </div>
+            <strong>${acc}%</strong>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function renderQuestionDistribution(res) {
+      const tbody = document.getElementById("question-distribution-tbody");
+      tbody.innerHTML = "";
+
+      res.questionResults.forEach(q => {
+        const dist = q.optionDistribution || { A: 25, B: 25, C: 25, D: 25 };
+        const userChoiceText = q.userChoice ? q.userChoice : "Left";
+        
+        let statusBadge = "";
+        if (q.status === "correct") {
+          statusBadge = `<span class="tg-drill-status correct"><i class="fa-solid fa-check"></i> +2.50</span>`;
+        } else if (q.status === "incorrect") {
+          statusBadge = `<span class="tg-drill-status incorrect"><i class="fa-solid fa-xmark"></i> -0.83</span>`;
+        } else {
+          statusBadge = `<span class="tg-drill-status unattempted">Unattempted</span>`;
+        }
+
+        const m = Math.floor(q.timeSpentSec / 60);
+        const s = q.timeSpentSec % 60;
+        const timeFormatted = `${m}m ${s}s`;
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td><strong>Q${q.id}</strong></td>
+          <td>
+            ${q.chapter}
+            <div style="font-size: 11px; color: var(--tg-text-muted);">${q.difficulty}</div>
+          </td>
+          <td>
+            <strong>${q.attemptRate}%</strong>
+            <div style="font-size: 11px; color: var(--tg-text-muted);">aspirants</div>
+          </td>
+          <td>
+            <div class="tg-option-dist-bar" title="A: ${dist.A}% | B: ${dist.B}% | C: ${dist.C}% | D: ${dist.D}%">
+              <div class="tg-opt-dist-slice slice-a" style="width: ${dist.A}%;">A ${dist.A}%</div>
+              <div class="tg-opt-dist-slice slice-b" style="width: ${dist.B}%;">B ${dist.B}%</div>
+              <div class="tg-opt-dist-slice slice-c" style="width: ${dist.C}%;">C ${dist.C}%</div>
+              <div class="tg-opt-dist-slice slice-d" style="width: ${dist.D}%;">D ${dist.D}%</div>
+            </div>
+          </td>
+          <td>
+            <strong>Option ${userChoiceText}</strong> ${statusBadge}
+          </td>
+          <td>
+            <strong style="color: var(--tg-green);">Option ${q.correctAnswer}</strong>
+          </td>
+          <td style="font-variant-numeric: tabular-nums;">${timeFormatted}</td>
+          <td>
+            <button class="tg-tile-btn btn-view-single-sol" data-qid="${q.id}" style="padding: 4px 10px; font-size: 11.5px;">
+              <i class="fa-solid fa-lightbulb"></i> View Solution
+            </button>
+          </td>
+        `;
+
+        tr.querySelector(".btn-view-single-sol").addEventListener("click", () => {
+          openSingleSolutionModal(q);
+        });
+
+        tbody.appendChild(tr);
+      });
+    }
+
+    function setupModalListeners(res) {
+      // 1. Tile Click Handlers -> Drill down modal
+      document.getElementById("tile-avoided").addEventListener("click", () => {
+        const avoidedQs = res.questionResults.filter(q => q.category === "avoided");
+        openCategoryDrilldownModal(
+          "Questions Which Should Have Been Avoided",
+          "These questions feature high calculation complexity, nested combinations, or ambiguous wording. In UPSC CSAT, successfully leaving these saves time for solvable questions.",
+          avoidedQs
+        );
+      });
+
+      document.getElementById("tile-not-wrong").addEventListener("click", () => {
+        const notWrongQs = res.questionResults.filter(q => q.category === "not_wrong");
+        openCategoryDrilldownModal(
+          "Questions Which Should Not Have Been Wrong",
+          "These are direct, standard formulaic questions from core chapters. Maintaining 90%+ accuracy in this tier is essential for qualifying.",
+          notWrongQs
+        );
+      });
+
+      document.getElementById("tile-attempted").addEventListener("click", () => {
+        const attemptedQs = res.questionResults.filter(q => q.category === "attempted");
+        openCategoryDrilldownModal(
+          "Questions Which Should Be Attempted",
+          "Standard moderate questions with logical structure. Practicing these reinforces confidence and pace.",
+          attemptedQs
+        );
+      });
+
+      // Modal Close Handlers
+      const drillModal = document.getElementById("drilldown-modal");
+      const closeDrill = () => drillModal.classList.remove("active");
+      document.getElementById("btn-close-drill-modal").addEventListener("click", closeDrill);
+      document.getElementById("btn-close-drill-footer").addEventListener("click", closeDrill);
+      drillModal.addEventListener("click", (e) => {
+        if (e.target === drillModal) closeDrill();
+      });
+
+      const solModal = document.getElementById("single-solution-modal");
+      const closeSol = () => solModal.classList.remove("active");
+      document.getElementById("btn-close-sol-modal").addEventListener("click", closeSol);
+      document.getElementById("btn-close-sol-footer").addEventListener("click", closeSol);
+      solModal.addEventListener("click", (e) => {
+        if (e.target === solModal) closeSol();
+      });
+    }
+
+    function openCategoryDrilldownModal(title, description, questions) {
+      const modal = document.getElementById("drilldown-modal");
+      document.getElementById("drilldown-modal-title").innerHTML = `
+        <i class="fa-solid fa-list-check" style="color: var(--tg-blue-light);"></i>
+        ${title} (${questions.length} Questions)
+      `;
+
+      let html = `
+        <div class="tg-instructions-text" style="margin-bottom: 20px;">
+          <p style="font-size: 13px; color: #a4b4c4; line-height: 1.5;">${description}</p>
+        </div>
+        <div class="tg-drilldown-list">
+      `;
+
+      questions.forEach(q => {
+        let statusBadge = "";
+        if (q.status === "correct") {
+          statusBadge = `<span class="tg-drill-status correct"><i class="fa-solid fa-check"></i> Correct (+2.50)</span>`;
+        } else if (q.status === "incorrect") {
+          statusBadge = `<span class="tg-drill-status incorrect"><i class="fa-solid fa-xmark"></i> Incorrect (-0.83)</span>`;
+        } else {
+          statusBadge = `<span class="tg-drill-status unattempted">Unattempted</span>`;
+        }
+
+        const m = Math.floor(q.timeSpentSec / 60);
+        const s = q.timeSpentSec % 60;
+
+        html += `
+          <div class="tg-drill-item">
+            <div class="tg-drill-header">
+              <span class="tg-drill-q-title">Question ${q.id} &bull; ${q.chapter}</span>
+              <div>
+                ${statusBadge}
+                <span style="font-size: 12px; color: var(--tg-text-muted); margin-left: 8px;">
+                  <i class="fa-regular fa-clock"></i> ${m}m ${s}s
+                </span>
+              </div>
+            </div>
+            
+            <div class="tg-drill-statement">${q.statementEn}</div>
+
+            <div style="display: flex; gap: 16px; margin-bottom: 12px; font-size: 13px;">
+              <div>Your Answer: <strong>Option ${q.userChoice || "None"}</strong></div>
+              <div>Correct Answer: <strong style="color: var(--tg-green);">Option ${q.correctAnswer}</strong></div>
+            </div>
+
+            <div class="tg-drill-solution">
+              <strong><i class="fa-solid fa-lightbulb"></i> Step-by-Step Explanation:</strong>
+              <div style="margin-top: 6px; white-space: pre-line;">${q.explanationEn}</div>
+            </div>
+          </div>
+        `;
+      });
+
+      html += `</div>`;
+      document.getElementById("drilldown-modal-body").innerHTML = html;
+      modal.classList.add("active");
+    }
+
+    function openSingleSolutionModal(q) {
+      const modal = document.getElementById("single-solution-modal");
+      document.getElementById("sol-modal-title").innerHTML = `
+        <i class="fa-solid fa-lightbulb" style="color: var(--tg-amber);"></i>
+        Question ${q.id} Solution: ${q.chapter}
+      `;
+
+      document.getElementById("sol-modal-body").innerHTML = `
+        <div style="margin-bottom: 16px;">
+          <div style="font-size: 12px; color: var(--tg-text-secondary); margin-bottom: 6px;">
+            Chapter: <strong>${q.chapter}</strong> &bull; Category: <strong>${q.categoryTitle}</strong> &bull; Attempt Rate: <strong>${q.attemptRate}%</strong>
+          </div>
+          <div class="tg-drill-statement" style="font-size: 15px; font-weight: 500;">
+            ${q.statementEn}
+          </div>
+        </div>
+
+        <div style="background: var(--tg-surface); padding: 12px 16px; border-radius: var(--tg-radius-md); margin-bottom: 16px;">
+          <div style="display: flex; justify-content: space-between; font-size: 13.5px;">
+            <span>Your Response: <strong>Option ${q.userChoice || "None"}</strong></span>
+            <span>Correct Answer: <strong style="color: var(--tg-green);">Option ${q.correctAnswer}</strong></span>
+          </div>
+        </div>
+
+        <div class="tg-drill-solution">
+          <strong><i class="fa-solid fa-graduation-cap"></i> Complete Traditional Explanation:</strong>
+          <div style="margin-top: 8px; white-space: pre-line; line-height: 1.6;">${q.explanationEn}</div>
+        </div>
+      `;
+
+      modal.classList.add("active");
+    }
+  </script>
+</body>
+</html>
