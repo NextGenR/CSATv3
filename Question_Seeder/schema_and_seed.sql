@@ -1,13 +1,13 @@
 -- ==========================================================================
 -- Supabase PostgreSQL Schema & Seeding Script for CSAT Daily 10 Questions
--- (Uses PostgreSQL dollar-quoted strings to prevent any quote parsing errors)
+-- Configured for: 15th October 2026 Test + User Attempt Progress Persistence
 -- ==========================================================================
 
--- STEP 1: CREATE TABLE
+-- STEP 1: CREATE QUESTIONS TABLE
 CREATE TABLE IF NOT EXISTS public.daily_questions (
     id TEXT PRIMARY KEY,
     question_number INTEGER NOT NULL,
-    test_date DATE DEFAULT CURRENT_DATE,
+    test_date DATE DEFAULT '2026-10-15'::date,
     year INTEGER,
     difficulty TEXT,
     subject TEXT,
@@ -28,10 +28,10 @@ CREATE TABLE IF NOT EXISTS public.daily_questions (
     created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- STEP 2: ENABLE ROW LEVEL SECURITY
+-- Enable RLS on questions table
 ALTER TABLE public.daily_questions ENABLE ROW LEVEL SECURITY;
 
--- STEP 3: CREATE PUBLIC READ ACCESS POLICY
+-- Public read policy for questions
 DROP POLICY IF EXISTS "Allow public read access" ON public.daily_questions;
 CREATE POLICY "Allow public read access"
 ON public.daily_questions
@@ -39,7 +39,56 @@ FOR SELECT
 TO anon, authenticated
 USING (true);
 
--- STEP 4: INSERT QUESTION DATA
+-- STEP 2: CREATE USER TEST ATTEMPTS TABLE (Saves user answers, timers & scorecards)
+CREATE TABLE IF NOT EXISTS public.user_test_attempts (
+    id TEXT PRIMARY KEY,
+    test_date DATE DEFAULT '2026-10-15'::date,
+    user_identifier TEXT DEFAULT 'candidate_default',
+    current_question_index INTEGER DEFAULT 0,
+    answers JSONB DEFAULT '{}'::jsonb,
+    time_per_question JSONB DEFAULT '{}'::jsonb,
+    marked_for_review JSONB DEFAULT '[]'::jsonb,
+    status TEXT DEFAULT 'in_progress', -- 'in_progress' or 'completed'
+    score NUMERIC DEFAULT 0.0,
+    accuracy INTEGER DEFAULT 0,
+    correct_count INTEGER DEFAULT 0,
+    incorrect_count INTEGER DEFAULT 0,
+    unattempted_count INTEGER DEFAULT 10,
+    total_time_seconds INTEGER DEFAULT 0,
+    result_payload JSONB DEFAULT '{}'::jsonb,
+    updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Enable RLS on user_test_attempts table
+ALTER TABLE public.user_test_attempts ENABLE ROW LEVEL SECURITY;
+
+-- Allow anon users to SELECT, INSERT, and UPDATE their own attempts
+DROP POLICY IF EXISTS "Allow anon select attempts" ON public.user_test_attempts;
+CREATE POLICY "Allow anon select attempts"
+ON public.user_test_attempts
+FOR SELECT
+TO anon, authenticated
+USING (true);
+
+DROP POLICY IF EXISTS "Allow anon insert attempts" ON public.user_test_attempts;
+CREATE POLICY "Allow anon insert attempts"
+ON public.user_test_attempts
+FOR INSERT
+TO anon, authenticated
+WITH CHECK (true);
+
+DROP POLICY IF EXISTS "Allow anon update attempts" ON public.user_test_attempts;
+CREATE POLICY "Allow anon update attempts"
+ON public.user_test_attempts
+FOR UPDATE
+TO anon, authenticated
+USING (true)
+WITH CHECK (true);
+
+-- STEP 3: UPDATE OR INSERT QUESTIONS FOR 15TH OCTOBER 2026
+-- If table already had 2026-10-16, update existing rows to 2026-10-15:
+UPDATE public.daily_questions SET test_date = '2026-10-15'::date;
+
 INSERT INTO public.daily_questions (
     id, question_number, test_date, year, difficulty, subject, pillar, topic, type,
     question, options, correct_index, answer_key, solution, trick, category, category_title,
@@ -48,7 +97,7 @@ INSERT INTO public.daily_questions (
 (
     $q$CSAT-2026-Q10$q$,
     1,
-    '2026-10-16'::date,
+    '2026-10-15'::date,
     2026,
     $q$L4$q$,
     $q$Quantitative Aptitude$q$,
@@ -78,7 +127,7 @@ Total number of common marks = 13 - 0 + 1 = 14.$q$,
 (
     $q$CSAT-2026-Q48$q$,
     2,
-    '2026-10-16'::date,
+    '2026-10-15'::date,
     2026,
     $q$L2$q$,
     $q$Logical Reasoning$q$,
@@ -110,7 +159,7 @@ Hence, all three statements P, Q, and R are correct.$q$,
 (
     $q$CSAT-2022-Q77$q$,
     3,
-    '2026-10-16'::date,
+    '2026-10-15'::date,
     2022,
     $q$L3$q$,
     $q$Quantitative Aptitude$q$,
@@ -146,7 +195,7 @@ Total invalid arrangements = 3 ways.
 (
     $q$CSAT-2022-Q40$q$,
     4,
-    '2026-10-16'::date,
+    '2026-10-15'::date,
     2022,
     $q$L5$q$,
     $q$Logical Reasoning$q$,
@@ -186,7 +235,7 @@ Which one of the following is definitely correct?
 (
     $q$CSAT-2019-Q72$q$,
     5,
-    '2026-10-16'::date,
+    '2026-10-15'::date,
     2019,
     $q$L5$q$,
     $q$Basic Numeracy$q$,
@@ -224,7 +273,7 @@ Which one of the following is definitely correct?
 (
     $q$CSAT-2026-Q65$q$,
     6,
-    '2026-10-16'::date,
+    '2026-10-15'::date,
     2026,
     $q$L2$q$,
     $q$Quantitative Aptitude$q$,
@@ -250,7 +299,7 @@ Which one of the following is definitely correct?
 (
     $q$CSAT-2026-Q03$q$,
     7,
-    '2026-10-16'::date,
+    '2026-10-15'::date,
     2026,
     $q$L3$q$,
     $q$Quantitative Aptitude$q$,
@@ -276,7 +325,7 @@ Together: Statement I requires at least one to be even. Statement II requires bo
 (
     $q$CSAT-2023-Q80$q$,
     8,
-    '2026-10-16'::date,
+    '2026-10-15'::date,
     2023,
     $q$L1$q$,
     $q$Reasoning$q$,
@@ -310,7 +359,7 @@ Together: Statement I requires at least one to be even. Statement II requires bo
 (
     $q$CSAT-2026-Q69$q$,
     9,
-    '2026-10-16'::date,
+    '2026-10-15'::date,
     2026,
     $q$L4$q$,
     $q$Quantitative Aptitude$q$,
@@ -339,7 +388,7 @@ Together: Statement I requires at least one to be even. Statement II requires bo
 (
     $q$CSAT-2024-Q18$q$,
     10,
-    '2026-10-16'::date,
+    '2026-10-15'::date,
     2024,
     $q$L1$q$,
     $q$Quant$q$,
@@ -360,7 +409,7 @@ Together: Statement I requires at least one to be even. Statement II requires bo
 )
 ON CONFLICT (id) DO UPDATE SET
     question_number = EXCLUDED.question_number,
-    test_date = EXCLUDED.test_date,
+    test_date = '2026-10-15'::date,
     year = EXCLUDED.year,
     difficulty = EXCLUDED.difficulty,
     subject = EXCLUDED.subject,

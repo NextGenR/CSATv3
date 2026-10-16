@@ -320,10 +320,22 @@
         }
       }
 
-      // If no stored result (e.g. direct visit), populate realistic sample mock results
+      // If no stored result in localStorage, check if Supabase cloud has completed attempt
       if (!resultData) {
         try {
-          const liveQuestions = await CSAT_API.loadDailyQuestions();
+          const cloudAttempt = await CSAT_API.restoreProgressFromCloud("2026-10-15");
+          if (cloudAttempt && cloudAttempt.result_payload && cloudAttempt.result_payload.questionResults) {
+            resultData = cloudAttempt.result_payload;
+          }
+        } catch (err) {
+          console.warn("Could not load cloud attempt for analysis:", err);
+        }
+      }
+
+      // If still no result (e.g. fresh review visit), populate realistic sample results
+      if (!resultData) {
+        try {
+          const liveQuestions = await CSAT_API.loadDailyQuestions("2026-10-15");
           resultData = generateSampleMockResult(liveQuestions);
         } catch (e) {
           resultData = generateSampleMockResult(CSAT_QUESTIONS);

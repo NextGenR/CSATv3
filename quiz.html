@@ -190,13 +190,33 @@
       }
     }
 
+    const urlParams = new URLSearchParams(window.location.search);
+    const testDate = urlParams.get('date') || '2026-10-15';
+
     document.addEventListener("DOMContentLoaded", async () => {
-      // 1. Fetch live questions from Supabase API (or fallback)
+      // 1. Fetch live questions from Supabase API for specified date (or fallback)
       try {
-        activeQuestions = await CSAT_API.loadDailyQuestions();
+        activeQuestions = await CSAT_API.loadDailyQuestions(testDate);
       } catch (err) {
         console.warn("Using fallback questions:", err);
         activeQuestions = CSAT_QUESTIONS;
+      }
+
+      // If local cache is empty, attempt restoring from Supabase cloud
+      if (!savedStateStr) {
+        try {
+          const cloudAttempt = await CSAT_API.restoreProgressFromCloud(testDate);
+          if (cloudAttempt && cloudAttempt.answers) {
+            userAnswers = cloudAttempt.answers;
+            timePerQuestion = cloudAttempt.time_per_question || {};
+            markedForReview = new Set(cloudAttempt.marked_for_review || []);
+            if (cloudAttempt.current_question_index !== undefined) {
+              currentQIdx = cloudAttempt.current_question_index;
+            }
+          }
+        } catch (e) {
+          console.warn("Cloud restore error:", e);
+        }
       }
 
       // Initialize timers per question
@@ -337,15 +357,26 @@
       saveState();
     }
 
+    let cloudSyncTimeout = null;
+
     function saveState() {
       const state = {
         answers: userAnswers,
         marked: Array.from(markedForReview),
         timePerQuestion: timePerQuestion,
         currentQuestionIndex: currentQIdx,
-        language: selectedLang
+        language: selectedLang,
+        totalTimeSeconds: totalSeconds,
+        testDate: "2026-10-15"
       };
+      // 1. Instant 0ms local cache (resilient to refresh & offline)
       localStorage.setItem(CSAT_STORAGE_KEY, JSON.stringify(state));
+
+      // 2. Debounced background cloud sync to Supabase (every 3 seconds or on answer)
+      if (cloudSyncTimeout) clearTimeout(cloudSyncTimeout);
+      cloudSyncTimeout = setTimeout(() => {
+        CSAT_API.syncProgressToCloud(state);
+      }, 2500);
     }
 
     function updateLangIndicator() {
@@ -504,7 +535,7 @@
       const accuracyPercentage = attemptedTotal > 0 ? Math.round((correctCount / attemptedTotal) * 100) : 0;
 
       const finalResult = {
-        testDate: "16 October 2026",
+        testDate: "15 October 2026",
         totalScore: Math.max(0, totalMarksObtained).toFixed(2),
         rawScore: totalMarksObtained.toFixed(2),
         maxMarks: 25.0,
@@ -517,9 +548,19 @@
         questionResults: questionResults
       };
 
-      // Store in LocalStorage for analysis page
+      // 1. Store in LocalStorage for analysis page
       localStorage.setItem(CSAT_RESULT_KEY, JSON.stringify(finalResult));
       localStorage.removeItem(CSAT_STORAGE_KEY);
+
+      // 2. Sync final completed scorecard to Supabase cloud
+      CSAT_API.syncProgressToCloud({
+        testDate: "2026-10-15",
+        answers: userAnswers,
+        timePerQuestion: timePerQuestion,
+        totalTimeSeconds: totalSeconds,
+        status: "completed",
+        finalResult: finalResult
+      });
 
       // Exit fullscreen if active and navigate to analysis.html
       if (document.fullscreenElement && document.exitFullscreen) {

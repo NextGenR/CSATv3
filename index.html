@@ -190,15 +190,40 @@
       OCTOBER_HISTORY_DATA.forEach(item => {
         const tile = document.createElement("div");
         tile.className = "tg-date-tile";
+
+        const is15Oct = (item.dayNum === 15);
+        const tileStatus = is15Oct ? `
+          <span class="tg-tile-status-tag" style="background: rgba(36, 129, 204, 0.2); color: var(--tg-blue-light); border-color: rgba(36, 129, 204, 0.4);">
+            <i class="fa-solid fa-database"></i> Supabase Live
+          </span>
+        ` : `
+          <span class="tg-tile-status-tag">
+            <i class="fa-solid fa-check"></i> Completed
+          </span>
+        `;
+
+        const footerAction = is15Oct ? `
+          <div style="display: flex; gap: 8px; width: 100%;">
+            <a href="guidelines.html?date=2026-10-15" class="tg-tile-btn" style="text-decoration: none; background: var(--tg-blue); color: #fff; flex: 1;">
+              <i class="fa-solid fa-play"></i> Attempt Test
+            </a>
+            <button class="tg-tile-btn btn-view-hist" data-day="${item.dayNum}" style="flex: 1;">
+              <i class="fa-solid fa-chart-simple"></i> Details
+            </button>
+          </div>
+        ` : `
+          <button class="tg-tile-btn btn-view-hist" data-day="${item.dayNum}">
+            <i class="fa-solid fa-magnifying-glass-chart"></i> View Test Details
+          </button>
+        `;
+
         tile.innerHTML = `
           <div class="tg-tile-top">
             <div>
               <div class="tg-tile-date">${item.dateStr} 2026</div>
               <div class="tg-tile-day">${item.dayName}</div>
             </div>
-            <span class="tg-tile-status-tag">
-              <i class="fa-solid fa-check"></i> Completed
-            </span>
+            ${tileStatus}
           </div>
 
           <div class="tg-tile-metrics">
@@ -213,9 +238,7 @@
           </div>
 
           <div class="tg-tile-footer">
-            <button class="tg-tile-btn btn-view-hist" data-day="${item.dayNum}">
-              <i class="fa-solid fa-magnifying-glass-chart"></i> View Test Details
-            </button>
+            ${footerAction}
           </div>
         `;
 
