@@ -196,17 +196,26 @@
     const urlParams = new URLSearchParams(window.location.search);
     const testDate = urlParams.get('date') || '2026-10-16';
 
-    document.addEventListener("DOMContentLoaded", async () => {
+    async function initQuiz() {
       // 1. Fetch live questions from Supabase API for specified date (or fallback)
       try {
-        activeQuestions = await CSAT_API.loadDailyQuestions(testDate);
+        if (typeof CSAT_API !== 'undefined' && CSAT_API.loadDailyQuestions) {
+          const fetched = await CSAT_API.loadDailyQuestions(testDate);
+          if (Array.isArray(fetched) && fetched.length > 0) {
+            activeQuestions = fetched;
+          } else {
+            activeQuestions = (typeof CSAT_QUESTIONS !== 'undefined') ? CSAT_QUESTIONS : [];
+          }
+        } else {
+          activeQuestions = (typeof CSAT_QUESTIONS !== 'undefined') ? CSAT_QUESTIONS : [];
+        }
       } catch (err) {
         console.warn("Using fallback questions:", err);
-        activeQuestions = CSAT_QUESTIONS;
+        activeQuestions = (typeof CSAT_QUESTIONS !== 'undefined') ? CSAT_QUESTIONS : [];
       }
 
       // If local cache is empty, attempt restoring from Supabase cloud
-      if (!savedStateStr) {
+      if (!savedStateStr && typeof CSAT_API !== 'undefined' && CSAT_API.restoreProgressFromCloud) {
         try {
           const cloudAttempt = await CSAT_API.restoreProgressFromCloud(testDate);
           if (cloudAttempt && cloudAttempt.answers) {
@@ -223,9 +232,12 @@
       }
 
       // Initialize timers per question
-      activeQuestions.forEach(q => {
-        if (!timePerQuestion[q.id]) timePerQuestion[q.id] = 0;
-      });
+      if (Array.isArray(activeQuestions)) {
+        activeQuestions.forEach((q, idx) => {
+          const qId = q.id || (idx + 1);
+          if (!timePerQuestion[qId]) timePerQuestion[qId] = 0;
+        });
+      }
 
       // Display candidate profile
       const candidateName = (typeof CSAT_API !== 'undefined' && CSAT_API.getCandidateName) 
@@ -239,7 +251,13 @@
       renderQuestion(currentQIdx, "none");
       startTimers();
       setupEventListeners();
-    });
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initQuiz);
+    } else {
+      initQuiz();
+    }
 
     function startTimers() {
       timerInterval = setInterval(() => {
@@ -261,18 +279,22 @@
 
     function renderNavigator() {
       const list = document.getElementById("q-nav-list");
+      if (!list) return;
       list.innerHTML = "";
+      if (!Array.isArray(activeQuestions) || activeQuestions.length === 0) return;
+
       activeQuestions.forEach((q, idx) => {
         const btn = document.createElement("button");
         btn.className = "tg-q-pill-btn";
-        btn.textContent = q.id;
-        btn.title = `Question ${q.id} (${q.chapter})`;
+        btn.textContent = (idx + 1);
+        btn.title = `Question ${idx + 1} (${q.chapter || "Aptitude"})`;
 
+        const qId = q.id || (idx + 1);
         if (idx === currentQIdx) {
           btn.classList.add("current");
-        } else if (userAnswers[q.id]) {
+        } else if (userAnswers[qId] || userAnswers[idx + 1]) {
           btn.classList.add("attempted");
-        } else if (markedForReview.has(q.id)) {
+        } else if (markedForReview.has(qId) || markedForReview.has(idx + 1)) {
           btn.classList.add("reviewed");
         }
 
@@ -289,65 +311,84 @@
     }
 
     function renderQuestion(idx, slideDirection = "right") {
+      if (!Array.isArray(activeQuestions) || activeQuestions.length === 0) {
+        activeQuestions = (typeof CSAT_QUESTIONS !== 'undefined') ? CSAT_QUESTIONS : [];
+      }
       const q = activeQuestions[idx] || activeQuestions[0];
-      const card = document.getElementById("active-question-card");
+      if (!q) return;
 
-      // Apply fast horizontal slide animation
-      card.classList.remove("slide-in-right", "slide-in-left");
-      void card.offsetWidth; // trigger reflow
-      if (slideDirection === "right") {
-        card.classList.add("slide-in-right");
-      } else if (slideDirection === "left") {
-        card.classList.add("slide-in-left");
+      const card = document.getElementById("active-question-card");
+      if (card) {
+        // Apply fast horizontal slide animation
+        card.classList.remove("slide-in-right", "slide-in-left");
+        void card.offsetWidth; // trigger reflow
+        if (slideDirection === "right") {
+          card.classList.add("slide-in-right");
+        } else if (slideDirection === "left") {
+          card.classList.add("slide-in-left");
+        }
       }
 
       // Secondary Bar Details
-      const chapterText = selectedLang === "hi" ? q.chapterHi : q.chapter;
-      document.getElementById("current-chapter-display").innerHTML = `
-        <i class="fa-solid fa-book-bookmark"></i>
-        <span>Chapter: <strong>${chapterText}</strong></span>
-      `;
+      const chapterText = (selectedLang === "hi" && q.chapterHi) ? q.chapterHi : (q.chapter || "General Aptitude");
+      const chapterElem = document.getElementById("current-chapter-display");
+      if (chapterElem) {
+        chapterElem.textContent = `Chapter: ${chapterText}`;
+      }
 
       // Question metadata
-      document.getElementById("q-title-number").textContent = `Question ${q.id} of 10`;
+      const qTitle = document.getElementById("q-title-number");
+      if (qTitle) {
+        qTitle.textContent = `Question ${idx + 1} of ${activeQuestions.length}`;
+      }
       
       // Question Statement & Options
-      const qContent = selectedLang === "hi" ? q.hi : q.en;
-      document.getElementById("q-statement-text").textContent = qContent.statement;
+      const qContent = (selectedLang === "hi" && q.hi) ? q.hi : (q.en || { statement: "", options: {} });
+      const stmtElem = document.getElementById("q-statement-text");
+      if (stmtElem) {
+        stmtElem.textContent = qContent.statement || "";
+      }
 
       // Render Options
       const optionsContainer = document.getElementById("q-options-container");
-      optionsContainer.innerHTML = "";
+      if (optionsContainer && qContent.options) {
+        optionsContainer.innerHTML = "";
+        const qId = q.id || (idx + 1);
 
-      Object.entries(qContent.options).forEach(([letter, text]) => {
-        const row = document.createElement("div");
-        row.className = "tg-option-row";
-        if (userAnswers[q.id] === letter) {
-          row.classList.add("selected");
-        }
+        Object.entries(qContent.options).forEach(([letter, text]) => {
+          const row = document.createElement("div");
+          row.className = "tg-option-row";
+          if (userAnswers[qId] === letter || userAnswers[idx + 1] === letter) {
+            row.classList.add("selected");
+          }
 
-        row.innerHTML = `
-          <div class="tg-opt-letter">${letter}</div>
-          <div class="tg-opt-text">${text}</div>
-        `;
+          row.innerHTML = `
+            <div class="tg-opt-letter">${letter}</div>
+            <div class="tg-opt-text">${text}</div>
+          `;
 
-        row.addEventListener("click", () => {
-          userAnswers[q.id] = letter;
-          saveState();
-          renderQuestion(currentQIdx, "none");
-          renderNavigator();
+          row.addEventListener("click", () => {
+            userAnswers[qId] = letter;
+            userAnswers[idx + 1] = letter;
+            saveState();
+            renderQuestion(currentQIdx, "none");
+            renderNavigator();
+          });
+
+          optionsContainer.appendChild(row);
         });
-
-        optionsContainer.appendChild(row);
-      });
+      }
 
       // Update Navigation Buttons state
-      document.getElementById("btn-prev-q").disabled = (idx === 0);
+      const prevBtn = document.getElementById("btn-prev-q");
+      if (prevBtn) prevBtn.disabled = (idx === 0);
       const nextBtn = document.getElementById("btn-next-q");
-      if (idx === activeQuestions.length - 1) {
-        nextBtn.innerHTML = `Finish <i class="fa-solid fa-flag-checkered"></i>`;
-      } else {
-        nextBtn.innerHTML = `Next <i class="fa-solid fa-arrow-right"></i>`;
+      if (nextBtn) {
+        if (idx === activeQuestions.length - 1) {
+          nextBtn.innerHTML = `Finish <i class="fa-solid fa-flag-checkered"></i>`;
+        } else {
+          nextBtn.innerHTML = `Next <i class="fa-solid fa-arrow-right"></i>`;
+        }
       }
 
       // Update Mark for Review Button state

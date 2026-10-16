@@ -213,8 +213,17 @@ const CSAT_API = (function () {
     loadDailyQuestions,
     syncProgressToCloud,
     restoreProgressFromCloud,
-    getCandidateId,
+    getCandidateName,
+    setCandidateName,
     SUPABASE_URL,
     SUPABASE_ANON_KEY
   };
 })();
+
+if (typeof window !== "undefined") {
+  window.CSAT_API = CSAT_API;
+}
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = CSAT_API;
+}
+
