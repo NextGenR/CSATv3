@@ -32,10 +32,18 @@
           <span>CSAT Mock</span>
         </div>
 
-        <!-- Question Numbers 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 -->
-        <nav class="tg-q-navigator-list" id="q-nav-list" aria-label="Question Navigator">
-          <!-- Injected via JavaScript -->
-        </nav>
+        <!-- Question Numbers 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 + Quick Chevrons -->
+        <div class="tg-q-nav-wrapper">
+          <button class="tg-q-nav-arrow-btn" id="top-btn-prev" title="Previous Question" aria-label="Previous Question">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <nav class="tg-q-navigator-list" id="q-nav-list" aria-label="Question Navigator">
+            <!-- Injected via JavaScript -->
+          </nav>
+          <button class="tg-q-nav-arrow-btn" id="top-btn-next" title="Next Question" aria-label="Next Question">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </div>
       </div>
 
       <div class="tg-quiz-actions-right">
@@ -415,6 +423,16 @@
         }
       }
 
+      // Update Top Nav Chevrons
+      const topPrevBtn = document.getElementById("top-btn-prev");
+      if (topPrevBtn) topPrevBtn.disabled = (idx === 0);
+      const topNextBtn = document.getElementById("top-btn-next");
+      if (topNextBtn) topNextBtn.disabled = (idx === activeQuestions.length - 1);
+
+      // Smoothly reset scroll to top of stage when switching questions
+      const stage = document.querySelector(".tg-quiz-stage");
+      if (stage) stage.scrollTop = 0;
+
       // Update Mark for Review Button state
       const reviewBtn = document.getElementById("btn-mark-review");
       if (markedForReview.has(q.id)) {
@@ -460,6 +478,48 @@
     }
 
     function setupEventListeners() {
+      // Top Prev & Next Chevrons
+      const topPrevBtn = document.getElementById("top-btn-prev");
+      if (topPrevBtn) {
+        topPrevBtn.addEventListener("click", () => {
+          if (currentQIdx > 0) {
+            currentQIdx--;
+            renderQuestion(currentQIdx, "left");
+          }
+        });
+      }
+
+      const topNextBtn = document.getElementById("top-btn-next");
+      if (topNextBtn) {
+        topNextBtn.addEventListener("click", () => {
+          if (currentQIdx < activeQuestions.length - 1) {
+            currentQIdx++;
+            renderQuestion(currentQIdx, "right");
+          } else {
+            openSubmitModal();
+          }
+        });
+      }
+
+      // Keyboard arrow shortcuts (Left/Right arrow)
+      window.addEventListener("keydown", (e) => {
+        if (document.querySelector(".tg-modal-overlay.active")) return;
+        if (e.target && (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA")) return;
+        if (e.key === "ArrowRight") {
+          e.preventDefault();
+          if (currentQIdx < activeQuestions.length - 1) {
+            currentQIdx++;
+            renderQuestion(currentQIdx, "right");
+          }
+        } else if (e.key === "ArrowLeft") {
+          e.preventDefault();
+          if (currentQIdx > 0) {
+            currentQIdx--;
+            renderQuestion(currentQIdx, "left");
+          }
+        }
+      });
+
       // Previous Question
       document.getElementById("btn-prev-q").addEventListener("click", () => {
         if (currentQIdx > 0) {

@@ -961,6 +961,38 @@ html, body {
   gap: 6px;
 }
 
+.tg-q-nav-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tg-q-nav-arrow-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--tg-border);
+  background: var(--tg-surface);
+  color: var(--tg-text-secondary);
+  font-size: 11px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--tg-transition-fast);
+}
+
+.tg-q-nav-arrow-btn:hover:not(:disabled) {
+  background: #314052;
+  color: #ffffff;
+  border-color: var(--tg-blue-light);
+}
+
+.tg-q-nav-arrow-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
 .tg-q-navigator-list {
   display: flex;
   align-items: center;
@@ -1113,30 +1145,51 @@ html, body {
 /* Quiz Body & Sliding Container */
 .tg-quiz-stage {
   flex: 1;
+  min-height: 0;
   position: relative;
-  overflow: hidden;
+  overflow-y: auto !important;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 24px;
+  justify-content: flex-start;
+  padding: 24px 20px 60px 20px;
+  scroll-behavior: smooth;
+}
+
+/* Telegram Custom Sleek Scrollbar */
+.tg-quiz-stage::-webkit-scrollbar {
+  width: 8px;
+}
+.tg-quiz-stage::-webkit-scrollbar-track {
+  background: transparent;
+}
+.tg-quiz-stage::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 4px;
+}
+.tg-quiz-stage::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.32);
 }
 
 .tg-question-slider-track {
   width: 100%;
   max-width: 860px;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   border-radius: var(--tg-radius-lg);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+  margin: 0 auto;
 }
 
 .tg-question-card {
   background: var(--tg-panel-bg);
   border: 1px solid var(--tg-border);
   border-radius: var(--tg-radius-lg);
-  padding: 28px 32px;
+  padding: 28px 32px 28px 32px;
   width: 100%;
-  min-height: 440px;
+  min-height: auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -1968,7 +2021,7 @@ html, body {
 
   /* Quiz Stage & Card */
   .tg-quiz-stage {
-    padding: 8px 6px;
+    padding: 10px 8px 50px 8px;
     align-items: stretch;
     overflow-y: auto;
   }
