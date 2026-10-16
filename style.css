@@ -545,6 +545,29 @@ html, body {
   box-shadow: 0 6px 18px rgba(36, 129, 204, 0.55);
 }
 
+.tg-btn-hero-restart {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--tg-border-light);
+  color: var(--tg-text-secondary);
+  font-size: 13.5px;
+  font-weight: 600;
+  padding: 12px 22px;
+  border-radius: var(--tg-radius-pill);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all var(--tg-transition-fast);
+  white-space: nowrap;
+}
+
+.tg-btn-hero-restart:hover {
+  background: rgba(239, 83, 80, 0.15);
+  color: #ff6b6b;
+  border-color: rgba(239, 83, 80, 0.4);
+  transform: translateY(-1px);
+}
+
 /* Month Grid Section */
 .tg-section-header-row {
   display: flex;
@@ -1928,11 +1951,18 @@ html, body {
     flex-wrap: wrap;
     gap: 8px;
   }
-  .tg-btn-take-quiz {
+  .tg-btn-take-quiz, .tg-btn-hero-restart {
     width: 100%;
     justify-content: center;
     padding: 12px 18px;
     font-size: 14px;
+  }
+  #hero-action-container {
+    width: 100%;
+  }
+  #hero-action-container > div {
+    align-items: stretch !important;
+    width: 100%;
   }
 
   /* Date tiles grid */
