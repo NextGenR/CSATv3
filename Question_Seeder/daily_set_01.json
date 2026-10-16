@@ -1,0 +1,212 @@
+[
+  {
+    "id": "DAILY-001",
+    "questionNumber": 1,
+    "difficulty": "L2",
+    "subject": "Quantitative Aptitude",
+    "topic": "Percentages & Expenditure Invariance",
+    "type": "MCQ",
+    "pyqInspiration": "Inspired by CSAT 2020 Q12 & CSAT 2024 Q23 (Price increase vs consumption reduction under partial expenditure adjustment)",
+    "question": "Due to an increase of 25% in the price of cooking oil, a household decides to reduce its consumption of cooking oil so that the expenditure on cooking oil increases by only 10%. By what percentage should the household reduce its consumption of cooking oil?\n(a) 10%\n(b) 12%\n(c) 15%\n(d) 16%",
+    "options": [
+      "10%",
+      "12%",
+      "15%",
+      "16%"
+    ],
+    "correct": 1,
+    "answerKey": "B",
+    "solution": "1. Let original price P₀ = ₹ 100 per unit and original consumption C₀ = 100 units.\n2. Original Expenditure E₀ = P₀ × C₀ = 100 × 100 = ₹ 10,000.\n3. After a 25% price increase, new price P₁ = ₹ 125.\n4. Expenditure is allowed to increase by only 10%, so new Expenditure E₁ = 110% of 10,000 = ₹ 11,000.\n5. New Consumption C₁ = E₁ / P₁ = 11,000 / 125 = 88 units.\n6. Percentage reduction in consumption = ((100 - 88) / 100) × 100% = 12%.",
+    "trapAlert": "A standard candidate trap is to compute (25% - 10%) = 15%, mistakenly treating expenditure as additive rather than multiplicative (P × C = E).",
+    "trick": "Using multipliers: C_new / C_old = E_ratio / P_ratio = 1.10 / 1.25 = 110 / 125 = 22 / 25 = 0.88 → Drop of (1 - 0.88) = 12%."
+  },
+  {
+    "id": "DAILY-002",
+    "questionNumber": 2,
+    "difficulty": "L3",
+    "subject": "Logical Reasoning",
+    "topic": "Coded Blood Relations & Family Tree Deduction",
+    "type": "MCQ",
+    "pyqInspiration": "Inspired by CSAT 2021 Q75 & CSAT 2024 Q57 (Coded relationship chains with terminal gender indeterminacy)",
+    "question": "Read the following information carefully:\n- 'P + Q' means 'P is the father of Q'.\n- 'P - Q' means 'P is the sister of Q'.\n- 'P × Q' means 'P is the brother of Q'.\n- 'P ÷ Q' means 'P is the mother of Q'.\n\nConsider the expression: M + N × R ÷ T - K.\nWhich of the following statements is definitely correct?\n(a) M is the maternal grandfather of K\n(b) T is the daughter of N\n(c) M is the paternal grandfather of K\n(d) K is the grandson of M",
+    "options": [
+      "M is the maternal grandfather of K",
+      "T is the daughter of N",
+      "M is the paternal grandfather of K",
+      "K is the grandson of M"
+    ],
+    "correct": 0,
+    "answerKey": "A",
+    "solution": "1. Decode the expression from left to right:\n   - M + N: M is the father of N (M is male).\n   - N × R: N is the brother of R (N is male; R and N are siblings).\n   - R ÷ T: R is the mother of T (R is female; M is therefore R's father).\n   - T - K: T is the sister of K (T is female; T and K share the same mother R).\n2. Relationship deduction:\n   - R is the mother of K.\n   - M is the father of R.\n   - Therefore, M is the maternal grandfather of K. Statement (a) is definitely correct.\n3. Evaluating distractors:\n   - (b) T is the niece of N (since N is R's brother), not the daughter of N.\n   - (c) M is linked through K's mother R, making him the maternal grandfather, not paternal.\n   - (d) The gender of K is unspecified (K could be grandson or granddaughter).",
+    "trapAlert": "Do not assume K is male simply because K appears at the end of the chain without an outgoing gender operator. Option (d) is an unverified assumption trap.",
+    "trick": "Follow the matrilineal chain: K's mother is R, R's father is M → M is maternal grandfather of K immediately in 20 seconds."
+  },
+  {
+    "id": "DAILY-003",
+    "questionNumber": 3,
+    "difficulty": "L4",
+    "subject": "Quantitative Aptitude",
+    "topic": "Linear Diophantine Equations & Integer Extremization",
+    "type": "MCQ",
+    "pyqInspiration": "Inspired by CSAT 2023 Q60 & CSAT 2026 Q68 (Fixed financial expenditure with parity constraints on item counts)",
+    "question": "A person spent exactly ₹ 1,000 to buy three types of items costing ₹ 20, ₹ 50 and ₹ 90 each. He bought at least one item of each type, and the total number of items bought was the maximum possible. What is the value of the difference between the number of ₹ 20 items and the number of ₹ 90 items purchased?\n(a) 40\n(b) 41\n(c) 42\n(d) 43",
+    "options": [
+      "40",
+      "41",
+      "42",
+      "43"
+    ],
+    "correct": 2,
+    "answerKey": "C",
+    "solution": "1. Let x, y, and z denote the number of items purchased at ₹ 20, ₹ 50, and ₹ 90 respectively.\n2. Integer constraint: x ≥ 1, y ≥ 1, z ≥ 1.\n3. Total expenditure equation: 20x + 50y + 90z = 1000 ⇒ 2x + 5y + 9z = 100.\n4. We want to maximize the total number of items T = x + y + z. Since ₹ 20 is the least expensive item, maximizing T requires maximizing x and minimizing (y + z).\n5. Rearrange: 2x = 100 - (5y + 9z).\n   - For x to be an integer, 100 - (5y + 9z) must be even.\n   - Since 100 is even, (5y + 9z) must be even.\n   - This forces y and z to have the same parity (both odd or both even).\n6. To minimize expenditure on y and z with positive integers, test smallest odd positive integers: y = 1, z = 1.\n   - 5(1) + 9(1) = 14 (even).\n   - 2x = 100 - 14 = 86 ⇒ x = 43.\n   - Total items T = 43 + 1 + 1 = 45 items.\n   - (Testing both even: y = 2, z = 2 gives 2x = 100 - 28 = 72 ⇒ x = 36, T = 40 < 45).\n7. The maximum count is uniquely achieved at x = 43, y = 1, z = 1.\n8. Required difference = x - z = 43 - 1 = 42.",
+    "trapAlert": "Trying to minimize y + z by setting y = 1, z = 2 gives 5(1) + 9(2) = 23 → 2x = 77 (non-integer). Forgetting the parity constraint leads to false algebra.",
+    "trick": "2x is even ⇒ 5y + 9z is even ⇒ y and z must share parity. Lowest positive odds: y = 1, z = 1 ⇒ 2x = 86 ⇒ x = 43. Difference = 43 - 1 = 42."
+  },
+  {
+    "id": "DAILY-004",
+    "questionNumber": 4,
+    "difficulty": "L1",
+    "subject": "Logical Reasoning",
+    "topic": "Direction Sense & Coordinate Geometry",
+    "type": "MCQ",
+    "pyqInspiration": "Inspired by CSAT 2021 Q46 & CSAT 2024 Q35 (Orthogonal navigation from a common origin)",
+    "question": "Two persons A and B start from the same point P. A walks 4 km towards North, then turns to his right and walks 3 km. B walks 3 km towards West, then turns to his right and walks 4 km. What is the distance between A and B, and in which direction is A with respect to B?\n(a) 5 km towards East\n(b) 6 km towards East\n(c) 6 km towards North-East\n(d) 8 km towards East",
+    "options": [
+      "5 km towards East",
+      "6 km towards East",
+      "6 km towards North-East",
+      "8 km towards East"
+    ],
+    "correct": 1,
+    "answerKey": "B",
+    "solution": "1. Set the initial common point P at the origin (0, 0) on a Cartesian coordinate plane.\n2. Tracking Person A:\n   - Walks 4 km North: reaches (0, 4).\n   - Turns right (East) and walks 3 km: reaches final position A = (3, 4).\n3. Tracking Person B:\n   - Walks 3 km West: reaches (-3, 0).\n   - Turns right (facing West, turning right means facing North) and walks 4 km: reaches final position B = (-3, 4).\n4. Distance and relative direction:\n   - Both A and B have the same y-coordinate (y = 4).\n   - Distance AB = 3 - (-3) = 6 km along the horizontal line.\n   - Since A has an x-coordinate of +3 and B has -3, A lies directly to the East of B.\n5. Therefore, A is 6 km towards East with respect to B.",
+    "trapAlert": "A candidate expecting a right-angled triangle often instinctively computes √(3² + 4²) = 5 km, forgetting that both individuals ended up on the same latitude y = 4.",
+    "trick": "Both finish at y = 4 (North 4 km). A is at x = +3; B is at x = -3. Distance = 3 - (-3) = 6 km due East."
+  },
+  {
+    "id": "DAILY-005",
+    "questionNumber": 5,
+    "difficulty": "L5",
+    "subject": "Quantitative Aptitude",
+    "topic": "Combinatorial Number Theory & Non-Uniqueness Traps",
+    "type": "MCQ",
+    "pyqInspiration": "Inspired by CSAT 2023 Q09 & CSAT 2025 Q64 (Two-digit permutations of distinct digits with unique leading digit forcing)",
+    "question": "A three-digit number ABC has distinct non-zero digits such that A > B > C. The sum of all possible two-digit numbers that can be formed using the digits A, B and C (without repetition in any two-digit number) is 484. What is the value of the digit A?\n(a) 7\n(b) 8\n(c) 9\n(d) Cannot be determined uniquely",
+    "options": [
+      "7",
+      "8",
+      "9",
+      "Cannot be determined uniquely"
+    ],
+    "correct": 2,
+    "answerKey": "C",
+    "solution": "1. From 3 distinct non-zero digits A, B, C, the possible two-digit numbers without repetition are 6 numbers: AB, BA, AC, CA, BC, CB.\n2. Express each number in base 10:\n   Sum = (10A + B) + (10B + A) + (10A + C) + (10C + A) + (10B + C) + (10C + B)\n       = 20(A + B + C) + 2(A + B + C) = 22(A + B + C).\n3. Given that the sum is 484:\n   22(A + B + C) = 484 ⇒ A + B + C = 484 / 22 = 22.\n4. Condition: 9 ≥ A > B > C ≥ 1.\n   - If A ≤ 8, then the maximum possible sum of the three distinct digits would be 8 + 7 + 6 = 21, which is strictly less than 22.\n   - Therefore, A cannot be 8 or less.\n   - Hence, A must be 9.\n5. (Verification: If A = 9, then B + C = 13. Possible valid pairs (B, C) with 9 > B > C ≥ 1 are (8, 5) and (7, 6). While B and C cannot be uniquely determined, the leading digit A is strictly and uniquely forced to be 9).",
+    "trapAlert": "Aspirants notice that (B, C) can be either (8, 5) or (7, 6), and reflexively select option (d) 'Cannot be determined uniquely', overlooking that the prompt asks exclusively for digit A.",
+    "trick": "Sum = 22(A + B + C) = 484 ⇒ A + B + C = 22. Max possible sum for A ≤ 8 is 8 + 7 + 6 = 21 < 22. Thus A = 9 is mandatory."
+  },
+  {
+    "id": "DAILY-006",
+    "questionNumber": 6,
+    "difficulty": "L1",
+    "subject": "Quantitative Aptitude",
+    "topic": "Unit Digit & Modular Cyclicity",
+    "type": "MCQ",
+    "pyqInspiration": "Inspired by CSAT 2023 Q15 & CSAT 2020 Q28 (Unit digit cyclicity mod 10 of paired prime powers)",
+    "question": "What is the remainder when (17^2025 + 13^2025) is divided by 10?\n(a) 0\n(b) 2\n(c) 5\n(d) 8",
+    "options": [
+      "0",
+      "2",
+      "5",
+      "8"
+    ],
+    "correct": 0,
+    "answerKey": "A",
+    "solution": "1. Finding the remainder when an integer is divided by 10 is identical to determining its unit digit.\n2. Unit digit of 17^2025 depends only on the cyclicity of 7:\n   - 7¹ = 7\n   - 7² = 49 ≡ 9 (mod 10)\n   - 7³ = 343 ≡ 3 (mod 10)\n   - 7⁴ = 2401 ≡ 1 (mod 10)\n   - Cyclicity is 4. Since 2025 = 4 × 506 + 1, 17^2025 has the same unit digit as 7¹ = 7.\n3. Unit digit of 13^2025 depends only on the cyclicity of 3:\n   - 3¹ = 3\n   - 3² = 9 (mod 10)\n   - 3³ = 27 ≡ 7 (mod 10)\n   - 3⁴ = 81 ≡ 1 (mod 10)\n   - Cyclicity is 4. Since 2025 = 4 × 506 + 1, 13^2025 has the same unit digit as 3¹ = 3.\n4. Sum of unit digits = 7 + 3 = 10 ≡ 0 (mod 10).\n5. Hence, the remainder is 0.",
+    "trapAlert": "A common mistake is adding the bases first (17 + 13 = 30) and assuming power rules without verifying whether the power is odd or applying modular identities safely.",
+    "trick": "Mod 10: 17 ≡ -3 (mod 10). Because 2025 is an odd exponent: 17^2025 + 13^2025 ≡ (-3)^2025 + 3^2025 = -3^2025 + 3^2025 = 0."
+  },
+  {
+    "id": "DAILY-007",
+    "questionNumber": 7,
+    "difficulty": "L5",
+    "subject": "Logical Reasoning",
+    "topic": "Truth-Tellers, Liars & Alternators Logic Puzzle",
+    "type": "MCQ",
+    "pyqInspiration": "Inspired by CSAT 2025 Q49 & CSAT 2023 Q67 (Three-tribe truth-functional invariant deduction)",
+    "question": "Three persons A, B and C belong to three different tribes: Truth-tellers (who always speak the truth), Liars (who always tell lies), and Alternators (who alternate between truth and lie, in any order). Exactly one person belongs to each tribe.\nThey make the following statements:\n- A says:\n  1. 'I am a Liar.'\n  2. 'B is a Truth-teller.'\n- B says:\n  1. 'A is not a Liar.'\n  2. 'C is a Liar.'\n- C says:\n  1. 'I am a Truth-teller.'\n  2. 'B is an Alternator.'\n\nWho among them is the Truth-teller?\n(a) A\n(b) B\n(c) C\n(d) Cannot be determined",
+    "options": [
+      "A",
+      "B",
+      "C",
+      "Cannot be determined"
+    ],
+    "correct": 1,
+    "answerKey": "B",
+    "solution": "1. Analyze the statement 'I am a Liar' made by A:\n   - Can a Truth-teller say 'I am a Liar'? No, because that would be a lie.\n   - Can a Liar say 'I am a Liar'? No, because that would be the truth, which a Liar cannot utter.\n   - Therefore, only an Alternator can make the statement 'I am a Liar', and this statement must be FALSE.\n2. Consequence for A:\n   - A is definitively the Alternator.\n   - Since A's first statement is False (F), A's second statement must be TRUE (T).\n   - A's second statement is: 'B is a Truth-teller.'\n   - Since this is True, B is definitively the Truth-teller.\n3. Consequence for C:\n   - Since A is the Alternator and B is the Truth-teller, C must be the Liar.\n4. Consistency check on B and C:\n   - B (Truth-teller): Statement 1 ('A is not a Liar') is True (A is Alternator). Statement 2 ('C is a Liar') is True. (Both True: consistent).\n   - C (Liar): Statement 1 ('I am a Truth-teller') is False. Statement 2 ('B is an Alternator') is False (B is Truth-teller). (Both False: consistent).\n5. Hence, B is the Truth-teller.",
+    "trapAlert": "A candidate might test all 6 tribe permutations manually and lose 4+ minutes under exam panic. Recognizing the self-referential paradox 'I am a Liar' unlocks the entire puzzle instantly.",
+    "trick": "The statement 'I am a Liar' can only ever be uttered by an Alternator as a False statement. Thus A = Alternator. A's next statement must be True → B is Truth-teller."
+  },
+  {
+    "id": "DAILY-008",
+    "questionNumber": 8,
+    "difficulty": "L3",
+    "subject": "Quantitative Aptitude",
+    "topic": "Time & Work / Multi-Stage Work Tracking",
+    "type": "MCQ",
+    "pyqInspiration": "Inspired by CSAT 2022 Q54 & CSAT 2025 Q18 (Cyclic pairwise rate models and multi-stage presence tracking)",
+    "question": "A and B working together can complete a work in 12 days. B and C working together can complete it in 15 days, while A and C working together can complete it in 20 days. They all start working together, but A leaves after 5 days. B and C continue working for 5 more days, after which B also leaves. C finishes the remaining work alone. How many days did C work in total from start to finish?\n(a) 15 days\n(b) 18 days\n(c) 20 days\n(d) 24 days",
+    "options": [
+      "15 days",
+      "18 days",
+      "20 days",
+      "24 days"
+    ],
+    "correct": 2,
+    "answerKey": "C",
+    "solution": "1. Assume total work = LCM(12, 15, 20) = 60 units.\n2. Calculate pairwise daily efficiencies:\n   - (A + B) = 60 / 12 = 5 units/day\n   - (B + C) = 60 / 15 = 4 units/day\n   - (A + C) = 60 / 20 = 3 units/day\n3. Add all three equations:\n   2(A + B + C) = 5 + 4 + 3 = 12 ⇒ (A + B + C) = 6 units/day.\n4. Individual efficiencies:\n   - Efficiency of C = (A + B + C) - (A + B) = 6 - 5 = 1 unit/day\n   - Efficiency of A = (A + B + C) - (B + C) = 6 - 4 = 2 units/day\n   - Efficiency of B = (A + B + C) - (A + C) = 6 - 3 = 3 units/day\n5. Multi-stage execution:\n   - Stage 1 (A, B, C for 5 days): Work done = 5 × 6 = 30 units.\n   - Stage 2 (B, C for 5 days): Work done = 5 × 4 = 20 units.\n   - Total work done so far = 30 + 20 = 50 units.\n   - Remaining work = 60 - 50 = 10 units.\n   - Stage 3 (C alone): Days taken = 10 units / 1 unit/day = 10 days.\n6. Total days C worked = 5 (Stage 1) + 5 (Stage 2) + 10 (Stage 3) = 20 days.",
+    "trapAlert": "A common mistake is answering only the days C worked alone (10 days) or omitting Stage 1, forgetting that C was present throughout all three operational stages.",
+    "trick": "Pairwise sum gives A+B+C = 6, C = 1, B+C = 4. Work: 5(6) + 5(4) = 50 units. Left = 10 units → C takes 10 days alone. Total for C = 5 + 5 + 10 = 20 days."
+  },
+  {
+    "id": "DAILY-009",
+    "questionNumber": 9,
+    "difficulty": "L4",
+    "subject": "Quantitative Aptitude",
+    "topic": "Combinatorics & Restricted Gap Placements",
+    "type": "MCQ",
+    "pyqInspiration": "Inspired by CSAT 2023 Q74 & CSAT 2024 Q41 (Non-adjacency arrangements with identical objects)",
+    "question": "In how many different ways can 5 identical red balls and 4 identical black balls be arranged in a straight row such that no two black balls are placed adjacent to each other?\n(a) 15\n(b) 20\n(c) 30\n(d) 120",
+    "options": [
+      "15",
+      "20",
+      "30",
+      "120"
+    ],
+    "correct": 0,
+    "answerKey": "A",
+    "solution": "1. Since the red balls are identical and the black balls are identical, order within the same color group does not create distinct arrangements.\n2. To ensure that no two black balls are adjacent, apply the Gap Method:\n   - First, arrange the 5 identical red balls in a straight line: _ R _ R _ R _ R _ R _\n   - There is only 1 distinct way to place the 5 identical red balls.\n3. The 5 red balls create 6 possible gap locations (one before the first red ball, four between consecutive red balls, and one after the last red ball):\n   Total gaps = 5 + 1 = 6 gaps.\n4. To guarantee that no two black balls are adjacent, each of the 4 black balls must occupy a different gap.\n5. Since all 4 black balls are identical, the number of ways is simply the number of ways to choose 4 gaps out of the 6 available gaps:\n   Number of ways = C(6, 4) = C(6, 2) = (6 × 5) / (2 × 1) = 15 ways.\n6. Hence, there are 15 distinct arrangements.",
+    "trapAlert": "Aspirants frequently treat the balls as distinct objects, calculating P(6, 4) × 5! or dividing 9! by permutations, falling into options like 120 or much higher numbers.",
+    "trick": "Gap method for identical items: 5 Red balls create 6 gaps. Pick 4 gaps for 4 identical Black balls: C(6, 4) = C(6, 2) = 15."
+  },
+  {
+    "id": "DAILY-010",
+    "questionNumber": 10,
+    "difficulty": "L2",
+    "subject": "Quantitative Aptitude",
+    "topic": "Averages & Net Replacement Shifts",
+    "type": "MCQ",
+    "pyqInspiration": "Inspired by CSAT 2021 Q34 & CSAT 2023 Q52 (Group mean deviation under multi-person replacement)",
+    "question": "The average age of a committee of 8 members increases by 2 years when two members whose ages are 35 years and 45 years are replaced by two new members. What is the average age of the two new members?\n(a) 44 years\n(b) 46 years\n(c) 48 years\n(d) 50 years",
+    "options": [
+      "44 years",
+      "46 years",
+      "48 years",
+      "50 years"
+    ],
+    "correct": 2,
+    "answerKey": "C",
+    "solution": "1. Let original average age of the 8 committee members be A years.\n2. Total initial age of the committee = 8A.\n3. Sum of ages of the two outgoing members = 35 + 45 = 80 years.\n4. When replaced by two new members, the new average becomes (A + 2) years.\n5. New total age = 8(A + 2) = 8A + 16 years.\n6. Net increase in the committee's total age = (8A + 16) - 8A = 16 years.\n7. Therefore, the sum of ages of the two new incoming members = (Sum of outgoing ages) + (Net increase) = 80 + 16 = 96 years.\n8. Average age of the two new members = 96 / 2 = 48 years.",
+    "trapAlert": "A common mistake is adding the 16-year increase to the average of the outgoing members (40 + 16 = 56) or forgetting to divide the total increase by 2 (picking 40 + 2 = 42).",
+    "trick": "Average increase = 2 years across 8 members ⇒ Total increase = +16. Outgoing sum = 80. New sum = 80 + 16 = 96. New average = 96 / 2 = 48 years."
+  }
+]

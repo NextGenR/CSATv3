@@ -24,7 +24,7 @@ const CSAT_API = (function () {
    * Fetch daily questions from Supabase REST API for a specific date
    * Defaults to 15th October 2026
    */
-  async function loadDailyQuestions(testDate = "2026-10-15") {
+  async function loadDailyQuestions(testDate = "2026-10-16") {
     try {
       // First try matching test_date, or order by question_number
       let endpoint = `${SUPABASE_URL}/rest/v1/${TABLE_QUESTIONS}?test_date=eq.${testDate}&order=question_number.asc`;
