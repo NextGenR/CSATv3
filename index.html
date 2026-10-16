@@ -119,11 +119,11 @@
           </button>
           <div class="tg-header-stat-chip">
             <i class="fa-solid fa-bullseye" style="color: var(--tg-blue-light);"></i>
-            <span>Accuracy: <strong>82.4%</strong></span>
+            <span>Accuracy: <strong id="stat-overall-accuracy">82.4%</strong></span>
           </div>
           <div class="tg-header-stat-chip">
             <i class="fa-solid fa-check-double" style="color: var(--tg-green);"></i>
-            <span>Done: <strong>15/16</strong></span>
+            <span>Done: <strong id="stat-completed-count">15/16</strong></span>
           </div>
         </div>
       </header>
@@ -231,13 +231,13 @@
         if (is16Oct) {
           tileStatus = `
             <span class="tg-tile-status-tag status-tag-16" style="background: rgba(36, 129, 204, 0.2); color: var(--tg-blue-light); border-color: rgba(36, 129, 204, 0.4);">
-              <i class="fa-solid fa-database"></i> Supabase Live
+              <i class="fa-solid fa-bolt"></i> Live Test
             </span>
           `;
         } else if (is15Oct) {
           tileStatus = `
-            <span class="tg-tile-status-tag status-tag-15" style="background: rgba(36, 129, 204, 0.2); color: var(--tg-blue-light); border-color: rgba(36, 129, 204, 0.4);">
-              <i class="fa-solid fa-database"></i> Supabase Live
+            <span class="tg-tile-status-tag status-tag-15">
+              <i class="fa-solid fa-check"></i> Completed
             </span>
           `;
         }
@@ -251,7 +251,7 @@
         if (is16Oct) {
           footerAction = `
             <div style="display: flex; gap: 8px; width: 100%;">
-              <a href="guidelines.html?date=2026-10-16" class="tg-tile-btn btn-action-16" style="text-decoration: none; background: var(--tg-blue); color: #fff; flex: 1.2;">
+              <a href="guidelines.html?date=2026-10-16" class="tg-tile-btn btn-action-16" style="text-decoration: none; background: var(--tg-blue); color: #fff; flex: 1.2; text-align: center; justify-content: center;">
                 <i class="fa-solid fa-play"></i> Attempt Test
               </a>
               <button class="tg-tile-btn btn-view-hist" data-day="${item.dayNum}" style="flex: 1;">
@@ -261,14 +261,9 @@
           `;
         } else if (is15Oct) {
           footerAction = `
-            <div style="display: flex; gap: 8px; width: 100%;">
-              <a href="guidelines.html?date=2026-10-15" class="tg-tile-btn btn-action-15" style="text-decoration: none; background: var(--tg-blue); color: #fff; flex: 1.2;">
-                <i class="fa-solid fa-play"></i> Attempt Test
-              </a>
-              <button class="tg-tile-btn btn-view-hist" data-day="${item.dayNum}" style="flex: 1;">
-                <i class="fa-solid fa-chart-simple"></i> Details
-              </button>
-            </div>
+            <button class="tg-tile-btn btn-view-hist" data-day="${item.dayNum}" style="width: 100%; justify-content: center;">
+              <i class="fa-solid fa-magnifying-glass-chart"></i> View Test Details
+            </button>
           `;
         }
 
@@ -288,7 +283,7 @@
             </div>
             <div class="tg-metric-box" style="text-align: right;">
               <span class="tg-metric-label">Accuracy</span>
-              <span class="tg-metric-value accuracy-highlight">${item.accuracy}%</span>
+              <span class="tg-metric-value accuracy-highlight">${item.accuracy}${typeof item.accuracy === 'number' ? '%' : ''}</span>
             </div>
           </div>
 
@@ -311,21 +306,23 @@
 
       // Search Filter
       const searchInput = document.getElementById("sidebar-search");
-      searchInput.addEventListener("input", (e) => {
-        const q = e.target.value.toLowerCase();
-        const tiles = container.querySelectorAll(".tg-date-tile");
-        tiles.forEach(t => {
-          const text = t.textContent.toLowerCase();
-          t.style.display = text.includes(q) ? "flex" : "none";
+      if (searchInput) {
+        searchInput.addEventListener("input", (e) => {
+          const q = e.target.value.toLowerCase();
+          const tiles = container.querySelectorAll(".tg-date-tile");
+          tiles.forEach(t => {
+            const text = t.textContent.toLowerCase();
+            t.style.display = text.includes(q) ? "flex" : "none";
+          });
         });
-      });
+      }
 
       // Modal Handlers
       const modal = document.getElementById("history-modal");
       const closeModal = () => modal.classList.remove("active");
-      document.getElementById("btn-close-hist-modal").addEventListener("click", closeModal);
-      document.getElementById("btn-close-hist-footer").addEventListener("click", closeModal);
-      modal.addEventListener("click", (e) => {
+      document.getElementById("btn-close-hist-modal")?.addEventListener("click", closeModal);
+      document.getElementById("btn-close-hist-footer")?.addEventListener("click", closeModal);
+      modal?.addEventListener("click", (e) => {
         if (e.target === modal) closeModal();
       });
 
@@ -335,7 +332,7 @@
           Daily Test Summary: ${data.dateStr} 2026 (${data.dayName})
         `;
 
-        if (data.dayNum === 16) {
+        if (data.dayNum === 16 && !data.isCompleted) {
           document.getElementById("hist-modal-body").innerHTML = `
             <div class="tg-guidelines-list" style="margin-bottom: 18px;">
               <div class="tg-rule-card">
@@ -351,8 +348,8 @@
                 <div class="tg-rule-desc">10 UPSC CSAT Questions</div>
               </div>
               <div class="tg-rule-card">
-                <div class="tg-rule-title">Live Database Status</div>
-                <div class="tg-rule-desc" style="color: var(--tg-blue-light);"><i class="fa-solid fa-database"></i> Supabase Live</div>
+                <div class="tg-rule-title">Test Status</div>
+                <div class="tg-rule-desc" style="color: var(--tg-green);"><i class="fa-solid fa-circle-check"></i> Ready to Attempt</div>
               </div>
             </div>
             <div class="tg-instructions-text">
@@ -380,19 +377,18 @@
               </div>
               <div class="tg-rule-card">
                 <div class="tg-rule-title">Correct Answers</div>
-                <div class="tg-rule-desc">${data.correct} / ${data.questionsAttempted}</div>
+                <div class="tg-rule-desc">${data.correct || 0} / ${data.questionsAttempted || 10}</div>
               </div>
               <div class="tg-rule-card">
                 <div class="tg-rule-title">Incorrect Answers</div>
-                <div class="tg-rule-desc" style="color: var(--tg-red);">${data.incorrect} (Negative: -${(data.incorrect * 0.833).toFixed(2)})</div>
+                <div class="tg-rule-desc" style="color: var(--tg-red);">${data.incorrect || 0} (Negative: -${((data.incorrect || 0) * 0.833).toFixed(2)})</div>
               </div>
             </div>
             <div class="tg-instructions-text">
               <h4><i class="fa-solid fa-lightbulb"></i> Performance Assessment</h4>
               <p style="font-size: 13px; color: #a4b4c4; line-height: 1.5;">
-                On ${data.dateStr}, your qualifying score exceeded the 33% CSAT benchmark (8.25 marks out of 25). 
-                Accuracy stayed in the healthy ${data.accuracy}% bracket. 
-                Review the questions you missed to avoid repeating calculation traps in the upcoming test.
+                On ${data.dateStr}, your qualifying score was ${data.score}. Accuracy was ${data.accuracy}%.
+                ${data.dayNum === 16 ? '<div style="margin-top: 10px;"><a href="analysis.html?date=2026-10-16" class="tg-btn-start-green" style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px;"><i class="fa-solid fa-chart-line"></i> View Full Detailed Analysis</a></div>' : 'Review the questions you missed to avoid repeating calculation traps in upcoming tests.'}
               </p>
             </div>
           `;
@@ -420,183 +416,276 @@
       if (closeBtn) closeBtn.addEventListener("click", closeMobileSidebar);
       if (backdrop) backdrop.addEventListener("click", closeMobileSidebar);
 
-      // Check for In-Progress / Completed tests (16 & 15 October 2026)
+      function updateHeaderChips() {
+        const completedTests = OCTOBER_HISTORY_DATA.filter(d => d.isCompleted);
+        const countElem = document.getElementById("stat-completed-count");
+        if (countElem) {
+          countElem.textContent = `${completedTests.length}/16`;
+        }
+        const accElem = document.getElementById("stat-overall-accuracy");
+        if (accElem && completedTests.length > 0) {
+          const sumAcc = completedTests.reduce((acc, curr) => acc + (parseFloat(curr.accuracy) || 0), 0);
+          const avgAcc = (sumAcc / completedTests.length).toFixed(1);
+          accElem.textContent = `${avgAcc}%`;
+        }
+      }
+
+      function applyTestStatus(check) {
+        if (!check) return;
+        const heroContainer = document.getElementById("hero-action-container");
+        const tagLive = document.querySelector("#hero-today-quiz .tg-tag-live");
+        const tile16 = document.querySelector(".tg-date-tile-16");
+        const tile16Footer = document.querySelector(".tg-date-tile-16 .tg-tile-footer");
+        const tag16 = document.querySelector(".status-tag-16");
+        const day16Data = OCTOBER_HISTORY_DATA.find(d => d.dayNum === 16);
+
+        // CASE 1: In-Progress Test -> Show BOTH Resume and Restart
+        if (check.hasActive && !check.isCompleted) {
+          const qNum = (check.currentQuestionIndex || 0) + 1;
+          const answersCount = check.answersCount || 0;
+
+          // 1. Update Hero Card with BOTH Resume and Restart
+          if (heroContainer) {
+            heroContainer.innerHTML = `
+              <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-end;">
+                <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: flex-end;">
+                  <a href="quiz.html?date=2026-10-16" class="tg-btn-take-quiz" id="btn-hero-resume" style="background: linear-gradient(135deg, #2481cc 0%, #1a659e 100%); box-shadow: 0 4px 18px rgba(36, 129, 204, 0.45); text-decoration: none;">
+                    <i class="fa-solid fa-play"></i> Resume Test (Q${qNum})
+                  </a>
+                  <button class="tg-btn-hero-restart" id="btn-hero-restart" title="Discard active progress and restart from Question 1">
+                    <i class="fa-solid fa-rotate-left"></i> Restart Test
+                  </button>
+                </div>
+                <span style="font-size: 11.5px; color: var(--tg-blue-light); margin-top: 2px;">
+                  <i class="fa-solid fa-clock-rotate-left"></i> ${answersCount} of 10 questions answered
+                </span>
+              </div>
+            `;
+
+            document.getElementById("btn-hero-restart")?.addEventListener("click", async () => {
+              if (confirm("Are you sure you want to discard your previous attempt and restart CSAT Mock 16 from Question 1?")) {
+                const btn = document.getElementById("btn-hero-restart");
+                if (btn) {
+                  btn.disabled = true;
+                  btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Resetting...`;
+                }
+                if (typeof CSAT_API !== 'undefined' && CSAT_API.clearActiveAttempt) {
+                  await CSAT_API.clearActiveAttempt("2026-10-16");
+                }
+                window.location.href = "guidelines.html?date=2026-10-16";
+              }
+            });
+          }
+
+          // 2. Update Live Tag in Hero
+          if (tagLive) {
+            tagLive.style.background = "rgba(36, 129, 204, 0.2)";
+            tagLive.style.borderColor = "rgba(36, 129, 204, 0.5)";
+            tagLive.style.color = "var(--tg-blue-light)";
+            tagLive.innerHTML = `
+              <span class="tg-pulse-dot" style="background: var(--tg-blue);"></span>
+              <span>In Progress &bull; ${answersCount} of 10 Answered</span>
+            `;
+          }
+
+          // 3. Update Tile 16 with BOTH Resume and Restart
+          if (tile16Footer) {
+            tile16Footer.innerHTML = `
+              <div style="display: flex; gap: 6px; width: 100%; align-items: center;">
+                <a href="quiz.html?date=2026-10-16" class="tg-tile-btn" style="text-decoration: none; background: var(--tg-blue); color: #fff; flex: 1.2; text-align: center; justify-content: center;">
+                  <i class="fa-solid fa-play"></i> Resume (Q${qNum})
+                </a>
+                <button class="tg-tile-btn btn-tile-restart-16" style="flex: 1; text-align: center; justify-content: center; color: var(--tg-text-secondary);" title="Restart test from Question 1">
+                  <i class="fa-solid fa-rotate-left"></i> Restart
+                </button>
+                <button class="tg-tile-btn btn-view-hist" data-day="16" style="padding: 6px 9px;" title="View Syllabus & Details">
+                  <i class="fa-solid fa-chart-simple"></i>
+                </button>
+              </div>
+            `;
+
+            tile16Footer.querySelector(".btn-tile-restart-16")?.addEventListener("click", async (e) => {
+              e.stopPropagation();
+              if (confirm("Are you sure you want to discard your previous attempt and restart 16 Oct mock from Question 1?")) {
+                const btn = tile16Footer.querySelector(".btn-tile-restart-16");
+                if (btn) {
+                  btn.disabled = true;
+                  btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i>`;
+                }
+                if (typeof CSAT_API !== 'undefined' && CSAT_API.clearActiveAttempt) {
+                  await CSAT_API.clearActiveAttempt("2026-10-16");
+                }
+                window.location.href = "guidelines.html?date=2026-10-16";
+              }
+            });
+
+            tile16Footer.querySelector(".btn-view-hist")?.addEventListener("click", (e) => {
+              e.stopPropagation();
+              showHistoryModal(day16Data);
+            });
+          }
+
+          if (tag16) {
+            tag16.innerHTML = `<i class="fa-solid fa-clock-rotate-left"></i> In Progress`;
+            tag16.style.background = "rgba(36, 129, 204, 0.2)";
+            tag16.style.color = "var(--tg-blue-light)";
+            tag16.style.borderColor = "rgba(36, 129, 204, 0.4)";
+          }
+
+        // CASE 2: Completed Test -> Show Real Score, Accuracy, Scorecard & Retake
+        } else if (check.isCompleted) {
+          const scoreVal = check.score !== undefined ? check.score : 0;
+          const accuracyVal = check.accuracy !== undefined ? check.accuracy : 0;
+
+          // Update memory object
+          if (day16Data) {
+            day16Data.score = `${scoreVal} / 25`;
+            day16Data.accuracy = accuracyVal;
+            day16Data.correct = check.correctCount !== undefined ? check.correctCount : Math.round((accuracyVal / 100) * 10);
+            day16Data.incorrect = check.incorrectCount !== undefined ? check.incorrectCount : (10 - day16Data.correct);
+            day16Data.questionsAttempted = 10;
+            day16Data.isCompleted = true;
+          }
+
+          // 1. Update Tile 16 Score & Accuracy Metrics directly in DOM!
+          if (tile16) {
+            const metricValues = tile16.querySelectorAll(".tg-metric-value");
+            if (metricValues.length >= 2) {
+              metricValues[0].textContent = `${scoreVal} / 25`;
+              metricValues[1].textContent = `${accuracyVal}%`;
+            }
+          }
+
+          // 2. Update Tile 16 Tag
+          if (tag16) {
+            tag16.innerHTML = `<i class="fa-solid fa-check"></i> Completed`;
+            tag16.style.background = "rgba(52, 199, 89, 0.15)";
+            tag16.style.borderColor = "var(--tg-green)";
+            tag16.style.color = "var(--tg-green)";
+          }
+
+          // 3. Update Hero Card
+          if (heroContainer) {
+            heroContainer.innerHTML = `
+              <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: flex-end;">
+                <a href="analysis.html?date=2026-10-16" class="tg-btn-take-quiz" style="background: linear-gradient(135deg, #2ea94f 0%, #1e823b 100%); box-shadow: 0 4px 18px rgba(46, 169, 79, 0.4); text-decoration: none;">
+                  <i class="fa-solid fa-chart-line"></i> View Analysis
+                </a>
+                <button class="tg-btn-hero-restart" id="btn-hero-retake" title="Retake mock test">
+                  <i class="fa-solid fa-rotate-left"></i> Retake Test
+                </button>
+              </div>
+            `;
+
+            document.getElementById("btn-hero-retake")?.addEventListener("click", async () => {
+              if (confirm("Would you like to retake CSAT Mock 16? Your new responses will be recorded.")) {
+                const btn = document.getElementById("btn-hero-retake");
+                if (btn) {
+                  btn.disabled = true;
+                  btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Resetting...`;
+                }
+                if (typeof CSAT_API !== 'undefined' && CSAT_API.clearActiveAttempt) {
+                  await CSAT_API.clearActiveAttempt("2026-10-16");
+                }
+                window.location.href = "guidelines.html?date=2026-10-16";
+              }
+            });
+          }
+
+          if (tagLive) {
+            tagLive.style.background = "rgba(52, 199, 89, 0.2)";
+            tagLive.style.borderColor = "rgba(52, 199, 89, 0.5)";
+            tagLive.style.color = "var(--tg-green)";
+            tagLive.innerHTML = `
+              <span class="tg-pulse-dot" style="background: var(--tg-green);"></span>
+              <span>Completed &bull; Score: ${scoreVal} / 25 (${accuracyVal}%)</span>
+            `;
+          }
+
+          // 4. Update Tile 16 Footer with Scorecard & Retake
+          if (tile16Footer) {
+            tile16Footer.innerHTML = `
+              <div style="display: flex; gap: 6px; width: 100%; align-items: center;">
+                <a href="analysis.html?date=2026-10-16" class="tg-tile-btn" style="text-decoration: none; background: var(--tg-green-dark); color: #fff; flex: 1.2; text-align: center; justify-content: center;">
+                  <i class="fa-solid fa-chart-line"></i> Scorecard
+                </a>
+                <button class="tg-tile-btn btn-tile-retake-16" style="flex: 1; text-align: center; justify-content: center; color: var(--tg-text-secondary);">
+                  <i class="fa-solid fa-rotate-left"></i> Retake
+                </button>
+                <button class="tg-tile-btn btn-view-hist" data-day="16" style="padding: 6px 9px;">
+                  <i class="fa-solid fa-chart-simple"></i>
+                </button>
+              </div>
+            `;
+
+            tile16Footer.querySelector(".btn-tile-retake-16")?.addEventListener("click", async (e) => {
+              e.stopPropagation();
+              if (confirm("Retake 16 Oct mock from Question 1?")) {
+                if (typeof CSAT_API !== 'undefined' && CSAT_API.clearActiveAttempt) {
+                  await CSAT_API.clearActiveAttempt("2026-10-16");
+                }
+                window.location.href = "guidelines.html?date=2026-10-16";
+              }
+            });
+
+            tile16Footer.querySelector(".btn-view-hist")?.addEventListener("click", (e) => {
+              e.stopPropagation();
+              showHistoryModal(day16Data);
+            });
+          }
+
+          // 5. Update header chips to reflect 16/16 and updated average accuracy
+          updateHeaderChips();
+        }
+      }
+
+      // Check local cache synchronously first (0ms instantaneous render for Resume / Restart / Scorecard)
+      try {
+        const localActiveStr = localStorage.getItem("csat_daily_test_state") || localStorage.getItem("csat_active_quiz_state");
+        const localResultStr = localStorage.getItem("csat_result_2026-10-16") || localStorage.getItem("csat_daily_test_result");
+        if (localResultStr) {
+          const res = JSON.parse(localResultStr);
+          applyTestStatus({
+            isCompleted: true,
+            hasActive: false,
+            score: res.totalScore || 0,
+            accuracy: res.accuracy || 0,
+            correctCount: res.correctCount || 0,
+            incorrectCount: res.incorrectCount || 0
+          });
+        } else if (localActiveStr) {
+          const act = JSON.parse(localActiveStr);
+          if (act.status === "completed") {
+            applyTestStatus({
+              isCompleted: true,
+              hasActive: false,
+              score: act.totalScore || act.score || 0,
+              accuracy: act.accuracy || 0
+            });
+          } else {
+            const ansCount = Object.keys(act.answers || {}).length;
+            const hasProg = ansCount > 0 || (act.currentQuestionIndex && act.currentQuestionIndex > 0) || act.status === "in_progress";
+            if (hasProg) {
+              applyTestStatus({
+                hasActive: true,
+                isCompleted: false,
+                currentQuestionIndex: act.currentQuestionIndex || 0,
+                answersCount: ansCount
+              });
+            }
+          }
+        }
+      } catch (err) {
+        console.warn("Immediate local check error:", err);
+      }
+
+      // Check for In-Progress / Completed tests from Supabase Cloud
       async function checkTodayTestStatus() {
         if (typeof CSAT_API !== 'undefined' && CSAT_API.checkActiveAttempt) {
           try {
             const check = await CSAT_API.checkActiveAttempt("2026-10-16");
-            const heroContainer = document.getElementById("hero-action-container");
-            const tagLive = document.querySelector("#hero-today-quiz .tg-tag-live");
-            const tile16Footer = document.querySelector(".tg-date-tile-16 .tg-tile-footer");
-            const tag16 = document.querySelector(".status-tag-16");
-
-            // CASE 1: In-Progress Test Found -> Show BOTH Resume and Restart
-            if (check && check.hasActive && !check.isCompleted) {
-              const qNum = (check.currentQuestionIndex || 0) + 1;
-              const answersCount = check.answersCount || 0;
-
-              // 1. Update Hero Card with BOTH Resume and Restart buttons
-              if (heroContainer) {
-                heroContainer.innerHTML = `
-                  <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-end;">
-                    <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: flex-end;">
-                      <a href="quiz.html?date=2026-10-16" class="tg-btn-take-quiz" id="btn-hero-resume" style="background: linear-gradient(135deg, #2481cc 0%, #1a659e 100%); box-shadow: 0 4px 18px rgba(36, 129, 204, 0.45); text-decoration: none;">
-                        <i class="fa-solid fa-play"></i> Resume Test (Q${qNum})
-                      </a>
-                      <button class="tg-btn-hero-restart" id="btn-hero-restart" title="Discard active progress and restart from Question 1">
-                        <i class="fa-solid fa-rotate-left"></i> Restart Test
-                      </button>
-                    </div>
-                    <span style="font-size: 11.5px; color: var(--tg-blue-light); margin-top: 2px;">
-                      <i class="fa-solid fa-clock-rotate-left"></i> ${answersCount} of 10 questions answered
-                    </span>
-                  </div>
-                `;
-
-                // Hero Restart Button Click Handler
-                document.getElementById("btn-hero-restart").addEventListener("click", async () => {
-                  if (confirm("Are you sure you want to discard your previous attempt and restart CSAT Mock 16 from Question 1?")) {
-                    const btn = document.getElementById("btn-hero-restart");
-                    btn.disabled = true;
-                    btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Resetting...`;
-                    if (typeof CSAT_API !== 'undefined' && CSAT_API.clearActiveAttempt) {
-                      await CSAT_API.clearActiveAttempt("2026-10-16");
-                    } else {
-                      localStorage.removeItem(CSAT_STORAGE_KEY);
-                    }
-                    window.location.href = "guidelines.html?date=2026-10-16";
-                  }
-                });
-              }
-
-              // 2. Update Live Tag in Hero
-              if (tagLive) {
-                tagLive.style.background = "rgba(36, 129, 204, 0.2)";
-                tagLive.style.borderColor = "rgba(36, 129, 204, 0.5)";
-                tagLive.style.color = "var(--tg-blue-light)";
-                tagLive.innerHTML = `
-                  <span class="tg-pulse-dot" style="background: var(--tg-blue);"></span>
-                  <span>In Progress &bull; ${answersCount} of 10 Answered</span>
-                `;
-              }
-
-              // 3. Update 16 Oct Tile in Grid with BOTH Resume and Restart buttons
-              if (tile16Footer) {
-                tile16Footer.innerHTML = `
-                  <div style="display: flex; gap: 6px; width: 100%; align-items: center;">
-                    <a href="quiz.html?date=2026-10-16" class="tg-tile-btn" style="text-decoration: none; background: var(--tg-blue); color: #fff; flex: 1.2; text-align: center; justify-content: center;">
-                      <i class="fa-solid fa-play"></i> Resume (Q${qNum})
-                    </a>
-                    <button class="tg-tile-btn btn-tile-restart-16" style="flex: 1; text-align: center; justify-content: center; color: var(--tg-text-secondary);" title="Restart test from Question 1">
-                      <i class="fa-solid fa-rotate-left"></i> Restart
-                    </button>
-                    <button class="tg-tile-btn btn-view-hist" data-day="16" style="padding: 6px 9px;" title="View Syllabus & Details">
-                      <i class="fa-solid fa-chart-simple"></i>
-                    </button>
-                  </div>
-                `;
-
-                // Tile Restart Button Click Handler
-                const restartBtn16 = tile16Footer.querySelector(".btn-tile-restart-16");
-                if (restartBtn16) {
-                  restartBtn16.addEventListener("click", async (e) => {
-                    e.stopPropagation();
-                    if (confirm("Are you sure you want to discard your previous attempt and restart 16 Oct mock from Question 1?")) {
-                      restartBtn16.disabled = true;
-                      restartBtn16.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i>`;
-                      if (typeof CSAT_API !== 'undefined' && CSAT_API.clearActiveAttempt) {
-                        await CSAT_API.clearActiveAttempt("2026-10-16");
-                      } else {
-                        localStorage.removeItem(CSAT_STORAGE_KEY);
-                      }
-                      window.location.href = "guidelines.html?date=2026-10-16";
-                    }
-                  });
-                }
-
-                const detailsBtn16 = tile16Footer.querySelector(".btn-view-hist");
-                if (detailsBtn16) {
-                  detailsBtn16.addEventListener("click", (e) => {
-                    e.stopPropagation();
-                    showHistoryModal(OCTOBER_HISTORY_DATA.find(d => d.dayNum === 16));
-                  });
-                }
-              }
-              if (tag16) {
-                tag16.innerHTML = `<i class="fa-solid fa-clock-rotate-left"></i> In Progress`;
-              }
-
-            // CASE 2: Completed Test -> Show Scorecard & Retake options
-            } else if (check && check.isCompleted) {
-              if (heroContainer) {
-                heroContainer.innerHTML = `
-                  <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: flex-end;">
-                    <a href="analysis.html?date=2026-10-16" class="tg-btn-take-quiz" style="background: linear-gradient(135deg, #2ea94f 0%, #1e823b 100%); box-shadow: 0 4px 18px rgba(46, 169, 79, 0.4); text-decoration: none;">
-                      <i class="fa-solid fa-chart-line"></i> View Analysis
-                    </a>
-                    <button class="tg-btn-hero-restart" id="btn-hero-retake" title="Retake mock test">
-                      <i class="fa-solid fa-rotate-left"></i> Retake Test
-                    </button>
-                  </div>
-                `;
-
-                document.getElementById("btn-hero-retake").addEventListener("click", async () => {
-                  if (confirm("Would you like to retake CSAT Mock 16? Your new responses will be recorded.")) {
-                    const btn = document.getElementById("btn-hero-retake");
-                    btn.disabled = true;
-                    btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Resetting...`;
-                    if (typeof CSAT_API !== 'undefined' && CSAT_API.clearActiveAttempt) {
-                      await CSAT_API.clearActiveAttempt("2026-10-16");
-                    } else {
-                      localStorage.removeItem(CSAT_STORAGE_KEY);
-                    }
-                    window.location.href = "guidelines.html?date=2026-10-16";
-                  }
-                });
-              }
-
-              if (tagLive) {
-                tagLive.style.background = "rgba(52, 199, 89, 0.2)";
-                tagLive.style.borderColor = "rgba(52, 199, 89, 0.5)";
-                tagLive.style.color = "var(--tg-green)";
-                tagLive.innerHTML = `
-                  <span class="tg-pulse-dot" style="background: var(--tg-green);"></span>
-                  <span>Completed &bull; Score: ${check.score} / 25 (${check.accuracy}%)</span>
-                `;
-              }
-
-              if (tile16Footer) {
-                tile16Footer.innerHTML = `
-                  <div style="display: flex; gap: 6px; width: 100%; align-items: center;">
-                    <a href="analysis.html?date=2026-10-16" class="tg-tile-btn" style="text-decoration: none; background: var(--tg-green-dark); color: #fff; flex: 1.2; text-align: center; justify-content: center;">
-                      <i class="fa-solid fa-chart-line"></i> Scorecard
-                    </a>
-                    <button class="tg-tile-btn btn-tile-retake-16" style="flex: 1; text-align: center; justify-content: center; color: var(--tg-text-secondary);">
-                      <i class="fa-solid fa-rotate-left"></i> Retake
-                    </button>
-                  </div>
-                `;
-
-                const retakeBtn16 = tile16Footer.querySelector(".btn-tile-retake-16");
-                if (retakeBtn16) {
-                  retakeBtn16.addEventListener("click", async (e) => {
-                    e.stopPropagation();
-                    if (confirm("Retake 16 Oct mock from Question 1?")) {
-                      if (typeof CSAT_API !== 'undefined' && CSAT_API.clearActiveAttempt) {
-                        await CSAT_API.clearActiveAttempt("2026-10-16");
-                      }
-                      window.location.href = "guidelines.html?date=2026-10-16";
-                    }
-                  });
-                }
-              }
-
-              if (tag16) {
-                tag16.innerHTML = `<i class="fa-solid fa-check"></i> Completed`;
-                tag16.style.background = "rgba(52, 199, 89, 0.15)";
-                tag16.style.borderColor = "var(--tg-green)";
-                tag16.style.color = "var(--tg-green)";
-              }
+            if (check && (check.hasActive || check.isCompleted)) {
+              applyTestStatus(check);
             }
 
             // Also check 15 Oct tile for in-progress attempt

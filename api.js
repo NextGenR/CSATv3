@@ -132,8 +132,9 @@ const CSAT_API = (function () {
     const recordId = `${candidateName}_${testDate}`;
 
     try {
-      const endpoint = `${SUPABASE_URL}/rest/v1/${TABLE_ATTEMPTS}?id=eq.${recordId}&select=*`;
-      const response = await fetch(endpoint, {
+      // 1. Direct query for specific user record
+      let endpoint = `${SUPABASE_URL}/rest/v1/${TABLE_ATTEMPTS}?id=eq.${recordId}&select=*`;
+      let response = await fetch(endpoint, {
         method: "GET",
         headers: {
           "apikey": SUPABASE_ANON_KEY,
@@ -141,7 +142,22 @@ const CSAT_API = (function () {
           "Content-Type": "application/json"
         }
       });
-      const rows = await response.json();
+      let rows = await response.json();
+      if (Array.isArray(rows) && rows.length > 0) {
+        return rows[0];
+      }
+
+      // 2. Fallback: check latest attempt for this test date
+      endpoint = `${SUPABASE_URL}/rest/v1/${TABLE_ATTEMPTS}?test_date=eq.${testDate}&order=updated_at.desc&limit=1`;
+      response = await fetch(endpoint, {
+        method: "GET",
+        headers: {
+          "apikey": SUPABASE_ANON_KEY,
+          "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+          "Content-Type": "application/json"
+        }
+      });
+      rows = await response.json();
       if (Array.isArray(rows) && rows.length > 0) {
         return rows[0];
       }
@@ -207,20 +223,33 @@ const CSAT_API = (function () {
     if (cat === "avoided") return "Questions Which Should Have Been Avoided";
     if (cat === "not_wrong") return "Questions Which Should Not Have Been Wrong";
     return "Questions Which Should Be Attempted";
+  }
+
   /**
    * Check if there is an active (in_progress) or saved attempt for a given test date
    * Combines instant local cache inspection and async Supabase cloud check.
    */
   async function checkActiveAttempt(testDate = "2026-10-16") {
-    // 1. Quick check local cache
+    // 1. Quick check local cache for in-progress attempt (supporting both CSAT_STORAGE_KEY & fallback)
     try {
-      const localStr = localStorage.getItem("csat_active_quiz_state");
+      const localStr = localStorage.getItem("csat_daily_test_state") || localStorage.getItem("csat_active_quiz_state");
       if (localStr) {
         const local = JSON.parse(localStr);
         if (local && (local.testDate === testDate || !local.testDate)) {
           const answers = local.answers || {};
           const answersCount = Object.keys(answers).length;
-          if (local.status !== "completed" && (answersCount > 0 || (local.currentQuestionIndex && local.currentQuestionIndex > 0))) {
+          const hasProgress = (local.status === "in_progress") || (answersCount > 0) || (local.currentQuestionIndex && local.currentQuestionIndex > 0) || (local.totalTimeSeconds && local.totalTimeSeconds > 5);
+          
+          if (local.status === "completed") {
+            return {
+              hasActive: false,
+              isCompleted: true,
+              source: "local",
+              score: local.totalScore || local.score || 0,
+              accuracy: local.accuracy || 0,
+              data: local
+            };
+          } else if (hasProgress) {
             return {
               hasActive: true,
               isCompleted: false,
@@ -238,7 +267,30 @@ const CSAT_API = (function () {
       console.warn("Local active attempt check failed", e);
     }
 
-    // 2. Cloud check from Supabase
+    // 2. Quick check local cache for completed result
+    try {
+      const resultStr = localStorage.getItem(`csat_result_${testDate}`) || localStorage.getItem("csat_daily_test_result");
+      if (resultStr) {
+        const result = JSON.parse(resultStr);
+        if (result && (result.targetDate === testDate || !result.targetDate || result.testDate?.includes(testDate.slice(8)))) {
+          return {
+            hasActive: false,
+            isCompleted: true,
+            source: "local_result",
+            score: result.totalScore || 0,
+            accuracy: result.accuracy || 0,
+            correctCount: result.correctCount || 0,
+            incorrectCount: result.incorrectCount || 0,
+            unattemptedCount: result.unattemptedCount || 0,
+            data: result
+          };
+        }
+      }
+    } catch (e) {
+      console.warn("Local result check failed", e);
+    }
+
+    // 3. Cloud check from Supabase
     try {
       const cloudAttempt = await restoreProgressFromCloud(testDate);
       if (cloudAttempt) {
@@ -261,8 +313,11 @@ const CSAT_API = (function () {
             hasActive: false,
             isCompleted: true,
             source: "cloud",
-            score: cloudAttempt.score,
-            accuracy: cloudAttempt.accuracy,
+            score: cloudAttempt.score !== undefined ? cloudAttempt.score : (cloudAttempt.result_payload?.totalScore || 0),
+            accuracy: cloudAttempt.accuracy !== undefined ? cloudAttempt.accuracy : (cloudAttempt.result_payload?.accuracy || 0),
+            correctCount: cloudAttempt.correct_count || cloudAttempt.result_payload?.correctCount || 0,
+            incorrectCount: cloudAttempt.incorrect_count || cloudAttempt.result_payload?.incorrectCount || 0,
+            unattemptedCount: cloudAttempt.unattempted_count || cloudAttempt.result_payload?.unattemptedCount || 0,
             data: cloudAttempt
           };
         }
@@ -279,7 +334,10 @@ const CSAT_API = (function () {
    */
   async function clearActiveAttempt(testDate = "2026-10-16") {
     try {
+      localStorage.removeItem("csat_daily_test_state");
       localStorage.removeItem("csat_active_quiz_state");
+      localStorage.removeItem("csat_daily_test_result");
+      localStorage.removeItem(`csat_result_${testDate}`);
     } catch (e) {}
 
     const candidateName = getCandidateName();

@@ -206,7 +206,7 @@
     let timerInterval = null;
 
     // Load any saved state
-    const savedStateStr = localStorage.getItem(CSAT_STORAGE_KEY);
+    const savedStateStr = localStorage.getItem(CSAT_STORAGE_KEY) || localStorage.getItem("csat_active_quiz_state");
     if (savedStateStr) {
       try {
         const state = JSON.parse(savedStateStr);
@@ -503,10 +503,13 @@
         currentQuestionIndex: currentQIdx,
         language: selectedLang,
         totalTimeSeconds: totalSeconds,
-        testDate: testDate
+        testDate: testDate,
+        status: "in_progress",
+        updated_at: new Date().toISOString()
       };
       // 1. Instant 0ms local cache (resilient to refresh & offline)
       localStorage.setItem(CSAT_STORAGE_KEY, JSON.stringify(state));
+      localStorage.setItem("csat_active_quiz_state", JSON.stringify(state));
 
       // 2. Debounced background cloud sync to Supabase (every 3 seconds or on answer)
       if (cloudSyncTimeout) clearTimeout(cloudSyncTimeout);
@@ -764,9 +767,11 @@
         questionResults: questionResults
       };
 
-      // 1. Store in LocalStorage for analysis page
+      // 1. Store in LocalStorage for analysis page and dashboard
       localStorage.setItem(CSAT_RESULT_KEY, JSON.stringify(finalResult));
+      localStorage.setItem(`csat_result_${testDate}`, JSON.stringify(finalResult));
       localStorage.removeItem(CSAT_STORAGE_KEY);
+      localStorage.removeItem("csat_active_quiz_state");
 
       // 2. Sync final completed scorecard to Supabase cloud
       try {

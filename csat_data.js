@@ -329,8 +329,8 @@ const CSAT_QUESTIONS = [
 // October 2026 Past Test History Data (Oct 1 to Oct 16)
 // Accuracy randomized strictly within 70% to 90% as requested!
 const OCTOBER_HISTORY_DATA = [
-  { dayNum: 16, dateStr: "16 Oct", dayName: "Friday", score: "23.3 / 25", accuracy: 91, questionsAttempted: 10, correct: 9, incorrect: 1, isToday: true },
-  { dayNum: 15, dateStr: "15 Oct", dayName: "Thursday", score: "22.5 / 25", accuracy: 88, questionsAttempted: 10, correct: 9, incorrect: 1 },
+  { dayNum: 16, dateStr: "16 Oct", dayName: "Friday", score: "-- / 25", accuracy: "--", questionsAttempted: 0, correct: 0, incorrect: 0, isToday: true, isCompleted: false },
+  { dayNum: 15, dateStr: "15 Oct", dayName: "Thursday", score: "22.5 / 25", accuracy: 88, questionsAttempted: 10, correct: 9, incorrect: 1, isCompleted: true },
   { dayNum: 14, dateStr: "14 Oct", dayName: "Wednesday", score: "20.0 / 25", accuracy: 80, questionsAttempted: 10, correct: 8, incorrect: 2 },
   { dayNum: 13, dateStr: "13 Oct", dayName: "Tuesday", score: "17.5 / 25", accuracy: 72, questionsAttempted: 9, correct: 7, incorrect: 2 },
   { dayNum: 12, dateStr: "12 Oct", dayName: "Monday", score: "22.5 / 25", accuracy: 89, questionsAttempted: 10, correct: 9, incorrect: 1 },
