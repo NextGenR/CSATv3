@@ -1,0 +1,282 @@
+[
+  {
+    "id": "CSAT-2026-Q10",
+    "questionNumber": 1,
+    "year": 2026,
+    "difficulty": "L4",
+    "subject": "Quantitative Aptitude",
+    "pillar": "Quant",
+    "topic": "LCM & HCF / Arithmetic Progression",
+    "type": "MCQ",
+    "question": "X, Y and Z jump forward 4', 6' and 5', respectively. At 8 AM, they all land on mark 199'. How many times will they all land on the same mark (need not be at the same moment) between mark 195' and 1000', if all of them cross mark 1000' by 9 AM?",
+    "options": [
+      "11",
+      "12",
+      "13",
+      "14"
+    ],
+    "correct": 3,
+    "answerKey": "D",
+    "solution": "Since all three start/synchronize at mark 199', they will all land on mark M if M - 199 is a multiple of 4, 6, and 5.\nLCM(4, 6, 5) = 60.\nCommon marks are given by M = 199 + 60k, where k is an integer.\nWe need M between 195' and 1000':\nFor k = 0: M = 199 (195 < 199 <= 1000).\nFor k = 13: M = 199 + 60(13) = 199 + 780 = 979 <= 1000.\nFor k = 14: M = 199 + 840 = 1039 > 1000.\nThus, k takes values 0, 1, 2, ..., 13.\nTotal number of common marks = 13 - 0 + 1 = 14.",
+    "trick": "LCM(4, 5, 6) = 60. Range from 199 to 1000: floor((1000 - 199)/60) + 1 = floor(801/60) + 1 = 13 + 1 = 14.",
+    "forensicMeta": {
+      "cognitiveLoadScore": 4,
+      "scratchpadDemand": "High - Iterative/Heavy Writing",
+      "idealTimeVsHallTime": "55s / 105s",
+      "primaryTrapArchetype": "Initial Phase Offset & Fencepost Count Error",
+      "riskIndex": "Medium"
+    }
+  },
+  {
+    "id": "CSAT-2026-Q48",
+    "questionNumber": 2,
+    "year": 2026,
+    "difficulty": "L2",
+    "subject": "Logical Reasoning",
+    "pillar": "Reasoning",
+    "topic": "Syllogisms",
+    "type": "MCQ",
+    "question": "Consider the following statements :\nEvery red is blue. Every blue is green. Every green is yellow.\nWhich of the following statements denoted by P, Q and R are correct?\nP. Every blue is yellow.\nQ. Every red is green.\nR. Every red is yellow.\nSelect the answer using the code given below.",
+    "options": [
+      "P and Q only",
+      "Q and R only",
+      "P and R only",
+      "P, Q and R"
+    ],
+    "correct": 3,
+    "answerKey": "D",
+    "solution": "1. The premises establish the nested inclusion: Red ⊆ Blue ⊆ Green ⊆ Yellow.\n2. Statement P ('Every blue is yellow'): Blue ⊆ Green ⊆ Yellow => Blue ⊆ Yellow (True).\n3. Statement Q ('Every red is green'): Red ⊆ Blue ⊆ Green => Red ⊆ Green (True).\n4. Statement R ('Every red is yellow'): Red ⊆ Yellow (True).\nHence, all three statements P, Q, and R are correct.",
+    "trick": "Nested chain: Red ⊆ Blue ⊆ Green ⊆ Yellow. All transitive subsets hold true.",
+    "forensicMeta": {
+      "cognitiveLoadScore": 2,
+      "scratchpadDemand": "Low - Mental Math",
+      "idealTimeVsHallTime": "20s / 40s",
+      "primaryTrapArchetype": "Converse Inversion Fallacy ('All Yellow is Red')",
+      "riskIndex": "Low"
+    }
+  },
+  {
+    "id": "CSAT-2022-Q77",
+    "questionNumber": 3,
+    "year": 2022,
+    "difficulty": "L3",
+    "subject": "Quantitative Aptitude",
+    "pillar": "Quant",
+    "topic": "Permutations, Combinations & Probability",
+    "type": "Multiple Choice",
+    "question": "There are 9 cups placed on a table arranged in equal number of rows and columns out of which 6 cups contain coffee and 3 cups contain tea. In how many ways can they be arranged so that each row should contain at least one cup of coffee?\n(a) 18\n(b) 27\n(c) 54\n(d) 81",
+    "options": [
+      "18",
+      "27",
+      "54",
+      "81"
+    ],
+    "correct": 3,
+    "answerKey": "D",
+    "solution": "1. 9 positions arranged in a 3 × 3 grid (3 rows, 3 columns).\n2. Total ways to arrange 6 coffee cups (C) and 3 tea cups (T) in 9 spots:\n   Total = C(9, 3) = (9 × 8 × 7) / (3 × 2 × 1) = 84 ways.\n3. Complementary condition: Count arrangements where at least one row has NO coffee cup.\n- Since each row has 3 cups and there are exactly 3 tea cups, a row has no coffee cup if and only if that entire row is filled with the 3 tea cups.\n- Row 1 filled with 3 tea cups (and remaining rows with coffee): 1 way.\n- Row 2 filled with 3 tea cups: 1 way.\n- Row 3 filled with 3 tea cups: 1 way.\nTotal invalid arrangements = 3 ways.\n4. Valid arrangements where every row has at least one coffee cup:\n   84 - 3 = 81 ways.",
+    "trick": "Complementary counting: Total ways = C(9, 3) = 84. Rows with zero coffee cups mean an entire row of 3 tea cups, which can only happen in 3 ways (Row 1, Row 2, or Row 3). Valid ways = 84 - 3 = 81.",
+    "forensicMeta": {
+      "cognitiveLoadScore": 3,
+      "scratchpadDemand": "Low - Mental Math",
+      "idealTimeVsHallTime": "40s / 65s",
+      "primaryTrapArchetype": "Boundary Fencepost",
+      "riskIndex": "Medium"
+    }
+  },
+  {
+    "id": "CSAT-2022-Q40",
+    "questionNumber": 4,
+    "year": 2022,
+    "difficulty": "L5",
+    "subject": "Logical Reasoning",
+    "pillar": "Reasoning",
+    "topic": "Analytical Puzzles & Seating",
+    "type": "Multiple Choice",
+    "question": "Eight students A, B, C, D, E, F, G and H sit around a circular table, equidistant from each other, facing the centre of the table, not necessarily in the same order.\nB and D sit neither adjacent to C nor opposite to C.\nA sits in between E and D, and F sits in between B and H.\nWhich one of the following is definitely correct?\n(a) B sits in between A and G\n(b) C sits opposite to G\n(c) E sits opposite to F\n(d) None of the above",
+    "options": [
+      "B sits in between A and G",
+      "C sits opposite to G",
+      "E sits opposite to F",
+      "None of the above"
+    ],
+    "correct": 3,
+    "answerKey": "D",
+    "solution": "1. 8 students around a circular table. Let seats be 1 to 8 clockwise. Fix C at seat 1.\n- Seats adjacent to C are 8 and 2; opposite to C is seat 5.\n- Since B and D cannot sit adjacent or opposite to C, B and D must be from {3, 4, 6, 7}.\n2. A is between E and D: (E, A, D) forms a consecutive triplet.\n3. F is between B and H: (B, F, H) forms another consecutive triplet.\n4. There are multiple valid arrangements satisfying all constraints:\n- Arrangement 1: C at 1, E at 2, A at 3, D at 4, G at 5, B at 6, F at 7, H at 8.\n  Here G is opposite C, but B is between G and F (not A and G), and E (2) is opposite B (6), not F.\n- Arrangement 2: C at 1, G at 2, B at 3, A at 4, D at 5 (invalid since D cannot be at 5), but we can have G at 2, D at 3, A at 4, E at 5, H at 6, F at 7, B at 8 (invalid: B adjacent to C).\n- Testing further valid variants shows that positions of G, E, F, B can vary depending on which side the blocks (E-A-D) and (B-F-H) are placed.\n5. Because none of the specific conditions in (a), (b), or (c) is guaranteed across all valid arrangements, none of them is definitely correct.\n6. Hence, the correct choice is (d) None of the above.",
+    "trick": "Multiple valid circular seating arrangements exist due to the symmetrical placement of the two triplets (E-A-D) and (B-F-H). No single condition in (a), (b), or (c) holds unconditionally in all configurations -> (d).",
+    "forensicMeta": {
+      "cognitiveLoadScore": 5,
+      "scratchpadDemand": "High - Iterative/Heavy Writing",
+      "idealTimeVsHallTime": "120s / 240s",
+      "primaryTrapArchetype": "Sunk-Cost Iteration",
+      "riskIndex": "High"
+    }
+  },
+  {
+    "id": "CSAT-2019-Q72",
+    "questionNumber": 5,
+    "year": 2019,
+    "difficulty": "L5",
+    "subject": "Basic Numeracy",
+    "pillar": "Quant",
+    "topic": "Cube Colouring & Rotational Symmetry",
+    "type": "MCQ",
+    "question": "Each face of a cube can be painted in black or white colours. In how many different ways can the cube be painted ?\n(a) 9\n(b) 10\n(c) 11\n(d) 12",
+    "options": [
+      "9",
+      "10",
+      "11",
+      "12"
+    ],
+    "correct": 1,
+    "answerKey": "B",
+    "solution": "1. Consider distinct colorings of 6 faces of a cube with 2 colors (Black and White) up to 3D rotation:\n2. Classify by number of black faces k:\n   - k = 0 (0 Black, 6 White): 1 way.\n   - k = 1 (1 Black, 5 White): 1 way (any single face is rotationally equivalent).\n   - k = 2 (2 Black, 4 White): 2 ways (the two black faces can either be adjacent sharing an edge, or opposite faces).\n   - k = 3 (3 Black, 3 White): 2 ways (the three black faces can share a corner/all adjacent, or two opposite and one adjacent).\n   - k = 4 (4 Black, 2 White): 2 ways (symmetric to k = 2: two white faces adjacent or opposite).\n   - k = 5 (5 Black, 1 White): 1 way (symmetric to k = 1).\n   - k = 6 (6 Black, 0 White): 1 way (all black).\n3. Total non-equivalent colorings:\n   1 + 1 + 2 + 2 + 2 + 1 + 1 = 10 ways.\n4. Burnside's Lemma verification: Total = (1/24) × (2⁶ + 6×2³ + 3×2⁴ + 8×2² + 6×2³) = (1/24) × (64 + 48 + 48 + 32 + 48) = 240 / 24 = 10.\n5. Option (b) is correct.",
+    "trick": "Classify by number of black faces: 1 (for 0B) + 1 (for 1B) + 2 (for 2B) + 2 (for 3B) + 2 (for 4B) + 1 (for 5B) + 1 (for 6B) = 10 ways (b).",
+    "forensicMeta": {
+      "cognitiveLoadScore": 5,
+      "scratchpadDemand": "High - Iterative/Heavy Writing",
+      "idealTimeVsHallTime": "120s / 240s",
+      "primaryTrapArchetype": "Sunk-Cost Iteration",
+      "riskIndex": "High"
+    }
+  },
+  {
+    "id": "CSAT-2026-Q65",
+    "questionNumber": 6,
+    "year": 2026,
+    "difficulty": "L2",
+    "subject": "Quantitative Aptitude",
+    "pillar": "Quant",
+    "topic": "Mixtures & Alligations",
+    "type": "MCQ",
+    "question": "An alloy P contains 20% copper and 80% zinc by weight. Another alloy Q contains 60% copper and 40% zinc by weight. A third alloy R is to be prepared from P and Q so that it contains equal amount of copper and zinc. In what ratio, amounts of P and Q be mixed in order to get R?",
+    "options": [
+      "1 : 3",
+      "3 : 1",
+      "2 : 3",
+      "3 : 2"
+    ],
+    "correct": 0,
+    "answerKey": "A",
+    "solution": "1. Target copper percentage in R = 50% (equal parts copper and zinc).\n2. Percentage of copper in P = 20%.\n3. Percentage of copper in Q = 60%.\n4. By the rule of alligation:\n   Ratio of P to Q = (60 - 50) : (50 - 20) = 10 : 30 = 1 : 3.",
+    "trick": "Alligation on Copper: (60 - 50) / (50 - 20) = 10 / 30 = 1 : 3.",
+    "forensicMeta": {
+      "cognitiveLoadScore": 2,
+      "scratchpadDemand": "Low - Mental Math",
+      "idealTimeVsHallTime": "25s / 45s",
+      "primaryTrapArchetype": "Copper vs Zinc Proportion Inversion",
+      "riskIndex": "Low"
+    }
+  },
+  {
+    "id": "CSAT-2026-Q03",
+    "questionNumber": 7,
+    "year": 2026,
+    "difficulty": "L3",
+    "subject": "Quantitative Aptitude",
+    "pillar": "Quant",
+    "topic": "Number System & Parity",
+    "type": "Data Sufficiency",
+    "question": "If x and y are integers, then is x even?\nStatement I : x^2 y^2 is even.\nStatement II : 1 + x^2 + y^2 is odd.",
+    "options": [
+      "Select this option if the question can be answered using one of these statements alone, but cannot be answered using other statement",
+      "Select this option if the question can be answered using either statement alone",
+      "Select this option if the question can be answered using both the statements together, but cannot be answered using either statement alone",
+      "Select this option if the question cannot be answered even using any of the statements"
+    ],
+    "correct": 2,
+    "answerKey": "C",
+    "solution": "Statement I: x^2 y^2 is even => at least one of x or y is even. Does not tell whether x is even. Insufficient.\nStatement II: 1 + x^2 + y^2 is odd => x^2 + y^2 is even => x and y have the same parity (both even or both odd). Insufficient.\nTogether: Statement I requires at least one to be even. Statement II requires both to have the same parity. Hence both x and y must be even! Therefore, x is definitely even.",
+    "trick": "Statement I: at least one even. Statement II: same parity. Combined: both must be even.",
+    "forensicMeta": {
+      "cognitiveLoadScore": 3,
+      "scratchpadDemand": "Medium - Standard Scratch",
+      "idealTimeVsHallTime": "30s / 55s",
+      "primaryTrapArchetype": "Parity Factor Ambiguity (xy even doesn't isolate x)",
+      "riskIndex": "Low"
+    }
+  },
+  {
+    "id": "CSAT-2023-Q80",
+    "questionNumber": 8,
+    "year": 2023,
+    "difficulty": "L1",
+    "subject": "Reasoning",
+    "pillar": "Reasoning",
+    "topic": "Letter Rearrangement",
+    "type": "Direct MCQ",
+    "question": "The letters of the word 'INCOMPREHENSIBILITIES' are arranged alphabetically in reverse order. How many positions of the letter/letters will remain unchanged ?\n(a) None\n(b) One\n(c) Two\n(d) Three",
+    "options": [
+      "None",
+      "One",
+      "Two",
+      "Three"
+    ],
+    "correct": 2,
+    "answerKey": "C",
+    "solution": "1. The 21 letters of 'INCOMPREHENSIBILITIES' are:\n   Pos 1 to 21: I, N, C, O, M, P, R, E, H, E, N, S, I, B, I, L, I, T, I, E, S.\n2. Sorted in reverse alphabetical order (Z to A):\n   T, S, S, R, P, O, N, N, M, L, I, I, I, I, I, H, E, E, E, C, B.\n3. Comparing original vs reverse sorted positions:\n   - Position 13: Original is 'I', Reverse sorted is 'I'. (Match)\n   - Position 15: Original is 'I', Reverse sorted is 'I'. (Match)\n   - All other 19 positions have different letters.\n4. Therefore, exactly 2 positions remain unchanged.",
+    "trick": "Original positions 13 and 15 both have the letter 'I'. In reverse alphabetical sort, the five 'I's occupy positions 11 through 15. Thus positions 13 and 15 match. Exactly Two unchanged positions.",
+    "forensicMeta": {
+      "cognitiveLoadScore": 1,
+      "scratchpadDemand": "Low - Mental Math",
+      "idealTimeVsHallTime": "20s / 30s",
+      "primaryTrapArchetype": "None",
+      "riskIndex": "Low"
+    }
+  },
+  {
+    "id": "CSAT-2026-Q69",
+    "questionNumber": 9,
+    "year": 2026,
+    "difficulty": "L4",
+    "subject": "Quantitative Aptitude",
+    "pillar": "Quant",
+    "topic": "Time, Speed & Distance",
+    "type": "MCQ",
+    "question": "A train has to complete a journey of 800 km. If it meets a minor accident, its speed becomes half of the existing speed. If there is a mechanical defect, the speed becomes one-fourth of the existing speed. On its way, the train meets with a minor accident after 200 km; and 400 km thereafter, it develops a mechanical defect. Had the train developed the mechanical defect after 200 km and met the minor accident 400 km thereafter, it would have taken 4 more hours to reach its destination. What was the original speed of the train in km per hour?",
+    "options": [
+      "200",
+      "190",
+      "150",
+      "100"
+    ],
+    "correct": 0,
+    "answerKey": "A",
+    "solution": "1. Journey breaks into three segments: 0-200 km (200 km), 200-600 km (400 km), and 600-800 km (200 km).\n2. First 200 km: In both scenarios, train travels at original speed v.\n3. Last 200 km (600-800 km): In both scenarios, both events have occurred. Speed is (1/2) * (1/4) * v = v/8 in both cases. Hence, time taken on the last 200 km is identical.\n4. Middle 400 km (200-600 km):\n   - Scenario 1 (minor accident only): speed = v/2 => time = 400 / (v/2) = 800 / v.\n   - Scenario 2 (mechanical defect only): speed = v/4 => time = 400 / (v/4) = 1600 / v.\n5. The 4-hour delay comes entirely from the middle 400 km:\n   1600 / v - 800 / v = 4 => 800 / v = 4 => v = 200 km/h.",
+    "trick": "Difference is only in the middle 400 km: 400/(v/4) - 400/(v/2) = 800/v = 4 hours => v = 200 km/h.",
+    "forensicMeta": {
+      "cognitiveLoadScore": 4,
+      "scratchpadDemand": "High - Iterative/Heavy Writing",
+      "idealTimeVsHallTime": "50s / 100s",
+      "primaryTrapArchetype": "Multi-Leg Sequential Speed Fraction Confusion",
+      "riskIndex": "Medium"
+    }
+  },
+  {
+    "id": "CSAT-2024-Q18",
+    "questionNumber": 10,
+    "year": 2024,
+    "difficulty": "L1",
+    "subject": "Quant",
+    "pillar": "Quant",
+    "topic": "Number System",
+    "type": "Single-choice",
+    "question": "421 and 427, when divided by the same number, leave the same remainder 1. How many numbers can be used as the divisor in order to get the same remainder 1?",
+    "options": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "correct": 2,
+    "answerKey": "C",
+    "solution": "Let the divisor be d. Since the remainder is 1, d must strictly exceed the remainder, so d > 1. Moreover, d must divide (421 - 1) = 420 and (427 - 1) = 426. Thus d is a common divisor of 420 and 426. GCD(420, 426) = GCD(420, 426 - 420) = GCD(420, 6) = 6. The positive divisors of 6 are {1, 2, 3, 6}. Since d > 1, the allowable divisors are {2, 3, 6}. There are 3 such numbers.",
+    "trick": "Divisor must divide difference (427 - 421 = 6) and be greater than remainder 1. Factors of 6 greater than 1: 2, 3, 6 -> total 3.",
+    "forensicMeta": {
+      "cognitiveLoadScore": 1,
+      "scratchpadDemand": "Low - Mental Math",
+      "idealTimeVsHallTime": "15s / 25s",
+      "primaryTrapArchetype": "None",
+      "riskIndex": "Low"
+    }
+  }
+]

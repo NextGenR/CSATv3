@@ -163,8 +163,10 @@
   </div>
 
   <script src="csat_data.js"></script>
+  <script src="api.js"></script>
   <script>
     // Quiz State Management
+    let activeQuestions = CSAT_QUESTIONS;
     let currentQIdx = 0;
     let selectedLang = localStorage.getItem(CSAT_LANG_KEY) || "en";
     let userAnswers = {}; // { qId: 'A' | 'B' | 'C' | 'D' }
@@ -188,12 +190,20 @@
       }
     }
 
-    // Initialize timers per question
-    CSAT_QUESTIONS.forEach(q => {
-      if (!timePerQuestion[q.id]) timePerQuestion[q.id] = 0;
-    });
+    document.addEventListener("DOMContentLoaded", async () => {
+      // 1. Fetch live questions from Supabase API (or fallback)
+      try {
+        activeQuestions = await CSAT_API.loadDailyQuestions();
+      } catch (err) {
+        console.warn("Using fallback questions:", err);
+        activeQuestions = CSAT_QUESTIONS;
+      }
 
-    document.addEventListener("DOMContentLoaded", () => {
+      // Initialize timers per question
+      activeQuestions.forEach(q => {
+        if (!timePerQuestion[q.id]) timePerQuestion[q.id] = 0;
+      });
+
       renderNavigator();
       updateLangIndicator();
       renderQuestion(currentQIdx, "none");
@@ -204,7 +214,7 @@
     function startTimers() {
       timerInterval = setInterval(() => {
         totalSeconds++;
-        const currentQId = CSAT_QUESTIONS[currentQIdx].id;
+        const currentQId = activeQuestions[currentQIdx] ? activeQuestions[currentQIdx].id : (currentQIdx + 1);
         timePerQuestion[currentQId] = (timePerQuestion[currentQId] || 0) + 1;
         
         // Update live displays
@@ -222,7 +232,7 @@
     function renderNavigator() {
       const list = document.getElementById("q-nav-list");
       list.innerHTML = "";
-      CSAT_QUESTIONS.forEach((q, idx) => {
+      activeQuestions.forEach((q, idx) => {
         const btn = document.createElement("button");
         btn.className = "tg-q-pill-btn";
         btn.textContent = q.id;
@@ -249,7 +259,7 @@
     }
 
     function renderQuestion(idx, slideDirection = "right") {
-      const q = CSAT_QUESTIONS[idx];
+      const q = activeQuestions[idx] || activeQuestions[0];
       const card = document.getElementById("active-question-card");
 
       // Apply fast horizontal slide animation
@@ -304,7 +314,7 @@
       // Update Navigation Buttons state
       document.getElementById("btn-prev-q").disabled = (idx === 0);
       const nextBtn = document.getElementById("btn-next-q");
-      if (idx === CSAT_QUESTIONS.length - 1) {
+      if (idx === activeQuestions.length - 1) {
         nextBtn.innerHTML = `Finish <i class="fa-solid fa-flag-checkered"></i>`;
       } else {
         nextBtn.innerHTML = `Next <i class="fa-solid fa-arrow-right"></i>`;
@@ -354,7 +364,7 @@
 
       // Next Question
       document.getElementById("btn-next-q").addEventListener("click", () => {
-        if (currentQIdx < CSAT_QUESTIONS.length - 1) {
+        if (currentQIdx < activeQuestions.length - 1) {
           currentQIdx++;
           renderQuestion(currentQIdx, "right");
         } else {
@@ -365,7 +375,7 @@
 
       // Clear Response
       document.getElementById("btn-clear-response").addEventListener("click", () => {
-        const qId = CSAT_QUESTIONS[currentQIdx].id;
+        const qId = activeQuestions[currentQIdx].id;
         delete userAnswers[qId];
         saveState();
         renderQuestion(currentQIdx, "none");
@@ -374,7 +384,7 @@
 
       // Mark for Review
       document.getElementById("btn-mark-review").addEventListener("click", () => {
-        const qId = CSAT_QUESTIONS[currentQIdx].id;
+        const qId = activeQuestions[currentQIdx].id;
         if (markedForReview.has(qId)) {
           markedForReview.delete(qId);
         } else {
@@ -429,7 +439,7 @@
 
     function openSubmitModal() {
       const attemptedCount = Object.keys(userAnswers).length;
-      const unattemptedCount = CSAT_QUESTIONS.length - attemptedCount;
+      const unattemptedCount = activeQuestions.length - attemptedCount;
       document.getElementById("submit-summary-desc").innerHTML = `
         You have answered <strong>${attemptedCount} of 10</strong> questions.<br>
         <strong>${unattemptedCount} questions</strong> are currently unattempted.<br><br>
@@ -446,7 +456,7 @@
       let incorrectCount = 0;
       let unattemptedCount = 0;
 
-      const questionResults = CSAT_QUESTIONS.map(q => {
+      const questionResults = activeQuestions.map(q => {
         const chosen = userAnswers[q.id];
         let status = "unattempted";
         let marks = 0;

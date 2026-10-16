@@ -306,8 +306,9 @@
   </div>
 
   <script src="csat_data.js"></script>
+  <script src="api.js"></script>
   <script>
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("DOMContentLoaded", async () => {
       // 1. Retrieve Result Data from localStorage or generate realistic default
       let resultData = null;
       const rawStored = localStorage.getItem(CSAT_RESULT_KEY);
@@ -321,7 +322,12 @@
 
       // If no stored result (e.g. direct visit), populate realistic sample mock results
       if (!resultData) {
-        resultData = generateSampleMockResult();
+        try {
+          const liveQuestions = await CSAT_API.loadDailyQuestions();
+          resultData = generateSampleMockResult(liveQuestions);
+        } catch (e) {
+          resultData = generateSampleMockResult(CSAT_QUESTIONS);
+        }
       }
 
       // 2. Render Scorecard Summary
@@ -340,11 +346,11 @@
       setupModalListeners(resultData);
     });
 
-    function generateSampleMockResult() {
+    function generateSampleMockResult(baseList = CSAT_QUESTIONS) {
       // Realistic simulation: 8 correct, 2 incorrect, 80% accuracy, score = 20 - 1.66 = 18.33
       let correctCnt = 0;
       let incorrectCnt = 0;
-      const qResults = CSAT_QUESTIONS.map(q => {
+      const qResults = (baseList || CSAT_QUESTIONS).map(q => {
         // Let Q5 and Q9 be incorrect in default sample
         const isWrong = (q.id === 5 || q.id === 9);
         let chosen;
