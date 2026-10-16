@@ -369,6 +369,18 @@
       setupModalListeners(resultData);
     });
 
+    function formatQuestionText(rawText) {
+      if (!rawText) return "";
+      let str = String(rawText);
+      const optIdx = str.search(/\n\s*\(?[aA]\)[\s\S]*$/);
+      if (optIdx !== -1) {
+        str = str.substring(0, optIdx).trim();
+      }
+      str = str.replace(/([0-9a-zA-Z\)]+)\^([0-9a-zA-Z\+]+)/g, "$1<sup>$2</sup>");
+      str = str.replace(/\n/g, "<br>");
+      return str;
+    }
+
     function generateSampleMockResult(baseList = CSAT_QUESTIONS) {
       // Realistic simulation: 8 correct, 2 incorrect, 80% accuracy, score = 20 - 1.66 = 18.33
       let correctCnt = 0;
@@ -688,7 +700,7 @@
               </div>
             </div>
             
-            <div class="tg-drill-statement">${q.statementEn}</div>
+            <div class="tg-drill-statement">${formatQuestionText(q.statementEn)}</div>
 
             <div style="display: flex; gap: 16px; margin-bottom: 12px; font-size: 13px;">
               <div>Your Answer: <strong>Option ${q.userChoice || "None"}</strong></div>
@@ -697,7 +709,7 @@
 
             <div class="tg-drill-solution">
               <strong><i class="fa-solid fa-lightbulb"></i> Step-by-Step Explanation:</strong>
-              <div style="margin-top: 6px; white-space: pre-line;">${q.explanationEn}</div>
+              <div style="margin-top: 6px; white-space: pre-line;">${formatQuestionText(q.explanationEn)}</div>
             </div>
           </div>
         `;
@@ -721,7 +733,7 @@
             Chapter: <strong>${q.chapter}</strong> &bull; Category: <strong>${q.categoryTitle}</strong> &bull; Attempt Rate: <strong>${q.attemptRate}%</strong>
           </div>
           <div class="tg-drill-statement" style="font-size: 15px; font-weight: 500;">
-            ${q.statementEn}
+            ${formatQuestionText(q.statementEn)}
           </div>
         </div>
 
