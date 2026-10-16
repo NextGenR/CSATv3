@@ -58,16 +58,18 @@ html, body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Telegram Subtle Doodle Wallpaper */
+/* Telegram Subtle Math Doodle Wallpaper (Numbers, Algebra, Geometry) */
 .tg-wallpaper {
-  position: absolute;
+  position: fixed;
   inset: 0;
   pointer-events: none;
   background-color: var(--tg-bg-canvas);
   background-image: 
-    radial-gradient(circle at 50% 50%, rgba(23, 33, 43, 0.6) 0%, rgba(14, 22, 33, 0.95) 100%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cpath fill='%23223040' fill-opacity='0.22' d='M28 22l6 10-10-3 4-7zm92 14c4 0 7 3 7 7s-3 7-7 7-7-3-7-7 3-7 7-7zm-40 45l9 6-11 3 2-9zm-55 42c0-5 4-9 9-9s9 4 9 9-4 9-9 9-9-4-9-9zm105-18l-8 7 1-11 7 4zm-80-78a5 5 0 1 1-10 0 5 5 0 0 1 10 0zm68 76a4 4 0 1 1-8 0 4 4 0 0 1 8 0zM50 140l5-8 4 9-9-1zm65-10a4 4 0 1 1-8 0 4 4 0 0 1 8 0z'/%3E%3Cpath fill='none' stroke='%23223040' stroke-opacity='0.25' stroke-width='1.2' d='M18 70c8-6 16-6 24 0s16 6 24 0M100 110c6-5 12-5 18 0s12 5 18 0M30 115l6-6 6 6-6 6zM120 40l5-5 5 5-5 5z'/%3E%3C/svg%3E");
-  background-repeat: repeat;
+    url("math-wallpaper.svg"),
+    radial-gradient(circle at 50% 45%, #152232 0%, #0e1621 100%);
+  background-repeat: repeat, no-repeat;
+  background-size: 500px 500px, cover;
+  background-position: 0 0, center center;
   z-index: 0;
 }
 
@@ -946,7 +948,7 @@ html, body {
 .tg-quiz-fullscreen-view {
   position: fixed;
   inset: 0;
-  background: var(--tg-bg-canvas);
+  background: transparent;
   z-index: 500;
   display: none;
   flex-direction: column;

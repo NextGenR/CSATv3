@@ -3,7 +3,7 @@
 A clean, responsive Telegram-themed productivity web application for UPSC CSAT practice.
 
 ## Features
-- **Telegram Web Dark Aesthetic**: Dark blue color palette (`#0e1621`, `#17212b`, `#242f3d`), subtle doodle wallpaper pattern, and floating sidebar.
+- **Telegram & WhatsApp Style Math Doodle Wallpaper**: Seamless repeating vector backdrop of Numbers, Algebra ($a^2 + b^2 = c^2$, $\int f(x)dx$, $\Delta$), Geometry (compass, protractor, set-squares, 3D cubes, cylinders, pyramids), and CSAT aptitude symbols styled like authentic Telegram/WhatsApp chat wallpaper.
 - **Traditional Icons**: Utilizes Font Awesome traditional icon set.
 - **Daily 10 Questions Section**: Clean productivity layout without chat bars.
 - **October Practice History**: Displays October mock tests with scores out of 25 and randomized accuracy (70% - 90%).

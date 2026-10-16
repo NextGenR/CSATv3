@@ -1,5 +1,5 @@
 // Service Worker for CSAT Daily 10 Questions PWA
-const CACHE_NAME = "csat-daily-v1";
+const CACHE_NAME = "csat-daily-v2";
 const STATIC_ASSETS = [
   "./",
   "./index.html",
@@ -7,6 +7,7 @@ const STATIC_ASSETS = [
   "./quiz.html",
   "./analysis.html",
   "./style.css",
+  "./math-wallpaper.svg",
   "./csat_data.js",
   "./api.js",
   "./manifest.json",
