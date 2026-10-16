@@ -1692,21 +1692,408 @@ html, body {
   justify-content: center;
 }
 
-/* Responsive adjustments */
-@media (max-width: 860px) {
+/* ==========================================================================
+   MOBILE, TABLET & LAPTOP RESPONSIVE DESIGN SYSTEM
+   ========================================================================== */
+
+/* Mobile Navigation Button (Hidden on Desktop) */
+.tg-mobile-nav-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  color: var(--tg-text-primary);
+  font-size: 18px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-right: 6px;
+  transition: background var(--tg-transition-fast);
+}
+.tg-mobile-nav-toggle:hover {
+  background: var(--tg-surface);
+}
+
+.tg-sidebar-close-btn {
+  display: none;
+  background: transparent;
+  border: none;
+  color: var(--tg-text-secondary);
+  font-size: 16px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.tg-sidebar-close-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+/* Mobile Sidebar Backdrop */
+.tg-sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(2px);
+  z-index: 998;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.tg-sidebar-backdrop.active {
+  display: block;
+  opacity: 1;
+}
+
+/* Chrome Install Button */
+.tg-btn-chrome-install {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: linear-gradient(135deg, #2481cc 0%, #1e6bb8 100%);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 6px 14px;
+  border-radius: var(--tg-radius-pill);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--tg-transition-fast);
+  box-shadow: 0 2px 8px rgba(36, 129, 204, 0.25);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.tg-btn-chrome-install:hover {
+  background: linear-gradient(135deg, #2ba2f2 0%, #2481cc 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(36, 129, 204, 0.4);
+}
+
+/* TABLET VIEWPORT (max-width: 1024px) */
+@media (max-width: 1024px) {
   .tg-sidebar {
     width: 290px;
     min-width: 280px;
   }
-  .tg-strategic-tiles-row {
-    grid-template-columns: 1fr;
-  }
   .tg-hero-card {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
+    padding: 22px;
   }
-  .tg-hero-content {
-    max-width: 100%;
+  #october-tiles-container {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px;
+  }
+  .tg-question-slider-track {
+    max-width: 95%;
+  }
+  .tg-question-card {
+    padding: 22px 24px;
+  }
+  .tg-strategic-tiles-row {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
+
+/* SMALL TABLET & MOBILE VIEWPORT (max-width: 768px) */
+@media (max-width: 768px) {
+  /* Turn Sidebar into off-canvas sliding drawer */
+  .tg-mobile-nav-toggle {
+    display: inline-flex;
+  }
+  .tg-sidebar-close-btn {
+    display: inline-flex;
+  }
+  .tg-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 82%;
+    max-width: 320px;
+    z-index: 1000;
+    transform: translateX(-100%);
+    transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+    box-shadow: 4px 0 25px rgba(0, 0, 0, 0.7);
+  }
+  .tg-sidebar.mobile-open {
+    transform: translateX(0);
+  }
+
+  /* Main Canvas full width */
+  .tg-main-content {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Content Header */
+  .tg-content-header {
+    padding: 10px 14px;
+    height: auto;
+    min-height: 56px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .tg-header-left {
+    gap: 8px;
+  }
+  .tg-header-avatar {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    font-size: 15px;
+  }
+  .tg-header-titles h2 {
+    font-size: 15px;
+  }
+  .tg-header-titles p {
+    font-size: 11.5px;
+  }
+  .tg-header-right {
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .tg-header-stat-chip {
+    padding: 4px 10px;
+    font-size: 11px;
+  }
+
+  /* Hero Card */
+  .tg-hero-card {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 18px 16px;
+    gap: 16px;
+  }
+  .tg-hero-title {
+    font-size: 19px;
+  }
+  .tg-hero-meta {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .tg-btn-take-quiz {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 18px;
+    font-size: 14px;
+  }
+
+  /* Date tiles grid */
+  #october-tiles-container {
+    grid-template-columns: 1fr !important;
+    gap: 10px;
+  }
+
+  /* ==========================================================================
+     QUIZ FULLSCREEN ACTIVE VIEW ON MOBILE/TABLET
+     ========================================================================== */
+  .tg-quiz-fullscreen-view {
+    height: 100dvh;
+    min-height: 100dvh;
+  }
+
+  /* Top Bar 1 */
+  .tg-quiz-top-bar-1 {
+    height: auto;
+    min-height: 52px;
+    padding: 8px 12px;
+    gap: 8px;
+  }
+  .tg-quiz-brand span {
+    display: none; /* Keep just icon on mobile */
+  }
+  .tg-q-navigator-list {
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 2px 2px;
+    max-width: calc(100vw - 190px);
+    gap: 5px;
+  }
+  .tg-q-navigator-list::-webkit-scrollbar {
+    display: none;
+  }
+  .tg-q-pill-btn {
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    font-size: 12px;
+  }
+  .tg-quiz-actions-right {
+    gap: 6px;
+  }
+  .tg-lang-toggle-btn {
+    padding: 5px 8px;
+    font-size: 11px;
+  }
+  .tg-btn-quiz-submit {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+  .tg-btn-quiz-exit {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  /* Top Bar 2: Secondary Bar */
+  .tg-quiz-secondary-bar {
+    height: auto;
+    min-height: 38px;
+    padding: 6px 12px;
+    flex-wrap: wrap;
+    gap: 6px;
+    font-size: 12px;
+  }
+  .tg-secondary-chapter {
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12px;
+  }
+  .tg-secondary-timer {
+    gap: 10px;
+    font-size: 11.5px;
+    margin-left: auto;
+  }
+  .tg-timer-badge {
+    padding: 2px 7px;
+    font-size: 11px;
+  }
+
+  /* Quiz Stage & Card */
+  .tg-quiz-stage {
+    padding: 8px 6px;
+    align-items: stretch;
+    overflow-y: auto;
+  }
+  .tg-question-slider-track {
+    max-width: 100%;
+    box-shadow: none;
+    border-radius: 12px;
+  }
+  .tg-question-card {
+    padding: 16px 14px;
+    min-height: auto;
+    border-radius: 12px;
+  }
+  .tg-q-statement {
+    font-size: 15px;
+    line-height: 1.55;
+    margin-bottom: 16px;
+  }
+  .tg-options-group {
+    gap: 9px;
+    margin-bottom: 18px;
+  }
+  .tg-option-row {
+    padding: 11px 14px;
+    min-height: 48px;
+    gap: 12px;
+    border-radius: 10px;
+  }
+  .tg-opt-text {
+    font-size: 14px;
+  }
+
+  /* Quiz Bottom Controls Ergonomics for Mobile */
+  .tg-quiz-bottom-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-top: 14px;
+    justify-content: space-between;
+  }
+  .tg-quiz-bottom-controls > div:first-child {
+    order: 1;
+    flex: 1;
+  }
+  .tg-quiz-bottom-controls > div:last-child {
+    order: 2;
+    flex: 1;
+  }
+  .tg-quiz-bottom-controls > div:nth-child(2) {
+    order: 3;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 4px;
+    gap: 8px;
+  }
+  #btn-prev-q, #btn-next-q {
+    width: 100%;
+    justify-content: center;
+  }
+  .tg-ctrl-btn {
+    padding: 10px 14px;
+    font-size: 13px;
+    justify-content: center;
+  }
+
+  /* Strategic Tiles in Analysis */
+  .tg-strategic-tiles-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  /* Scorecard top card */
+  .tg-analysis-top-card {
+    padding: 16px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+  .tg-summary-scores {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .tg-summary-stats-col {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+    gap: 10px;
+  }
+}
+
+/* SMARTPHONE VIEWPORT (max-width: 480px) */
+@media (max-width: 480px) {
+  .tg-view-scroll {
+    padding: 12px 10px;
+  }
+  .tg-view-inner {
+    padding: 0;
+  }
+  .tg-q-navigator-list {
+    max-width: calc(100vw - 150px);
+  }
+  .tg-q-pill-btn {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    font-size: 11.5px;
+  }
+  .tg-lang-toggle-btn span {
+    display: none;
+  }
+  .tg-btn-quiz-submit {
+    padding: 6px 9px;
+    font-size: 11.5px;
+  }
+  .tg-btn-quiz-exit {
+    padding: 6px 8px;
+    font-size: 11.5px;
+  }
+  .tg-q-statement {
+    font-size: 14.5px;
+  }
+  .tg-score-pill-big {
+    font-size: 26px;
+  }
+}
+

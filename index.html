@@ -2,8 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#17212b">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CSAT Daily">
   <title>CSAT Daily 10 Questions | Daily Practice</title>
+  <!-- PWA Manifest & Icons -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
   <!-- Font Awesome Traditional Icons from CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="style.css">
@@ -13,10 +22,13 @@
   <!-- Telegram Wallpaper with subtle doodle pattern -->
   <div class="tg-wallpaper"></div>
 
+  <!-- Mobile Sidebar Backdrop -->
+  <div class="tg-sidebar-backdrop" id="sidebar-backdrop"></div>
+
   <div id="app-root">
 
-    <!-- LEFT SIDEBAR: Telegram Desktop Style -->
-    <aside class="tg-sidebar">
+    <!-- LEFT SIDEBAR: Telegram Desktop Style (Drawer on Mobile) -->
+    <aside class="tg-sidebar" id="app-sidebar">
       
       <!-- Telegram Search & Menu Header -->
       <div class="tg-sidebar-header">
@@ -27,6 +39,9 @@
           <i class="fa-solid fa-magnifying-glass tg-search-icon"></i>
           <input type="text" class="tg-search-input" id="sidebar-search" placeholder="Search daily tests..." autocomplete="off">
         </div>
+        <button class="tg-sidebar-close-btn" id="btn-close-sidebar" title="Close Menu">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
       </div>
 
       <!-- Telegram Category Pills -->
@@ -65,11 +80,16 @@
 
       <!-- Sidebar Footer Info -->
       <div class="tg-sidebar-footer">
-        <div class="tg-app-version">
-          <span class="tg-status-dot"></span>
-          <span>CSAT Practice System</span>
+        <button class="tg-btn-chrome-install" id="btn-sidebar-install" style="width: 100%; justify-content: center; margin-bottom: 8px;">
+          <i class="fa-solid fa-download"></i> Install CSAT App
+        </button>
+        <div style="display: flex; justify-content: space-between; width: 100%; font-size: 11px; color: var(--tg-text-muted);">
+          <div class="tg-app-version">
+            <span class="tg-status-dot"></span>
+            <span>CSAT Practice System</span>
+          </div>
+          <span><i class="fa-solid fa-shield-halved"></i> Daily Prep</span>
         </div>
-        <span><i class="fa-solid fa-shield-halved"></i> Daily Prep</span>
       </div>
 
     </aside>
@@ -80,6 +100,9 @@
       <!-- Top Header Bar -->
       <header class="tg-content-header">
         <div class="tg-header-left">
+          <button class="tg-mobile-nav-toggle" id="btn-toggle-sidebar" aria-label="Open Navigation">
+            <i class="fa-solid fa-bars"></i>
+          </button>
           <div class="tg-header-avatar">
             <i class="fa-solid fa-calendar-days"></i>
           </div>
@@ -89,13 +112,18 @@
           </div>
         </div>
         <div class="tg-header-right">
+          <!-- Chrome Install App Button -->
+          <button class="tg-btn-chrome-install" id="btn-install-pwa" title="Install UPSC CSAT Daily App on this device">
+            <i class="fa-solid fa-download"></i>
+            <span>Install App</span>
+          </button>
           <div class="tg-header-stat-chip">
             <i class="fa-solid fa-bullseye" style="color: var(--tg-blue-light);"></i>
-            <span>October Accuracy: <strong>82.4%</strong></span>
+            <span>Accuracy: <strong>82.4%</strong></span>
           </div>
           <div class="tg-header-stat-chip">
             <i class="fa-solid fa-check-double" style="color: var(--tg-green);"></i>
-            <span>Completed: <strong>15/16</strong></span>
+            <span>Done: <strong>15/16</strong></span>
           </div>
         </div>
       </header>
@@ -309,7 +337,28 @@
         `;
         modal.classList.add("active");
       }
+
+      // Mobile Sidebar Drawer Toggle
+      const sidebar = document.getElementById("app-sidebar");
+      const backdrop = document.getElementById("sidebar-backdrop");
+      const openBtn = document.getElementById("btn-toggle-sidebar");
+      const closeBtn = document.getElementById("btn-close-sidebar");
+
+      function openMobileSidebar() {
+        if (sidebar) sidebar.classList.add("mobile-open");
+        if (backdrop) backdrop.classList.add("active");
+      }
+
+      function closeMobileSidebar() {
+        if (sidebar) sidebar.classList.remove("mobile-open");
+        if (backdrop) backdrop.classList.remove("active");
+      }
+
+      if (openBtn) openBtn.addEventListener("click", openMobileSidebar);
+      if (closeBtn) closeBtn.addEventListener("click", closeMobileSidebar);
+      if (backdrop) backdrop.addEventListener("click", closeMobileSidebar);
     });
   </script>
+  <script src="pwa.js"></script>
 </body>
 </html>

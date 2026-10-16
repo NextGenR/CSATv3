@@ -2,8 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#17212b">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CSAT Daily">
   <title>UPSC CSAT Guidelines & Language Selection | Daily 10 Questions</title>
+  <!-- PWA Manifest & Icons -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
   <!-- Font Awesome Traditional Icons from CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="style.css">
@@ -71,8 +80,36 @@
       margin-bottom: 20px;
     }
     @media (max-width: 680px) {
+      .guidelines-page-wrap {
+        padding: 8px 6px;
+      }
+      .guidelines-card {
+        max-height: calc(100vh - 16px);
+        border-radius: 12px;
+      }
+      .guidelines-top {
+        padding: 12px 14px;
+      }
+      .guidelines-top h1 {
+        font-size: 15px !important;
+      }
+      .guidelines-top p {
+        font-size: 11px !important;
+      }
+      .guidelines-body {
+        padding: 14px;
+      }
       .guidelines-grid-4 {
         grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        margin-bottom: 14px;
+      }
+      .tg-modal-footer {
+        padding: 12px 14px !important;
+      }
+      .tg-btn-start-green {
+        padding: 10px 16px !important;
+        font-size: 13px !important;
       }
     }
     .tg-modal-footer {
@@ -255,5 +292,6 @@
       }
     });
   </script>
+  <script src="pwa.js"></script>
 </body>
 </html>
