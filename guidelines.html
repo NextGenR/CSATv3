@@ -130,6 +130,21 @@
           </ul>
         </div>
 
+        <!-- Candidate Profile / Name -->
+        <div class="tg-candidate-section" style="margin-bottom: 20px;">
+          <label class="tg-lang-label" style="display: block; margin-bottom: 8px; font-weight: 500; font-size: 13.5px; color: var(--tg-text);">
+            <i class="fa-solid fa-user-check" style="color: var(--tg-blue-light); margin-right: 6px;"></i>
+            Candidate Name / अभ्यर्थी का नाम:
+          </label>
+          <div style="position: relative; max-width: 320px;">
+            <input type="text" id="candidate-name-input" value="Shri" placeholder="Enter Candidate Name" style="width: 100%; padding: 10px 14px 10px 38px; background: var(--tg-bg); border: 1px solid var(--tg-border); border-radius: 8px; color: var(--tg-text); font-size: 14px; outline: none; transition: border-color 0.2s;" onfocus="this.style.borderColor='var(--tg-blue)';" onblur="this.style.borderColor='var(--tg-border)';">
+            <i class="fa-solid fa-user" style="position: absolute; left: 13px; top: 13px; color: var(--tg-text-muted); font-size: 13px;"></i>
+          </div>
+          <p style="font-size: 11.5px; color: var(--tg-text-muted); margin-top: 6px;">
+            Your responses and test analytics will be saved under this profile in the database.
+          </p>
+        </div>
+
         <!-- Language Selection (Hindi or English) -->
         <div class="tg-language-section">
           <label class="tg-lang-label">
@@ -175,7 +190,16 @@
 
   <script src="csat_data.js"></script>
   <script>
+    // Pre-populate candidate name if saved previously
+    const savedName = localStorage.getItem("csat_candidate_name") || "Shri";
+    const nameInput = document.getElementById("candidate-name-input");
+    if (nameInput) nameInput.value = savedName;
+
     document.getElementById("btn-start-fullscreen").addEventListener("click", () => {
+      // Save Candidate Name
+      const candName = (nameInput && nameInput.value.trim()) ? nameInput.value.trim() : "Shri";
+      localStorage.setItem("csat_candidate_name", candName);
+
       // Get selected language
       const selectedLang = document.querySelector('input[name="exam_language"]:checked').value;
       localStorage.setItem(CSAT_LANG_KEY, selectedLang);

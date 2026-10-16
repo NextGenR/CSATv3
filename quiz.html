@@ -52,6 +52,9 @@
       <div class="tg-secondary-chapter">
         <i class="fa-solid fa-book-bookmark"></i>
         <span id="current-chapter-display">Chapter: Number System</span>
+        <span style="margin: 0 8px; opacity: 0.35;">|</span>
+        <i class="fa-solid fa-user-graduate" style="color: var(--tg-blue-light); font-size: 11px;"></i>
+        <span id="candidate-display" style="color: var(--tg-text); font-weight: 500;">Candidate: Shri</span>
       </div>
 
       <div class="tg-secondary-timer">
@@ -224,6 +227,13 @@
         if (!timePerQuestion[q.id]) timePerQuestion[q.id] = 0;
       });
 
+      // Display candidate profile
+      const candidateName = (typeof CSAT_API !== 'undefined' && CSAT_API.getCandidateName) 
+        ? CSAT_API.getCandidateName() 
+        : (localStorage.getItem("csat_candidate_name") || "Shri");
+      const candElem = document.getElementById("candidate-display");
+      if (candElem) candElem.textContent = `Candidate: ${candidateName}`;
+
       renderNavigator();
       updateLangIndicator();
       renderQuestion(currentQIdx, "none");
@@ -367,7 +377,7 @@
         currentQuestionIndex: currentQIdx,
         language: selectedLang,
         totalTimeSeconds: totalSeconds,
-        testDate: "2026-10-15"
+        testDate: testDate
       };
       // 1. Instant 0ms local cache (resilient to refresh & offline)
       localStorage.setItem(CSAT_STORAGE_KEY, JSON.stringify(state));
@@ -479,7 +489,7 @@
       document.getElementById("submit-warning-modal").classList.add("active");
     }
 
-    function finalizeAndSubmit() {
+    async function finalizeAndSubmit() {
       if (timerInterval) clearInterval(timerInterval);
 
       // Calculate Scores and Categorizations
@@ -534,8 +544,9 @@
       const attemptedTotal = correctCount + incorrectCount;
       const accuracyPercentage = attemptedTotal > 0 ? Math.round((correctCount / attemptedTotal) * 100) : 0;
 
+      const displayDateStr = testDate === "2026-10-16" ? "16 October 2026" : (testDate === "2026-10-15" ? "15 October 2026" : testDate);
       const finalResult = {
-        testDate: "15 October 2026",
+        testDate: displayDateStr,
         totalScore: Math.max(0, totalMarksObtained).toFixed(2),
         rawScore: totalMarksObtained.toFixed(2),
         maxMarks: 25.0,
@@ -553,22 +564,26 @@
       localStorage.removeItem(CSAT_STORAGE_KEY);
 
       // 2. Sync final completed scorecard to Supabase cloud
-      CSAT_API.syncProgressToCloud({
-        testDate: "2026-10-15",
-        answers: userAnswers,
-        timePerQuestion: timePerQuestion,
-        totalTimeSeconds: totalSeconds,
-        status: "completed",
-        finalResult: finalResult
-      });
+      try {
+        await CSAT_API.syncProgressToCloud({
+          testDate: testDate,
+          answers: userAnswers,
+          timePerQuestion: timePerQuestion,
+          totalTimeSeconds: totalSeconds,
+          status: "completed",
+          finalResult: finalResult
+        });
+      } catch (err) {
+        console.warn("Cloud sync error on final submit:", err);
+      }
 
       // Exit fullscreen if active and navigate to analysis.html
       if (document.fullscreenElement && document.exitFullscreen) {
         document.exitFullscreen().catch(() => {}).finally(() => {
-          window.location.href = "analysis.html";
+          window.location.href = `analysis.html?date=${testDate}`;
         });
       } else {
-        window.location.href = "analysis.html";
+        window.location.href = `analysis.html?date=${testDate}`;
       }
     }
   </script>

@@ -10,19 +10,20 @@ const CSAT_API = (function () {
   const TABLE_QUESTIONS = "daily_questions";
   const TABLE_ATTEMPTS = "user_test_attempts";
 
-  // Get or initialize persistent candidate anonymous ID
-  function getCandidateId() {
-    let candidateId = localStorage.getItem("csat_candidate_id");
-    if (!candidateId) {
-      candidateId = "candidate_" + Math.random().toString(36).substring(2, 10);
-      localStorage.setItem("csat_candidate_id", candidateId);
+  // Candidate Name (default: 'Shri')
+  function getCandidateName() {
+    return localStorage.getItem("csat_candidate_name") || "Shri";
+  }
+
+  function setCandidateName(name) {
+    if (name && name.trim()) {
+      localStorage.setItem("csat_candidate_name", name.trim());
     }
-    return candidateId;
   }
 
   /**
    * Fetch daily questions from Supabase REST API for a specific date
-   * Defaults to 15th October 2026
+   * Defaults to 16th October 2026
    */
   async function loadDailyQuestions(testDate = "2026-10-16") {
     try {
@@ -69,17 +70,17 @@ const CSAT_API = (function () {
 
   /**
    * Sync active quiz progress to Supabase
-   * Saves answers, timers, question index, and review flags
+   * Saves answers, timers, question index, and review flags under candidate name (e.g. 'Shri')
    */
   async function syncProgressToCloud(progressPayload) {
-    const candidateId = getCandidateId();
-    const testDate = progressPayload.testDate || "2026-10-15";
-    const recordId = `${candidateId}_${testDate}`;
+    const candidateName = getCandidateName();
+    const testDate = progressPayload.testDate || "2026-10-16";
+    const recordId = `${candidateName}_${testDate}`;
 
     const body = {
       id: recordId,
+      user_name: candidateName,
       test_date: testDate,
-      user_identifier: candidateId,
       current_question_index: progressPayload.currentQuestionIndex || 0,
       answers: progressPayload.answers || {},
       time_per_question: progressPayload.timePerQuestion || {},
@@ -100,9 +101,10 @@ const CSAT_API = (function () {
     }
 
     try {
-      const endpoint = `${SUPABASE_URL}/rest/v1/${TABLE_ATTEMPTS}`;
+      const endpoint = `${SUPABASE_URL}/rest/v1/${TABLE_ATTEMPTS}?on_conflict=id`;
       const response = await fetch(endpoint, {
         method: "POST",
+        keepalive: true,
         headers: {
           "apikey": SUPABASE_ANON_KEY,
           "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
@@ -111,6 +113,10 @@ const CSAT_API = (function () {
         },
         body: JSON.stringify(body)
       });
+      if (!response.ok) {
+        const errText = await response.text();
+        console.warn(`Supabase sync error [HTTP ${response.status}]:`, errText);
+      }
       return response.ok;
     } catch (err) {
       console.warn("Cloud sync failed (offline / table pending):", err);
@@ -121,9 +127,9 @@ const CSAT_API = (function () {
   /**
    * Restore user progress from Supabase if local cache was cleared
    */
-  async function restoreProgressFromCloud(testDate = "2026-10-15") {
-    const candidateId = getCandidateId();
-    const recordId = `${candidateId}_${testDate}`;
+  async function restoreProgressFromCloud(testDate = "2026-10-16") {
+    const candidateName = getCandidateName();
+    const recordId = `${candidateName}_${testDate}`;
 
     try {
       const endpoint = `${SUPABASE_URL}/rest/v1/${TABLE_ATTEMPTS}?id=eq.${recordId}&select=*`;
