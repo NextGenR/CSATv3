@@ -421,6 +421,22 @@
         if (e.target === modal) closeModal();
       });
 
+      function getAnalysisButtonHtml(dayNum) {
+        if (dayNum === 18) {
+          return '<div style="margin-top: 10px;"><a href="analysis.html?date=2026-10-18" class="tg-btn-start-green" style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px;"><i class="fa-solid fa-chart-line"></i> View Full Detailed Analysis</a></div>';
+        }
+        if (dayNum === 17) {
+          return '<div style="margin-top: 10px;"><a href="analysis.html?date=2026-10-17" class="tg-btn-start-green" style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px;"><i class="fa-solid fa-chart-line"></i> View 17 Oct Analysis</a></div>';
+        }
+        if (dayNum === 16) {
+          return '<div style="margin-top: 10px;"><a href="analysis.html?date=2026-10-16" class="tg-btn-start-green" style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px;"><i class="fa-solid fa-chart-line"></i> View 16 Oct Analysis</a></div>';
+        }
+        if (dayNum === 15) {
+          return '<div style="margin-top: 10px;"><a href="analysis.html?date=2026-10-15" class="tg-btn-start-green" style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px;"><i class="fa-solid fa-chart-line"></i> View 15 Oct Analysis</a></div>';
+        }
+        return 'Review the questions you missed to avoid repeating calculation traps in upcoming tests.';
+      }
+
       function showHistoryModal(data) {
         document.getElementById("hist-modal-title").innerHTML = `
           <i class="fa-solid fa-chart-pie" style="color: var(--tg-blue-light);"></i>
@@ -515,7 +531,7 @@
               <h4><i class="fa-solid fa-lightbulb"></i> Performance Assessment</h4>
               <p style="font-size: 13px; color: #a4b4c4; line-height: 1.5;">
                 On ${data.dateStr}, your qualifying score was ${data.score}. Accuracy was ${data.accuracy}%.
-                ${data.dayNum === 18 ? '<div style="margin-top: 10px;"><a href="analysis.html?date=2026-10-18" class="tg-btn-start-green" style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px;"><i class="fa-solid fa-chart-line"></i> View Full Detailed Analysis</a></div>' : (data.dayNum === 17 ? '<div style="margin-top: 10px;"><a href="analysis.html?date=2026-10-17" class="tg-btn-start-green" style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px;"><i class="fa-solid fa-chart-line"></i> View 17 Oct Analysis</a></div>' : (data.dayNum === 16 ? '<div style="margin-top: 10px;"><a href="analysis.html?date=2026-10-16" class="tg-btn-start-green" style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px;"><i class="fa-solid fa-chart-line"></i> View 16 Oct Analysis</a></div>' : (data.dayNum === 15 ? '<div style="margin-top: 10px;"><a href="analysis.html?date=2026-10-15" class="tg-btn-start-green" style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px;"><i class="fa-solid fa-chart-line"></i> View 15 Oct Analysis</a></div>' : 'Review the questions you missed to avoid repeating calculation traps in upcoming tests.'))))}
+                ${getAnalysisButtonHtml(data.dayNum)}
               </p>
             </div>
           `;
