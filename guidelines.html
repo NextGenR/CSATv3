@@ -159,6 +159,26 @@
       <!-- Guidelines Content -->
       <div class="guidelines-body">
 
+        <!-- In-Progress Resume Alert Box (Shown dynamically if active test exists) -->
+        <div class="tg-resume-banner-box" id="guidelines-resume-card" style="display: none;">
+          <div class="tg-resume-banner-left">
+            <div class="tg-resume-circle-icon">
+              <i class="fa-solid fa-clock-rotate-left"></i>
+            </div>
+            <div>
+              <h3 style="font-size: 15px; font-weight: 700; color: #ffffff; margin-bottom: 2px;">In-Progress Practice Test Found</h3>
+              <p id="resume-card-desc" style="font-size: 13px; color: var(--tg-text-secondary); line-height: 1.4;">
+                You previously answered <strong id="resume-count-tag" style="color: var(--tg-blue-light);">0 of 10</strong> questions. You can resume right where you left off.
+              </p>
+            </div>
+          </div>
+          <div style="display: flex; gap: 8px; flex-shrink: 0;">
+            <button class="tg-btn-cancel" id="btn-restart-fresh" style="font-size: 12px; padding: 7px 12px;">
+              <i class="fa-solid fa-rotate-left"></i> Restart Fresh
+            </button>
+          </div>
+        </div>
+
         <!-- 4 Key UPSC CSAT Metric Badges -->
         <div class="guidelines-grid-4">
           <div class="tg-rule-card">
@@ -250,13 +270,77 @@
   </div>
 
   <script src="csat_data.js"></script>
+  <script src="api.js"></script>
   <script>
+    let hasActiveTest = false;
+    let savedIndex = 0;
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const targetDate = urlParams.get('date') || '2026-10-16';
+
     // Pre-populate candidate name if saved previously
     const savedName = localStorage.getItem("csat_candidate_name") || "Shri";
     const nameInput = document.getElementById("candidate-name-input");
     if (nameInput) nameInput.value = savedName;
 
-    document.getElementById("btn-start-fullscreen").addEventListener("click", () => {
+    // Check for active / in-progress attempt from local cache and Supabase
+    async function checkExistingProgress() {
+      try {
+        if (typeof CSAT_API !== 'undefined' && CSAT_API.checkActiveAttempt) {
+          const check = await CSAT_API.checkActiveAttempt(targetDate);
+          if (check && check.hasActive && !check.isCompleted) {
+            hasActiveTest = true;
+            savedIndex = check.currentQuestionIndex || 0;
+            const answersCount = check.answersCount || 0;
+
+            const resumeCard = document.getElementById("guidelines-resume-card");
+            const countTag = document.getElementById("resume-count-tag");
+            if (resumeCard && countTag) {
+              countTag.textContent = `${answersCount} of 10`;
+              resumeCard.style.display = "flex";
+            }
+
+            // Update start buttons to "Resume Test"
+            const btnBottom = document.getElementById("btn-start-fullscreen");
+            const btnTop = document.querySelector(".btn-start-trigger");
+            const resumeBtnHtml = `<i class="fa-solid fa-play"></i> Resume Test (Question ${savedIndex + 1})`;
+            if (btnBottom) btnBottom.innerHTML = resumeBtnHtml;
+            if (btnTop) btnTop.innerHTML = resumeBtnHtml;
+          }
+        }
+      } catch (err) {
+        console.warn("Progress check error:", err);
+      }
+    }
+
+    checkExistingProgress();
+
+    // Restart fresh handler
+    const restartBtn = document.getElementById("btn-restart-fresh");
+    if (restartBtn) {
+      restartBtn.addEventListener("click", async () => {
+        if (confirm("Are you sure you want to discard your previous attempt and restart from Question 1?")) {
+          restartBtn.disabled = true;
+          restartBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Resetting...`;
+
+          if (typeof CSAT_API !== 'undefined' && CSAT_API.clearActiveAttempt) {
+            await CSAT_API.clearActiveAttempt(targetDate);
+          } else {
+            localStorage.removeItem(CSAT_STORAGE_KEY);
+          }
+
+          hasActiveTest = false;
+          savedIndex = 0;
+          document.getElementById("guidelines-resume-card").style.display = "none";
+          const startBtnHtml = `<i class="fa-solid fa-play"></i> Start Test (Full Screen)`;
+          document.getElementById("btn-start-fullscreen").innerHTML = startBtnHtml;
+          const btnTop = document.querySelector(".btn-start-trigger");
+          if (btnTop) btnTop.innerHTML = `<i class="fa-solid fa-play"></i> Start Test`;
+        }
+      });
+    }
+
+    function startOrResumeTest() {
       // Save Candidate Name
       const candName = (nameInput && nameInput.value.trim()) ? nameInput.value.trim() : "Shri";
       localStorage.setItem("csat_candidate_name", candName);
@@ -265,20 +349,19 @@
       const selectedLang = document.querySelector('input[name="exam_language"]:checked').value;
       localStorage.setItem(CSAT_LANG_KEY, selectedLang);
 
-      const urlParams = new URLSearchParams(window.location.search);
-      const targetDate = urlParams.get('date') || '2026-10-16';
-
-      // Reset any previous active attempt state
-      const initialAttempt = {
-        answers: {}, // { 1: 'B', 2: 'A', ... }
-        status: {},  // { 1: 'attempted' / 'reviewed' / 'unattempted' }
-        timePerQuestion: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0 },
-        currentQuestionIndex: 0,
-        startTime: Date.now(),
-        language: selectedLang,
-        testDate: targetDate
-      };
-      localStorage.setItem(CSAT_STORAGE_KEY, JSON.stringify(initialAttempt));
+      // Only initialize empty state if user is starting fresh (NOT resuming)
+      if (!hasActiveTest) {
+        const initialAttempt = {
+          answers: {},
+          status: "in_progress",
+          timePerQuestion: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0, 10: 0 },
+          currentQuestionIndex: 0,
+          startTime: Date.now(),
+          language: selectedLang,
+          testDate: targetDate
+        };
+        localStorage.setItem(CSAT_STORAGE_KEY, JSON.stringify(initialAttempt));
+      }
 
       // Attempt Fullscreen
       if (document.documentElement.requestFullscreen) {
@@ -290,7 +373,11 @@
       } else {
         window.location.href = `quiz.html?date=${targetDate}`;
       }
-    });
+    }
+
+    document.getElementById("btn-start-fullscreen").addEventListener("click", startOrResumeTest);
+    const topStartBtn = document.querySelector(".btn-start-trigger");
+    if (topStartBtn) topStartBtn.addEventListener("click", startOrResumeTest);
   </script>
   <script src="pwa.js"></script>
 </body>

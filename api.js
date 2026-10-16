@@ -207,12 +207,104 @@ const CSAT_API = (function () {
     if (cat === "avoided") return "Questions Which Should Have Been Avoided";
     if (cat === "not_wrong") return "Questions Which Should Not Have Been Wrong";
     return "Questions Which Should Be Attempted";
+  /**
+   * Check if there is an active (in_progress) or saved attempt for a given test date
+   * Combines instant local cache inspection and async Supabase cloud check.
+   */
+  async function checkActiveAttempt(testDate = "2026-10-16") {
+    // 1. Quick check local cache
+    try {
+      const localStr = localStorage.getItem("csat_active_quiz_state");
+      if (localStr) {
+        const local = JSON.parse(localStr);
+        if (local && (local.testDate === testDate || !local.testDate)) {
+          const answers = local.answers || {};
+          const answersCount = Object.keys(answers).length;
+          if (local.status !== "completed" && (answersCount > 0 || (local.currentQuestionIndex && local.currentQuestionIndex > 0))) {
+            return {
+              hasActive: true,
+              isCompleted: false,
+              source: "local",
+              answersCount: answersCount,
+              currentQuestionIndex: local.currentQuestionIndex || 0,
+              totalTimeSeconds: local.totalTimeSeconds || 0,
+              answers: answers,
+              data: local
+            };
+          }
+        }
+      }
+    } catch (e) {
+      console.warn("Local active attempt check failed", e);
+    }
+
+    // 2. Cloud check from Supabase
+    try {
+      const cloudAttempt = await restoreProgressFromCloud(testDate);
+      if (cloudAttempt) {
+        const answers = cloudAttempt.answers || {};
+        const answersCount = Object.keys(answers).length;
+        const isCompleted = cloudAttempt.status === "completed";
+        if (!isCompleted && (answersCount > 0 || (cloudAttempt.current_question_index && cloudAttempt.current_question_index > 0))) {
+          return {
+            hasActive: true,
+            isCompleted: false,
+            source: "cloud",
+            answersCount: answersCount,
+            currentQuestionIndex: cloudAttempt.current_question_index || 0,
+            totalTimeSeconds: cloudAttempt.total_time_seconds || 0,
+            answers: answers,
+            data: cloudAttempt
+          };
+        } else if (isCompleted) {
+          return {
+            hasActive: false,
+            isCompleted: true,
+            source: "cloud",
+            score: cloudAttempt.score,
+            accuracy: cloudAttempt.accuracy,
+            data: cloudAttempt
+          };
+        }
+      }
+    } catch (e) {
+      console.warn("Cloud active attempt check failed", e);
+    }
+
+    return { hasActive: false, isCompleted: false };
+  }
+
+  /**
+   * Clear active attempt for a given date (for fresh restart)
+   */
+  async function clearActiveAttempt(testDate = "2026-10-16") {
+    try {
+      localStorage.removeItem("csat_active_quiz_state");
+    } catch (e) {}
+
+    const candidateName = getCandidateName();
+    const recordId = `${candidateName}_${testDate}`;
+    try {
+      const endpoint = `${SUPABASE_URL}/rest/v1/${TABLE_ATTEMPTS}?id=eq.${recordId}`;
+      await fetch(endpoint, {
+        method: "DELETE",
+        headers: {
+          "apikey": SUPABASE_ANON_KEY,
+          "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+          "Content-Type": "application/json"
+        }
+      });
+    } catch (err) {
+      console.warn("Could not delete cloud attempt:", err);
+    }
   }
 
   return {
     loadDailyQuestions,
     syncProgressToCloud,
     restoreProgressFromCloud,
+    checkActiveAttempt,
+    clearActiveAttempt,
     getCandidateName,
     setCandidateName,
     SUPABASE_URL,

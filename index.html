@@ -210,6 +210,7 @@
 
   <!-- Scripts -->
   <script src="csat_data.js"></script>
+  <script src="api.js"></script>
   <script>
     // Render October Dates (Oct 1 to Oct 15) with scores & randomized accuracy between 70% and 90%
     document.addEventListener("DOMContentLoaded", () => {
@@ -357,6 +358,44 @@
       if (openBtn) openBtn.addEventListener("click", openMobileSidebar);
       if (closeBtn) closeBtn.addEventListener("click", closeMobileSidebar);
       if (backdrop) backdrop.addEventListener("click", closeMobileSidebar);
+
+      // Check for In-Progress test for Today (16 October 2026)
+      async function checkTodayTestStatus() {
+        if (typeof CSAT_API !== 'undefined' && CSAT_API.checkActiveAttempt) {
+          try {
+            const check = await CSAT_API.checkActiveAttempt("2026-10-16");
+            if (check && check.hasActive && !check.isCompleted) {
+              const qNum = (check.currentQuestionIndex || 0) + 1;
+              const answersCount = check.answersCount || 0;
+
+              // Update Hero Button
+              const heroBtn = document.getElementById("btn-start-today");
+              if (heroBtn) {
+                heroBtn.href = "quiz.html?date=2026-10-16";
+                heroBtn.innerHTML = `<i class="fa-solid fa-play"></i> Resume Today's Test (Q${qNum})`;
+                heroBtn.style.background = "linear-gradient(135deg, #2481cc 0%, #1a659e 100%)";
+                heroBtn.style.boxShadow = "0 4px 18px rgba(36, 129, 204, 0.45)";
+              }
+
+              // Update Live Tag in Hero
+              const tagLive = document.querySelector("#hero-today-quiz .tg-tag-live");
+              if (tagLive) {
+                tagLive.style.background = "rgba(36, 129, 204, 0.2)";
+                tagLive.style.borderColor = "rgba(36, 129, 204, 0.5)";
+                tagLive.style.color = "var(--tg-blue-light)";
+                tagLive.innerHTML = `
+                  <span class="tg-pulse-dot" style="background: var(--tg-blue);"></span>
+                  <span>In Progress &bull; ${answersCount} of 10 Answered</span>
+                `;
+              }
+            }
+          } catch (err) {
+            console.warn("Today test status check error:", err);
+          }
+        }
+      }
+
+      checkTodayTestStatus();
     });
   </script>
   <script src="pwa.js"></script>

@@ -88,6 +88,15 @@
       </div>
     </div>
 
+    <!-- RESUME TOAST BANNER (Shows when test is resumed from cloud or cache) -->
+    <div class="tg-resume-floating-banner" id="quiz-resume-toast" style="display: none;">
+      <i class="fa-solid fa-clock-rotate-left"></i>
+      <span id="quiz-resume-toast-msg">Test resumed from where you left off</span>
+      <button onclick="document.getElementById('quiz-resume-toast').style.display='none'" style="background:none; border:none; color:rgba(255,255,255,0.6); cursor:pointer; margin-left: 6px; padding: 2px;">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
     <!-- MAIN QUIZ STAGE: Smooth Horizontal Sliding Track -->
     <main class="tg-quiz-stage">
       <div class="tg-question-slider-track">
@@ -163,20 +172,20 @@
     </div>
   </div>
 
-  <!-- WARNING MODAL: Exit Test Confirmation -->
+  <!-- MODAL: Pause & Exit Test Confirmation -->
   <div class="tg-modal-overlay" id="exit-warning-modal">
     <div class="tg-confirm-dialog">
-      <div class="tg-confirm-icon warning-red">
-        <i class="fa-solid fa-triangle-exclamation"></i>
+      <div class="tg-confirm-icon" style="background: rgba(36, 129, 204, 0.15); color: var(--tg-blue-light); width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; margin: 0 auto 16px auto;">
+        <i class="fa-solid fa-circle-pause"></i>
       </div>
-      <h3 class="tg-confirm-title" style="color: var(--tg-red);">Exit Practice Test?</h3>
+      <h3 class="tg-confirm-title" style="color: #ffffff;">Pause & Exit Practice Test?</h3>
       <p class="tg-confirm-desc">
-        Warning: If you exit now, your responses and timer progress for today's test will be discarded and cannot be resumed. Are you sure you want to leave?
+        Your answers, question timers, and current position are automatically saved to your account. You can return and resume this test anytime right from where you left off.
       </p>
       <div class="tg-confirm-actions">
-        <button class="tg-btn-cancel" id="btn-cancel-exit">Cancel & Stay</button>
-        <button class="tg-btn-quiz-exit" id="btn-confirm-exit">
-          <i class="fa-solid fa-door-open"></i> Yes, Exit Test
+        <button class="tg-btn-cancel" id="btn-cancel-exit">Continue Test</button>
+        <button class="tg-btn-start-green" id="btn-confirm-exit" style="background: var(--tg-blue); box-shadow: 0 2px 10px rgba(36, 129, 204, 0.35);">
+          <i class="fa-solid fa-floppy-disk"></i> Save & Exit Test
         </button>
       </div>
     </div>
@@ -205,6 +214,8 @@
         if (state.language) selectedLang = state.language;
         if (state.timePerQuestion) timePerQuestion = state.timePerQuestion;
         if (state.currentQuestionIndex !== undefined) currentQIdx = state.currentQuestionIndex;
+        if (state.totalTimeSeconds !== undefined) totalSeconds = state.totalTimeSeconds;
+        if (state.marked) markedForReview = new Set(state.marked);
       } catch (e) {
         console.error("Failed to parse saved state", e);
       }
@@ -231,20 +242,52 @@
         activeQuestions = (typeof CSAT_QUESTIONS !== 'undefined') ? CSAT_QUESTIONS : [];
       }
 
-      // If local cache is empty, attempt restoring from Supabase cloud
-      if (!savedStateStr && typeof CSAT_API !== 'undefined' && CSAT_API.restoreProgressFromCloud) {
+      // 2. Cloud restore check from Supabase (restores or merges in-progress cloud attempt)
+      let wasResumed = false;
+      if (typeof CSAT_API !== 'undefined' && CSAT_API.restoreProgressFromCloud) {
         try {
           const cloudAttempt = await CSAT_API.restoreProgressFromCloud(testDate);
-          if (cloudAttempt && cloudAttempt.answers) {
-            userAnswers = cloudAttempt.answers;
-            timePerQuestion = cloudAttempt.time_per_question || {};
-            markedForReview = new Set(cloudAttempt.marked_for_review || []);
-            if (cloudAttempt.current_question_index !== undefined) {
-              currentQIdx = cloudAttempt.current_question_index;
+          if (cloudAttempt && cloudAttempt.status !== "completed") {
+            const cloudAnswers = cloudAttempt.answers || {};
+            const cloudAnswersCount = Object.keys(cloudAnswers).length;
+            const localAnswersCount = Object.keys(userAnswers).length;
+
+            if (cloudAnswersCount >= localAnswersCount && cloudAnswersCount > 0) {
+              userAnswers = cloudAnswers;
+              timePerQuestion = cloudAttempt.time_per_question || timePerQuestion;
+              markedForReview = new Set(cloudAttempt.marked_for_review || []);
+              if (cloudAttempt.current_question_index !== undefined) {
+                currentQIdx = cloudAttempt.current_question_index;
+              }
+              if (cloudAttempt.total_time_seconds !== undefined) {
+                totalSeconds = cloudAttempt.total_time_seconds;
+              }
+              wasResumed = true;
+            } else if (localAnswersCount > 0 || currentQIdx > 0) {
+              wasResumed = true;
             }
+          } else if (Object.keys(userAnswers).length > 0 || currentQIdx > 0) {
+            wasResumed = true;
           }
         } catch (e) {
           console.warn("Cloud restore error:", e);
+          if (Object.keys(userAnswers).length > 0 || currentQIdx > 0) wasResumed = true;
+        }
+      } else if (Object.keys(userAnswers).length > 0 || currentQIdx > 0) {
+        wasResumed = true;
+      }
+
+      // Show sleek floating toast if test was resumed
+      if (wasResumed) {
+        const toast = document.getElementById("quiz-resume-toast");
+        const msg = document.getElementById("quiz-resume-toast-msg");
+        if (toast && msg) {
+          const count = Object.keys(userAnswers).length;
+          msg.innerHTML = `Resumed at <strong>Question ${currentQIdx + 1}</strong> &bull; ${count} answer${count === 1 ? '' : 's'} & timers restored`;
+          toast.style.display = "flex";
+          setTimeout(() => {
+            toast.style.display = "none";
+          }, 4500);
         }
       }
 
@@ -581,17 +624,54 @@
         document.getElementById("exit-warning-modal").classList.remove("active");
       });
 
-      // Confirm Exit -> Redirects back to dashboard
-      document.getElementById("btn-confirm-exit").addEventListener("click", () => {
+      // Confirm Exit -> Saves progress and safely returns to dashboard
+      document.getElementById("btn-confirm-exit").addEventListener("click", async () => {
+        const exitBtn = document.getElementById("btn-confirm-exit");
+        if (exitBtn) {
+          exitBtn.disabled = true;
+          exitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Saving...`;
+        }
         if (timerInterval) clearInterval(timerInterval);
-        localStorage.removeItem(CSAT_STORAGE_KEY);
-        if (document.exitFullscreen) {
+
+        const state = {
+          answers: userAnswers,
+          marked: Array.from(markedForReview),
+          timePerQuestion: timePerQuestion,
+          currentQuestionIndex: currentQIdx,
+          language: selectedLang,
+          totalTimeSeconds: totalSeconds,
+          testDate: testDate,
+          status: "in_progress",
+          updated_at: new Date().toISOString()
+        };
+
+        // 1. Keep local cache safe
+        localStorage.setItem(CSAT_STORAGE_KEY, JSON.stringify(state));
+
+        // 2. Direct cloud sync to Supabase
+        if (typeof CSAT_API !== 'undefined' && CSAT_API.syncProgressToCloud) {
+          try {
+            await CSAT_API.syncProgressToCloud(state);
+          } catch (e) {
+            console.warn("Cloud exit sync error", e);
+          }
+        }
+
+        if (document.fullscreenElement && document.exitFullscreen) {
           document.exitFullscreen().catch(() => {}).finally(() => {
             window.location.href = "index.html";
           });
         } else {
           window.location.href = "index.html";
         }
+      });
+
+      // Ensure answers and timers are preserved if the tab/browser is closed abruptly
+      window.addEventListener("pagehide", () => {
+        saveState();
+      });
+      window.addEventListener("beforeunload", () => {
+        saveState();
       });
 
       // Cancel Submit
