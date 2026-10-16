@@ -1,0 +1,292 @@
+[
+  {
+    "id": "17OCT-023",
+    "questionNumber": 1,
+    "difficulty": "L4",
+    "subject": "Quantitative Aptitude",
+    "pillar": "Quant",
+    "topic": "Number Theory / Prime Algebraic Diophantine Equation",
+    "type": "MCQ",
+    "pyqInspiration": "Inspired by CSAT 2023 Q28 & CSAT 2024 Q44 (Quadratic residue restrictions on prime solutions)",
+    "question": "If p and q are distinct prime numbers such that p² - 2q² = 1, what is the value of (p + q)?\n(a) 5\n(b) 7\n(c) 8\n(d) 11",
+    "options": [
+      "5",
+      "7",
+      "8",
+      "11"
+    ],
+    "correct": 0,
+    "answerKey": "A",
+    "solution": "1. The given equation is p² - 2q² = 1, where p and q are distinct prime numbers.\n2. Rearrange the equation:\n   p² - 1 = 2q² ⇒ (p - 1)(p + 1) = 2q².\n3. Parity analysis:\n   - If p = 2: 2² - 2q² = 4 - 2q² = 1 ⇒ 2q² = 3 (no integer prime solution).\n   - Thus, p must be an odd prime.\n   - If p is an odd prime, both (p - 1) and (p + 1) are consecutive even integers.\n4. Modulo 3 residue analysis:\n   - Every prime p > 3 is of the form 3k ± 1.\n   - Therefore, p² ≡ (±1)² = 1 (mod 3).\n   - This implies p² - 1 ≡ 0 (mod 3), meaning p² - 1 is divisible by 3.\n   - From the equation, 2q² = p² - 1, so 2q² must be divisible by 3.\n   - Since gcd(2, 3) = 1, q² must be divisible by 3, which forces the prime q to be exactly 3.\n5. Test q = 3:\n   p² - 2(3²) = 1 ⇒ p² - 18 = 1 ⇒ p² = 19 (not a square, no integer solution for p).\n6. Therefore, the assumption that p > 3 leads to no solution. Hence, p cannot be greater than 3.\n7. Test prime p = 3:\n   3² - 2q² = 1 ⇒ 9 - 2q² = 1 ⇒ 2q² = 8 ⇒ q² = 4 ⇒ q = 2.\n   Both p = 3 and q = 2 are prime numbers, and they are distinct!\n8. Compute (p + q) = 3 + 2 = 5.",
+    "trapAlert": "A candidate testing q = 3 first gets p = √19 and might conclude 'No solution', missing the even prime solution q = 2, p = 3.",
+    "trick": "p² - 1 = 2q². If p = 3, 3² - 1 = 8 = 2(2²) ⇒ q = 2. Both 3 and 2 are primes. Sum = 3 + 2 = 5.",
+    "forensicMeta": {
+      "cognitiveLoadScore": 4,
+      "scratchpadDemand": "Medium - Modulo 3 Proof / Small Prime Test",
+      "idealTimeVsHallTime": "45s / 80s",
+      "primaryTrapArchetype": "Overlooking the Only Even Prime (2)",
+      "riskIndex": "Medium"
+    }
+  },
+  {
+    "id": "17OCT-087",
+    "questionNumber": 2,
+    "difficulty": "L3",
+    "subject": "Logical Reasoning",
+    "pillar": "Reasoning",
+    "topic": "Linear Seating Arrangement / Dual End Orientation Data Sufficiency",
+    "type": "MCQ",
+    "pyqInspiration": "Inspired by CSAT 2023 Q38 & CSAT 2024 Q71 (Unspecified extreme end ambiguity in linear queues)",
+    "question": "Consider the following Question and two Statements:\nQuestion: In a row of five persons facing North, who sits in the middle position?\nStatement-1: P sits immediately to the left of Q, and R sits immediately to the right of Q.\nStatement-2: S sits at one of the extreme ends, and T sits immediately to the right of R.\nWhich one of the following is correct in respect of the Question and the Statements?\n(a) Statement-1 alone is sufficient to answer the Question\n(b) Statement-2 alone is sufficient to answer the Question\n(c) Both Statement-1 and Statement-2 together are sufficient to answer the Question, but neither Statement alone is sufficient\n(d) Both Statement-1 and Statement-2 together are not sufficient to answer the Question",
+    "options": [
+      "Statement-1 alone is sufficient to answer the Question",
+      "Statement-2 alone is sufficient to answer the Question",
+      "Both Statement-1 and Statement-2 together are sufficient to answer the Question, but neither Statement alone is sufficient",
+      "Both Statement-1 and Statement-2 together are not sufficient to answer the Question"
+    ],
+    "correct": 3,
+    "answerKey": "D",
+    "solution": "1. There are 5 positions in the row: 1, 2, 3, 4, 5 (from left to right, facing North). Position 3 is the middle position.\n2. Analyze Statement-1:\n   - P is immediately left of Q, and R is immediately right of Q ⇒ Fixed contiguous block [P, Q, R].\n   - This 3-person block can occupy (1, 2, 3) where middle is R, or (2, 3, 4) where middle is Q, or (3, 4, 5) where middle is P.\n   - Hence, Statement-1 alone is NOT SUFFICIENT.\n3. Analyze Statement-2:\n   - S sits at an extreme end (Position 1 or 5), and T is immediately right of R ⇒ Block [R, T].\n   - Hence, Statement-2 alone is NOT SUFFICIENT.\n4. Combine Statement-1 and Statement-2:\n   - Linking [P, Q, R] and [R, T] creates a 4-person contiguous block: [P, Q, R, T].\n   - S must occupy an extreme end:\n     - Case A: S is at the right extreme end (Position 5).\n       Then [P, Q, R, T] occupies positions 1, 2, 3, 4.\n       Layout: [1: P, 2: Q, 3: R, 4: T, 5: S]. The person in the middle (Position 3) is R.\n     - Case B: S is at the left extreme end (Position 1).\n       Then [P, Q, R, T] occupies positions 2, 3, 4, 5.\n       Layout: [1: S, 2: P, 3: Q, 4: R, 5: T]. The person in the middle (Position 3) is Q.\n   - Neither statement specifies whether S occupies the left extreme or the right extreme.\n   - Since the middle person could be either R or Q, the question cannot be answered uniquely.\n5. Therefore, Statement-1 and Statement-2 together are not sufficient to answer the Question.",
+    "trapAlert": "Candidates assume S must be at Position 1 or arbitrarily choose one layout without checking the reflection at Position 5, falsely selecting (c).",
+    "trick": "Block of 4 [P, Q, R, T] with S at end allows two valid layouts: P-Q-R-T-S (middle R) and S-P-Q-R-T (middle Q). Dual answers ⇒ Insufficient.",
+    "forensicMeta": {
+      "cognitiveLoadScore": 4,
+      "scratchpadDemand": "Low - Dual Case Permutation",
+      "idealTimeVsHallTime": "35s / 60s",
+      "primaryTrapArchetype": "Single-Sided Extreme End Assumption",
+      "riskIndex": "High"
+    }
+  },
+  {
+    "id": "17OCT-036",
+    "questionNumber": 3,
+    "difficulty": "L2",
+    "subject": "Quantitative Aptitude",
+    "pillar": "Quant",
+    "topic": "Profit & Loss / Dishonest Dealer False Weights",
+    "type": "MCQ",
+    "pyqInspiration": "Inspired by CSAT 2022 Q35 & CSAT 2024 Q52 (Weight substitution distortion on merchant margin)",
+    "question": "A dishonest dealer professes to sell his goods at cost price, but he uses a false weight of 920 grams instead of a 1 kg weight. What is his percentage profit?\n(a) 8%\n(b) 8 16/23 %\n(c) 8.5%\n(d) 9 1/11 %",
+    "options": [
+      "8%",
+      "8 16/23 %",
+      "8.5%",
+      "9 1/11 %"
+    ],
+    "correct": 1,
+    "answerKey": "B",
+    "solution": "1. True weight promised = 1000 grams.\n2. Weight actually delivered = 920 grams.\n3. Assume cost price is ₹ 1 per gram:\n   - Cost incurred by dealer (Cost Price, CP) = Cost of 920 grams = ₹ 920.\n   - Revenue received by dealer (Selling Price, SP) = Selling price of 1000 grams at cost = ₹ 1000.\n4. Net profit = SP - CP = 1000 - 920 = ₹ 80.\n5. Percentage profit is always computed on the Cost Price (actual weight delivered):\n   Profit % = (Profit / CP) × 100% = (80 / 920) × 100%.\n6. Simplify the fraction:\n   80 / 920 = 8 / 92 = 2 / 23.\n   Profit % = (2 / 23) × 100% = 200 / 23 % = 8 16/23 % (approx 8.696%).",
+    "trapAlert": "Calculating the percentage on the claimed 1000 g base (80 / 1000 = 8%) is the primary distractor trap.",
+    "trick": "Profit % = [Error / (True - Error)] × 100 = (80 / 920) × 100 = 200 / 23 % = 8 16/23 %.",
+    "forensicMeta": {
+      "cognitiveLoadScore": 2,
+      "scratchpadDemand": "Low - Mental Fraction Division",
+      "idealTimeVsHallTime": "25s / 40s",
+      "primaryTrapArchetype": "Base Base Inversion (True Weight vs Delivered Weight)",
+      "riskIndex": "Low"
+    }
+  },
+  {
+    "id": "17OCT-060",
+    "questionNumber": 4,
+    "difficulty": "L5",
+    "subject": "Quantitative Aptitude",
+    "pillar": "Quant",
+    "topic": "Number Theory / Quadratic Residues & Parity mod 4",
+    "type": "MCQ",
+    "pyqInspiration": "Inspired by CSAT 2023 Q15 & CSAT 2024 Q44 (Modulo 4 quadratic residue impossibility proofs)",
+    "question": "How many pairs of positive integers (x, y) satisfy the equation x² - y² = 2026?\n(a) 0\n(b) 1\n(c) 2\n(d) 4",
+    "options": [
+      "0",
+      "1",
+      "2",
+      "4"
+    ],
+    "correct": 0,
+    "answerKey": "A",
+    "solution": "1. Express the equation in factored form:\n   x² - y² = (x - y)(x + y) = 2026.\n2. Parity analysis of the two factors:\n   (x + y) - (x - y) = 2y (an even integer).\n   - This implies that (x - y) and (x + y) must both be even, or both must be odd.\n3. Parity cases for the product (x² - y²):\n   - Case 1: If both factors are odd, their product is odd. But 2026 is even.\n   - Case 2: If both factors are even, their product must be divisible by 2 × 2 = 4.\n4. Check divisibility of 2026 by 4:\n   2026 ÷ 4 = 506 with a remainder of 2 (i.e., 2026 ≡ 2 mod 4).\n5. Contradiction: Any difference of two integer squares x² - y² can only be congruent to 0, 1, or 3 modulo 4. It can NEVER leave a remainder of 2 when divided by 4.\n6. Therefore, no integer pair (x, y) exists, and the number of positive integer solutions is 0.",
+    "trapAlert": "Aspirants factor 2026 = 2 × 1013 and attempt to solve x - y = 2, x + y = 1013, arriving at fractional x = 1015/2 and wasting valuable minutes.",
+    "trick": "x² - y² cannot leave remainder 2 mod 4. Since 2026 ≡ 2 (mod 4), there are ZERO integer solutions.",
+    "forensicMeta": {
+      "cognitiveLoadScore": 5,
+      "scratchpadDemand": "Low - Modulo 4 Invariant Proof",
+      "idealTimeVsHallTime": "25s / 45s",
+      "primaryTrapArchetype": "Parity Incompatibility Fractional Trap",
+      "riskIndex": "High"
+    }
+  },
+  {
+    "id": "17OCT-014",
+    "questionNumber": 5,
+    "difficulty": "L1",
+    "subject": "Quantitative Aptitude",
+    "pillar": "Quant",
+    "topic": "Simple Interest / Linear Capital Growth",
+    "type": "MCQ",
+    "pyqInspiration": "Inspired by CSAT 2022 Q17 & CSAT 2024 Q38 (Multiplication factors under simple interest linearity)",
+    "question": "A sum of money invested at simple interest doubles itself in 8 years. In how many years will it become 5 times of itself at the same rate of simple interest?\n(a) 20 years\n(b) 24 years\n(c) 32 years\n(d) 40 years",
+    "options": [
+      "20 years",
+      "24 years",
+      "32 years",
+      "40 years"
+    ],
+    "correct": 2,
+    "answerKey": "C",
+    "solution": "1. Let the principal sum be P.\n2. When the sum doubles itself, the final amount A = 2P.\n   Simple Interest earned = A - P = 2P - P = P.\n   Time taken to earn interest equal to P is 8 years.\n3. To become 5 times of itself, final amount A = 5P.\n   Simple Interest required = 5P - P = 4P.\n4. Since Simple Interest is strictly proportional to time (SI = P × R × T / 100):\n   Time required to earn 4P interest = 4 × (Time required to earn P interest) = 4 × 8 = 32 years.",
+    "trapAlert": "Candidates reflexively multiply 8 by 5 to choose 40 years, forgetting that the base principal P is already present and only interest grows.",
+    "trick": "Interest doubles ⇒ SI = 1P in 8 years. To become 5x ⇒ SI = 4P ⇒ Time = 4 × 8 = 32 years.",
+    "forensicMeta": {
+      "cognitiveLoadScore": 1,
+      "scratchpadDemand": "Low - Mental Math",
+      "idealTimeVsHallTime": "15s / 30s",
+      "primaryTrapArchetype": "Compound Multiplier Confusion on Simple Interest",
+      "riskIndex": "Low"
+    }
+  },
+  {
+    "id": "17OCT-027",
+    "questionNumber": 6,
+    "difficulty": "L3",
+    "subject": "Logical Reasoning",
+    "pillar": "Reasoning",
+    "topic": "Cubes & Dice / Colored Faces & Geometric Sectioning",
+    "type": "MCQ",
+    "pyqInspiration": "Inspired by CSAT 2019 Q72 & CSAT 2024 Q32 (Non-uniform face coloring and multi-colored boundary count)",
+    "question": "A solid cube of side 4 cm is painted red on two opposite faces, blue on two adjacent faces, and green on the remaining two faces. It is then cut into 64 small identical cubes of side 1 cm each. How many small cubes have at least one face painted red and at least one face painted blue?\n(a) 10\n(b) 12\n(c) 14\n(d) 16",
+    "options": [
+      "10",
+      "12",
+      "14",
+      "16"
+    ],
+    "correct": 2,
+    "answerKey": "C",
+    "solution": "1. Analyze the face orientation of the 4 cm cube (cut into 4 × 4 × 4 = 64 unit cubes):\n   - Two opposite faces are Red: Let Top and Bottom be Red.\n   - Two adjacent faces are Blue: Let Front and Right be Blue (they share the Front-Right vertical edge).\n   - Remaining two faces are Green: Back and Left must be Green.\n2. Small cubes having at least one Red face AND at least one Blue face can ONLY lie along the edges where a Red face meets a Blue face.\n3. Identify the boundary edges between Red faces and Blue faces:\n   - Top (Red) meets Front (Blue) ⇒ Top-Front edge.\n   - Top (Red) meets Right (Blue) ⇒ Top-Right edge.\n   - Bottom (Red) meets Front (Blue) ⇒ Bottom-Front edge.\n   - Bottom (Red) meets Right (Blue) ⇒ Bottom-Right edge.\n   There are exactly 4 such intersecting edges.\n4. Count the small cubes along these 4 edges:\n   - Middle edge cubes: On each of the 4 edges, there are (n - 2) = 4 - 2 = 2 middle edge cubes. Each of these cubes has exactly 2 painted faces (one Red, one Blue). Count = 4 × 2 = 8 cubes.\n   - Corner cubes:\n     Check the 8 corners of the cube:\n     - Top-Front-Right corner: Has Top (Red), Front (Blue), Right (Blue) ⇒ Valid (Has Red and Blue).\n     - Top-Front-Left corner: Has Top (Red), Front (Blue), Left (Green) ⇒ Valid (Has Red and Blue).\n     - Top-Right-Back corner: Has Top (Red), Right (Blue), Back (Green) ⇒ Valid (Has Red and Blue).\n     - Bottom-Front-Right corner: Has Bottom (Red), Front (Blue), Right (Blue) ⇒ Valid (Has Red and Blue).\n     - Bottom-Front-Left corner: Has Bottom (Red), Front (Blue), Left (Green) ⇒ Valid (Has Red and Blue).\n     - Bottom-Right-Back corner: Has Bottom (Red), Right (Blue), Back (Green) ⇒ Valid (Has Red and Blue).\n     - The remaining 2 corners (Top-Back-Left and Bottom-Back-Left) have faces Red, Green, Green (No Blue).\n     Total valid corner cubes = 6 cubes.\n5. Total cubes with both Red and Blue paint = 8 (middle edge) + 6 (corners) = 14 cubes.",
+    "trapAlert": "A common mistake is counting all 8 corners or omitting the corner cubes that also touch a Green face, falsely concluding 8 or 12 cubes.",
+    "trick": "4 common edges between Red and Blue faces have 4 × 2 = 8 middle cubes. 6 of the 8 corners border both Red and Blue. Total = 8 + 6 = 14.",
+    "forensicMeta": {
+      "cognitiveLoadScore": 4,
+      "scratchpadDemand": "Medium - 3D Cube Coordinate Visualization",
+      "idealTimeVsHallTime": "50s / 90s",
+      "primaryTrapArchetype": "Corner Face Triplet Truncation Error",
+      "riskIndex": "Medium"
+    }
+  },
+  {
+    "id": "17OCT-058",
+    "questionNumber": 7,
+    "difficulty": "L4",
+    "subject": "Quantitative Aptitude",
+    "pillar": "Quant",
+    "topic": "Speed, Time & Distance / Moving Escalator Step Dynamics",
+    "type": "MCQ",
+    "pyqInspiration": "Inspired by CSAT 2022 Q69 & CSAT 2023 Q69 (Relative speed step counting on mechanical conveyors)",
+    "question": "A person walks up a moving escalator (which moves upwards) and counts 30 steps to reach the top. If he walks up the same escalator at double his previous speed, he counts 40 steps to reach the top. How many visible steps does the escalator have when it is stationary?\n(a) 50\n(b) 60\n(c) 70\n(d) 80",
+    "options": [
+      "50",
+      "60",
+      "70",
+      "80"
+    ],
+    "correct": 1,
+    "answerKey": "B",
+    "solution": "1. Let N be the total number of stationary visible steps on the escalator.\n2. Let the person's initial walking speed be v steps/second, and the escalator's upward speed be e steps/second.\n3. Case 1:\n   - Person takes 30 steps at speed v ⇒ Time taken t₁ = 30 / v seconds.\n   - In time t₁, the escalator moves upward by e × t₁ = 30(e / v) steps.\n   - Total steps N = Person's steps + Escalator's steps = 30 + 30(e / v).\n4. Case 2:\n   - Person doubles his speed to 2v and counts 40 steps ⇒ Time taken t₂ = 40 / (2v) = 20 / v seconds.\n   - In time t₂, the escalator moves upward by e × t₂ = 20(e / v) steps.\n   - Total steps N = 40 + 20(e / v).\n5. Equate the two expressions for N:\n   30 + 30(e / v) = 40 + 20(e / v)\n   10(e / v) = 10 ⇒ e / v = 1.\n6. Substitute (e / v) = 1 back into either equation for N:\n   N = 30 + 30(1) = 60 steps.\n7. Hence, the escalator has 60 visible steps.",
+    "trapAlert": "A candidate assuming the escalator took the same number of steps in both trials forgets that doubling speed cuts transit time, giving the escalator less time to assist.",
+    "trick": "N = 30 + 30(e/v) = 40 + 20(e/v) ⇒ 10(e/v) = 10 ⇒ e/v = 1. N = 30 + 30 = 60 steps.",
+    "forensicMeta": {
+      "cognitiveLoadScore": 4,
+      "scratchpadDemand": "Medium - Relative Velocity Linear System",
+      "idealTimeVsHallTime": "45s / 75s",
+      "primaryTrapArchetype": "Equal Escalator Distance Assumption Fallacy",
+      "riskIndex": "Medium"
+    }
+  },
+  {
+    "id": "17OCT-066",
+    "questionNumber": 8,
+    "difficulty": "L2",
+    "subject": "Quantitative Aptitude",
+    "pillar": "Quant",
+    "topic": "Percentages / Expenditure Invariance & Reciprocal Reductions",
+    "type": "MCQ",
+    "pyqInspiration": "Inspired by CSAT 2020 Q12 & CSAT 2024 Q23 (Product invariance under reciprocal fractional adjustments)",
+    "question": "If the price of petrol increases by 20%, by what percentage should a driver reduce his petrol consumption so that his total expenditure on petrol remains unchanged?\n(a) 15%\n(b) 16 2/3 %\n(c) 20%\n(d) 25%",
+    "options": [
+      "15%",
+      "16 2/3 %",
+      "20%",
+      "25%"
+    ],
+    "correct": 1,
+    "answerKey": "B",
+    "solution": "1. Expenditure = Price × Consumption.\n2. When expenditure remains constant, Price and Consumption are inversely proportional.\n3. A 20% price increase represents a multiplier of 1 + 20/100 = 120/100 = 6/5.\n4. For expenditure to remain constant, the consumption multiplier must be the reciprocal: 5/6.\n5. Fractional reduction in consumption = 1 - 5/6 = 1/6.\n6. Percentage reduction = (1/6) × 100% = 100/6 % = 16 2/3 % (or 16.67%).",
+    "trapAlert": "Candidates reflexively assume that consumption must decrease by the same 20% to balance a 20% increase, forgetting that the reduction is calculated on the elevated base.",
+    "trick": "Formula: [r / (100 + r)] × 100 = [20 / 120] × 100 = 100 / 6 = 16 2/3 %.",
+    "forensicMeta": {
+      "cognitiveLoadScore": 2,
+      "scratchpadDemand": "Low - Mental Reciprocal Fraction",
+      "idealTimeVsHallTime": "15s / 30s",
+      "primaryTrapArchetype": "Symmetric Percentage Reversal Fallacy",
+      "riskIndex": "Low"
+    }
+  },
+  {
+    "id": "17OCT-085",
+    "questionNumber": 9,
+    "difficulty": "L5",
+    "subject": "Quantitative Aptitude",
+    "pillar": "Quant",
+    "topic": "Number Theory / Legendre's Formula & Prime Powers in Factorial Differences",
+    "type": "MCQ",
+    "pyqInspiration": "Inspired by CSAT 2023 Q15 & CSAT 2025 Q64 (Prime power valuations in factorial difference factorizations)",
+    "question": "What is the largest power of 7 that divides the number (100! - 95!)?\n(a) 2\n(b) 14\n(c) 16\n(d) 28",
+    "options": [
+      "2",
+      "14",
+      "16",
+      "28"
+    ],
+    "correct": 1,
+    "answerKey": "B",
+    "solution": "1. Factor out 95! from the expression (100! - 95!):\n   100! - 95! = 95! × [(100! / 95!) - 1]\n   100! - 95! = 95! × [(100 × 99 × 98 × 97 × 96) - 1].\n2. Analyze the product P = 100 × 99 × 98 × 97 × 96 modulo 7:\n   - 98 is a multiple of 7 (in fact, 98 = 2 × 7² = 2 × 49).\n   - Since 98 is in the product, P is an exact multiple of 7 (P ≡ 0 mod 7).\n3. Analyze the bracket term (P - 1) modulo 7:\n   P - 1 ≡ 0 - 1 = -1 ≡ 6 (mod 7).\n   Since P - 1 is not divisible by 7, the term (P - 1) contains ZERO factors of 7.\n4. Therefore, the highest power of 7 dividing (100! - 95!) is strictly equal to the highest power of 7 dividing 95!.\n5. Apply Legendre's formula for v₇(95!):\n   v₇(95!) = ⌊95 / 7⌋ + ⌊95 / 49⌋ = 13 + 1 = 14.\n6. Hence, the largest power of 7 that divides the number is 7¹⁴.",
+    "trapAlert": "A candidate computing v₇(100!) = 14 + 2 = 16 and v₇(95!) = 14 may subtract them to choose 2, or mistakenly conclude 16, falling for the algebraic trap.",
+    "trick": "100! - 95! = 95!(multiple of 7 - 1). The bracket has no factor of 7. Exponent of 7 is simply v₇(95!) = ⌊95/7⌋ + ⌊95/49⌋ = 13 + 1 = 14.",
+    "forensicMeta": {
+      "cognitiveLoadScore": 5,
+      "scratchpadDemand": "Medium - Legendre Formula & Modular Factor Analysis",
+      "idealTimeVsHallTime": "45s / 80s",
+      "primaryTrapArchetype": "Factorial Difference Subtraction Fallacy (v(A - B) != v(A) - v(B))",
+      "riskIndex": "High"
+    }
+  },
+  {
+    "id": "17OCT-019",
+    "questionNumber": 10,
+    "difficulty": "L1",
+    "subject": "Logical Reasoning",
+    "pillar": "Reasoning",
+    "topic": "Alphabetical Ordering & Invariant Positions",
+    "type": "MCQ",
+    "pyqInspiration": "Inspired by CSAT 2023 Q80 & CSAT 2025 Q12 (Position invariance under descending alphabetical sort)",
+    "question": "If the letters of the word 'REPRESENTATION' are arranged in reverse alphabetical order from left to right, how many vowels will occupy the exact same position as in the original word?\n(a) None\n(b) One\n(c) Two\n(d) Three",
+    "options": [
+      "None",
+      "One",
+      "Two",
+      "Three"
+    ],
+    "correct": 0,
+    "answerKey": "A",
+    "solution": "1. The word 'REPRESENTATION' has 14 letters.\n2. Identify the original letters and index positions (1 to 14):\n   1: R, 2: E, 3: P, 4: R, 5: E, 6: S, 7: E, 8: N, 9: T, 10: A, 11: T, 12: I, 13: O, 14: N.\n3. The vowels in the word and their original positions are:\n   - Pos 2: E\n   - Pos 5: E\n   - Pos 7: E\n   - Pos 10: A\n   - Pos 12: I\n   - Pos 13: O\n4. Collect and sort all 14 letters in reverse alphabetical order (Z to A):\n   Letters present: A(1), E(3), I(1), N(2), O(1), P(1), R(2), S(1), T(2).\n   Reverse sorted array:\n   1: T, 2: T, 3: S, 4: R, 5: R, 6: P, 7: O, 8: N, 9: N, 10: I, 11: E, 12: E, 13: E, 14: A.\n5. Compare sorted positions with original vowel positions:\n   - Pos 2: Original = E, Sorted = T (Mismatch)\n   - Pos 5: Original = E, Sorted = R (Mismatch)\n   - Pos 7: Original = E, Sorted = O (Mismatch)\n   - Pos 10: Original = A, Sorted = I (Mismatch)\n   - Pos 12: Original = I, Sorted = E (Mismatch)\n   - Pos 13: Original = O, Sorted = E (Mismatch)\n6. None of the original vowels occupy their original position. Answer is None.",
+    "trapAlert": "A candidate may notice 'E' appearing at positions 11, 12, 13 in the sorted order and mistakenly match with position 12, overlooking that the original letter at position 12 was 'I', not 'E'.",
+    "trick": "Sorted vowels are at positions 7, 10, 11, 12, 13, 14. Original vowels are at 2, 5, 7, 10, 12, 13. At 7: orig was E, new is O. At 10: orig was A, new is I. At 12: orig was I, new is E. At 13: orig was O, new is E. Zero matches.",
+    "forensicMeta": {
+      "cognitiveLoadScore": 1,
+      "scratchpadDemand": "Low - Letter Frequency Mapping",
+      "idealTimeVsHallTime": "30s / 50s",
+      "primaryTrapArchetype": "Identity Confusion between Source and Target Letters",
+      "riskIndex": "Low"
+    }
+  }
+]

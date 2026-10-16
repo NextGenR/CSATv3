@@ -21,11 +21,18 @@ const CSAT_API = (function () {
     }
   }
 
+  function getDefaultDate() {
+    if (typeof is18thOctUnlocked === 'function' && is18thOctUnlocked()) {
+      return "2026-10-18";
+    }
+    return "2026-10-17";
+  }
+
   /**
    * Fetch daily questions from Supabase REST API for a specific date
-   * Defaults to 17th October 2026
+   * Defaults to 18th Oct if unlocked, else 17th Oct
    */
-  async function loadDailyQuestions(testDate = "2026-10-17") {
+  async function loadDailyQuestions(testDate = getDefaultDate()) {
     try {
       // First try matching test_date, or order by question_number
       let endpoint = `${SUPABASE_URL}/rest/v1/${TABLE_QUESTIONS}?test_date=eq.${testDate}&order=question_number.asc`;
@@ -76,7 +83,7 @@ const CSAT_API = (function () {
    */
   async function syncProgressToCloud(progressPayload) {
     const candidateName = getCandidateName();
-    const testDate = progressPayload.testDate || "2026-10-17";
+    const testDate = progressPayload.testDate || getDefaultDate();
     const recordId = `${candidateName}_${testDate}`;
 
     const body = {
@@ -129,7 +136,7 @@ const CSAT_API = (function () {
   /**
    * Restore user progress from Supabase if local cache was cleared
    */
-  async function restoreProgressFromCloud(testDate = "2026-10-17") {
+  async function restoreProgressFromCloud(testDate = getDefaultDate()) {
     const candidateName = getCandidateName();
     const recordId = `${candidateName}_${testDate}`;
 
@@ -231,7 +238,7 @@ const CSAT_API = (function () {
    * Check if there is an active (in_progress) or saved attempt for a given test date
    * Combines instant local cache inspection and async Supabase cloud check.
    */
-  async function checkActiveAttempt(testDate = "2026-10-17") {
+  async function checkActiveAttempt(testDate = getDefaultDate()) {
     // 1. Quick check local cache for in-progress attempt (supporting both CSAT_STORAGE_KEY & fallback)
     try {
       const localStr = localStorage.getItem("csat_daily_test_state") || localStorage.getItem("csat_active_quiz_state");
@@ -334,7 +341,7 @@ const CSAT_API = (function () {
   /**
    * Clear active attempt for a given date (for fresh restart)
    */
-  async function clearActiveAttempt(testDate = "2026-10-17") {
+  async function clearActiveAttempt(testDate = getDefaultDate()) {
     try {
       localStorage.removeItem("csat_daily_test_state");
       localStorage.removeItem("csat_active_quiz_state");

@@ -710,19 +710,432 @@ const CSAT_QUESTIONS_17OCT = [
   }
 ];
 
-// Set default fallback questions to Today (17th Oct)
-const CSAT_QUESTIONS = CSAT_QUESTIONS_17OCT;
+// ============================================================================
+// 18TH OCTOBER 2026 UPSC CSAT QUESTIONS (Bilingual English + Hindi)
+// Source: Question_Seeder/18th_oct.json
+// ============================================================================
+const CSAT_QUESTIONS_18OCT = [
+  {
+    id: 1,
+    chapter: "Prime Algebraic Diophantine Equation",
+    chapterHi: "अभाज्य बीजीय डायोफैंटाइन समीकरण",
+    category: "attempted",
+    categoryTitle: "Questions Which Should Be Attempted",
+    difficulty: "Moderate-High (L4)",
+    en: {
+      statement: "If p and q are distinct prime numbers such that p² - 2q² = 1, what is the value of (p + q)?\n(a) 5\n(b) 7\n(c) 8\n(d) 11",
+      options: {
+        A: "5",
+        B: "7",
+        C: "8",
+        D: "11"
+      },
+      explanation: "1. The given equation is p² - 2q² = 1, where p and q are distinct prime numbers.\n2. Rearrange: p² - 1 = 2q² ⇒ (p - 1)(p + 1) = 2q².\n3. Parity analysis: If p = 2 ⇒ 4 - 2q² = 1 ⇒ 2q² = 3 (no integer prime solution). Thus p must be an odd prime.\n4. Modulo 3 analysis: Every prime p > 3 satisfies p² ≡ 1 (mod 3), which implies 3 | (p² - 1) = 2q² ⇒ q = 3. Testing q = 3 gives p² = 19 (not a square).\n5. Hence p cannot be > 3. Test prime p = 3: 3² - 2q² = 1 ⇒ 2q² = 8 ⇒ q² = 4 ⇒ q = 2. Both 3 and 2 are primes!\n6. Compute (p + q) = 3 + 2 = 5."
+    },
+    hi: {
+      statement: "यदि p और q दो भिन्न अभाज्य संख्याएँ इस प्रकार हैं कि p² - 2q² = 1, तो (p + q) का मान क्या है?\n(a) 5\n(b) 7\n(c) 8\n(d) 11",
+      options: {
+        A: "5",
+        B: "7",
+        C: "8",
+        D: "11"
+      },
+      explanation: "समीकरण: p² - 1 = 2q² ⇒ (p - 1)(p + 1) = 2q²।\nयदि p = 3 रखें, तो 3² - 2q² = 1 ⇒ 9 - 1 = 2q² ⇒ 2q² = 8 ⇒ q² = 4 ⇒ q = 2।\nयहाँ p = 3 और q = 2 दोनों भिन्न अभाज्य संख्याएँ हैं।\nअतः (p + q) = 3 + 2 = 5।"
+    },
+    correctAnswer: "A",
+    attemptRate: 64,
+    optionDistribution: { A: 58, B: 24, C: 12, D: 6 },
+    recommendedTimeSec: 65,
+    forensicMeta: {
+      pyqInspiration: "Inspired by CSAT 2023 Q28 & CSAT 2024 Q44 (Quadratic residue restrictions on prime solutions)",
+      trapAlert: "A candidate testing q = 3 first gets p = √19 and might conclude 'No solution', missing the even prime solution q = 2, p = 3.",
+      cognitiveLoadScore: 4,
+      riskIndex: "Medium"
+    }
+  },
+  {
+    id: 2,
+    chapter: "Linear Seating Arrangement Data Sufficiency",
+    chapterHi: "पंक्तिबद्ध बैठक व्यवस्था एवं डेटा पर्याप्तता",
+    category: "avoided",
+    categoryTitle: "Questions Which Should Have Been Avoided",
+    difficulty: "Moderate (L3)",
+    en: {
+      statement: "Consider the following Question and two Statements:\nQuestion: In a row of five persons facing North, who sits in the middle position?\nStatement-1: P sits immediately to the left of Q, and R sits immediately to the right of Q.\nStatement-2: S sits at one of the extreme ends, and T sits immediately to the right of R.\nWhich one of the following is correct in respect of the Question and the Statements?\n(a) Statement-1 alone is sufficient to answer the Question\n(b) Statement-2 alone is sufficient to answer the Question\n(c) Both Statement-1 and Statement-2 together are sufficient to answer the Question, but neither Statement alone is sufficient\n(d) Both Statement-1 and Statement-2 together are not sufficient to answer the Question",
+      options: {
+        A: "Statement-1 alone is sufficient to answer the Question",
+        B: "Statement-2 alone is sufficient to answer the Question",
+        C: "Both Statement-1 and Statement-2 together are sufficient to answer the Question, but neither Statement alone is sufficient",
+        D: "Both Statement-1 and Statement-2 together are not sufficient to answer the Question"
+      },
+      explanation: "1. Statement-1 gives block [P, Q, R]. Can be at (1,2,3), (2,3,4), or (3,4,5). Insufficient.\n2. Statement-2 gives block [R, T] and S at an extreme end. Insufficient.\n3. Combining both gives a 4-person contiguous block: [P, Q, R, T].\n4. S must occupy an extreme end:\n   - Case 1: S is at right end (pos 5) ⇒ [P, Q, R, T, S]. Middle person (pos 3) is R.\n   - Case 2: S is at left end (pos 1) ⇒ [S, P, Q, R, T]. Middle person (pos 3) is Q.\n5. Since S can be at either extreme end, the middle person could be R or Q. Hence, Statement-1 and Statement-2 together are not sufficient."
+    },
+    hi: {
+      statement: "निम्नलिखित प्रश्न और दो कथनों पर विचार कीजिए:\nप्रश्न: उत्तर की ओर उन्मुख पाँच व्यक्तियों की एक पंक्ति में, ठीक बीच के स्थान पर कौन बैठता है?\nकथन-1: P, Q के ठीक बाईं ओर बैठता है, और R, Q के ठीक दाईं ओर बैठता है।\nकथन-2: S किसी एक छोर पर बैठता है, और T, R के ठीक दाईं ओर बैठता है।\nउपर्युक्त प्रश्न और कथनों के संदर्भ में निम्नलिखित में से कौन-सा एक सही है?",
+      options: {
+        A: "प्रश्न का उत्तर देने के लिए अकेले कथन-1 पर्याप्त है",
+        B: "प्रश्न का उत्तर देने के लिए अकेले कथन-2 पर्याप्त है",
+        C: "कथन-1 और कथन-2 दोनों मिलकर पर्याप्त हैं, किन्तु कोई भी अकेला पर्याप्त नहीं है",
+        D: "कथन-1 और कथन-2 दोनों मिलकर भी प्रश्न का उत्तर देने के लिए पर्याप्त नहीं हैं"
+      },
+      explanation: "कथन-1 और 2 को मिलाने पर [P, Q, R, T] का 4-सदस्यीय समूह बनता है। S छोर पर बैठता है।\nस्थिति 1: S दाएँ छोर पर है ⇒ P, Q, R, T, S (मध्य में R है)।\nस्थिति 2: S बाएँ छोर पर है ⇒ S, P, Q, R, T (मध्य में Q है)।\nचूँकि दोनों स्थितियाँ संभव हैं, अतः दोनों मिलकर भी पर्याप्त नहीं हैं।"
+    },
+    correctAnswer: "D",
+    attemptRate: 52,
+    optionDistribution: { A: 8, B: 6, C: 46, D: 40 },
+    recommendedTimeSec: 60,
+    forensicMeta: {
+      pyqInspiration: "Inspired by CSAT 2023 Q38 & CSAT 2024 Q71 (Unspecified extreme end ambiguity in linear queues)",
+      trapAlert: "Candidates assume S must be at Position 1 or arbitrarily choose one layout without checking the reflection at Position 5, falsely selecting (c).",
+      cognitiveLoadScore: 4,
+      riskIndex: "High"
+    }
+  },
+  {
+    id: 3,
+    chapter: "Profit & Loss - Dishonest Dealer False Weights",
+    chapterHi: "लाभ और हानि - बेईमान व्यापारी एवं गलत बाट",
+    category: "not_wrong",
+    categoryTitle: "Questions Which Should Not Have Been Wrong",
+    difficulty: "Easy-Moderate (L2)",
+    en: {
+      statement: "A dishonest dealer professes to sell his goods at cost price, but he uses a false weight of 920 grams instead of a 1 kg weight. What is his percentage profit?\n(a) 8%\n(b) 8 16/23 %\n(c) 8.5%\n(d) 9 1/11 %",
+      options: {
+        A: "8%",
+        B: "8 16/23 %",
+        C: "8.5%",
+        D: "9 1/11 %"
+      },
+      explanation: "1. True weight claimed = 1000 g.\n2. Weight actually given = 920 g (Dealer's actual Cost Price base = 920 g).\n3. Profit earned = 1000 - 920 = 80 g.\n4. Profit % is calculated on Cost Price (actual weight delivered):\n   Profit % = (80 / 920) × 100% = (2 / 23) × 100% = 200 / 23 % = 8 16/23 %."
+    },
+    hi: {
+      statement: "एक बेईमान व्यापारी अपने माल को क्रय मूल्य पर बेचने का दावा करता है, किन्तु वह 1 किग्रा के स्थान पर 920 ग्राम के गलत बाट का उपयोग करता है। उसका प्रतिशत लाभ क्या है?\n(a) 8%\n(b) 8 16/23 %\n(c) 8.5%\n(d) 9 1/11 %",
+      options: {
+        A: "8%",
+        B: "8 16/23 %",
+        C: "8.5%",
+        D: "9 1/11 %"
+      },
+      explanation: "वास्तव में दी गई मात्रा = 920 ग्राम (लागत)।\nलाभ = 1000 - 920 = 80 ग्राम।\nलाभ % = (80 / 920) × 100 = (2 / 23) × 100 = 200 / 23 % = 8 16/23 %।"
+    },
+    correctAnswer: "B",
+    attemptRate: 88,
+    optionDistribution: { A: 16, B: 72, C: 8, D: 4 },
+    recommendedTimeSec: 40,
+    forensicMeta: {
+      pyqInspiration: "Inspired by CSAT 2022 Q35 & CSAT 2024 Q52 (Weight substitution distortion on merchant margin)",
+      trapAlert: "Calculating the percentage on the claimed 1000 g base (80 / 1000 = 8%) is the primary distractor trap.",
+      cognitiveLoadScore: 2,
+      riskIndex: "Low"
+    }
+  },
+  {
+    id: 4,
+    chapter: "Quadratic Residues & Modulo 4 Invariance",
+    chapterHi: "द्विघात अवशेष एवं मॉड्यूलो 4 नियम",
+    category: "avoided",
+    categoryTitle: "Questions Which Should Have Been Avoided",
+    difficulty: "High (L5)",
+    en: {
+      statement: "How many pairs of positive integers (x, y) satisfy the equation x² - y² = 2026?\n(a) 0\n(b) 1\n(c) 2\n(d) 4",
+      options: {
+        A: "0",
+        B: "1",
+        C: "2",
+        D: "4"
+      },
+      explanation: "1. Factoring: x² - y² = (x - y)(x + y) = 2026.\n2. Note that (x + y) - (x - y) = 2y (even). Hence (x - y) and (x + y) have identical parity.\n3. If both odd, product is odd (contradicts 2026 is even).\n4. If both even, product is divisible by 4.\n5. But 2026 ÷ 4 = 506 remainder 2 (2026 ≡ 2 mod 4).\n6. The difference of two integer squares can NEVER leave remainder 2 modulo 4. Therefore, zero pairs exist."
+    },
+    hi: {
+      statement: "समीकरण x² - y² = 2026 को संतुष्ट करने वाले धन पूर्णांकों के कितने युग्म (x, y) हैं?\n(a) 0\n(b) 1\n(c) 2\n(d) 4",
+      options: {
+        A: "0",
+        B: "1",
+        C: "2",
+        D: "4"
+      },
+      explanation: "x² - y² = (x - y)(x + y)। दोनों गुणनखंडों की सम-विषम प्रकृति समान होती है।\nयदि दोनों सम हैं, तो गुणनफल 4 से विभाज्य होना चाहिए।\nकिन्तु 2026 ≡ 2 (mod 4) है।\nदो वर्गों का अंतर कभी भी 2 (mod 4) नहीं हो सकता। अतः 0 युग्म हैं।"
+    },
+    correctAnswer: "A",
+    attemptRate: 48,
+    optionDistribution: { A: 42, B: 30, C: 20, D: 8 },
+    recommendedTimeSec: 50,
+    forensicMeta: {
+      pyqInspiration: "Inspired by CSAT 2023 Q15 & CSAT 2024 Q44 (Modulo 4 quadratic residue impossibility proofs)",
+      trapAlert: "Aspirants factor 2026 = 2 × 1013 and attempt to solve x - y = 2, x + y = 1013, arriving at fractional x = 1015/2 and wasting valuable minutes.",
+      cognitiveLoadScore: 5,
+      riskIndex: "High"
+    }
+  },
+  {
+    id: 5,
+    chapter: "Simple Interest Capital Multipliers",
+    chapterHi: "साधारण ब्याज - मूलधन वृद्धि",
+    category: "not_wrong",
+    categoryTitle: "Questions Which Should Not Have Been Wrong",
+    difficulty: "Easy (L1)",
+    en: {
+      statement: "A sum of money invested at simple interest doubles itself in 8 years. In how many years will it become 5 times of itself at the same rate of simple interest?\n(a) 20 years\n(b) 24 years\n(c) 32 years\n(d) 40 years",
+      options: {
+        A: "20 years",
+        B: "24 years",
+        C: "32 years",
+        D: "40 years"
+      },
+      explanation: "1. Amount doubles ⇒ A = 2P ⇒ Simple Interest = 2P - P = 1P.\n2. Time to earn 1P interest is 8 years.\n3. To become 5 times of itself ⇒ A = 5P ⇒ Simple Interest required = 5P - P = 4P.\n4. Since Simple Interest is strictly proportional to time: Time = 4 × 8 = 32 years."
+    },
+    hi: {
+      statement: "साधारण ब्याज पर निवेश की गई कोई धनराशि 8 वर्षों में दोगुनी हो जाती है। उसी साधारण ब्याज दर पर यह कितने वर्षों में स्वयं की 5 गुनी हो जाएगी?\n(a) 20 वर्ष\n(b) 24 वर्ष\n(c) 32 वर्ष\n(d) 40 वर्ष",
+      options: {
+        A: "20 वर्ष",
+        B: "24 वर्ष",
+        C: "32 वर्ष",
+        D: "40 वर्ष"
+      },
+      explanation: "दोगुनी होने पर ब्याज = 2P - P = P (समय = 8 वर्ष)।\n5 गुनी होने पर आवश्यक ब्याज = 5P - P = 4P।\nसाधारण ब्याज में समय ब्याज के समानुपाती होता है: समय = 4 × 8 = 32 वर्ष।"
+    },
+    correctAnswer: "C",
+    attemptRate: 91,
+    optionDistribution: { A: 4, B: 4, C: 82, D: 10 },
+    recommendedTimeSec: 30,
+    forensicMeta: {
+      pyqInspiration: "Inspired by CSAT 2022 Q17 & CSAT 2024 Q38 (Multiplication factors under simple interest linearity)",
+      trapAlert: "Candidates reflexively multiply 8 by 5 to choose 40 years, forgetting that the base principal P is already present and only interest grows.",
+      cognitiveLoadScore: 1,
+      riskIndex: "Low"
+    }
+  },
+  {
+    id: 6,
+    chapter: "Cubes & Colored Boundary Intersection",
+    chapterHi: "घन एवं रंगीन फलक परिसीमा गणना",
+    category: "attempted",
+    categoryTitle: "Questions Which Should Be Attempted",
+    difficulty: "Moderate (L3)",
+    en: {
+      statement: "A solid cube of side 4 cm is painted red on two opposite faces, blue on two adjacent faces, and green on the remaining two faces. It is then cut into 64 small identical cubes of side 1 cm each. How many small cubes have at least one face painted red and at least one face painted blue?\n(a) 10\n(b) 12\n(c) 14\n(d) 16",
+      options: {
+        A: "10",
+        B: "12",
+        C: "14",
+        D: "16"
+      },
+      explanation: "1. Let Top & Bottom be Red. Front & Right be Blue. Back & Left be Green.\n2. Cubes with both Red and Blue lie along the 4 edges where Red faces meet Blue faces: Top-Front, Top-Right, Bottom-Front, Bottom-Right.\n3. Middle edge cubes: On each of the 4 edges, there are (4 - 2) = 2 middle edge cubes. 4 × 2 = 8 cubes.\n4. Corner cubes: Exactly 6 of the 8 corners border both a Red face and a Blue face (only Top-Back-Left and Bottom-Back-Left have Red with Green and Green).\n5. Total cubes = 8 (edge) + 6 (corner) = 14 cubes."
+    },
+    hi: {
+      statement: "4 सेमी भुजा वाले एक ठोस घन के दो विपरीत फलकों को लाल, दो संलग्न फलकों को नीला और शेष दो फलकों को हरे रंग से रंगा जाता है। इसके बाद इसे 1 सेमी भुजा वाले 64 छोटे समान घनों में काटा जाता है। ऐसे कितने छोटे घन हैं जिनका कम से कम एक फलक लाल और कम से कम एक फलक नीला रंगा हुआ है?\n(a) 10\n(b) 12\n(c) 14\n(d) 16",
+      options: {
+        A: "10",
+        B: "12",
+        C: "14",
+        D: "16"
+      },
+      explanation: "लाल और नीले फलकों के बीच 4 उभयनिष्ठ किनारे बनते हैं।\nप्रत्येक किनारे पर मध्य घन = 4 - 2 = 2 ⇒ 4 × 2 = 8 घन।\n8 में से 6 कोने (शीर्ष) लाल और नीले दोनों रंगों को स्पर्श करते हैं।\nकुल घन = 8 + 6 = 14 घन।"
+    },
+    correctAnswer: "C",
+    attemptRate: 67,
+    optionDistribution: { A: 12, B: 24, C: 54, D: 10 },
+    recommendedTimeSec: 75,
+    forensicMeta: {
+      pyqInspiration: "Inspired by CSAT 2019 Q72 & CSAT 2024 Q32 (Non-uniform face coloring and multi-colored boundary count)",
+      trapAlert: "A common mistake is counting all 8 corners or omitting the corner cubes that also touch a Green face, falsely concluding 8 or 12 cubes.",
+      cognitiveLoadScore: 4,
+      riskIndex: "Medium"
+    }
+  },
+  {
+    id: 7,
+    chapter: "Relative Speed - Moving Escalator Steps",
+    chapterHi: "सापेक्ष गति - चलती एस्केलेटर की सीढ़ियाँ",
+    category: "attempted",
+    categoryTitle: "Questions Which Should Be Attempted",
+    difficulty: "Moderate-High (L4)",
+    en: {
+      statement: "A person walks up a moving escalator (which moves upwards) and counts 30 steps to reach the top. If he walks up the same escalator at double his previous speed, he counts 40 steps to reach the top. How many visible steps does the escalator have when it is stationary?\n(a) 50\n(b) 60\n(c) 70\n(d) 80",
+      options: {
+        A: "50",
+        B: "60",
+        C: "70",
+        D: "80"
+      },
+      explanation: "1. Let N be total stationary steps, v = walking speed, e = escalator speed.\n2. Trial 1: Time = 30 / v. Escalator covers 30(e / v) steps. N = 30 + 30(e / v).\n3. Trial 2: Speed is 2v, takes 40 steps. Time = 40 / (2v) = 20 / v. N = 40 + 20(e / v).\n4. Equating: 30 + 30(e / v) = 40 + 20(e / v) ⇒ 10(e / v) = 10 ⇒ e / v = 1.\n5. N = 30 + 30(1) = 60 steps."
+    },
+    hi: {
+      statement: "एक व्यक्ति ऊपर की ओर चलती एक एस्केलेटर पर चढ़ते हुए शीर्ष तक पहुँचने में 30 सीढ़ियाँ गिनता है। यदि वह अपनी पूर्व गति से दोगुनी गति से उसी एस्केलेटर पर चढ़ता है, तो वह 40 सीढ़ियाँ गिनता है। स्थिर होने पर एस्केलेटर में कितनी दिखाई देने वाली सीढ़ियाँ हैं?\n(a) 50\n(b) 60\n(c) 70\n(d) 80",
+      options: {
+        A: "50",
+        B: "60",
+        C: "70",
+        D: "80"
+      },
+      explanation: "माना कुल सीढ़ियाँ N हैं, व्यक्ति की गति v और एस्केलेटर की गति e है।\nपहली स्थिति: N = 30 + 30(e/v)\nदूसरी स्थिति: N = 40 + 20(e/v)\nसमान करने पर: 10(e/v) = 10 ⇒ e/v = 1।\nअतः N = 30 + 30(1) = 60 सीढ़ियाँ।"
+    },
+    correctAnswer: "B",
+    attemptRate: 61,
+    optionDistribution: { A: 14, B: 58, C: 18, D: 10 },
+    recommendedTimeSec: 70,
+    forensicMeta: {
+      pyqInspiration: "Inspired by CSAT 2022 Q69 & CSAT 2023 Q69 (Relative speed step counting on mechanical conveyors)",
+      trapAlert: "A candidate assuming the escalator took the same number of steps in both trials forgets that doubling speed cuts transit time, giving the escalator less time to assist.",
+      cognitiveLoadScore: 4,
+      riskIndex: "Medium"
+    }
+  },
+  {
+    id: 8,
+    chapter: "Percentages - Expenditure Invariance",
+    chapterHi: "प्रतिशत - व्यय अपरिवर्तित रखने हेतु उपभोग में कमी",
+    category: "not_wrong",
+    categoryTitle: "Questions Which Should Not Have Been Wrong",
+    difficulty: "Easy-Moderate (L2)",
+    en: {
+      statement: "If the price of petrol increases by 20%, by what percentage should a driver reduce his petrol consumption so that his total expenditure on petrol remains unchanged?\n(a) 15%\n(b) 16 2/3 %\n(c) 20%\n(d) 25%",
+      options: {
+        A: "15%",
+        B: "16 2/3 %",
+        C: "20%",
+        D: "25%"
+      },
+      explanation: "1. Expenditure = Price × Consumption.\n2. Price increases by 20% = +1/5 ⇒ Price multiplier = 6/5.\n3. For constant expenditure, consumption multiplier must be the reciprocal = 5/6.\n4. Reduction in consumption = 1 - 5/6 = 1/6.\n5. Percentage reduction = (1/6) × 100% = 16 2/3 % (or 16.67%)."
+    },
+    hi: {
+      statement: "यदि पेट्रोल की कीमत में 20% की वृद्धि होती है, तो एक चालक को अपने पेट्रोल उपभोग में कितने प्रतिशत की कमी करनी चाहिए ताकि पेट्रोल पर उसका कुल व्यय अपरिवर्तित रहे?\n(a) 15%\n(b) 16 2/3 %\n(c) 20%\n(d) 25%",
+      options: {
+        A: "15%",
+        B: "16 2/3 %",
+        C: "20%",
+        D: "25%"
+      },
+      explanation: "मूल्य 20% बढ़ा ⇒ 6/5। व्यय स्थिर रखने हेतु उपभोग 5/6 होना चाहिए।\nकमी = 1 - 5/6 = 1/6।\nप्रतिशत कमी = (1/6) × 100 = 16 2/3 %।"
+    },
+    correctAnswer: "B",
+    attemptRate: 86,
+    optionDistribution: { A: 6, B: 78, C: 12, D: 4 },
+    recommendedTimeSec: 35,
+    forensicMeta: {
+      pyqInspiration: "Inspired by CSAT 2020 Q12 & CSAT 2024 Q23 (Product invariance under reciprocal fractional adjustments)",
+      trapAlert: "Candidates reflexively assume that consumption must decrease by the same 20% to balance a 20% increase, forgetting that the reduction is calculated on the elevated base.",
+      cognitiveLoadScore: 2,
+      riskIndex: "Low"
+    }
+  },
+  {
+    id: 9,
+    chapter: "Legendre Formula & Factorial Differences",
+    chapterHi: "लेजेंड्रे सूत्र एवं क्रमगुणित अंतर में अभाज्य घात",
+    category: "avoided",
+    categoryTitle: "Questions Which Should Have Been Avoided",
+    difficulty: "High (L5)",
+    en: {
+      statement: "What is the largest power of 7 that divides the number (100! - 95!)?\n(a) 2\n(b) 14\n(c) 16\n(d) 28",
+      options: {
+        A: "2",
+        B: "14",
+        C: "16",
+        D: "28"
+      },
+      explanation: "1. Factor out 95!: 100! - 95! = 95! × [(100 × 99 × 98 × 97 × 96) - 1].\n2. Since 98 = 2 × 7², the product P = 100 × 99 × 98 × 97 × 96 is a multiple of 7.\n3. Therefore, (P - 1) ≡ -1 ≡ 6 (mod 7). It contains NO factor of 7.\n4. Hence the highest power of 7 dividing (100! - 95!) is strictly equal to the power of 7 dividing 95!.\n5. Using Legendre's formula: v₇(95!) = ⌊95 / 7⌋ + ⌊95 / 49⌋ = 13 + 1 = 14."
+    },
+    hi: {
+      statement: "संख्या (100! - 95!) को विभाजित करने वाली 7 की सबसे बड़ी घात क्या है?\n(a) 2\n(b) 14\n(c) 16\n(d) 28",
+      options: {
+        A: "2",
+        B: "14",
+        C: "16",
+        D: "28"
+      },
+      explanation: "100! - 95! = 95! × [(100 × 99 × 98 × 97 × 96) - 1]।\nचूँकि 98 = 2 × 7² है, गुणनफल 7 का गुणज है। अतः (गुणनफल - 1) में 7 का कोई गुणनखंड नहीं होगा।\nअतः अभीष्ट घात 95! में 7 की घात के बराबर है।\nलेजेंड्रे सूत्र से: ⌊95/7⌋ + ⌊95/49⌋ = 13 + 1 = 14।"
+    },
+    correctAnswer: "B",
+    attemptRate: 44,
+    optionDistribution: { A: 32, B: 38, C: 22, D: 8 },
+    recommendedTimeSec: 75,
+    forensicMeta: {
+      pyqInspiration: "Inspired by CSAT 2023 Q15 & CSAT 2025 Q64 (Prime power valuations in factorial difference factorizations)",
+      trapAlert: "A candidate computing v₇(100!) = 14 + 2 = 16 and v₇(95!) = 14 may subtract them to choose 2, or mistakenly conclude 16, falling for the algebraic trap.",
+      cognitiveLoadScore: 5,
+      riskIndex: "High"
+    }
+  },
+  {
+    id: 10,
+    chapter: "Alphabetical Ordering & Invariant Positions",
+    chapterHi: "वर्णमाला क्रम एवं अपरिवर्तित स्थान",
+    category: "not_wrong",
+    categoryTitle: "Questions Which Should Not Have Been Wrong",
+    difficulty: "Easy (L1)",
+    en: {
+      statement: "If the letters of the word 'REPRESENTATION' are arranged in reverse alphabetical order from left to right, how many vowels will occupy the exact same position as in the original word?\n(a) None\n(b) One\n(c) Two\n(d) Three",
+      options: {
+        A: "None",
+        B: "One",
+        C: "Two",
+        D: "Three"
+      },
+      explanation: "1. Word 'REPRESENTATION' (14 letters). Original vowel positions: 2(E), 5(E), 7(E), 10(A), 12(I), 13(O).\n2. Sorted reverse alphabetically: T, T, S, R, R, P, O, N, N, I, E, E, E, A.\n3. Positions check:\n   - Pos 2: was E, now T\n   - Pos 5: was E, now R\n   - Pos 7: was E, now O\n   - Pos 10: was A, now I\n   - Pos 12: was I, now E\n   - Pos 13: was O, now E\n4. None of the original vowels remain in the same position. Answer is None."
+    },
+    hi: {
+      statement: "यदि शब्द 'REPRESENTATION' के अक्षरों को बाएं से दाएं विपरीत वर्णमाला क्रम (Z से A) में व्यवस्थित किया जाए, तो कितने स्वर मूल शब्द के समान स्थान पर रहेंगे?\n(a) कोई नहीं\n(b) एक\n(c) दो\n(d) तीन",
+      options: {
+        A: "कोई नहीं",
+        B: "एक",
+        C: "दो",
+        D: "तीन"
+      },
+      explanation: "मूल शब्द में स्वर स्थान: 2(E), 5(E), 7(E), 10(A), 12(I), 13(O)।\nविपरीत वर्णमाला क्रम: T, T, S, R, R, P, O, N, N, I, E, E, E, A।\nस्थानों की तुलना करने पर: किसी भी स्थान पर वही स्वर नहीं आता।\nअतः उत्तर 'कोई नहीं' (None) है।"
+    },
+    correctAnswer: "A",
+    attemptRate: 85,
+    optionDistribution: { A: 76, B: 14, C: 6, D: 4 },
+    recommendedTimeSec: 45,
+    forensicMeta: {
+      pyqInspiration: "Inspired by CSAT 2023 Q80 & CSAT 2025 Q12 (Position invariance under descending alphabetical sort)",
+      trapAlert: "A candidate may notice 'E' appearing at positions 11, 12, 13 in the sorted order and mistakenly match with position 12, overlooking that the original letter at position 12 was 'I', not 'E'.",
+      cognitiveLoadScore: 1,
+      riskIndex: "Low"
+    }
+  }
+];
 
-function getCSATQuestions(dateStr = "2026-10-17") {
-  if (dateStr === "2026-10-16") return CSAT_QUESTIONS_16OCT;
+// Time Gating: 18th October Mock Test unlocks at exactly 00:01 AM IST on 18th Oct 2026
+function getNowIST() {
+  const now = new Date();
+  const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+  const istOffset = 5.5 * 60 * 60 * 1000;
+  return new Date(utc + istOffset);
+}
+
+function is18thOctUnlocked() {
+  try {
+    if (typeof window !== 'undefined' && window.location) {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get("date") === "2026-10-18" || urlParams.get("preview") === "true" || urlParams.get("previewDate") === "2026-10-18") {
+        return true;
+      }
+    }
+  } catch (e) {}
+  const nowIST = getNowIST();
+  // 18 Oct 2026 00:01:00 IST
+  const unlockIST = new Date("2026-10-18T00:01:00+05:30");
+  return nowIST.getTime() >= unlockIST.getTime();
+}
+
+function getCSATQuestions(dateStr) {
+  if (!dateStr) {
+    return is18thOctUnlocked() ? CSAT_QUESTIONS_18OCT : CSAT_QUESTIONS_17OCT;
+  }
+  if (dateStr === "2026-10-18") return CSAT_QUESTIONS_18OCT;
   if (dateStr === "2026-10-17") return CSAT_QUESTIONS_17OCT;
+  if (dateStr === "2026-10-16") return CSAT_QUESTIONS_16OCT;
   return CSAT_QUESTIONS_17OCT;
 }
 
-// October 2026 Past Test History Data (Oct 1 to Oct 17)
+// Fallback questions based on active date
+const CSAT_QUESTIONS = (typeof is18thOctUnlocked === 'function' && is18thOctUnlocked()) ? CSAT_QUESTIONS_18OCT : CSAT_QUESTIONS_17OCT;
+
+// October 2026 Past Test History Data
 // Accuracy randomized strictly within 70% to 90%
-const OCTOBER_HISTORY_DATA = [
-  { dayNum: 17, dateStr: "17 Oct", dayName: "Saturday", score: "-- / 25", accuracy: "--", questionsAttempted: 0, correct: 0, incorrect: 0, isToday: true, isCompleted: false },
+const OCTOBER_PAST_DAYS = [
   { dayNum: 16, dateStr: "16 Oct", dayName: "Friday", score: "21.6 / 25", accuracy: 87, questionsAttempted: 10, correct: 8, incorrect: 1, isCompleted: true },
   { dayNum: 15, dateStr: "15 Oct", dayName: "Thursday", score: "22.5 / 25", accuracy: 88, questionsAttempted: 10, correct: 9, incorrect: 1, isCompleted: true },
   { dayNum: 14, dateStr: "14 Oct", dayName: "Wednesday", score: "20.0 / 25", accuracy: 80, questionsAttempted: 10, correct: 8, incorrect: 2 },
@@ -741,8 +1154,27 @@ const OCTOBER_HISTORY_DATA = [
   { dayNum: 1, dateStr: "01 Oct", dayName: "Thursday", score: "17.5 / 25", accuracy: 71, questionsAttempted: 9, correct: 7, incorrect: 2 }
 ];
 
+function buildOctoberHistoryData() {
+  if (is18thOctUnlocked()) {
+    return [
+      { dayNum: 18, dateStr: "18 Oct", dayName: "Sunday", score: "-- / 25", accuracy: "--", questionsAttempted: 0, correct: 0, incorrect: 0, isToday: true, isCompleted: false },
+      { dayNum: 17, dateStr: "17 Oct", dayName: "Saturday", score: "22.5 / 25", accuracy: 89, questionsAttempted: 10, correct: 9, incorrect: 1, isCompleted: true },
+      ...OCTOBER_PAST_DAYS
+    ];
+  } else {
+    // Before 18 Oct 00:01 AM IST: 18th Oct tile will not appear today! 17th Oct is today.
+    return [
+      { dayNum: 17, dateStr: "17 Oct", dayName: "Saturday", score: "-- / 25", accuracy: "--", questionsAttempted: 0, correct: 0, incorrect: 0, isToday: true, isCompleted: false },
+      ...OCTOBER_PAST_DAYS
+    ];
+  }
+}
+
+const OCTOBER_HISTORY_DATA = buildOctoberHistoryData();
+
 // Helper to save/load active quiz attempt
 const CSAT_STORAGE_KEY = "csat_daily_test_state";
 const CSAT_RESULT_KEY = "csat_daily_test_result";
 const CSAT_LANG_KEY = "csat_selected_language";
+
 
