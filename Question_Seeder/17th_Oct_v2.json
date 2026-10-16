@@ -1,0 +1,292 @@
+[
+  {
+    "id": "17OCT-001",
+    "questionNumber": 1,
+    "difficulty": "L2",
+    "subject": "Quantitative Aptitude",
+    "pillar": "Quant",
+    "topic": "Speed, Time & Distance / Relative Speed & Crossings",
+    "type": "MCQ",
+    "pyqInspiration": "Inspired by CSAT 2022 Q21 & CSAT 2024 Q62 (Two trains on parallel tracks crossing in same vs opposite directions)",
+    "question": "Two trains of lengths 150 m and 250 m run on parallel tracks. When running in the same direction, the faster train completely passes the slower train in 80 seconds. When running in opposite directions, they pass each other completely in 16 seconds. What is the speed of the faster train in km/h?\n(a) 45 km/h\n(b) 54 km/h\n(c) 60 km/h\n(d) 72 km/h",
+    "options": [
+      "45 km/h",
+      "54 km/h",
+      "60 km/h",
+      "72 km/h"
+    ],
+    "correct": 1,
+    "answerKey": "B",
+    "solution": "1. In both cases (same or opposite direction), the total distance to be covered to clear each other is the sum of their lengths: Distance = 150 + 250 = 400 m.\n2. Let the speed of the faster train be v₁ m/s and that of the slower train be v₂ m/s.\n3. Relative speed in the same direction: (v₁ - v₂) = Distance / Time = 400 / 80 = 5 m/s.\n4. Relative speed in opposite directions: (v₁ + v₂) = Distance / Time = 400 / 16 = 25 m/s.\n5. Adding both equations:\n   2v₁ = 5 + 25 = 30 ⇒ v₁ = 15 m/s.\n6. Convert speed to km/h:\n   v₁ = 15 × (18 / 5) = 3 × 18 = 54 km/h.\n7. (The slower train's speed is v₂ = 10 m/s = 36 km/h).",
+    "trapAlert": "A frequent candidate blunder is converting to km/h prematurely with decimal approximations or subtracting train lengths instead of adding them.",
+    "trick": "Relative speeds: (v₁ - v₂) = 400/80 = 5 m/s; (v₁ + v₂) = 400/16 = 25 m/s. v₁ = (25 + 5)/2 = 15 m/s = 15 × 3.6 = 54 km/h.",
+    "forensicMeta": {
+      "cognitiveLoadScore": 2,
+      "scratchpadDemand": "Low - Linear System",
+      "idealTimeVsHallTime": "35s / 60s",
+      "primaryTrapArchetype": "Unit Conversion / Relative Length Confusion",
+      "riskIndex": "Low"
+    }
+  },
+  {
+    "id": "17OCT-002",
+    "questionNumber": 2,
+    "difficulty": "L3",
+    "subject": "Logical Reasoning",
+    "pillar": "Reasoning",
+    "topic": "Blood Relations & Data Sufficiency",
+    "type": "MCQ",
+    "pyqInspiration": "Inspired by CSAT 2021 Q75 & CSAT 2023 Q38 (Data Sufficiency on familial lineage and terminal gender asymmetry)",
+    "question": "Consider the following Question and two Statements:\nQuestion: How is P related to T?\nStatement-1: P is the brother of Q, and Q is the mother of T.\nStatement-2: T is the son of Q, and Q is the sibling of P.\nWhich one of the following is correct in respect of the Question and the Statements?\n(a) Statement-1 alone is sufficient to answer the Question, but Statement-2 alone is not sufficient\n(b) Statement-2 alone is sufficient to answer the Question, but Statement-1 alone is not sufficient\n(c) Both Statement-1 and Statement-2 together are sufficient to answer the Question, but neither Statement alone is sufficient\n(d) Statement-1 and Statement-2 together are not sufficient to answer the Question",
+    "options": [
+      "Statement-1 alone is sufficient to answer the Question, but Statement-2 alone is not sufficient",
+      "Statement-2 alone is sufficient to answer the Question, but Statement-1 alone is not sufficient",
+      "Both Statement-1 and Statement-2 together are sufficient to answer the Question, but neither Statement alone is sufficient",
+      "Statement-1 and Statement-2 together are not sufficient to answer the Question"
+    ],
+    "correct": 0,
+    "answerKey": "A",
+    "solution": "1. Analyze the Question: 'How is P related to T?' requires determining P's relationship with respect to T (i.e., what is P to T?).\n2. Evaluate Statement-1:\n   - P is the brother of Q (P is male).\n   - Q is the mother of T.\n   - P is the brother of T's mother. Therefore, P is definitively the maternal uncle of T.\n   - Does P's relation to T depend on T's gender? No. Whether T is male or female, P is always T's maternal uncle.\n   - Hence, Statement-1 alone is SUFFICIENT.\n3. Evaluate Statement-2:\n   - T is the son of Q (T is male).\n   - Q is the sibling of P (P and Q share the same parents).\n   - However, the gender of P is NOT specified in Statement-2. P could be Q's brother (making P the maternal uncle of T) or Q's sister (making P the maternal aunt of T).\n   - Since P's gender remains undetermined, P's relation to T cannot be uniquely established.\n   - Hence, Statement-2 alone is NOT SUFFICIENT.\n4. Therefore, Statement-1 alone is sufficient to answer the Question, but Statement-2 alone is not sufficient.",
+    "trapAlert": "Aspirants often confuse 'How is P related to T' with 'How is T related to P'. In Statement-2, T's relation to P is known (nephew), but P's relation to T remains ambiguous due to unstated gender.",
+    "trick": "Look at the subject: P's relation to T requires P's gender. St-1 specifies P is male (brother) → Uncle (Sufficient). St-2 leaves P's gender unknown → Insufficient.",
+    "forensicMeta": {
+      "cognitiveLoadScore": 3,
+      "scratchpadDemand": "Low - Mental Kinship Chain",
+      "idealTimeVsHallTime": "30s / 55s",
+      "primaryTrapArchetype": "Gender Asymmetry in Kinship Sufficiency",
+      "riskIndex": "Medium"
+    }
+  },
+  {
+    "id": "17OCT-008",
+    "questionNumber": 3,
+    "difficulty": "L4",
+    "subject": "Quantitative Aptitude",
+    "pillar": "Quant",
+    "topic": "Linear Diophantine Equations & Integer Extremization",
+    "type": "MCQ",
+    "pyqInspiration": "Inspired by CSAT 2023 Q60 & CSAT 2020 Q44 (Constrained item purchasing with positive integer bounds)",
+    "question": "A merchant buys three varieties of pens costing ₹ 5, ₹ 10 and ₹ 25 each. He spends a total of exactly ₹ 300 and buys exactly 40 pens. If he buys at least one pen of each variety, what is the maximum possible number of ₹ 5 pens he could have purchased?\n(a) 26\n(b) 29\n(c) 32\n(d) 35",
+    "options": [
+      "26",
+      "29",
+      "32",
+      "35"
+    ],
+    "correct": 2,
+    "answerKey": "C",
+    "solution": "1. Let x, y, and z denote the number of pens purchased at ₹ 5, ₹ 10, and ₹ 25 respectively.\n2. Formulate equations based on total count and total cost:\n   (1) x + y + z = 40\n   (2) 5x + 10y + 25z = 300 ⇒ Dividing by 5: x + 2y + 5z = 60\n3. Subtract equation (1) from equation (2):\n   (x + 2y + 5z) - (x + y + z) = 60 - 40\n   ⇒ y + 4z = 20.\n4. We wish to maximize x. From equation (1), x = 40 - (y + z). Therefore, maximizing x is equivalent to minimizing the sum (y + z).\n5. Express y in terms of z: y = 20 - 4z.\n   Then y + z = (20 - 4z) + z = 20 - 3z.\n   To minimize (y + z), we must MAXIMIZE z!\n6. Determine valid integer bounds for z:\n   - Since y ≥ 1: 20 - 4z ≥ 1 ⇒ 4z ≤ 19 ⇒ z ≤ 4.75.\n   - Since z is a positive integer, the maximum possible value for z is 4.\n7. Evaluate at z = 4:\n   y = 20 - 4(4) = 4.\n   x = 40 - (y + z) = 40 - (4 + 4) = 32.\n   Check constraint: x = 32 ≥ 1 (Valid!).\n   Check cost: 32(5) + 4(10) + 4(25) = 160 + 40 + 100 = 300. (Exact!).\n8. Hence, the maximum possible number of ₹ 5 pens is 32.",
+    "trapAlert": "A common mistake is setting z = 1 to minimize the most expensive pen, which yields y = 16 and x = 23, completely missing that increasing z decreases (y + z) much faster.",
+    "trick": "y + 4z = 20 ⇒ y + z = 20 - 3z. Maximize z to minimize (y + z). Max integer z with y ≥ 1 is z = 4 ⇒ y = 4 ⇒ x = 40 - 8 = 32.",
+    "forensicMeta": {
+      "cognitiveLoadScore": 4,
+      "scratchpadDemand": "Medium - Diophantine Substitution",
+      "idealTimeVsHallTime": "45s / 80s",
+      "primaryTrapArchetype": "Counter-Intuitive Extremization Direction",
+      "riskIndex": "High"
+    }
+  },
+  {
+    "id": "17OCT-004",
+    "questionNumber": 4,
+    "difficulty": "L1",
+    "subject": "Quantitative Aptitude",
+    "pillar": "Quant",
+    "topic": "Number System / Divisibility & Digit Forcing",
+    "type": "MCQ",
+    "pyqInspiration": "Inspired by CSAT 2021 Q14 & CSAT 2024 Q18 (Composite divisibility rules with single-digit unknowns)",
+    "question": "If the 6-digit number 58x43y is completely divisible by 72, where x and y are single-digit natural numbers, what is the value of (2x - y)?\n(a) 6\n(b) 7\n(c) 8\n(d) 9",
+    "options": [
+      "6",
+      "7",
+      "8",
+      "9"
+    ],
+    "correct": 2,
+    "answerKey": "C",
+    "solution": "1. A number is divisible by 72 if and only if it is coprime-factored as divisible by both 8 and 9.\n2. Condition for divisibility by 8:\n   - The last three digits '43y' must form an integer divisible by 8.\n   - Test values for y ∈ {0, 1, 2, ..., 9}:\n     430 ÷ 8 = 53 remainder 6.\n     432 ÷ 8 = 54 with remainder 0.\n   - The next multiple is 432 + 8 = 440 (tens digit changes to 4).\n   - Thus, y = 2 is the unique valid single digit.\n3. Condition for divisibility by 9:\n   - The sum of all digits must be a multiple of 9.\n   - Sum = 5 + 8 + x + 4 + 3 + 2 = 22 + x.\n   - Since x is a single-digit natural number (0 ≤ x ≤ 9):\n     22 + x must equal 27 ⇒ x = 5.\n4. Compute required expression (2x - y):\n   2(5) - 2 = 10 - 2 = 8.",
+    "trapAlert": "Forgetting that y must be uniquely checked in the three-digit range 430-439 leads to false digit pairings.",
+    "trick": "43y mod 8 = 0 ⇒ 432 is a multiple of 8, so y = 2. Sum of digits = 22 + x ⇒ x = 5. (2x - y) = 10 - 2 = 8.",
+    "forensicMeta": {
+      "cognitiveLoadScore": 1,
+      "scratchpadDemand": "Low - Direct Arithmetic",
+      "idealTimeVsHallTime": "25s / 45s",
+      "primaryTrapArchetype": "Divisibility Rule Misapplication",
+      "riskIndex": "Low"
+    }
+  },
+  {
+    "id": "17OCT-010",
+    "questionNumber": 5,
+    "difficulty": "L5",
+    "subject": "Quantitative Aptitude",
+    "pillar": "Quant",
+    "topic": "Combinatorial Number Theory & Trailing Zeroes",
+    "type": "MCQ",
+    "pyqInspiration": "Inspired by CSAT 2020 Q70 & CSAT 2023 Q15 (Prime factorization exponents in variable-power factorial products)",
+    "question": "How many trailing zeroes are at the end of the product P = 1¹ × 2² × 3³ × 4⁴ × ... × 50⁵⁰?\n(a) 275\n(b) 325\n(c) 350\n(d) 375",
+    "options": [
+      "275",
+      "325",
+      "350",
+      "375"
+    ],
+    "correct": 2,
+    "answerKey": "C",
+    "solution": "1. The number of trailing zeroes in P is determined by the highest power of 10 dividing P, which equals min(v₂(P), v₅(P)).\n2. In the product of consecutive integers with positive powers, factors of 2 are strictly more abundant than factors of 5. Therefore, trailing zeroes = v₅(P).\n3. Factors of 5 originate only from bases that are multiples of 5:\n   - 5⁵ contributes 5 factors of 5.\n   - 10¹⁰ = (2 × 5)¹⁰ contributes 10 factors of 5.\n   - 15¹⁵ contributes 15 factors of 5.\n   - 20²⁰ contributes 20 factors of 5.\n   - 25²⁵ = (5²)²⁵ contributes 2 × 25 = 50 factors of 5.\n   - 30³⁰ contributes 30 factors of 5.\n   - 35³⁵ contributes 35 factors of 5.\n   - 40⁴⁰ contributes 40 factors of 5.\n   - 45⁴⁵ contributes 45 factors of 5.\n   - 50⁵⁰ = (2 × 5²)⁵⁰ contributes 2 × 50 = 100 factors of 5.\n4. Summing the first power of 5 from all multiples of 5:\n   5 + 10 + 15 + 20 + 25 + 30 + 35 + 40 + 45 + 50 = 5 × (1 + 2 + ... + 10) = 5 × 55 = 275.\n5. Adding the second power of 5 from multiples of 25 (5²):\n   The numbers 25²⁵ and 50⁵⁰ contain an extra factor of 5 per base:\n   Extra factors = 25 + 50 = 75.\n6. Total exponent of 5 = 275 + 75 = 350.\n7. Hence, there are 350 trailing zeroes.",
+    "trapAlert": "Forgetting the second power of 5 in 25²⁵ and 50⁵⁰ is the primary trap, leading 80% of candidates directly to distractor (a) 275.",
+    "trick": "First tier: 5 × (1 + 2 + ... + 10) = 275. Second tier (powers of 5²): 25 + 50 = 75. Total trailing zeroes = 275 + 75 = 350.",
+    "forensicMeta": {
+      "cognitiveLoadScore": 5,
+      "scratchpadDemand": "High - Multi-Tier Exponent Accounting",
+      "idealTimeVsHallTime": "55s / 110s",
+      "primaryTrapArchetype": "Higher Prime Power Truncation",
+      "riskIndex": "Extreme"
+    }
+  },
+  {
+    "id": "17OCT-096",
+    "questionNumber": 6,
+    "difficulty": "L2",
+    "subject": "Quantitative Aptitude",
+    "pillar": "Quant",
+    "topic": "Percentages / Price Reduction & Increased Purchasing Quantity",
+    "type": "MCQ",
+    "pyqInspiration": "Inspired by CSAT 2020 Q12 & CSAT 2024 Q23 (Fixed outlay consumption increments under price discounts)",
+    "question": "A reduction of 20% in the price of sugar enables a purchaser to obtain 5 kg more for ₹ 600. What was the original price of sugar per kg?\n(a) ₹ 24 per kg\n(b) ₹ 25 per kg\n(c) ₹ 30 per kg\n(d) ₹ 36 per kg",
+    "options": [
+      "₹ 24 per kg",
+      "₹ 25 per kg",
+      "₹ 30 per kg",
+      "₹ 36 per kg"
+    ],
+    "correct": 2,
+    "answerKey": "C",
+    "solution": "1. Let original price per kg be P and original consumption for ₹ 600 be C kg (so P × C = 600).\n2. Price is reduced by 20% ⇒ New price P' = 0.80 P = (4/5) P.\n3. Since expenditure is constant at ₹ 600, consumption is inversely proportional to price:\n   New consumption C' = (5/4) C.\n4. The increase in consumption is C' - C = (1/4) C.\n5. Given that this increase equals 5 kg:\n   (1/4) C = 5 kg ⇒ Original consumption C = 20 kg.\n6. Original price per kg P = Total Expenditure / Original Consumption:\n   P = 600 / 20 = ₹ 30 per kg.\n7. (The reduced price is 600 / 25 = ₹ 24 per kg).",
+    "trapAlert": "Aspirants frequently compute the reduced new price (₹ 24 per kg) and select distractor (a), failing to read that the question specifically demands the ORIGINAL price.",
+    "trick": "Saving on ₹ 600 = 20% of 600 = ₹ 120. This ₹ 120 buys 5 kg at the new price ⇒ New price = 120 / 5 = ₹ 24/kg. Original price = 24 / 0.8 = ₹ 30/kg.",
+    "forensicMeta": {
+      "cognitiveLoadScore": 2,
+      "scratchpadDemand": "Low - Mental Cash Saving Technique",
+      "idealTimeVsHallTime": "20s / 35s",
+      "primaryTrapArchetype": "Reduced Price vs Original Price Prompt Trap",
+      "riskIndex": "Low"
+    }
+  },
+  {
+    "id": "17OCT-009",
+    "questionNumber": 7,
+    "difficulty": "L1",
+    "subject": "Logical Reasoning",
+    "pillar": "Reasoning",
+    "topic": "Clocks / Coincidence of Hands",
+    "type": "MCQ",
+    "pyqInspiration": "Inspired by CSAT 2022 Q58 & CSAT 2021 Q47 (Exact coincidence intervals of clock hands)",
+    "question": "At what time between 3 o'clock and 4 o'clock will the hour hand and the minute hand of a clock coincide?\n(a) 15 3/11 minutes past 3\n(b) 16 4/11 minutes past 3\n(c) 16 7/11 minutes past 3\n(d) 18 2/11 minutes past 3",
+    "options": [
+      "15 3/11 minutes past 3",
+      "16 4/11 minutes past 3",
+      "16 7/11 minutes past 3",
+      "18 2/11 minutes past 3"
+    ],
+    "correct": 1,
+    "answerKey": "B",
+    "solution": "1. At 3 o'clock, the minute hand points to 12 (0°), and the hour hand points to 3 (3 × 30° = 90°).\n2. The minute hand must gain 90° on the hour hand for them to coincide.\n3. Relative speed of minute hand over hour hand = 6°/min - 0.5°/min = 5.5°/min = 11/2 degrees per minute.\n4. Time required = Angular distance / Relative speed\n   Time = 90 / (11/2) = 180 / 11 minutes.\n5. Convert to mixed fraction:\n   180 ÷ 11 = 16 with a remainder of 4.\n   Time = 16 4/11 minutes past 3.",
+    "trapAlert": "Aspirants often choose 3:15 (15 minutes past 3), failing to account for the hour hand's movement during those 15 minutes.",
+    "trick": "Formula: t = (60/11) × H. For H = 3: t = (60 × 3)/11 = 180/11 = 16 4/11 minutes past 3.",
+    "forensicMeta": {
+      "cognitiveLoadScore": 1,
+      "scratchpadDemand": "Low - Standard Fractional Division",
+      "idealTimeVsHallTime": "20s / 40s",
+      "primaryTrapArchetype": "Static Clock Hand Fallacy",
+      "riskIndex": "Low"
+    }
+  },
+  {
+    "id": "17OCT-097",
+    "questionNumber": 8,
+    "difficulty": "L3",
+    "subject": "Quantitative Aptitude",
+    "pillar": "Quant",
+    "topic": "Number System / Dual Congruence in 3-Digit Intervals",
+    "type": "MCQ",
+    "pyqInspiration": "Inspired by CSAT 2020 Q25 & CSAT 2022 Q14 (Multi-criteria arithmetic progression bounds)",
+    "question": "How many three-digit natural numbers are divisible by 7 but leave a remainder of 2 when divided by 5?\n(a) 24\n(b) 25\n(c) 26\n(d) 28",
+    "options": [
+      "24",
+      "25",
+      "26",
+      "28"
+    ],
+    "correct": 2,
+    "answerKey": "C",
+    "solution": "1. Let the three-digit number be x:\n   - x ≡ 0 (mod 7)\n   - x ≡ 2 (mod 5)\n2. Combine both congruences modulo LCM(7, 5) = 35:\n   - From x ≡ 0 (mod 7), x = 7k.\n   - Substitute into mod 5: 7k ≡ 2 (mod 5) ⇒ 2k ≡ 2 (mod 5) ⇒ k ≡ 1 (mod 5).\n   - Thus, k = 5m + 1 for an integer m.\n   - General form: x = 7(5m + 1) = 35m + 7.\n3. Three-digit numbers satisfy the closed interval: 100 ≤ x ≤ 999.\n   100 ≤ 35m + 7 ≤ 999\n   93 ≤ 35m ≤ 992.\n4. Find the integer range for m:\n   - Smallest integer m: 93 / 35 = 2.657... ⇒ m_min = 3 (First number = 35(3) + 7 = 112).\n   - Largest integer m: 992 / 35 = 28.342... ⇒ m_max = 28 (Last number = 35(28) + 7 = 987).\n5. Total count of values of m = m_max - m_min + 1 = 28 - 3 + 1 = 26 numbers.",
+    "trapAlert": "A fencepost subtraction error (28 - 3 = 25) gives distractor (b).",
+    "trick": "General term: 35m + 7. m ranges from ⌈93/35⌉ = 3 to ⌊992/35⌋ = 28. Count = 28 - 3 + 1 = 26.",
+    "forensicMeta": {
+      "cognitiveLoadScore": 3,
+      "scratchpadDemand": "Low - Arithmetic Progression Endpoints",
+      "idealTimeVsHallTime": "30s / 50s",
+      "primaryTrapArchetype": "AP Index Fencepost Count Error",
+      "riskIndex": "Low"
+    }
+  },
+  {
+    "id": "17OCT-018",
+    "questionNumber": 9,
+    "difficulty": "L4",
+    "subject": "Quantitative Aptitude",
+    "pillar": "Quant",
+    "topic": "Number System / Prime Data Sufficiency",
+    "type": "MCQ",
+    "pyqInspiration": "Inspired by CSAT 2023 Q03 & CSAT 2024 Q71 (Odd prime decompositions and residue class non-sufficiency)",
+    "question": "Consider the following Question and two Statements:\nQuestion: Is the positive integer n a prime number?\nStatement-1: n leaves a remainder of 1 when divided by 6, and n < 30.\nStatement-2: n can be expressed as the sum of two prime numbers in exactly one way, and n is an odd integer.\nWhich one of the following is correct in respect of the Question and the Statements?\n(a) Statement-1 alone is sufficient to answer the Question\n(b) Statement-2 alone is sufficient to answer the Question\n(c) Both Statement-1 and Statement-2 together are sufficient to answer the Question, but neither Statement alone is sufficient\n(d) Statement-1 and Statement-2 together are not sufficient to answer the Question",
+    "options": [
+      "Statement-1 alone is sufficient to answer the Question",
+      "Statement-2 alone is sufficient to answer the Question",
+      "Both Statement-1 and Statement-2 together are sufficient to answer the Question, but neither Statement alone is sufficient",
+      "Statement-1 and Statement-2 together are not sufficient to answer the Question"
+    ],
+    "correct": 3,
+    "answerKey": "D",
+    "solution": "1. Analyze Statement-1:\n   - Positive integers less than 30 of the form n = 6k + 1 are: 7, 13, 19, 25.\n   - Among these, 7, 13, and 19 are prime, but 25 (= 5²) is composite.\n   - Since n can be either prime or composite, Statement-1 alone is NOT SUFFICIENT.\n2. Analyze Statement-2:\n   - n is odd and can be expressed as the sum of two primes in exactly one way.\n   - Any odd integer written as the sum of two primes must be the sum of an EVEN prime and an ODD prime (since Odd + Odd = Even).\n   - The only even prime is 2. Therefore, n must be of the form n = 2 + p, where p is an odd prime.\n   - For n = 5: 5 = 2 + 3 (only way, since 5-2=3 is prime). Here n = 5 is PRIME.\n   - For n = 9: 9 = 2 + 7. The primes less than 9 are 2, 3, 5, 7. Checking pairs: 9-2=7 (prime); 9-3=6 (not prime); 9-5=4 (not prime). Thus 9 has EXACTLY ONE prime decomposition {2, 7}. Here n = 9 is COMPOSITE.\n   - Since n can be prime (5) or composite (9), Statement-2 alone is NOT SUFFICIENT.\n3. Combine Statement-1 and Statement-2:\n   - Candidate values from Statement-1 are n ∈ {7, 13, 19, 25}.\n   - Check n = 19: 19 is odd. 19 = 2 + 17 (only way, since 19-3=16, 19-5=14, 19-7=12, 19-11=8, 19-13=6). 19 satisfies Statement-2 and is PRIME.\n   - Check n = 25: 25 is odd. Primes less than 25 are 2, 3, 5, 7, 11, 13, 17, 19, 23.\n     Checking pairs for 25: 25 - 2 = 23 (prime). All other primes p are odd, so 25 - p is even (and greater than 2), hence composite. Thus 25 can be written as the sum of two primes in EXACTLY ONE way (2 + 23). 25 satisfies Statement-2 and is COMPOSITE!\n   - Since n can still be either 19 (prime) or 25 (composite), both Statements together are still NOT sufficient.\n4. Hence, Statement-1 and Statement-2 together are not sufficient to answer the Question.",
+    "trapAlert": "Aspirants assume that because 25 is composite, the dual prime property will exclude it, forgetting that 25 = 2 + 23 is the unique valid prime pair representation.",
+    "trick": "Both n = 19 (prime) and n = 25 (composite) satisfy St-1 (6k+1 < 30) and St-2 (unique representation 2 + p). Thus cannot determine prime status.",
+    "forensicMeta": {
+      "cognitiveLoadScore": 4,
+      "scratchpadDemand": "High - Prime Pair Decomposition Exhaustion",
+      "idealTimeVsHallTime": "55s / 95s",
+      "primaryTrapArchetype": "Unique Decomposition Non-Uniqueness Assumption",
+      "riskIndex": "High"
+    }
+  },
+  {
+    "id": "17OCT-025",
+    "questionNumber": 10,
+    "difficulty": "L5",
+    "subject": "Logical Reasoning",
+    "pillar": "Reasoning",
+    "topic": "Knights & Knaves / Truth-Tellers & Liars Logic",
+    "type": "MCQ",
+    "pyqInspiration": "Inspired by CSAT 2023 Q67 & CSAT 2025 Q49 (Three-inhabitant self-referential consistency deduction)",
+    "question": "On an island, each inhabitant is either a Truth-teller (who always tells the truth) or a Liar (who always lies).\nThree inhabitants X, Y, and Z make the following statements:\n- X says: 'At least one of us is a Liar.'\n- Y says: 'X and Z are of the same type.'\n- Z says: 'Exactly two of us are Truth-tellers.'\nWhich one of the following statements is definitely correct?\n(a) X is a Liar\n(b) Y is a Truth-teller\n(c) Z is a Truth-teller\n(d) Y is a Liar",
+    "options": [
+      "X is a Liar",
+      "Y is a Truth-teller",
+      "Z is a Truth-teller",
+      "Y is a Liar"
+    ],
+    "correct": 3,
+    "answerKey": "D",
+    "solution": "1. Analyze X's statement: 'At least one of us is a Liar.'\n   - Suppose X is a Liar. Then X's statement must be false, meaning 'None of us is a Liar' (i.e., all three are Truth-tellers). But this means X must be a Truth-teller, which contradicts our assumption that X is a Liar.\n   - Therefore, X CANNOT be a Liar.\n   - Hence, X is definitively a TRUTH-TELLER (T).\n2. Since X is a Truth-teller, his statement is true: at least one of {X, Y, Z} is indeed a Liar (so not all three can be Truth-tellers).\n3. Analyze Y's statement: 'X and Z are of the same type.'\n   - Since X is T, this statement asserts that Z is also T.\n   - If Y were a Truth-teller (T), then Z would also have to be T. This would make X = T, Y = T, Z = T (all three Truth-tellers), which directly violates the true fact established in step 2 (that at least one must be a Liar).\n   - Therefore, Y CANNOT be a Truth-teller.\n   - Hence, Y is definitively a LIAR (L).\n4. Analyze Z's type:\n   - Since Y is a Liar, Y's statement ('X and Z are of the same type') is false.\n   - Since X is T, Z must be of a different type from X. Therefore, Z must be a LIAR (L).\n5. Check consistency with Z's statement: 'Exactly two of us are Truth-tellers.'\n   - Our deduced configuration is: X = T, Y = L, Z = L. Exactly ONE person (X) is a Truth-teller.\n   - Thus, Z's statement ('Exactly two of us are Truth-tellers') is false.\n   - Since Z is a Liar, making a false statement is completely consistent.\n6. Conclusion:\n   - X is a Truth-teller.\n   - Y is a Liar.\n   - Z is a Liar.\n   Among the options, 'Y is a Liar' is definitely correct.",
+    "trapAlert": "Testing arbitrary case matrices without first resolving X's self-referential meta-statement creates cognitive fatigue and leads to circular reasoning traps.",
+    "trick": "Statement 'At least one of us is a Liar' is impossible for a Liar to say (would mean all are Truth-tellers → paradox). Thus X = Truth-teller. If Y were Truth-teller, all three would be Truth-tellers (impossible). Thus Y = Liar.",
+    "forensicMeta": {
+      "cognitiveLoadScore": 5,
+      "scratchpadDemand": "Medium - Propositional Truth Table",
+      "idealTimeVsHallTime": "45s / 90s",
+      "primaryTrapArchetype": "Self-Referential Liar Paradox Neglect",
+      "riskIndex": "High"
+    }
+  }
+]

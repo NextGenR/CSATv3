@@ -319,14 +319,14 @@
   <script>
     document.addEventListener("DOMContentLoaded", async () => {
       const urlParams = new URLSearchParams(window.location.search);
-      const testDate = urlParams.get('date') || '2026-10-16';
+      const testDate = urlParams.get('date') || '2026-10-17';
       const candidateName = localStorage.getItem("csat_candidate_name") || "Shri";
 
       const candElem = document.getElementById("analysis-candidate-name");
       if (candElem) candElem.textContent = candidateName;
       const dateElem = document.getElementById("analysis-date-label");
       if (dateElem) {
-        dateElem.textContent = (testDate === "2026-10-16" ? "16 October 2026 Test" : (testDate === "2026-10-15" ? "15 October 2026 Test" : `${testDate} Test`));
+        dateElem.textContent = (testDate === "2026-10-17" ? "17 October 2026 Test" : (testDate === "2026-10-16" ? "16 October 2026 Test" : (testDate === "2026-10-15" ? "15 October 2026 Test" : `${testDate} Test`)));
       }
 
       // 1. Retrieve Result Data from localStorage or generate realistic default

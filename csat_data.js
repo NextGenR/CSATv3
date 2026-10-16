@@ -3,7 +3,7 @@
  * Traditional UPSC Terminology - Zero Buzzwords
  */
 
-const CSAT_QUESTIONS = [
+const CSAT_QUESTIONS_16OCT = [
   {
     id: 1,
     chapter: "Number System",
@@ -326,10 +326,404 @@ const CSAT_QUESTIONS = [
   }
 ];
 
-// October 2026 Past Test History Data (Oct 1 to Oct 16)
-// Accuracy randomized strictly within 70% to 90% as requested!
+// 17th October 2026 Question Dataset (from Question_Seeder/17th_Oct_v2.json)
+const CSAT_QUESTIONS_17OCT = [
+  {
+    id: 1,
+    chapter: "Speed, Time & Distance",
+    chapterHi: "चाल, समय और दूरी / सापेक्ष चाल",
+    category: "not_wrong",
+    categoryTitle: "Questions Which Should Not Have Been Wrong",
+    difficulty: "Moderate (L2)",
+    en: {
+      statement: "Two trains of lengths 150 m and 250 m run on parallel tracks. When running in the same direction, the faster train completely passes the slower train in 80 seconds. When running in opposite directions, they pass each other completely in 16 seconds. What is the speed of the faster train in km/h?\n(a) 45 km/h\n(b) 54 km/h\n(c) 60 km/h\n(d) 72 km/h",
+      options: {
+        A: "45 km/h",
+        B: "54 km/h",
+        C: "60 km/h",
+        D: "72 km/h"
+      },
+      explanation: "1. Total distance to clear each other = sum of lengths = 150 + 250 = 400 m.\n2. Same direction relative speed: (v₁ - v₂) = 400 / 80 = 5 m/s.\n3. Opposite directions relative speed: (v₁ + v₂) = 400 / 16 = 25 m/s.\n4. Adding equations: 2v₁ = 30 ⇒ v₁ = 15 m/s.\n5. Convert to km/h: 15 × (18 / 5) = 54 km/h."
+    },
+    hi: {
+      statement: "150 मीटर और 250 मीटर लंबाई वाली दो ट्रेनें समानांतर पटरियों पर चलती हैं। एक ही दिशा में चलने पर, तेज गति वाली ट्रेन धीमी ट्रेन को 80 सेकंड में पूरी तरह पार कर लेती है। विपरीत दिशाओं में चलने पर, वे एक-दूसरे को 16 सेकंड में पार कर लेती हैं। तेज गति वाली ट्रेन की गति (किमी/घंटा में) क्या है?",
+      options: {
+        A: "45 किमी/घंटा",
+        B: "54 किमी/घंटा",
+        C: "60 किमी/घंटा",
+        D: "72 किमी/घंटा"
+      },
+      explanation: "कुल दूरी = 150 + 250 = 400 मीटर।\nसमान दिशा में सापेक्ष गति (v₁ - v₂) = 400/80 = 5 मी/से।\nविपरीत दिशा में सापेक्ष गति (v₁ + v₂) = 400/16 = 25 मी/से।\nजोड़ने पर: 2v₁ = 30 ⇒ v₁ = 15 मी/से।\nकिमी/घंटा में: 15 × (18/5) = 54 किमी/घंटा।"
+    },
+    correctAnswer: "B",
+    attemptRate: 84,
+    optionDistribution: { A: 8, B: 74, C: 12, D: 6 },
+    recommendedTimeSec: 60,
+    forensicMeta: {
+      pyqInspiration: "Inspired by CSAT 2022 Q21 & CSAT 2024 Q62 (Relative Speed Crossings)",
+      trapAlert: "Converting to km/h prematurely with decimal approximations or subtracting train lengths.",
+      cognitiveLoadScore: 2,
+      riskIndex: "Low"
+    }
+  },
+  {
+    id: 2,
+    chapter: "Blood Relations & Data Sufficiency",
+    chapterHi: "रक्त संबंध एवं डेटा पर्याप्तता",
+    category: "attempted",
+    categoryTitle: "Questions Which Should Be Attempted",
+    difficulty: "Moderate (L3)",
+    en: {
+      statement: "Consider the following Question and two Statements:\nQuestion: How is P related to T?\nStatement-1: P is the brother of Q, and Q is the mother of T.\nStatement-2: T is the son of Q, and Q is the sibling of P.\nWhich one of the following is correct in respect of the Question and the Statements?\n(a) Statement-1 alone is sufficient to answer the Question, but Statement-2 alone is not sufficient\n(b) Statement-2 alone is sufficient to answer the Question, but Statement-1 alone is not sufficient\n(c) Both Statement-1 and Statement-2 together are sufficient to answer the Question, but neither Statement alone is sufficient\n(d) Statement-1 and Statement-2 together are not sufficient to answer the Question",
+      options: {
+        A: "Statement-1 alone is sufficient, but Statement-2 alone is not sufficient",
+        B: "Statement-2 alone is sufficient, but Statement-1 alone is not sufficient",
+        C: "Both Statement-1 and Statement-2 together are sufficient, but neither alone is sufficient",
+        D: "Statement-1 and Statement-2 together are not sufficient"
+      },
+      explanation: "1. Statement-1: P is brother of Q (P is male) and Q is mother of T. P is maternal uncle of T regardless of T's gender. Sufficient.\n2. Statement-2: P's gender is unknown (sibling of Q). P could be maternal uncle or aunt. Insufficient.\nHence, Statement-1 alone is sufficient."
+    },
+    hi: {
+      statement: "निम्नलिखित प्रश्न और दो कथनों पर विचार कीजिए:\nप्रश्न: P का T से क्या संबंध है?\nकथन-1: P, Q का भाई है, और Q, T की माता है।\nकथन-2: T, Q का पुत्र है, और Q, P का सहोदर है।\nउपर्युक्त प्रश्न और कथनों के संदर्भ में निम्नलिखित में से कौन-सा एक सही है?",
+      options: {
+        A: "कथन-1 अकेले पर्याप्त है, किन्तु कथन-2 अकेले पर्याप्त नहीं है",
+        B: "कथन-2 अकेले पर्याप्त है, किन्तु कथन-1 अकेले पर्याप्त नहीं है",
+        C: "कथन-1 और कथन-2 दोनों मिलकर पर्याप्त हैं, किन्तु कोई भी अकेला पर्याप्त नहीं है",
+        D: "कथन-1 और कथन-2 दोनों मिलकर भी पर्याप्त नहीं हैं"
+      },
+      explanation: "कथन-1 से: P, Q का भाई (पुरुष) है और Q, T की माता है। अतः P निश्चित रूप से T का मामा है। (पर्याप्त)\nकथन-2 से: P का लिंग स्पष्ट नहीं है (मामा या मौसी)। (अपर्याप्त)\nअतः कथन-1 अकेले पर्याप्त है।"
+    },
+    correctAnswer: "A",
+    attemptRate: 76,
+    optionDistribution: { A: 62, B: 10, C: 16, D: 12 },
+    recommendedTimeSec: 55,
+    forensicMeta: {
+      pyqInspiration: "Inspired by CSAT 2021 Q75 & CSAT 2023 Q38 (Kinship Data Sufficiency)",
+      trapAlert: "Confusing 'How is P related to T' with 'How is T related to P'.",
+      cognitiveLoadScore: 3,
+      riskIndex: "Medium"
+    }
+  },
+  {
+    id: 3,
+    chapter: "Linear Diophantine Equations",
+    chapterHi: "डायोफैंटाइन समीकरण एवं चर मान",
+    category: "attempted",
+    categoryTitle: "Questions Which Should Be Attempted",
+    difficulty: "Moderate-High (L4)",
+    en: {
+      statement: "A merchant buys three varieties of pens costing ₹ 5, ₹ 10 and ₹ 25 each. He spends a total of exactly ₹ 300 and buys exactly 40 pens. If he buys at least one pen of each variety, what is the maximum possible number of ₹ 5 pens he could have purchased?\n(a) 26\n(b) 29\n(c) 32\n(d) 35",
+      options: {
+        A: "26",
+        B: "29",
+        C: "32",
+        D: "35"
+      },
+      explanation: "1. Let counts be x, y, z for ₹ 5, ₹ 10, ₹ 25 pens.\n2. x + y + z = 40 and 5x + 10y + 25z = 300 ⇒ x + 2y + 5z = 60.\n3. Subtracting: y + 4z = 20 ⇒ y + z = 20 - 3z.\n4. To maximize x = 40 - (y + z), we must maximize z!\n5. With y ≥ 1: 20 - 4z ≥ 1 ⇒ 4z ≤ 19 ⇒ max integer z = 4.\n6. For z = 4: y = 20 - 16 = 4 ⇒ x = 40 - 8 = 32 pens."
+    },
+    hi: {
+      statement: "एक व्यापारी तीन प्रकार के पेन खरीदता है जिनकी कीमतें क्रमशः ₹ 5, ₹ 10 और ₹ 25 हैं। वह कुल ₹ 300 खर्च करता है और कुल 40 पेन खरीदता है। यदि वह प्रत्येक प्रकार का कम से कम एक पेन खरीदता है, तो उसके द्वारा खरीदे जा सकने वाले ₹ 5 के पेनों की अधिकतम संभावित संख्या क्या है?",
+      options: {
+        A: "26",
+        B: "29",
+        C: "32",
+        D: "35"
+      },
+      explanation: "x + y + z = 40 और 5x + 10y + 25z = 300 ⇒ x + 2y + 5z = 60।\nघटाने पर: y + 4z = 20 ⇒ y + z = 20 - 3z।\nx को अधिकतम करने के लिए z को अधिकतम करना होगा।\nचूंकि y ≥ 1, अधिकतम पूर्णांक z = 4 ⇒ y = 4 ⇒ x = 40 - 8 = 32।"
+    },
+    correctAnswer: "C",
+    attemptRate: 58,
+    optionDistribution: { A: 18, B: 24, C: 48, D: 10 },
+    recommendedTimeSec: 80,
+    forensicMeta: {
+      pyqInspiration: "Inspired by CSAT 2023 Q60 & CSAT 2020 Q44 (Constrained Item Purchasing)",
+      trapAlert: "Setting z = 1 to minimize expensive pen, missing that increasing z decreases total pens y+z much faster.",
+      cognitiveLoadScore: 4,
+      riskIndex: "High"
+    }
+  },
+  {
+    id: 4,
+    chapter: "Number System - Divisibility",
+    chapterHi: "संख्या पद्धति - विभाज्यता",
+    category: "not_wrong",
+    categoryTitle: "Questions Which Should Not Have Been Wrong",
+    difficulty: "Easy (L1)",
+    en: {
+      statement: "If the 6-digit number 58x43y is completely divisible by 72, where x and y are single-digit natural numbers, what is the value of (2x - y)?\n(a) 6\n(b) 7\n(c) 8\n(d) 9",
+      options: {
+        A: "6",
+        B: "7",
+        C: "8",
+        D: "9"
+      },
+      explanation: "1. 72 = 8 × 9 (coprime factors).\n2. Divisibility by 8: last 3 digits '43y' divisible by 8 ⇒ 432 / 8 = 54 ⇒ y = 2.\n3. Divisibility by 9: sum of digits = 5 + 8 + x + 4 + 3 + 2 = 22 + x.\n   Must be multiple of 9 ⇒ 22 + x = 27 ⇒ x = 5.\n4. (2x - y) = 2(5) - 2 = 10 - 2 = 8."
+    },
+    hi: {
+      statement: "यदि 6-अंकों की संख्या 58x43y, 72 से पूर्णतः विभाज्य है, जहां x और y एकल-अंक प्राकृत संख्याएं हैं, तो (2x - y) का मान क्या है?",
+      options: {
+        A: "6",
+        B: "7",
+        C: "8",
+        D: "9"
+      },
+      explanation: "72 = 8 × 9।\n8 से विभाज्यता के लिए 43y विभाज्य होना चाहिए ⇒ 432 विभाज्य है, अतः y = 2।\n9 से विभाज्यता के लिए अंकों का योग 22 + x = 27 ⇒ x = 5।\n(2x - y) = 2(5) - 2 = 8।"
+    },
+    correctAnswer: "C",
+    attemptRate: 91,
+    optionDistribution: { A: 5, B: 7, C: 82, D: 6 },
+    recommendedTimeSec: 45,
+    forensicMeta: {
+      pyqInspiration: "Inspired by CSAT 2021 Q14 & CSAT 2024 Q18 (Composite Divisibility)",
+      trapAlert: "Forgetting that y must be uniquely checked in the three-digit range 430-439.",
+      cognitiveLoadScore: 1,
+      riskIndex: "Low"
+    }
+  },
+  {
+    id: 5,
+    chapter: "Trailing Zeroes & Factorials",
+    chapterHi: "अनुगामी शून्य एवं गुणनखंड",
+    category: "avoided",
+    categoryTitle: "Questions Which Should Have Been Avoided",
+    difficulty: "High (L5)",
+    en: {
+      statement: "How many trailing zeroes are at the end of the product P = 1¹ × 2² × 3³ × 4⁴ × ... × 50⁵⁰?\n(a) 275\n(b) 325\n(c) 350\n(d) 375",
+      options: {
+        A: "275",
+        B: "325",
+        C: "350",
+        D: "375"
+      },
+      explanation: "1. Trailing zeroes = highest power of 5 dividing P.\n2. Multiples of 5: 5⁵, 10¹⁰, 15¹⁵, ... 50⁵⁰ contribute 5 + 10 + 15 + ... + 50 = 5 × (1 + 2 + ... + 10) = 5 × 55 = 275.\n3. Powers of 5² (25): 25²⁵ and 50⁵⁰ contribute an additional 25 + 50 = 75 factors of 5.\n4. Total trailing zeroes = 275 + 75 = 350."
+    },
+    hi: {
+      statement: "गुणनफल P = 1¹ × 2² × 3³ × 4⁴ × ... × 50⁵⁰ के अंत में कितने अनुगामी शून्य होंगे?",
+      options: {
+        A: "275",
+        B: "325",
+        C: "350",
+        D: "375"
+      },
+      explanation: "शून्यों की संख्या = 5 की घात।\n5 के गुणज: 5 + 10 + ... + 50 = 5 × 55 = 275।\n25²⁵ और 50⁵⁰ से अतिरिक्त 5 की घात = 25 + 50 = 75।\nकुल शून्य = 275 + 75 = 350।"
+    },
+    correctAnswer: "C",
+    attemptRate: 42,
+    optionDistribution: { A: 54, B: 10, C: 31, D: 5 },
+    recommendedTimeSec: 100,
+    forensicMeta: {
+      pyqInspiration: "Inspired by CSAT 2020 Q70 & CSAT 2023 Q15 (Prime Factor Exponents)",
+      trapAlert: "Forgetting the second power of 5 in 25²⁵ and 50⁵⁰ leading directly to distractor (a) 275.",
+      cognitiveLoadScore: 5,
+      riskIndex: "Extreme"
+    }
+  },
+  {
+    id: 6,
+    chapter: "Percentages - Price & Consumption",
+    chapterHi: "प्रतिशत - मूल्य एवं खपत",
+    category: "not_wrong",
+    categoryTitle: "Questions Which Should Not Have Been Wrong",
+    difficulty: "Moderate (L2)",
+    en: {
+      statement: "A reduction of 20% in the price of sugar enables a purchaser to obtain 5 kg more for ₹ 600. What was the original price of sugar per kg?\n(a) ₹ 24 per kg\n(b) ₹ 25 per kg\n(c) ₹ 30 per kg\n(d) ₹ 36 per kg",
+      options: {
+        A: "₹ 24 per kg",
+        B: "₹ 25 per kg",
+        C: "₹ 30 per kg",
+        D: "₹ 36 per kg"
+      },
+      explanation: "1. 20% price reduction on ₹ 600 gives a saving of: 0.20 × 600 = ₹ 120.\n2. This ₹ 120 buys 5 kg extra at the new price ⇒ New price = 120 / 5 = ₹ 24/kg.\n3. Original price = 24 / 0.80 = ₹ 30 per kg."
+    },
+    hi: {
+      statement: "चीनी के मूल्य में 20% की कमी होने पर एक खरीदार ₹ 600 में 5 किग्रा अधिक चीनी खरीद सकता है। चीनी का मूल मूल्य (प्रति किग्रा) क्या था?",
+      options: {
+        A: "₹ 24 प्रति किग्रा",
+        B: "₹ 25 प्रति किग्रा",
+        C: "₹ 30 प्रति किग्रा",
+        D: "₹ 36 प्रति किग्रा"
+      },
+      explanation: "20% की बचत = ₹ 600 का 20% = ₹ 120।\nयह ₹ 120 नई दर पर 5 किग्रा खरीदता है ⇒ नई दर = 120/5 = ₹ 24/किग्रा।\nमूल दर = 24 / 0.8 = ₹ 30 प्रति किग्रा।"
+    },
+    correctAnswer: "C",
+    attemptRate: 88,
+    optionDistribution: { A: 32, B: 6, C: 58, D: 4 },
+    recommendedTimeSec: 35,
+    forensicMeta: {
+      pyqInspiration: "Inspired by CSAT 2020 Q12 & CSAT 2024 Q23 (Fixed Outlay Consumption)",
+      trapAlert: "Aspirants frequently compute the reduced new price (₹ 24) instead of the original price (₹ 30).",
+      cognitiveLoadScore: 2,
+      riskIndex: "Low"
+    }
+  },
+  {
+    id: 7,
+    chapter: "Clocks - Coincidence of Hands",
+    chapterHi: "घड़ी - सुइयों का संपाती होना",
+    category: "not_wrong",
+    categoryTitle: "Questions Which Should Not Have Been Wrong",
+    difficulty: "Easy (L1)",
+    en: {
+      statement: "At what time between 3 o'clock and 4 o'clock will the hour hand and the minute hand of a clock coincide?\n(a) 15 3/11 minutes past 3\n(b) 16 4/11 minutes past 3\n(c) 16 7/11 minutes past 3\n(d) 18 2/11 minutes past 3",
+      options: {
+        A: "15 3/11 minutes past 3",
+        B: "16 4/11 minutes past 3",
+        C: "16 7/11 minutes past 3",
+        D: "18 2/11 minutes past 3"
+      },
+      explanation: "1. At 3:00, initial angle = 90°.\n2. Relative speed of minute hand over hour hand = 6° - 0.5° = 5.5°/min = 11/2 degrees/min.\n3. Time = 90 / (11/2) = 180 / 11 = 16 4/11 minutes past 3."
+    },
+    hi: {
+      statement: "3 बजे से 4 बजे के बीच किस समय घड़ी की घंटे और मिनट की सुइयां एक साथ (संपाती) होंगी?",
+      options: {
+        A: "3 बजकर 15 3/11 मिनट",
+        B: "3 बजकर 16 4/11 मिनट",
+        C: "3 बजकर 16 7/11 मिनट",
+        D: "3 बजकर 18 2/11 मिनट"
+      },
+      explanation: "3 बजे कोण = 90°।\nसापेक्ष गति = 5.5°/मिनट = 11/2°/मिनट।\nसमय = 90 ÷ (11/2) = 180/11 = 16 4/11 मिनट। अतः 3 बजकर 16 4/11 मिनट पर।"
+    },
+    correctAnswer: "B",
+    attemptRate: 86,
+    optionDistribution: { A: 16, B: 74, C: 7, D: 3 },
+    recommendedTimeSec: 40,
+    forensicMeta: {
+      pyqInspiration: "Inspired by CSAT 2022 Q58 & CSAT 2021 Q47 (Clock Hands Coincidence)",
+      trapAlert: "Choosing 3:15, failing to account for the hour hand's movement during those 15 minutes.",
+      cognitiveLoadScore: 1,
+      riskIndex: "Low"
+    }
+  },
+  {
+    id: 8,
+    chapter: "Number System - Dual Congruence",
+    chapterHi: "संख्या पद्धति - समानांतर श्रेणी एवं सर्वांगसमता",
+    category: "attempted",
+    categoryTitle: "Questions Which Should Be Attempted",
+    difficulty: "Moderate (L3)",
+    en: {
+      statement: "How many three-digit natural numbers are divisible by 7 but leave a remainder of 2 when divided by 5?\n(a) 24\n(b) 25\n(c) 26\n(d) 28",
+      options: {
+        A: "24",
+        B: "25",
+        C: "26",
+        D: "28"
+      },
+      explanation: "1. x ≡ 0 (mod 7) and x ≡ 2 (mod 5).\n2. General form modulo 35: x = 35m + 7.\n3. Interval 100 ≤ 35m + 7 ≤ 999 ⇒ 93 ≤ 35m ≤ 992.\n4. Smallest m: ⌈93/35⌉ = 3 (number 112). Largest m: ⌊992/35⌋ = 28 (number 987).\n5. Total count = 28 - 3 + 1 = 26 numbers."
+    },
+    hi: {
+      statement: "तीन अंकों की ऐसी कितनी प्राकृत संख्याएं हैं जो 7 से विभाज्य हैं किन्तु उन्हें 5 से विभाजित करने पर शेषफल 2 बचता है?",
+      options: {
+        A: "24",
+        B: "25",
+        C: "26",
+        D: "28"
+      },
+      explanation: "संख्या x = 35m + 7 रूप में होगी।\nतीन अंकों की संख्या के लिए 100 ≤ 35m + 7 ≤ 999 ⇒ 93 ≤ 35m ≤ 992।\nm न्यूनतम = 3 (संख्या 112), m अधिकतम = 28 (संख्या 987)।\nकुल संख्याएं = 28 - 3 + 1 = 26।"
+    },
+    correctAnswer: "C",
+    attemptRate: 67,
+    optionDistribution: { A: 8, B: 28, C: 58, D: 6 },
+    recommendedTimeSec: 50,
+    forensicMeta: {
+      pyqInspiration: "Inspired by CSAT 2020 Q25 & CSAT 2022 Q14 (Multi-criteria AP Bounds)",
+      trapAlert: "Fencepost subtraction error (28 - 3 = 25) missing the +1 endpoint count.",
+      cognitiveLoadScore: 3,
+      riskIndex: "Low"
+    }
+  },
+  {
+    id: 9,
+    chapter: "Number System - Prime Data Sufficiency",
+    chapterHi: "संख्या पद्धति - अभाज्य संख्या डेटा पर्याप्तता",
+    category: "avoided",
+    categoryTitle: "Questions Which Should Have Been Avoided",
+    difficulty: "Moderate-High (L4)",
+    en: {
+      statement: "Consider the following Question and two Statements:\nQuestion: Is the positive integer n a prime number?\nStatement-1: n leaves a remainder of 1 when divided by 6, and n < 30.\nStatement-2: n can be expressed as the sum of two prime numbers in exactly one way, and n is an odd integer.\nWhich one of the following is correct in respect of the Question and the Statements?\n(a) Statement-1 alone is sufficient to answer the Question\n(b) Statement-2 alone is sufficient to answer the Question\n(c) Both Statement-1 and Statement-2 together are sufficient to answer the Question, but neither Statement alone is sufficient\n(d) Statement-1 and Statement-2 together are not sufficient to answer the Question",
+      options: {
+        A: "Statement-1 alone is sufficient",
+        B: "Statement-2 alone is sufficient",
+        C: "Both Statement-1 and Statement-2 together are sufficient, but neither alone is sufficient",
+        D: "Statement-1 and Statement-2 together are not sufficient"
+      },
+      explanation: "1. Statement-1: n ∈ {7, 13, 19, 25}. 25 is composite. Insufficient.\n2. Statement-2: n is odd ⇒ sum of 2 + p. For n = 5 (prime), 5 = 2 + 3 (unique). For n = 9 (composite), 9 = 2 + 7 (unique). Insufficient.\n3. Combining: n = 19 (prime, 2+17) and n = 25 (composite, 2+23) both satisfy both statements. Still cannot determine prime status.\nHence, together they are not sufficient."
+    },
+    hi: {
+      statement: "निम्नलिखित प्रश्न और दो कथनों पर विचार कीजिए:\nप्रश्न: क्या धन पूर्णांक n एक अभाज्य संख्या है?\nकथन-1: n को 6 से विभाजित करने पर शेषफल 1 बचता है, और n < 30।\nकथन-2: n को दो अभाज्य संख्याओं के योग के रूप में केवल एक ही प्रकार से व्यक्त किया जा सकता है, और n एक विषम पूर्णांक है।\nउपर्युक्त प्रश्न और कथनों के संदर्भ में निम्नलिखित में से कौन-सा एक सही है?",
+      options: {
+        A: "कथन-1 अकेले पर्याप्त है",
+        B: "कथन-2 अकेले पर्याप्त है",
+        C: "कथन-1 और कथन-2 दोनों मिलकर पर्याप्त हैं, किन्तु कोई भी अकेला पर्याप्त नहीं है",
+        D: "कथन-1 और कथन-2 दोनों मिलकर भी पर्याप्त नहीं हैं"
+      },
+      explanation: "कथन-1 से n ∈ {7, 13, 19, 25} (25 भाज्य है)।\nकथन-2 से n = 2 + p। n = 19 (अभाज्य) और n = 25 (भाज्य, 2 + 23) दोनों दोनों शर्तों को पूरा करते हैं।\nअतः दोनों मिलकर भी पर्याप्त नहीं हैं।"
+    },
+    correctAnswer: "D",
+    attemptRate: 51,
+    optionDistribution: { A: 12, B: 14, C: 38, D: 36 },
+    recommendedTimeSec: 95,
+    forensicMeta: {
+      pyqInspiration: "Inspired by CSAT 2023 Q03 & CSAT 2024 Q71 (Residue Class Non-Sufficiency)",
+      trapAlert: "Assuming that because 25 is composite, the unique prime pair decomposition will exclude it.",
+      cognitiveLoadScore: 4,
+      riskIndex: "High"
+    }
+  },
+  {
+    id: 10,
+    chapter: "Knights & Knaves - Truth-Tellers & Liars",
+    chapterHi: "सत्यवादी एवं झूठे - तार्किक निष्कर्ष",
+    category: "avoided",
+    categoryTitle: "Questions Which Should Have Been Avoided",
+    difficulty: "High (L5)",
+    en: {
+      statement: "On an island, each inhabitant is either a Truth-teller (who always tells the truth) or a Liar (who always lies).\nThree inhabitants X, Y, and Z make the following statements:\n- X says: 'At least one of us is a Liar.'\n- Y says: 'X and Z are of the same type.'\n- Z says: 'Exactly two of us are Truth-tellers.'\nWhich one of the following statements is definitely correct?\n(a) X is a Liar\n(b) Y is a Truth-teller\n(c) Z is a Truth-teller\n(d) Y is a Liar",
+      options: {
+        A: "X is a Liar",
+        B: "Y is a Truth-teller",
+        C: "Z is a Truth-teller",
+        D: "Y is a Liar"
+      },
+      explanation: "1. If X were Liar ⇒ 'None of us is Liar' ⇒ X is Truth-teller (contradiction). Hence X is Truth-teller (T).\n2. Since X is T, at least one inhabitant is indeed a Liar.\n3. If Y were Truth-teller, then Z is also T (since X is T). That makes all 3 Truth-tellers, contradicting step 2. Hence Y is a Liar (L).\n4. Since Y is a Liar, X and Z are different ⇒ Z is Liar (L).\nConclusion: X=T, Y=L, Z=L. Therefore, 'Y is a Liar' is definitely correct."
+    },
+    hi: {
+      statement: "एक द्वीप पर प्रत्येक निवासी या तो सत्यवादी (सदा सत्य बोलने वाला) है या झूठा (सदा झूठ बोलने वाला)। तीन निवासी X, Y और Z निम्नलिखित कथन कहते हैं:\n- X कहता है: 'हममें से कम से कम एक झूठा है।'\n- Y कहता है: 'X और Z एक ही प्रकार के हैं।'\n- Z कहता है: 'हममें से ठीक दो सत्यवादी हैं।'\nनिम्नलिखित कथनों में से कौन-सा एक निश्चित रूप से सही है?",
+      options: {
+        A: "X झूठा है",
+        B: "Y सत्यवादी है",
+        C: "Z सत्यवादी है",
+        D: "Y झूठा है"
+      },
+      explanation: "यदि X झूठा होता तो विरोधाभास होता, अतः X सत्यवादी (T) है।\nयदि Y सत्यवादी होता, तो तीनों T हो जाते जो असंभव है, अतः Y झूठा (L) है।\nचूंकि Y झूठा है, Z भी झूठा (L) है।\nअतः 'Y झूठा है' निश्चित रूप से सही है।"
+    },
+    correctAnswer: "D",
+    attemptRate: 46,
+    optionDistribution: { A: 14, B: 22, C: 18, D: 46 },
+    recommendedTimeSec: 90,
+    forensicMeta: {
+      pyqInspiration: "Inspired by CSAT 2023 Q67 & CSAT 2025 Q49 (Three-Inhabitant Self-Referential Deduction)",
+      trapAlert: "Testing arbitrary case matrices without first resolving X's self-referential statement.",
+      cognitiveLoadScore: 5,
+      riskIndex: "High"
+    }
+  }
+];
+
+// Set default fallback questions to Today (17th Oct)
+const CSAT_QUESTIONS = CSAT_QUESTIONS_17OCT;
+
+function getCSATQuestions(dateStr = "2026-10-17") {
+  if (dateStr === "2026-10-16") return CSAT_QUESTIONS_16OCT;
+  if (dateStr === "2026-10-17") return CSAT_QUESTIONS_17OCT;
+  return CSAT_QUESTIONS_17OCT;
+}
+
+// October 2026 Past Test History Data (Oct 1 to Oct 17)
+// Accuracy randomized strictly within 70% to 90%
 const OCTOBER_HISTORY_DATA = [
-  { dayNum: 16, dateStr: "16 Oct", dayName: "Friday", score: "-- / 25", accuracy: "--", questionsAttempted: 0, correct: 0, incorrect: 0, isToday: true, isCompleted: false },
+  { dayNum: 17, dateStr: "17 Oct", dayName: "Saturday", score: "-- / 25", accuracy: "--", questionsAttempted: 0, correct: 0, incorrect: 0, isToday: true, isCompleted: false },
+  { dayNum: 16, dateStr: "16 Oct", dayName: "Friday", score: "21.6 / 25", accuracy: 87, questionsAttempted: 10, correct: 8, incorrect: 1, isCompleted: true },
   { dayNum: 15, dateStr: "15 Oct", dayName: "Thursday", score: "22.5 / 25", accuracy: 88, questionsAttempted: 10, correct: 9, incorrect: 1, isCompleted: true },
   { dayNum: 14, dateStr: "14 Oct", dayName: "Wednesday", score: "20.0 / 25", accuracy: 80, questionsAttempted: 10, correct: 8, incorrect: 2 },
   { dayNum: 13, dateStr: "13 Oct", dayName: "Tuesday", score: "17.5 / 25", accuracy: 72, questionsAttempted: 9, correct: 7, incorrect: 2 },
@@ -351,3 +745,4 @@ const OCTOBER_HISTORY_DATA = [
 const CSAT_STORAGE_KEY = "csat_daily_test_state";
 const CSAT_RESULT_KEY = "csat_daily_test_result";
 const CSAT_LANG_KEY = "csat_selected_language";
+

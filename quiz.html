@@ -222,7 +222,7 @@
     }
 
     const urlParams = new URLSearchParams(window.location.search);
-    const testDate = urlParams.get('date') || '2026-10-16';
+    const testDate = urlParams.get('date') || '2026-10-17';
 
     async function initQuiz() {
       // 1. Fetch live questions from Supabase API for specified date (or fallback)
@@ -752,7 +752,7 @@
       const attemptedTotal = correctCount + incorrectCount;
       const accuracyPercentage = attemptedTotal > 0 ? Math.round((correctCount / attemptedTotal) * 100) : 0;
 
-      const displayDateStr = testDate === "2026-10-16" ? "16 October 2026" : (testDate === "2026-10-15" ? "15 October 2026" : testDate);
+      const displayDateStr = testDate === "2026-10-17" ? "17 October 2026" : (testDate === "2026-10-16" ? "16 October 2026" : (testDate === "2026-10-15" ? "15 October 2026" : testDate));
       const finalResult = {
         testDate: displayDateStr,
         totalScore: Math.max(0, totalMarksObtained).toFixed(2),
