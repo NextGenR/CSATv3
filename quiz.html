@@ -70,6 +70,9 @@
         <i class="fa-solid fa-book-bookmark"></i>
         <span id="current-chapter-display">Chapter: Number System</span>
         <span style="margin: 0 8px; opacity: 0.35;">|</span>
+        <i class="fa-solid fa-calendar-day" style="color: var(--tg-blue-light); font-size: 11px;"></i>
+        <span id="test-date-display" style="color: var(--tg-text); font-weight: 500;">17 Oct 2026</span>
+        <span style="margin: 0 8px; opacity: 0.35;">|</span>
         <i class="fa-solid fa-user-graduate" style="color: var(--tg-blue-light); font-size: 11px;"></i>
         <span id="candidate-display" style="color: var(--tg-text); font-weight: 500;">Candidate: Shri</span>
       </div>
@@ -205,24 +208,28 @@
     let questionSeconds = 0;
     let timerInterval = null;
 
-    // Load any saved state
-    const savedStateStr = localStorage.getItem(CSAT_STORAGE_KEY) || localStorage.getItem("csat_active_quiz_state");
+    const urlParams = new URLSearchParams(window.location.search);
+    const testDate = urlParams.get('date') || (typeof is18thOctUnlocked === 'function' && is18thOctUnlocked() ? '2026-10-18' : '2026-10-17');
+
+    // Load any saved state strictly for this testDate
+    const dateStateKey = `csat_active_quiz_state_${testDate}`;
+    const savedStateStr = localStorage.getItem(dateStateKey) || localStorage.getItem(CSAT_STORAGE_KEY) || localStorage.getItem("csat_active_quiz_state");
     if (savedStateStr) {
       try {
         const state = JSON.parse(savedStateStr);
-        if (state.answers) userAnswers = state.answers;
-        if (state.language) selectedLang = state.language;
-        if (state.timePerQuestion) timePerQuestion = state.timePerQuestion;
-        if (state.currentQuestionIndex !== undefined) currentQIdx = state.currentQuestionIndex;
-        if (state.totalTimeSeconds !== undefined) totalSeconds = state.totalTimeSeconds;
-        if (state.marked) markedForReview = new Set(state.marked);
+        // Strictly restore ONLY if state matches the active testDate
+        if (state && (!state.testDate || state.testDate === testDate)) {
+          if (state.answers) userAnswers = state.answers;
+          if (state.language) selectedLang = state.language;
+          if (state.timePerQuestion) timePerQuestion = state.timePerQuestion;
+          if (state.currentQuestionIndex !== undefined) currentQIdx = state.currentQuestionIndex;
+          if (state.totalTimeSeconds !== undefined) totalSeconds = state.totalTimeSeconds;
+          if (state.marked) markedForReview = new Set(state.marked);
+        }
       } catch (e) {
         console.error("Failed to parse saved state", e);
       }
     }
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const testDate = urlParams.get('date') || (typeof is18thOctUnlocked === 'function' && is18thOctUnlocked() ? '2026-10-18' : '2026-10-17');
 
     async function initQuiz() {
       // 1. Fetch live questions from Supabase API for specified date (or fallback)
@@ -299,12 +306,18 @@
         });
       }
 
-      // Display candidate profile
+      // Display candidate profile & test date
       const candidateName = (typeof CSAT_API !== 'undefined' && CSAT_API.getCandidateName) 
         ? CSAT_API.getCandidateName() 
         : (localStorage.getItem("csat_candidate_name") || "Shri");
       const candElem = document.getElementById("candidate-display");
       if (candElem) candElem.textContent = `Candidate: ${candidateName}`;
+
+      const testDateElem = document.getElementById("test-date-display");
+      if (testDateElem) {
+        const dStr = (testDate === '2026-10-18') ? '18 Oct 2026' : (testDate === '2026-10-17' ? '17 Oct 2026' : (testDate === '2026-10-16' ? '16 Oct 2026' : (testDate === '2026-10-15' ? '15 Oct 2026' : testDate)));
+        testDateElem.textContent = dStr;
+      }
 
       renderNavigator();
       updateLangIndicator();
@@ -519,9 +532,10 @@
         status: "in_progress",
         updated_at: new Date().toISOString()
       };
-      // 1. Instant 0ms local cache (resilient to refresh & offline)
+      // 1. Instant 0ms local cache (resilient to refresh & offline, isolated by testDate)
       localStorage.setItem(CSAT_STORAGE_KEY, JSON.stringify(state));
       localStorage.setItem("csat_active_quiz_state", JSON.stringify(state));
+      localStorage.setItem(`csat_active_quiz_state_${testDate}`, JSON.stringify(state));
 
       // 2. Debounced background cloud sync to Supabase (every 3 seconds or on answer)
       if (cloudSyncTimeout) clearTimeout(cloudSyncTimeout);
@@ -779,11 +793,13 @@
         questionResults: questionResults
       };
 
-      // 1. Store in LocalStorage for analysis page and dashboard
+      // 1. Store in LocalStorage for analysis page and dashboard (both date-scoped and generic)
       localStorage.setItem(CSAT_RESULT_KEY, JSON.stringify(finalResult));
       localStorage.setItem(`csat_result_${testDate}`, JSON.stringify(finalResult));
+      localStorage.setItem(`csat_test_result_${testDate}`, JSON.stringify(finalResult));
       localStorage.removeItem(CSAT_STORAGE_KEY);
       localStorage.removeItem("csat_active_quiz_state");
+      localStorage.removeItem(`csat_active_quiz_state_${testDate}`);
 
       // 2. Sync final completed scorecard to Supabase cloud
       try {

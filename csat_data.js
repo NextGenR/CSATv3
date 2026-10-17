@@ -1120,6 +1120,382 @@ function is18thOctUnlocked() {
   return nowIST.getTime() >= unlockIST.getTime();
 }
 
+// ============================================================================
+// 15TH OCTOBER 2026 - UPSC CSAT DAILY PRACTICE SET (10 QUESTIONS)
+// ============================================================================
+const CSAT_QUESTIONS_15OCT = [
+  {
+    "id": 1,
+    "chapter": "Percentages & Expenditure Invariance",
+    "chapterHi": "प्रतिशत और व्यय अपरिवर्तनीयता",
+    "category": "not_wrong",
+    "categoryTitle": "Questions Which Should Not Have Been Wrong",
+    "difficulty": "Easy-Moderate",
+    "en": {
+      "statement": "Due to an increase of 25% in the price of cooking oil, a household decides to reduce its consumption of cooking oil so that the expenditure on cooking oil increases by only 10%. By what percentage should the household reduce its consumption of cooking oil?",
+      "options": {
+        "A": "10%",
+        "B": "12%",
+        "C": "15%",
+        "D": "16%"
+      },
+      "explanation": "1. Let original price P₀ = ₹ 100 per unit and original consumption C₀ = 100 units.\n2. Original Expenditure E₀ = P₀ × C₀ = 100 × 100 = ₹ 10,000.\n3. After a 25% price increase, new price P₁ = ₹ 125.\n4. Expenditure is allowed to increase by only 10%, so new Expenditure E₁ = 110% of 10,000 = ₹ 11,000.\n5. New Consumption C₁ = E₁ / P₁ = 11,000 / 125 = 88 units.\n6. Percentage reduction in consumption = ((100 - 88) / 100) × 100% = 12%."
+    },
+    "hi": {
+      "statement": "खाद्य तेल के मूल्य में 25% की वृद्धि के कारण, एक परिवार अपने उपभोग को कितना कम करे ताकि तेल पर व्यय में केवल 10% की वृद्धि हो?",
+      "options": {
+        "A": "10%",
+        "B": "12%",
+        "C": "15%",
+        "D": "16%"
+      },
+      "explanation": "1. माना प्रारंभिक मूल्य = ₹ 100, उपभोग = 100 इकाई। कुल व्यय = 100 × 100 = ₹ 10,000।\n2. नया मूल्य = ₹ 125। नया व्यय = ₹ 11,000 (10% वृद्धि)।\n3. नया उपभोग = 11,000 / 125 = 88 इकाई।\n4. उपभोग में कमी = ((100 - 88) / 100) × 100% = 12%।"
+    },
+    "correctAnswer": "B",
+    "attemptRate": 88,
+    "optionDistribution": {
+      "A": 4,
+      "B": 92,
+      "C": 3,
+      "D": 1
+    },
+    "recommendedTimeSec": 60
+  },
+  {
+    "id": 2,
+    "chapter": "Coded Blood Relations & Family Tree Deduction",
+    "chapterHi": "रक्त संबंध एवं पारिवारिक वृक्ष",
+    "category": "not_wrong",
+    "categoryTitle": "Questions Which Should Not Have Been Wrong",
+    "difficulty": "Moderate",
+    "en": {
+      "statement": "Read the following information carefully:\n- 'P + Q' means 'P is the father of Q'.\n- 'P - Q' means 'P is the sister of Q'.\n- 'P × Q' means 'P is the brother of Q'.\n- 'P ÷ Q' means 'P is the mother of Q'.\n\nConsider the expression: M + N × R ÷ T - K.\nWhich of the following statements is definitely correct?",
+      "options": {
+        "A": "M is the maternal grandfather of K",
+        "B": "T is the daughter of N",
+        "C": "M is the paternal grandfather of K",
+        "D": "K is the grandson of M"
+      },
+      "explanation": "1. Decode the expression from left to right:\n   - M + N: M is the father of N (M is male).\n   - N × R: N is the brother of R (N is male; R and N are siblings).\n   - R ÷ T: R is the mother of T (R is female; M is therefore R's father).\n   - T - K: T is the sister of K (T is female; T and K share the same mother R).\n2. Relationship deduction:\n   - R is the mother of K.\n   - M is the father of R.\n   - Therefore, M is the maternal grandfather of K. Statement (a) is definitely correct.\n3. Evaluating distractors:\n   - (b) T is the niece of N (since N is R's brother), not the daughter of N.\n   - (c) M is linked through K's mother R, making him the maternal grandfather, not paternal.\n   - (d) The gender of K is unspecified (K could be grandson or granddaughter)."
+    },
+    "hi": {
+      "statement": "निम्नलिखित जानकारी को ध्यानपूर्वक पढ़ें:\n- 'P + Q' का अर्थ है 'P, Q का पिता है'।\n- 'P - Q' का अर्थ है 'P, Q की बहन है'।\n- 'P × Q' का अर्थ है 'P, Q का भाई है'।\n- 'P ÷ Q' का अर्थ है 'P, Q की माता है'।\n\nव्यंजक पर विचार करें: M + N × R ÷ T - K\nनिम्नलिखित में से कौन सा कथन निश्चित रूप से सही है?",
+      "options": {
+        "A": "M, K का नाना है",
+        "B": "T, N की पुत्री है",
+        "C": "M, K का दादा है",
+        "D": "K, M का पोता है"
+      },
+      "explanation": "1. M + N: M, N का पिता है (पुरुष)।\n2. N × R: N, R का भाई है (R, N की बहन/भाई)।\n3. R ÷ T: R, T की माता है (R महिला है; M, R का पिता है)।\n4. T - K: T, K की बहन है (T और K दोनों R की संतान हैं)।\n5. R, K की माता है और M, R का पिता है → अतः M, K का नाना (maternal grandfather) है।"
+    },
+    "correctAnswer": "A",
+    "attemptRate": 88,
+    "optionDistribution": {
+      "A": 84,
+      "B": 8,
+      "C": 6,
+      "D": 2
+    },
+    "recommendedTimeSec": 60
+  },
+  {
+    "id": 3,
+    "chapter": "Linear Diophantine Equations & Integer Extremization",
+    "chapterHi": "डायोफैंटाइन समीकरण एवं पूर्णांक समीकरण",
+    "category": "avoided",
+    "categoryTitle": "Questions Which Should Have Been Avoided",
+    "difficulty": "Moderate-Hard",
+    "en": {
+      "statement": "A person spent exactly ₹ 1,000 to buy three types of items costing ₹ 20, ₹ 50 and ₹ 90 each. He bought at least one item of each type, and the total number of items bought was the maximum possible. What is the value of the difference between the number of ₹ 20 items and the number of ₹ 90 items purchased?",
+      "options": {
+        "A": "40",
+        "B": "41",
+        "C": "42",
+        "D": "43"
+      },
+      "explanation": "1. Let x, y, and z denote the number of items purchased at ₹ 20, ₹ 50, and ₹ 90 respectively.\n2. Integer constraint: x ≥ 1, y ≥ 1, z ≥ 1.\n3. Total expenditure equation: 20x + 50y + 90z = 1000 ⇒ 2x + 5y + 9z = 100.\n4. We want to maximize the total number of items T = x + y + z. Since ₹ 20 is the least expensive item, maximizing T requires maximizing x and minimizing (y + z).\n5. Rearrange: 2x = 100 - (5y + 9z).\n   - For x to be an integer, 100 - (5y + 9z) must be even.\n   - Since 100 is even, (5y + 9z) must be even.\n   - This forces y and z to have the same parity (both odd or both even).\n6. To minimize expenditure on y and z with positive integers, test smallest odd positive integers: y = 1, z = 1.\n   - 5(1) + 9(1) = 14 (even).\n   - 2x = 100 - 14 = 86 ⇒ x = 43.\n   - Total items T = 43 + 1 + 1 = 45 items.\n   - (Testing both even: y = 2, z = 2 gives 2x = 100 - 28 = 72 ⇒ x = 36, T = 40 < 45).\n7. The maximum count is uniquely achieved at x = 43, y = 1, z = 1.\n8. Required difference = x - z = 43 - 1 = 42."
+    },
+    "hi": {
+      "statement": "एक व्यक्ति ने क्रमशः ₹ 20, ₹ 50 और ₹ 90 मूल्य की तीन प्रकार की वस्तुएं खरीदने के लिए ठीक ₹ 1,000 खर्च किए। उसने प्रत्येक प्रकार की कम से कम एक वस्तु खरीदी, और खरीदी गई वस्तुओं की कुल संख्या अधिकतम संभव थी। खरीदी गई ₹ 20 की वस्तुओं और ₹ 90 की वस्तुओं की संख्या के बीच का अंतर क्या है?",
+      "options": {
+        "A": "40",
+        "B": "41",
+        "C": "42",
+        "D": "43"
+      },
+      "explanation": "1. समीकरण: 20x + 50y + 90z = 1000 ⇒ 2x + 5y + 9z = 100, जहाँ x, y, z ≥ 1।\n2. वस्तुओं की संख्या (x + y + z) को अधिकतम करने के लिए सबसे सस्ती वस्तु (x) को अधिकतम और (y, z) को न्यूनतम करना होगा।\n3. 2x सम है, अतः 5y + 9z सम होना चाहिए। y और z दोनों की समता (parity) समान होनी चाहिए।\n4. न्यूनतम धनात्मक विषम मान: y = 1, z = 1 ⇒ 2x = 100 - 14 = 86 ⇒ x = 43।\n5. अंतर = x - z = 43 - 1 = 42।"
+    },
+    "correctAnswer": "C",
+    "attemptRate": 68,
+    "optionDistribution": {
+      "A": 12,
+      "B": 15,
+      "C": 68,
+      "D": 5
+    },
+    "recommendedTimeSec": 60
+  },
+  {
+    "id": 4,
+    "chapter": "Direction Sense & Coordinate Geometry",
+    "chapterHi": "दिशा ज्ञान एवं निर्देशांक ज्यामिति",
+    "category": "not_wrong",
+    "categoryTitle": "Questions Which Should Not Have Been Wrong",
+    "difficulty": "Easy",
+    "en": {
+      "statement": "Two persons A and B start from the same point P. A walks 4 km towards North, then turns to his right and walks 3 km. B walks 3 km towards West, then turns to his right and walks 4 km. What is the distance between A and B, and in which direction is A with respect to B?",
+      "options": {
+        "A": "5 km towards East",
+        "B": "6 km towards East",
+        "C": "6 km towards North-East",
+        "D": "8 km towards East"
+      },
+      "explanation": "1. Set the initial common point P at the origin (0, 0) on a Cartesian coordinate plane.\n2. Tracking Person A:\n   - Walks 4 km North: reaches (0, 4).\n   - Turns right (East) and walks 3 km: reaches final position A = (3, 4).\n3. Tracking Person B:\n   - Walks 3 km West: reaches (-3, 0).\n   - Turns right (facing West, turning right means facing North) and walks 4 km: reaches final position B = (-3, 4).\n4. Distance and relative direction:\n   - Both A and B have the same y-coordinate (y = 4).\n   - Distance AB = 3 - (-3) = 6 km along the horizontal line.\n   - Since A has an x-coordinate of +3 and B has -3, A lies directly to the East of B.\n5. Therefore, A is 6 km towards East with respect to B."
+    },
+    "hi": {
+      "statement": "दो व्यक्ति A और B एक ही बिंदु P से चलना शुरू करते हैं। A उत्तर की ओर 4 किमी चलता है, फिर दाईं ओर मुड़कर 3 किमी चलता है। B पश्चिम की ओर 3 किमी चलता है, फिर दाईं ओर मुड़कर 4 किमी चलता है। A और B के बीच की दूरी क्या है, और B के सापेक्ष A किस दिशा में है?",
+      "options": {
+        "A": "पूर्व की ओर 5 किमी",
+        "B": "पूर्व की ओर 6 किमी",
+        "C": "उत्तर-पूर्व की ओर 6 किमी",
+        "D": "पूर्व की ओर 8 किमी"
+      },
+      "explanation": "1. बिंदु P को मूल बिंदु (0, 0) मानें।\n2. A की स्थिति: उत्तर 4 किमी (0, 4) → दाएँ मुड़कर पूर्व 3 किमी → A = (3, 4)।\n3. B की स्थिति: पश्चिम 3 किमी (-3, 0) → दाएँ मुड़कर उत्तर 4 किमी → B = (-3, 4)।\n4. दोनों का y-निर्देशांक 4 है। क्षैतिज दूरी = 3 - (-3) = 6 किमी।\n5. B (-3, 4) के सापेक्ष A (3, 4) ठीक पूर्व दिशा में 6 किमी की दूरी पर है।"
+    },
+    "correctAnswer": "B",
+    "attemptRate": 88,
+    "optionDistribution": {
+      "A": 10,
+      "B": 85,
+      "C": 3,
+      "D": 2
+    },
+    "recommendedTimeSec": 60
+  },
+  {
+    "id": 5,
+    "chapter": "Combinatorial Number Theory & Non-Uniqueness Traps",
+    "chapterHi": "संख्या सिद्धांत एवं अंक क्रमचय",
+    "category": "avoided",
+    "categoryTitle": "Questions Which Should Have Been Avoided",
+    "difficulty": "Challenging",
+    "en": {
+      "statement": "A three-digit number ABC has distinct non-zero digits such that A > B > C. The sum of all possible two-digit numbers that can be formed using the digits A, B and C (without repetition in any two-digit number) is 484. What is the value of the digit A?",
+      "options": {
+        "A": "7",
+        "B": "8",
+        "C": "9",
+        "D": "Cannot be determined uniquely"
+      },
+      "explanation": "1. From 3 distinct non-zero digits A, B, C, the possible two-digit numbers without repetition are 6 numbers: AB, BA, AC, CA, BC, CB.\n2. Express each number in base 10:\n   Sum = (10A + B) + (10B + A) + (10A + C) + (10C + A) + (10B + C) + (10C + B)\n       = 20(A + B + C) + 2(A + B + C) = 22(A + B + C).\n3. Given that the sum is 484:\n   22(A + B + C) = 484 ⇒ A + B + C = 484 / 22 = 22.\n4. Condition: 9 ≥ A > B > C ≥ 1.\n   - If A ≤ 8, then the maximum possible sum of the three distinct digits would be 8 + 7 + 6 = 21, which is strictly less than 22.\n   - Therefore, A cannot be 8 or less.\n   - Hence, A must be 9.\n5. (Verification: If A = 9, then B + C = 13. Possible valid pairs (B, C) with 9 > B > C ≥ 1 are (8, 5) and (7, 6). While B and C cannot be uniquely determined, the leading digit A is strictly and uniquely forced to be 9)."
+    },
+    "hi": {
+      "statement": "तीन अंकों की संख्या ABC में विशिष्ट गैर-शून्य अंक इस प्रकार हैं कि A > B > C। अंकों A, B और C का उपयोग करके (बिना दोहराव के) बनाई जा सकने वाली सभी दो अंकों की संख्याओं का योग 484 है। अंक A का मान क्या है?",
+      "options": {
+        "A": "7",
+        "B": "8",
+        "C": "9",
+        "D": "विशिष्ट रूप से निर्धारित नहीं किया जा सकता"
+      },
+      "explanation": "1. 3 अंकों से बनने वाली 2 अंकों की 6 संख्याएं होंगी: AB, BA, AC, CA, BC, CB।\n2. कुल योग = 22(A + B + C) = 484 ⇒ A + B + C = 22।\n3. यदि A ≤ 8 होता, तो अधिकतम संभव योग 8 + 7 + 6 = 21 होता, जो 22 से कम है।\n4. अतः A का मान अनिवार्य रूप से 9 होना चाहिए।"
+    },
+    "correctAnswer": "C",
+    "attemptRate": 68,
+    "optionDistribution": {
+      "A": 8,
+      "B": 12,
+      "C": 64,
+      "D": 16
+    },
+    "recommendedTimeSec": 60
+  },
+  {
+    "id": 6,
+    "chapter": "Unit Digit & Modular Cyclicity",
+    "chapterHi": "इकाई अंक एवं मॉड्यूलर चक्रियता",
+    "category": "not_wrong",
+    "categoryTitle": "Questions Which Should Not Have Been Wrong",
+    "difficulty": "Easy",
+    "en": {
+      "statement": "What is the remainder when (17^2025 + 13^2025) is divided by 10?",
+      "options": {
+        "A": "0",
+        "B": "2",
+        "C": "5",
+        "D": "8"
+      },
+      "explanation": "1. Finding the remainder when an integer is divided by 10 is identical to determining its unit digit.\n2. Unit digit of 17^2025 depends only on the cyclicity of 7:\n   - 7¹ = 7\n   - 7² = 49 ≡ 9 (mod 10)\n   - 7³ = 343 ≡ 3 (mod 10)\n   - 7⁴ = 2401 ≡ 1 (mod 10)\n   - Cyclicity is 4. Since 2025 = 4 × 506 + 1, 17^2025 has the same unit digit as 7¹ = 7.\n3. Unit digit of 13^2025 depends only on the cyclicity of 3:\n   - 3¹ = 3\n   - 3² = 9 (mod 10)\n   - 3³ = 27 ≡ 7 (mod 10)\n   - 3⁴ = 81 ≡ 1 (mod 10)\n   - Cyclicity is 4. Since 2025 = 4 × 506 + 1, 13^2025 has the same unit digit as 3¹ = 3.\n4. Sum of unit digits = 7 + 3 = 10 ≡ 0 (mod 10).\n5. Hence, the remainder is 0."
+    },
+    "hi": {
+      "statement": "जब (17^2025 + 13^2025) को 10 से विभाजित किया जाता है, तो शेषफल क्या होगा?",
+      "options": {
+        "A": "0",
+        "B": "2",
+        "C": "5",
+        "D": "8"
+      },
+      "explanation": "1. 10 से विभाजन पर शेषफल इकाई अंक के समान होता है।\n2. 7 की चक्रीयता 4 है। 2025 = 4 × 506 + 1, अतः 17^2025 का इकाई अंक 7¹ = 7 है।\n3. 3 की चक्रीयता 4 है। 13^2025 का इकाई अंक 3¹ = 3 है।\n4. इकाई अंकों का योग = 7 + 3 = 10, अतः इकाई अंक 0 है। शेषफल = 0।"
+    },
+    "correctAnswer": "A",
+    "attemptRate": 88,
+    "optionDistribution": {
+      "A": 90,
+      "B": 4,
+      "C": 3,
+      "D": 3
+    },
+    "recommendedTimeSec": 60
+  },
+  {
+    "id": 7,
+    "chapter": "Truth-Tellers, Liars & Alternators Logic Puzzle",
+    "chapterHi": "सत्यवादी, झूठे और एकांतरवादी पहेली",
+    "category": "avoided",
+    "categoryTitle": "Questions Which Should Have Been Avoided",
+    "difficulty": "Challenging",
+    "en": {
+      "statement": "Three persons A, B and C belong to three different tribes: Truth-tellers (who always speak the truth), Liars (who always tell lies), and Alternators (who alternate between truth and lie, in any order). Exactly one person belongs to each tribe.\nThey make the following statements:\n- A says:\n  1. 'I am a Liar.'\n  2. 'B is a Truth-teller.'\n- B says:\n  1. 'A is not a Liar.'\n  2. 'C is a Liar.'\n- C says:\n  1. 'I am a Truth-teller.'\n  2. 'B is an Alternator.'\n\nWho among them is the Truth-teller?",
+      "options": {
+        "A": "A",
+        "B": "B",
+        "C": "C",
+        "D": "Cannot be determined"
+      },
+      "explanation": "1. Analyze the statement 'I am a Liar' made by A:\n   - Can a Truth-teller say 'I am a Liar'? No, because that would be a lie.\n   - Can a Liar say 'I am a Liar'? No, because that would be the truth, which a Liar cannot utter.\n   - Therefore, only an Alternator can make the statement 'I am a Liar', and this statement must be FALSE.\n2. Consequence for A:\n   - A is definitively the Alternator.\n   - Since A's first statement is False (F), A's second statement must be TRUE (T).\n   - A's second statement is: 'B is a Truth-teller.'\n   - Since this is True, B is definitively the Truth-teller.\n3. Consequence for C:\n   - Since A is the Alternator and B is the Truth-teller, C must be the Liar.\n4. Consistency check on B and C:\n   - B (Truth-teller): Statement 1 ('A is not a Liar') is True (A is Alternator). Statement 2 ('C is a Liar') is True. (Both True: consistent).\n   - C (Liar): Statement 1 ('I am a Truth-teller') is False. Statement 2 ('B is an Alternator') is False (B is Truth-teller). (Both False: consistent).\n5. Hence, B is the Truth-teller."
+    },
+    "hi": {
+      "statement": "तीन व्यक्ति A, B और C तीन अलग-अलग श्रेणियों से हैं: सत्यवादी (हमेशा सच बोलते हैं), झूठे (हमेशा झूठ बोलते हैं), और एकांतरवादी (सच और झूठ बारी-बारी बोलते हैं)। प्रत्येक श्रेणी में ठीक एक व्यक्ति है।\n- A कहता है: 1. 'मैं झूठा हूँ।' 2. 'B सत्यवादी है।'\n- B कहता है: 1. 'A झूठा नहीं है।' 2. 'C झूठा है।'\n- C कहता है: 1. 'मैं सत्यवादी हूँ।' 2. 'B एकांतरवादी है।'\n\nउनमें से सत्यवादी कौन है?",
+      "options": {
+        "A": "A",
+        "B": "B",
+        "C": "C",
+        "D": "निर्धारित नहीं किया जा सकता"
+      },
+      "explanation": "1. 'मैं झूठा हूँ' केवल एकांतरवादी ही कह सकता है (क्योंकि सत्यवादी झूठ नहीं बोल सकता और झूठा सच नहीं कह सकता)। अतः A का यह कथन असत्य (F) है।\n2. A एकांतरवादी है। उसका दूसरा कथन सत्य (T) होना चाहिए: 'B सत्यवादी है।' अतः B सत्यवादी है।"
+    },
+    "correctAnswer": "B",
+    "attemptRate": 68,
+    "optionDistribution": {
+      "A": 14,
+      "B": 71,
+      "C": 9,
+      "D": 6
+    },
+    "recommendedTimeSec": 60
+  },
+  {
+    "id": 8,
+    "chapter": "Time & Work / Multi-Stage Work Tracking",
+    "chapterHi": "समय और कार्य / चरणबद्ध कार्य",
+    "category": "attempted",
+    "categoryTitle": "Questions Which Should Be Attempted",
+    "difficulty": "Moderate",
+    "en": {
+      "statement": "A and B working together can complete a work in 12 days. B and C working together can complete it in 15 days, while A and C working together can complete it in 20 days. They all start working together, but A leaves after 5 days. B and C continue working for 5 more days, after which B also leaves. C finishes the remaining work alone. How many days did C work in total from start to finish?",
+      "options": {
+        "A": "15 days",
+        "B": "18 days",
+        "C": "20 days",
+        "D": "24 days"
+      },
+      "explanation": "1. Assume total work = LCM(12, 15, 20) = 60 units.\n2. Calculate pairwise daily efficiencies:\n   - (A + B) = 60 / 12 = 5 units/day\n   - (B + C) = 60 / 15 = 4 units/day\n   - (A + C) = 60 / 20 = 3 units/day\n3. Add all three equations:\n   2(A + B + C) = 5 + 4 + 3 = 12 ⇒ (A + B + C) = 6 units/day.\n4. Individual efficiencies:\n   - Efficiency of C = (A + B + C) - (A + B) = 6 - 5 = 1 unit/day\n   - Efficiency of A = (A + B + C) - (B + C) = 6 - 4 = 2 units/day\n   - Efficiency of B = (A + B + C) - (A + C) = 6 - 3 = 3 units/day\n5. Multi-stage execution:\n   - Stage 1 (A, B, C for 5 days): Work done = 5 × 6 = 30 units.\n   - Stage 2 (B, C for 5 days): Work done = 5 × 4 = 20 units.\n   - Total work done so far = 30 + 20 = 50 units.\n   - Remaining work = 60 - 50 = 10 units.\n   - Stage 3 (C alone): Days taken = 10 units / 1 unit/day = 10 days.\n6. Total days C worked = 5 (Stage 1) + 5 (Stage 2) + 10 (Stage 3) = 20 days."
+    },
+    "hi": {
+      "statement": "A और B मिलकर एक कार्य को 12 दिनों में, B और C 15 दिनों में, तथा A और C 20 दिनों में पूरा कर सकते हैं। वे सभी एक साथ कार्य शुरू करते हैं, लेकिन 5 दिनों के बाद A छोड़ देता है। B और C अगले 5 दिनों तक कार्य करते हैं, जिसके बाद B भी छोड़ देता है। C शेष कार्य अकेले पूरा करता है। C ने शुरू से अंत तक कुल कितने दिन कार्य किया?",
+      "options": {
+        "A": "15 दिन",
+        "B": "18 दिन",
+        "C": "20 दिन",
+        "D": "24 दिन"
+      },
+      "explanation": "1. कुल कार्य = LCM(12, 15, 20) = 60 इकाई।\n2. A+B = 5, B+C = 4, A+C = 3 ⇒ 2(A+B+C) = 12 ⇒ A+B+C = 6 इकाई/दिन।\n3. C की कार्यक्षमता = 6 - 5 = 1 इकाई/दिन।\n4. प्रथम 5 दिन (A+B+C): 5 × 6 = 30 इकाई।\n5. अगले 5 दिन (B+C): 5 × 4 = 20 इकाई। शेष = 60 - 50 = 10 इकाई।\n6. C अकेला 10 इकाई कार्य 10 दिन में करेगा। C के कुल दिन = 5 + 5 + 10 = 20 दिन।"
+    },
+    "correctAnswer": "C",
+    "attemptRate": 88,
+    "optionDistribution": {
+      "A": 11,
+      "B": 9,
+      "C": 76,
+      "D": 4
+    },
+    "recommendedTimeSec": 60
+  },
+  {
+    "id": 9,
+    "chapter": "Combinatorics & Restricted Gap Placements",
+    "chapterHi": "क्रमचय एवं संचय / रिक्ति विधि",
+    "category": "attempted",
+    "categoryTitle": "Questions Which Should Be Attempted",
+    "difficulty": "Moderate-Hard",
+    "en": {
+      "statement": "In how many different ways can 5 identical red balls and 4 identical black balls be arranged in a straight row such that no two black balls are placed adjacent to each other?",
+      "options": {
+        "A": "15",
+        "B": "20",
+        "C": "30",
+        "D": "120"
+      },
+      "explanation": "1. Since the red balls are identical and the black balls are identical, order within the same color group does not create distinct arrangements.\n2. To ensure that no two black balls are adjacent, apply the Gap Method:\n   - First, arrange the 5 identical red balls in a straight line: _ R _ R _ R _ R _ R _\n   - There is only 1 distinct way to place the 5 identical red balls.\n3. The 5 red balls create 6 possible gap locations (one before the first red ball, four between consecutive red balls, and one after the last red ball):\n   Total gaps = 5 + 1 = 6 gaps.\n4. To guarantee that no two black balls are adjacent, each of the 4 black balls must occupy a different gap.\n5. Since all 4 black balls are identical, the number of ways is simply the number of ways to choose 4 gaps out of the 6 available gaps:\n   Number of ways = C(6, 4) = C(6, 2) = (6 × 5) / (2 × 1) = 15 ways.\n6. Hence, there are 15 distinct arrangements."
+    },
+    "hi": {
+      "statement": "5 समान लाल गेंदों और 4 समान काली गेंदों को एक सीधी पंक्ति में कितने अलग-अलग तरीकों से व्यवस्थित किया जा सकता है ताकि कोई भी दो काली गेंदें एक साथ न हों?",
+      "options": {
+        "A": "15",
+        "B": "20",
+        "C": "30",
+        "D": "120"
+      },
+      "explanation": "1. 5 समान लाल गेंदें 6 रिक्तियां (gaps) बनाती हैं: _ R _ R _ R _ R _ R _।\n2. कोई दो काली गेंदें एक साथ न होने के लिए 4 काली गेंदों को इन 6 रिक्तियों में से किन्हीं 4 में रखना होगा।\n3. चूंकि गेंदें समान हैं, तरीकों की संख्या = C(6, 4) = C(6, 2) = (6 × 5) / 2 = 15।"
+    },
+    "correctAnswer": "A",
+    "attemptRate": 88,
+    "optionDistribution": {
+      "A": 82,
+      "B": 10,
+      "C": 5,
+      "D": 3
+    },
+    "recommendedTimeSec": 60
+  },
+  {
+    "id": 10,
+    "chapter": "Averages & Net Replacement Shifts",
+    "chapterHi": "औसत एवं प्रतिस्थापन विचलन",
+    "category": "not_wrong",
+    "categoryTitle": "Questions Which Should Not Have Been Wrong",
+    "difficulty": "Easy-Moderate",
+    "en": {
+      "statement": "The average age of a committee of 8 members increases by 2 years when two members whose ages are 35 years and 45 years are replaced by two new members. What is the average age of the two new members?",
+      "options": {
+        "A": "44 years",
+        "B": "46 years",
+        "C": "48 years",
+        "D": "50 years"
+      },
+      "explanation": "1. Let original average age of the 8 committee members be A years.\n2. Total initial age of the committee = 8A.\n3. Sum of ages of the two outgoing members = 35 + 45 = 80 years.\n4. When replaced by two new members, the new average becomes (A + 2) years.\n5. New total age = 8(A + 2) = 8A + 16 years.\n6. Net increase in the committee's total age = (8A + 16) - 8A = 16 years.\n7. Therefore, the sum of ages of the two new incoming members = (Sum of outgoing ages) + (Net increase) = 80 + 16 = 96 years.\n8. Average age of the two new members = 96 / 2 = 48 years."
+    },
+    "hi": {
+      "statement": "8 सदस्यों की एक समिति की औसत आयु 2 वर्ष बढ़ जाती है जब दो सदस्य जिनकी आयु 35 वर्ष और 45 वर्ष है, उनके स्थान पर दो नए सदस्य शामिल किए जाते हैं। दो नए सदस्यों की औसत आयु क्या है?",
+      "options": {
+        "A": "44 वर्ष",
+        "B": "46 वर्ष",
+        "C": "48 वर्ष",
+        "D": "50 वर्ष"
+      },
+      "explanation": "1. कुल आयु में शुद्ध वृद्धि = 8 सदस्य × 2 वर्ष = 16 वर्ष।\n2. जाने वाले दोनों सदस्यों की कुल आयु = 35 + 45 = 80 वर्ष।\n3. नए सदस्यों की कुल आयु = 80 + 16 = 96 वर्ष।\n4. दो नए सदस्यों की औसत आयु = 96 / 2 = 48 वर्ष।"
+    },
+    "correctAnswer": "C",
+    "attemptRate": 88,
+    "optionDistribution": {
+      "A": 5,
+      "B": 7,
+      "C": 86,
+      "D": 2
+    },
+    "recommendedTimeSec": 60
+  }
+];
+
 function getCSATQuestions(dateStr) {
   if (!dateStr) {
     return is18thOctUnlocked() ? CSAT_QUESTIONS_18OCT : CSAT_QUESTIONS_17OCT;
@@ -1127,6 +1503,7 @@ function getCSATQuestions(dateStr) {
   if (dateStr === "2026-10-18") return CSAT_QUESTIONS_18OCT;
   if (dateStr === "2026-10-17") return CSAT_QUESTIONS_17OCT;
   if (dateStr === "2026-10-16") return CSAT_QUESTIONS_16OCT;
+  if (dateStr === "2026-10-15") return CSAT_QUESTIONS_15OCT;
   return CSAT_QUESTIONS_17OCT;
 }
 
@@ -1176,5 +1553,25 @@ const OCTOBER_HISTORY_DATA = buildOctoberHistoryData();
 const CSAT_STORAGE_KEY = "csat_daily_test_state";
 const CSAT_RESULT_KEY = "csat_daily_test_result";
 const CSAT_LANG_KEY = "csat_selected_language";
+
+if (typeof window !== "undefined") {
+  window.getCSATQuestions = getCSATQuestions;
+  window.CSAT_QUESTIONS = CSAT_QUESTIONS;
+  window.CSAT_QUESTIONS_15OCT = CSAT_QUESTIONS_15OCT;
+  window.CSAT_QUESTIONS_16OCT = CSAT_QUESTIONS_16OCT;
+  window.CSAT_QUESTIONS_17OCT = CSAT_QUESTIONS_17OCT;
+  window.CSAT_QUESTIONS_18OCT = CSAT_QUESTIONS_18OCT;
+}
+if (typeof module !== "undefined" && module.exports) {
+  module.exports = {
+    getCSATQuestions,
+    CSAT_QUESTIONS,
+    CSAT_QUESTIONS_15OCT,
+    CSAT_QUESTIONS_16OCT,
+    CSAT_QUESTIONS_17OCT,
+    CSAT_QUESTIONS_18OCT,
+    is18thOctUnlocked
+  };
+}
 
 

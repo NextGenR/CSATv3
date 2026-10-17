@@ -329,12 +329,16 @@
         dateElem.textContent = (testDate === "2026-10-18" ? "18 October 2026 Test" : (testDate === "2026-10-17" ? "17 October 2026 Test" : (testDate === "2026-10-16" ? "16 October 2026 Test" : (testDate === "2026-10-15" ? "15 October 2026 Test" : `${testDate} Test`))));
       }
 
-      // 1. Retrieve Result Data from localStorage or generate realistic default
+      // 1. Retrieve Result Data from localStorage strictly for this testDate
       let resultData = null;
-      const rawStored = localStorage.getItem(CSAT_RESULT_KEY);
+      const rawStored = localStorage.getItem(`csat_test_result_${testDate}`) || localStorage.getItem(`csat_result_${testDate}`) || localStorage.getItem(CSAT_RESULT_KEY);
       if (rawStored) {
         try {
-          resultData = JSON.parse(rawStored);
+          const parsed = JSON.parse(rawStored);
+          const dSuffix = testDate.slice(-2);
+          if (parsed && (parsed.testDate === testDate || (parsed.testDate && parsed.testDate.includes(dSuffix)))) {
+            resultData = parsed;
+          }
         } catch (e) {
           console.error("Could not parse result", e);
         }
@@ -352,13 +356,14 @@
         }
       }
 
-      // If still no result (e.g. fresh review visit), populate realistic sample results
+      // If still no result (e.g. fresh review visit), populate realistic sample results for this specific date
       if (!resultData) {
         try {
           const liveQuestions = await CSAT_API.loadDailyQuestions(testDate);
-          resultData = generateSampleMockResult(liveQuestions);
+          resultData = generateSampleMockResult(liveQuestions, testDate);
         } catch (e) {
-          resultData = generateSampleMockResult(CSAT_QUESTIONS);
+          const fallbackQs = (typeof getCSATQuestions === 'function') ? getCSATQuestions(testDate) : CSAT_QUESTIONS;
+          resultData = generateSampleMockResult(fallbackQs, testDate);
         }
       }
 
@@ -402,11 +407,18 @@
       return str;
     }
 
-    function generateSampleMockResult(baseList = CSAT_QUESTIONS) {
+    function generateSampleMockResult(baseList, activeDateStr) {
+      const qList = (baseList && baseList.length > 0) ? baseList : (typeof getCSATQuestions === 'function' ? getCSATQuestions(activeDateStr) : CSAT_QUESTIONS);
+      const displayDateStr = (activeDateStr === "2026-10-18") ? "18 October 2026"
+        : (activeDateStr === "2026-10-17") ? "17 October 2026"
+        : (activeDateStr === "2026-10-16") ? "16 October 2026"
+        : (activeDateStr === "2026-10-15") ? "15 October 2026"
+        : `${activeDateStr || "17 October 2026"}`;
+
       // Realistic simulation: 8 correct, 2 incorrect, 80% accuracy, score = 20 - 1.66 = 18.33
       let correctCnt = 0;
       let incorrectCnt = 0;
-      const qResults = (baseList || CSAT_QUESTIONS).map(q => {
+      const qResults = qList.map(q => {
         // Let Q5 and Q9 be incorrect in default sample
         const isWrong = (q.id === 5 || q.id === 9);
         let chosen;
@@ -444,7 +456,7 @@
       const totalMarks = (correctCnt * 2.5) - (incorrectCnt * 0.833);
 
       return {
-        testDate: "16 October 2026",
+        testDate: displayDateStr,
         totalScore: totalMarks.toFixed(2),
         rawScore: totalMarks.toFixed(2),
         maxMarks: 25.0,

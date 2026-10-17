@@ -48,31 +48,28 @@ const CSAT_API = (function () {
 
       let rows = await response.json();
       
-      // If no rows found for exact date, fallback to any 10 available questions in the table
-      if (!Array.isArray(rows) || rows.length === 0) {
-        endpoint = `${SUPABASE_URL}/rest/v1/${TABLE_QUESTIONS}?select=*&order=question_number.asc&limit=10`;
-        response = await fetch(endpoint, {
-          method: "GET",
-          headers: {
-            "apikey": SUPABASE_ANON_KEY,
-            "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
-            "Content-Type": "application/json"
+      // If rows found for this exact date in Supabase, deduplicate by question_number (max 10)
+      if (Array.isArray(rows) && rows.length > 0) {
+        console.log(`Successfully fetched ${rows.length} questions from Supabase for ${testDate}!`);
+        const seen = new Set();
+        const uniqueRows = [];
+        for (const r of rows) {
+          const qNum = r.question_number || (uniqueRows.length + 1);
+          if (!seen.has(qNum) && uniqueRows.length < 10) {
+            seen.add(qNum);
+            uniqueRows.push(r);
           }
-        });
-        rows = await response.json();
+        }
+        return normalizeSupabaseRows(uniqueRows.length > 0 ? uniqueRows : rows.slice(0, 10));
       }
 
-      if (!Array.isArray(rows) || rows.length === 0) {
-        console.warn("Supabase returned empty question list. Using fallback mock questions.");
-        const fallbackSet = (typeof getCSATQuestions === 'function') ? getCSATQuestions(testDate) : CSAT_QUESTIONS;
-        return transformFallback(fallbackSet);
-      }
-
-      console.log(`Successfully fetched ${rows.length} questions from Supabase!`);
-      return normalizeSupabaseRows(rows);
+      // If no rows found in Supabase for this date, fallback to curated offline mock questions for this exact date
+      console.warn(`Supabase returned empty question list for ${testDate}. Using curated offline dataset.`);
+      const fallbackSet = (typeof getCSATQuestions === 'function') ? getCSATQuestions(testDate) : (typeof CSAT_QUESTIONS !== 'undefined' ? CSAT_QUESTIONS : []);
+      return transformFallback(fallbackSet);
     } catch (err) {
       console.warn("Error fetching questions from Supabase. Using fallback mock data:", err);
-      const fallbackSet = (typeof getCSATQuestions === 'function') ? getCSATQuestions(testDate) : CSAT_QUESTIONS;
+      const fallbackSet = (typeof getCSATQuestions === 'function') ? getCSATQuestions(testDate) : (typeof CSAT_QUESTIONS !== 'undefined' ? CSAT_QUESTIONS : []);
       return transformFallback(fallbackSet);
     }
   }
@@ -239,12 +236,12 @@ const CSAT_API = (function () {
    * Combines instant local cache inspection and async Supabase cloud check.
    */
   async function checkActiveAttempt(testDate = getDefaultDate()) {
-    // 1. Quick check local cache for in-progress attempt (supporting both CSAT_STORAGE_KEY & fallback)
+    // 1. Quick check local cache for in-progress attempt (supporting date-scoped and fallback keys)
     try {
-      const localStr = localStorage.getItem("csat_daily_test_state") || localStorage.getItem("csat_active_quiz_state");
+      const localStr = localStorage.getItem(`csat_active_quiz_state_${testDate}`) || localStorage.getItem("csat_daily_test_state") || localStorage.getItem("csat_active_quiz_state");
       if (localStr) {
         const local = JSON.parse(localStr);
-        if (local && (local.testDate === testDate || !local.testDate)) {
+        if (local && (local.testDate === testDate)) {
           const answers = local.answers || {};
           const answersCount = Object.keys(answers).length;
           const hasProgress = (local.status === "in_progress") || (answersCount > 0) || (local.currentQuestionIndex && local.currentQuestionIndex > 0) || (local.totalTimeSeconds && local.totalTimeSeconds > 5);
@@ -278,10 +275,10 @@ const CSAT_API = (function () {
 
     // 2. Quick check local cache for completed result
     try {
-      const resultStr = localStorage.getItem(`csat_result_${testDate}`) || localStorage.getItem("csat_daily_test_result");
+      const resultStr = localStorage.getItem(`csat_test_result_${testDate}`) || localStorage.getItem(`csat_result_${testDate}`) || localStorage.getItem("csat_daily_test_result");
       if (resultStr) {
         const result = JSON.parse(resultStr);
-        if (result && (result.targetDate === testDate || !result.targetDate || result.testDate?.includes(testDate.slice(8)))) {
+        if (result && (result.testDate === testDate || result.targetDate === testDate || (result.testDate && result.testDate.includes(testDate.slice(-2))))) {
           return {
             hasActive: false,
             isCompleted: true,
@@ -345,8 +342,10 @@ const CSAT_API = (function () {
     try {
       localStorage.removeItem("csat_daily_test_state");
       localStorage.removeItem("csat_active_quiz_state");
+      localStorage.removeItem(`csat_active_quiz_state_${testDate}`);
       localStorage.removeItem("csat_daily_test_result");
       localStorage.removeItem(`csat_result_${testDate}`);
+      localStorage.removeItem(`csat_test_result_${testDate}`);
     } catch (e) {}
 
     const candidateName = getCandidateName();

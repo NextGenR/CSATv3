@@ -368,6 +368,7 @@
           testDate: targetDate
         };
         localStorage.setItem(CSAT_STORAGE_KEY, JSON.stringify(initialAttempt));
+        localStorage.setItem(`csat_active_quiz_state_${targetDate}`, JSON.stringify(initialAttempt));
       }
 
       // Attempt Fullscreen
