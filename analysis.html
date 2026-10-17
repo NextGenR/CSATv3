@@ -385,6 +385,18 @@
       if (optIdx !== -1) {
         str = str.substring(0, optIdx).trim();
       }
+
+      // Format mixed fractions first (e.g. "16 4/11", "8 16/23 %", "3 बजकर 16 4/11 मिनट")
+      str = str.replace(/(^|[^\d/])(\d+)\s+(\d{1,4})\s*\/\s*(\d{1,4})(?!\s*\/\s*\d)(?=[^\d/]|$)/g, (match, prefix, whole, num, den) => {
+        return `${prefix}<span class="csat-frac csat-mixed-frac" role="math" aria-label="${whole} and ${num} over ${den}"><span class="csat-whole">${whole}</span><span class="csat-fraction"><span class="csat-num">${num}</span><span class="csat-den">${den}</span></span></span>`;
+      });
+
+      // Format standalone fractions (e.g. "3/11", "11/2", "(60/11)", "180/11")
+      // Avoid matching dates (e.g. 15/08/1947), units (km/h, m/s, °/min), or HTML attributes
+      str = str.replace(/(^|[^\d/a-zA-Z°"'>])(\d{1,4})\s*\/\s*(\d{1,4})(?!\s*\/\s*\d)(?=[^\d/a-zA-Z°"'<]|$)/g, (match, prefix, num, den) => {
+        return `${prefix}<span class="csat-frac" role="math" aria-label="${num} over ${den}"><span class="csat-fraction"><span class="csat-num">${num}</span><span class="csat-den">${den}</span></span></span>`;
+      });
+
       str = str.replace(/([0-9a-zA-Z\)]+)\^([0-9a-zA-Z\+]+)/g, "$1<sup>$2</sup>");
       str = str.replace(/\n/g, "<br>");
       return str;
@@ -755,7 +767,7 @@
 
         <div class="tg-drill-solution">
           <strong><i class="fa-solid fa-graduation-cap"></i> Complete Traditional Explanation:</strong>
-          <div style="margin-top: 8px; white-space: pre-line; line-height: 1.6;">${q.explanationEn}</div>
+          <div style="margin-top: 8px; white-space: pre-line; line-height: 1.6;">${formatQuestionText(q.explanationEn)}</div>
         </div>
       `;
 

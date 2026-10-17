@@ -1337,6 +1337,57 @@ html, body {
   flex: 1;
 }
 
+/* ==========================================================================
+   Mathematical Fraction Typesetting (UPSC CSAT Mixed & Simple Fractions)
+   ========================================================================== */
+.csat-frac {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: -0.22em;
+  font-family: inherit;
+  white-space: nowrap;
+  line-height: 1;
+  margin: 0 0.12em;
+}
+
+.csat-frac.csat-mixed-frac {
+  gap: 0.22em;
+}
+
+.csat-frac .csat-whole {
+  font-size: 1em;
+  font-weight: inherit;
+  line-height: 1;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.csat-frac .csat-fraction {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 0.74em;
+  line-height: 1;
+}
+
+.csat-frac .csat-num {
+  display: block;
+  font-weight: inherit;
+  line-height: 1.05;
+  padding: 0 0.18em 1px 0.18em;
+  border-bottom: 1.5px solid currentColor;
+}
+
+.csat-frac .csat-den {
+  display: block;
+  font-weight: inherit;
+  line-height: 1.05;
+  padding: 1px 0.18em 0 0.18em;
+}
+
 /* Quiz Controls Bottom */
 .tg-quiz-bottom-controls {
   display: flex;
