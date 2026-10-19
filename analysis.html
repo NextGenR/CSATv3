@@ -319,14 +319,15 @@
   <script>
     document.addEventListener("DOMContentLoaded", async () => {
       const urlParams = new URLSearchParams(window.location.search);
-      const testDate = urlParams.get('date') || (typeof is18thOctUnlocked === 'function' && is18thOctUnlocked() ? '2026-10-18' : '2026-10-17');
+      const testDate = urlParams.get('date') || (typeof getTodayDateStr === 'function' ? getTodayDateStr() : '2026-10-19');
       const candidateName = localStorage.getItem("csat_candidate_name") || "Shri";
 
       const candElem = document.getElementById("analysis-candidate-name");
       if (candElem) candElem.textContent = candidateName;
       const dateElem = document.getElementById("analysis-date-label");
       if (dateElem) {
-        dateElem.textContent = (testDate === "2026-10-18" ? "18 October 2026 Test" : (testDate === "2026-10-17" ? "17 October 2026 Test" : (testDate === "2026-10-16" ? "16 October 2026 Test" : (testDate === "2026-10-15" ? "15 October 2026 Test" : `${testDate} Test`))));
+        const dayNum = parseInt(testDate.split('-')[2], 10) || 19;
+        dateElem.textContent = `${dayNum} October 2026 Test`;
       }
 
       // 1. Retrieve Result Data from localStorage strictly for this testDate
@@ -409,11 +410,8 @@
 
     function generateSampleMockResult(baseList, activeDateStr) {
       const qList = (baseList && baseList.length > 0) ? baseList : (typeof getCSATQuestions === 'function' ? getCSATQuestions(activeDateStr) : CSAT_QUESTIONS);
-      const displayDateStr = (activeDateStr === "2026-10-18") ? "18 October 2026"
-        : (activeDateStr === "2026-10-17") ? "17 October 2026"
-        : (activeDateStr === "2026-10-16") ? "16 October 2026"
-        : (activeDateStr === "2026-10-15") ? "15 October 2026"
-        : `${activeDateStr || "17 October 2026"}`;
+      const dayNum = parseInt(activeDateStr.split('-')[2], 10) || 19;
+      const displayDateStr = `${dayNum} October 2026`;
 
       // Realistic simulation: 8 correct, 2 incorrect, 80% accuracy, score = 20 - 1.66 = 18.33
       let correctCnt = 0;

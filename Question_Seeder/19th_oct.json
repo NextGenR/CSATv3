@@ -1,0 +1,382 @@
+[
+  {
+    "id": "19THOCT-081",
+    "questionNumber": 1,
+    "difficulty": "L2",
+    "subject": "Quantitative Aptitude",
+    "pillar": "Quant",
+    "topic": "Data Interpretation & Data Sufficiency",
+    "type": "MCQ",
+    "pyqInspiration": "UPSC CSAT 2021 Percentage Pass-Fail Sets",
+    "question": "In an examination, 65% of candidates passed in Mathematics, 70% passed in English, and 15% failed in both subjects. If 300 candidates passed in both subjects, what was the total number of candidates who appeared for the examination?",
+    "options": [
+      "(a) 500",
+      "(b) 600",
+      "(c) 750",
+      "(d) 800"
+    ],
+    "correct": 1,
+    "answerKey": "B",
+    "solution": "Step 1: Find the percentage of candidates who passed in at least one subject:\nCandidates failing in both subjects = 15%.\nCandidates passing in at least one subject = n(M ∪ E) = 100% - 15% = 85%.\n\nStep 2: Use set theory formula to find percentage passing in both:\nn(M ∪ E) = n(M) + n(E) - n(M ∩ E)\n85% = 65% + 70% - n(M ∩ E)\n85% = 135% - n(M ∩ E)\nn(M ∩ E) = 135% - 85% = 50%.\n\nStep 3: Relate the percentage to the absolute number:\n50% of Total Candidates = 300.\nTotal Candidates = 300 / 0.50 = 600.\n\nHence, 600 candidates appeared for the examination.",
+    "trapAlert": "Don't add 65% + 70% and subtract from 100%. The 15% who failed both must first be subtracted from 100% to find the union of passing sets.",
+    "trick": "% passed both = (65 + 70) - (100 - 15) = 135 - 85 = 50%. Since 50% = 300, 100% = 600.",
+    "category": "not_wrong",
+    "category_title": "Questions Which Should Not Have Been Wrong",
+    "attempt_rate": 78,
+    "option_distribution": {
+      "A": 8,
+      "B": 78,
+      "C": 7,
+      "D": 7
+    },
+    "forensicMeta": {
+      "cognitiveLoadScore": 2,
+      "scratchpadDemand": "Medium - Linear Scratchpad Work",
+      "idealTimeVsHallTime": "35s / 65s",
+      "primaryTrapArchetype": "Deceptive Boundary Miscalculation",
+      "riskIndex": "Low"
+    }
+  },
+  {
+    "id": "19THOCT-021",
+    "questionNumber": 2,
+    "difficulty": "L3",
+    "subject": "Quantitative Aptitude",
+    "pillar": "Quant",
+    "topic": "Ratio, Proportion, Partnership & Mixtures Alligation",
+    "type": "Statement Evaluation",
+    "pyqInspiration": "UPSC CSAT 2023 Multi-stage variable fraction replacement",
+    "question": "A container is initially filled with 100 litres of pure acid. 10 litres of acid are drawn off and replaced with water. Then, 20 litres of the mixture are drawn off and replaced with water. Finally, 25 litres of the mixture are drawn off and replaced with water.\nConsider the following statements:\nStatement 1: The quantity of pure acid remaining in the container is 54 litres.\nStatement 2: The ratio of pure acid to water in the final container is 27 : 23.\nWhich of the statements given above is/are correct?\n(a) 1 only\n(b) 2 only\n(c) Both 1 and 2\n(d) Neither 1 nor 2",
+    "options": [
+      "(a) 1 only",
+      "(b) 2 only",
+      "(c) Both 1 and 2",
+      "(d) Neither 1 nor 2"
+    ],
+    "correct": 2,
+    "answerKey": "C",
+    "solution": "Step 1: The container starts with 100 litres of pure acid. The total volume remains 100 litres after each replacement.\nStep 2: Calculate residual acid using successive multiplying factors for each withdrawal:\n- 1st operation (10 L removed from 100 L): fraction remaining = 1 - 10/100 = 9/10.\n- 2nd operation (20 L removed from 100 L): fraction remaining = 1 - 20/100 = 4/5.\n- 3rd operation (25 L removed from 100 L): fraction remaining = 1 - 25/100 = 3/4.\nStep 3: Final quantity of pure acid = 100 × (9/10) × (4/5) × (3/4).\nStep 4: Cancel terms: 100 × (9 × 4 × 3) / (10 × 5 × 4) = 100 × (108 / 200) = 54 litres.\nStep 5: Statement 1 states remaining pure acid is 54 litres. Statement 1 is CORRECT.\nStep 6: Quantity of water in the container = Total Volume - Pure Acid = 100 - 54 = 46 litres.\nStep 7: Ratio of pure acid to water = 54 : 46 = 27 : 23. Statement 2 is CORRECT.\nStep 8: Both Statement 1 and Statement 2 are correct.",
+    "trapAlert": "Candidates often think variable withdrawals invalidate the multiplication principle. As long as the container is refilled to the same total volume, the product of remaining fractions holds perfectly.",
+    "trick": "Multiplication chain: 100 × 0.90 × 0.80 × 0.75 = 100 × 0.54 = 54 L acid. Water = 46 L. Ratio = 54 : 46 = 27 : 23.",
+    "category": "attempted",
+    "category_title": "Questions Which Should Be Attempted",
+    "attempt_rate": 65,
+    "option_distribution": {
+      "A": 13,
+      "B": 11,
+      "C": 65,
+      "D": 11
+    },
+    "forensicMeta": {
+      "cognitiveLoadScore": 3,
+      "scratchpadDemand": "Medium - Linear Scratchpad Work",
+      "idealTimeVsHallTime": "35s / 65s",
+      "primaryTrapArchetype": "Deceptive Boundary Miscalculation",
+      "riskIndex": "Low"
+    }
+  },
+  {
+    "id": "19THOCT-037",
+    "questionNumber": 3,
+    "difficulty": "L4",
+    "subject": "Quantitative Aptitude",
+    "pillar": "Quant",
+    "topic": "Averages, Weighted Means & Age Problems",
+    "type": "Statement Evaluation",
+    "pyqInspiration": "UPSC CSAT 2022 Age reversal / digit swap puzzle",
+    "question": "A person's age is a two-digit number. When the digits of his age are reversed, the number obtained is the age of his wife. The average of their ages is 66 years, and the person is older than his wife by 18 years.\nConsider the following statements:\nStatement 1: The husband is 75 years old.\nStatement 2: The product of the two digits of the wife's age is 35.\nWhich of the statements given above is/are correct?\n(a) 1 only\n(b) 2 only\n(c) Both 1 and 2\n(d) Neither 1 nor 2",
+    "options": [
+      "(a) 1 only",
+      "(b) 2 only",
+      "(c) Both 1 and 2",
+      "(d) Neither 1 nor 2"
+    ],
+    "correct": 2,
+    "answerKey": "C",
+    "solution": "Step 1: Let the husband's age be 10t + u and the wife's age be 10u + t, where t and u are non-zero single digits with t > u.\nStep 2: Average age = 66 years ⇒ Sum of their ages = 2 × 66 = 132 years.\nStep 3: (10t + u) + (10u + t) = 11(t + u) = 132 ⇒ t + u = 12.\nStep 4: Age difference = (10t + u) - (10u + t) = 9(t - u) = 18 ⇒ t - u = 2.\nStep 5: Solve the system: Adding gives 2t = 14 ⇒ t = 7; subtracting gives 2u = 10 ⇒ u = 5.\nStep 6: Husband's age = 75 years. Statement 1 is CORRECT.\nStep 7: Wife's age = 57 years. The digits are 5 and 7. Product = 5 × 7 = 35. Statement 2 is CORRECT.\nStep 8: Both Statement 1 and Statement 2 are correct.",
+    "trapAlert": "Aspirants might reverse the wife's digits to get 75 and compute 7 × 5 = 35 by luck, but must verify that wife is 57 and husband is 75.",
+    "trick": "Sum = 132 ⇒ t + u = 12. Diff = 18 ⇒ t - u = 2. t = 7, u = 5. Husband = 75, Wife = 57. Product = 5 × 7 = 35. Both true.",
+    "category": "attempted",
+    "category_title": "Questions Which Should Be Attempted",
+    "attempt_rate": 52,
+    "option_distribution": {
+      "A": 16,
+      "B": 16,
+      "C": 52,
+      "D": 16
+    },
+    "forensicMeta": {
+      "cognitiveLoadScore": 4,
+      "scratchpadDemand": "Medium - Linear Scratchpad Work",
+      "idealTimeVsHallTime": "35s / 65s",
+      "primaryTrapArchetype": "Deceptive Boundary Miscalculation",
+      "riskIndex": "Medium"
+    }
+  },
+  {
+    "id": "19THOCT-026",
+    "questionNumber": 4,
+    "difficulty": "L1",
+    "subject": "Quantitative Aptitude",
+    "pillar": "Quant",
+    "topic": "Number System, Divisibility, Factors & Remainder Theorems",
+    "type": "MCQ",
+    "pyqInspiration": "Inspired by CSAT 2025 Q20 (multiplication unit digit of odd sequence)",
+    "question": "What is the digit in the unit place of the product of all odd prime numbers less than 100?\n(a) 0\n(b) 1\n(c) 5\n(d) 9",
+    "options": [
+      "0",
+      "1",
+      "5",
+      "9"
+    ],
+    "correct": 2,
+    "answerKey": "C",
+    "solution": "1. The set of all odd prime numbers less than 100 is: {3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97}.\n2. Notice that 5 is an element of this set.\n3. The product of 5 with any odd number always yields a number with unit digit 5.\n4. Since all the numbers in the set are odd, there is no even factor (such as 2) to produce a zero at the unit place.\n5. Therefore, the unit digit of the product is 5.",
+    "trapAlert": "Do not confuse 'all prime numbers' with 'odd prime numbers'. If 2 were included, the unit digit would be 0 (2 × 5 = 10). But 2 is excluded here!",
+    "trick": "5 multiplied by any odd number always ends in 5. No even numbers exist in the set. Hence unit digit is 5.",
+    "category": "not_wrong",
+    "category_title": "Questions Which Should Not Have Been Wrong",
+    "attempt_rate": 88,
+    "option_distribution": {
+      "A": 4,
+      "B": 4,
+      "C": 88,
+      "D": 4
+    },
+    "forensicMeta": {
+      "cognitiveLoadScore": 2,
+      "scratchpadDemand": "Medium - Linear Scratchpad Work",
+      "idealTimeVsHallTime": "35s / 65s",
+      "primaryTrapArchetype": "Deceptive Boundary Miscalculation",
+      "riskIndex": "Low"
+    }
+  },
+  {
+    "id": "19THOCT-051",
+    "questionNumber": 5,
+    "difficulty": "L5",
+    "subject": "Quantitative Aptitude",
+    "pillar": "Quant",
+    "topic": "Permutations, Combinations & Probability",
+    "type": "Statement Evaluation",
+    "pyqInspiration": "UPSC CSAT 2023 Multi-couple alternating circular seating",
+    "question": "A formal dinner is hosted by a married couple (Host and Hostess) for 4 other married couples (a total of 5 men and 5 women). The 10 guests are seated around a circular table of 10 seats such that men and women alternate.\nConsider the following statements:\nStatement 1: If the Host and Hostess must sit directly opposite to each other across the diameter of the table, the total number of distinct seating arrangements is 576.\nStatement 2: If the Host and Hostess can sit anywhere as long as men and women alternate, the total number of distinct seating arrangements is 2,880.\nWhich of the statements given above is/are correct?\n(a) 1 only\n(b) 2 only\n(c) Both 1 and 2\n(d) Neither 1 nor 2",
+    "options": [
+      "(a) 1 only",
+      "(b) 2 only",
+      "(c) Both 1 and 2",
+      "(d) Neither 1 nor 2"
+    ],
+    "correct": 2,
+    "answerKey": "C",
+    "solution": "Step 1: Analyze Statement 2 (Unrestricted alternating circular seating of 5 men and 5 women):\n- To break rotational symmetry in a circular arrangement, seat one person (say the Host) in a fixed seat (1 way).\n- This designates 5 alternating seats for men and 5 alternating seats for women.\n- The remaining 4 men can be seated in the remaining 4 male seats in 4! = 24 ways.\n- The 5 women can be seated in the 5 female seats in 5! = 120 ways.\n- Total distinct circular seating arrangements = 4! × 5! = 24 × 120 = 2,880. Statement 2 is correct.\nStep 2: Analyze Statement 1 (Host and Hostess sit directly opposite each other):\n- Number the 10 seats 1 to 10 sequentially in a circle: odd seats {1, 3, 5, 7, 9} are male seats; even seats {2, 4, 6, 8, 10} are female seats.\n- Seat the Host at Seat 1 (fixing rotation, 1 way).\n- The seat directly opposite Seat 1 is Seat (1 + 5) = Seat 6, which is an even (female) seat. The Hostess must sit at Seat 6 (1 way).\n- The remaining 4 men must be seated in the remaining 4 male seats {3, 5, 7, 9} in 4! = 24 ways.\n- The remaining 4 women must be seated in the remaining 4 female seats {2, 4, 8, 10} in 4! = 24 ways.\n- Total seating arrangements = 24 × 24 = 576. Statement 1 is correct.\nStep 3: Both Statement 1 and Statement 2 are correct.",
+    "trapAlert": "Aspirants often multiply by 2 for alternating seats, forgetting that in circular seating, fixing one person already permanently fixes the gender parity of every seat.",
+    "trick": "Circle of 10 alternating: Fix Host → Remaining Men: 4! = 24. Unrestricted women: 5! = 120 → 24 × 120 = 2880. Opposite Hostess fixes her seat → Remaining Women: 4! = 24 → 24 × 24 = 576.",
+    "category": "avoided",
+    "category_title": "Questions Which Should Have Been Avoided",
+    "attempt_rate": 38,
+    "option_distribution": {
+      "A": 22,
+      "B": 20,
+      "C": 38,
+      "D": 20
+    },
+    "forensicMeta": {
+      "cognitiveLoadScore": 5,
+      "scratchpadDemand": "High - Iterative / Modular Case Enumeration",
+      "idealTimeVsHallTime": "50s / 110s",
+      "primaryTrapArchetype": "Deceptive Boundary Miscalculation",
+      "riskIndex": "High"
+    }
+  },
+  {
+    "id": "19THOCT-015",
+    "questionNumber": 6,
+    "difficulty": "L2",
+    "subject": "Quantitative Aptitude",
+    "pillar": "Quant",
+    "topic": "Algebra, Linear Equations & Inequalities",
+    "type": "MCQ",
+    "pyqInspiration": "UPSC CSAT 2022 Absolute value inequality bounds",
+    "question": "How many integer values of x satisfy the inequality |2x - 5| <= 9?\n(a) 8\n(b) 9\n(c) 10\n(d) 11",
+    "options": [
+      "(a) 8",
+      "(b) 9",
+      "(c) 10",
+      "(d) 11"
+    ],
+    "correct": 2,
+    "answerKey": "C",
+    "solution": "Step 1: Unfold the absolute value inequality: -9 <= 2x - 5 <= 9.\nStep 2: Add 5 across the compound inequality: -9 + 5 <= 2x <= 9 + 5 ⇒ -4 <= 2x <= 14.\nStep 3: Divide by 2: -2 <= x <= 7.\nStep 4: The integers in this interval are: -2, -1, 0, 1, 2, 3, 4, 5, 6, 7.\nStep 5: Number of integers = 7 - (-2) + 1 = 10.",
+    "trapAlert": "A common error is omitting zero or calculating 7 - (-2) = 9 without adding 1 for the inclusive integer count.",
+    "trick": "-4 <= 2x <= 14 ⇒ -2 <= x <= 7. Number of integers = 7 - (-2) + 1 = 10.",
+    "category": "not_wrong",
+    "category_title": "Questions Which Should Not Have Been Wrong",
+    "attempt_rate": 78,
+    "option_distribution": {
+      "A": 8,
+      "B": 7,
+      "C": 78,
+      "D": 7
+    },
+    "forensicMeta": {
+      "cognitiveLoadScore": 2,
+      "scratchpadDemand": "Medium - Linear Scratchpad Work",
+      "idealTimeVsHallTime": "35s / 65s",
+      "primaryTrapArchetype": "Deceptive Boundary Miscalculation",
+      "riskIndex": "Low"
+    }
+  },
+  {
+    "id": "19THOCT-005",
+    "questionNumber": 7,
+    "difficulty": "L1",
+    "subject": "Logical Reasoning",
+    "pillar": "Reasoning",
+    "topic": "Syllogisms & Deductive Logic",
+    "type": "Statement Evaluation",
+    "pyqInspiration": "UPSC CSAT 2021 A + E Rule Deduction",
+    "question": "Consider the following Statements and Conclusions:\n\nStatements:\n1. All ministers are politicians.\n2. No politician is illiterate.\n\nConclusions:\nI. No minister is illiterate.\nII. Some politicians are ministers.\n\nWhich of the conclusion(s) logically follow(s) from the given statements?",
+    "options": [
+      "(a) Only Conclusion I follows",
+      "(b) Only Conclusion II follows",
+      "(c) Both Conclusion I and Conclusion II follow",
+      "(d) Neither Conclusion I nor Conclusion II follows"
+    ],
+    "correct": 2,
+    "answerKey": "C",
+    "solution": "Step 1: Analyze Venn representations:\nLet M = Ministers, P = Politicians, I = Illiterate people.\nStatement 1: M ⊆ P (Ministers are entirely inside Politicians).\nStatement 2: P ∩ I = ∅ (Politicians and Illiterate people are mutually disjoint sets).\n\nStep 2: Evaluate Conclusion I ('No minister is illiterate'):\nSince M is inside P, and P has zero overlap with I, M can have zero overlap with I.\nM ∩ I = ∅.\nTherefore, no minister is illiterate. Conclusion I LOGICALLY FOLLOWS.\n\nStep 3: Evaluate Conclusion II ('Some politicians are ministers'):\nSince M ⊆ P and the set M is non-empty, the portion of P that contains M consists of ministers.\nTherefore, some politicians are definitely ministers (valid conversion of universal affirmative). Conclusion II LOGICALLY FOLLOWS.\n\nHence, both Conclusion I and Conclusion II follow.",
+    "trapAlert": "A + E = E. A universal affirmative combined with a universal negative always yields a universal negative conclusion (No M is I).",
+    "trick": "Ministers are inside Politicians. Politicians are separated from Illiterate. Therefore, Ministers are separated from Illiterate (I follows). Since Ministers exist inside Politicians, Some Politicians are Ministers (II follows). Both follow.",
+    "category": "not_wrong",
+    "category_title": "Questions Which Should Not Have Been Wrong",
+    "attempt_rate": 88,
+    "option_distribution": {
+      "A": 4,
+      "B": 4,
+      "C": 88,
+      "D": 4
+    },
+    "forensicMeta": {
+      "cognitiveLoadScore": 2,
+      "scratchpadDemand": "Medium - Linear Scratchpad Work",
+      "idealTimeVsHallTime": "35s / 65s",
+      "primaryTrapArchetype": "Deceptive Boundary Miscalculation",
+      "riskIndex": "Low"
+    }
+  },
+  {
+    "id": "19THOCT-047",
+    "questionNumber": 8,
+    "difficulty": "L3",
+    "subject": "Logical Reasoning",
+    "pillar": "Reasoning",
+    "topic": "Direction Sense, Shortest Distance & Blood Relations",
+    "type": "Single Correct MCQ",
+    "pyqInspiration": "UPSC CSAT 2022 Four-Generation Coded Chain",
+    "question": "Symbols: 'P * Q' means P is father of Q; 'P + Q' means P is daughter of Q; 'P - Q' means P is son of Q; 'P / Q' means P is sister of Q.\n\nIn the expression 'A * B - C + D * E', how is A related to E?",
+    "options": [
+      "(a) Brother-in-law",
+      "(b) Son",
+      "(c) Nephew",
+      "(d) Father"
+    ],
+    "correct": 0,
+    "answerKey": "A",
+    "solution": "Break down 'A * B - C + D * E':\n1. 'A * B' → A is the father of B (A is male).\n2. 'B - C' → B is the son of C. Since A is already B's father, C must be B's mother! Thus, A and C are married (A is husband, C is wife).\n3. 'C + D' → C is the daughter of D.\n4. 'D * E' → D is the father of E.\n\nSynthesize the relationship:\n- D is the father of both C and E (C and E are siblings).\n- C is female (daughter of D).\n- A is married to C (A is C's husband).\n- Since A is the husband of E's sister (C), A is the BROTHER-IN-LAW of E!\n\nTherefore, A is the brother-in-law of E.",
+    "trapAlert": "Notice that 'B - C' makes C the mother of B because A is already the father. Missing that A and C are a married couple breaks the derivation.",
+    "trick": "A is husband of C. C and E are children of D (siblings). Husband of sibling = Brother-in-law.",
+    "category": "attempted",
+    "category_title": "Questions Which Should Be Attempted",
+    "attempt_rate": 65,
+    "option_distribution": {
+      "A": 65,
+      "B": 13,
+      "C": 11,
+      "D": 11
+    },
+    "forensicMeta": {
+      "cognitiveLoadScore": 3,
+      "scratchpadDemand": "Medium - Linear Scratchpad Work",
+      "idealTimeVsHallTime": "35s / 65s",
+      "primaryTrapArchetype": "Deceptive Boundary Miscalculation",
+      "riskIndex": "Low"
+    }
+  },
+  {
+    "id": "19THOCT-007",
+    "questionNumber": 9,
+    "difficulty": "L4",
+    "subject": "Quantitative Aptitude",
+    "pillar": "Quant",
+    "topic": "Time and Work, Pipes & Cisterns, Work & Wages",
+    "type": "MCQ",
+    "pyqInspiration": "Non-linear Diophantine system of workforce variation",
+    "question": "A piece of work can be completed by x men in y days. If there were 6 men more, the work could be finished in 4 days less. If there were 10 men less, the work would take 10 days more. What is the value of (x + y)?\n(a) 68\n(b) 72\n(c) 74\n(d) 80",
+    "options": [
+      "68",
+      "72",
+      "74",
+      "80"
+    ],
+    "correct": 2,
+    "answerKey": "C",
+    "solution": "1. Let total work W = x × y.\n2. Condition 1: (x + 6)(y - 4) = xy\n   xy - 4x + 6y - 24 = xy\n   -4x + 6y = 24 => -2x + 3y = 12.  (Equation 1)\n3. Condition 2: (x - 10)(y + 10) = xy\n   xy + 10x - 10y - 100 = xy\n   10x - 10y = 100 => x - y = 10 => x = y + 10.  (Equation 2)\n4. Substitute Equation 2 into Equation 1:\n   -2(y + 10) + 3y = 12\n   -2y - 20 + 3y = 12\n   y = 32 days.\n5. Find x:\n   x = 32 + 10 = 42 men.\n6. Check work: W = 42 × 32 = 1,344 man-days.\n   (42 + 6)(32 - 4) = 48 × 28 = 1,344.\n   (42 - 10)(32 + 10) = 32 × 42 = 1,344. Perfect!\n7. Value of (x + y) = 42 + 32 = 74.",
+    "trapAlert": "Take care not to compute only x (42) or only y (32); the question specifically asks for (x + y).",
+    "trick": "Eq 1: -2x + 3y = 12. Eq 2: x - y = 10. Multiply Eq 2 by 2: 2x - 2y = 20. Add to Eq 1: y = 32. Then x = 42. x + y = 74.",
+    "category": "attempted",
+    "category_title": "Questions Which Should Be Attempted",
+    "attempt_rate": 52,
+    "option_distribution": {
+      "A": 16,
+      "B": 16,
+      "C": 52,
+      "D": 16
+    },
+    "forensicMeta": {
+      "cognitiveLoadScore": 4,
+      "scratchpadDemand": "Medium - Linear Scratchpad Work",
+      "idealTimeVsHallTime": "35s / 65s",
+      "primaryTrapArchetype": "Deceptive Boundary Miscalculation",
+      "riskIndex": "Medium"
+    }
+  },
+  {
+    "id": "19THOCT-075",
+    "questionNumber": 10,
+    "difficulty": "L5",
+    "subject": "Logical Reasoning",
+    "pillar": "Reasoning",
+    "topic": "Letter & Number Series, Coding-Decoding",
+    "type": "MCQ",
+    "pyqInspiration": "UPSC CSAT 2023 Three-Digit Cyclic Addition Cryptarithm",
+    "question": "In the cryptarithmetic equation:\nABC + BCA + CAB = 2664\nwhere A, B, and C represent distinct non-zero single digits with A > B > C, what is the value of A² + B² + C²?",
+    "options": [
+      "(a) 186",
+      "(b) 194",
+      "(c) 206",
+      "(d) 214"
+    ],
+    "correct": 1,
+    "answerKey": "B",
+    "solution": "Step 1: Expand the three-digit numbers in base 10:\n• ABC = 100A + 10B + C\n• BCA = 100B + 10C + A\n• CAB = 100C + 10A + B\n\nStep 2: Sum the three numbers:\nABC + BCA + CAB = (100A + 10A + A) + (100B + 10B + B) + (100C + 10C + C)\n= 111A + 111B + 111C = 111(A + B + C).\n\nStep 3: Solve for (A + B + C):\n111(A + B + C) = 2,664\nA + B + C = 2,664 / 111 = 24.\n\nStep 4: Find the unique single-digit triplet {A, B, C}:\nA, B, C are distinct single digits (1 ≤ C < B < A ≤ 9).\nThe maximum possible sum of three distinct single digits is 9 + 8 + 7 = 24.\nSince the required sum is exactly 24, the ONLY possible set of digits is:\nA = 9, B = 8, C = 7.\n\nStep 5: Compute A² + B² + C²:\nA² + B² + C² = 9² + 8² + 7²\n= 81 + 64 + 49 = 194.\n\nHence, 194 is the value.",
+    "trapAlert": "A masterclass in digit constraints: The maximum possible sum of 3 distinct single digits is 9 + 8 + 7 = 24. Since A + B + C = 24, there are no other candidate solutions!",
+    "trick": "111(A + B + C) = 2664 ⟹ A + B + C = 24. Only distinct digits summing to 24 are 9, 8, 7. 9² + 8² + 7² = 81 + 64 + 49 = 194.",
+    "category": "avoided",
+    "category_title": "Questions Which Should Have Been Avoided",
+    "attempt_rate": 38,
+    "option_distribution": {
+      "A": 22,
+      "B": 38,
+      "C": 20,
+      "D": 20
+    },
+    "forensicMeta": {
+      "cognitiveLoadScore": 5,
+      "scratchpadDemand": "High - Iterative / Modular Case Enumeration",
+      "idealTimeVsHallTime": "50s / 110s",
+      "primaryTrapArchetype": "Deceptive Boundary Miscalculation",
+      "riskIndex": "High"
+    }
+  }
+]

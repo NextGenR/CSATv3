@@ -22,10 +22,10 @@ const CSAT_API = (function () {
   }
 
   function getDefaultDate() {
-    if (typeof is18thOctUnlocked === 'function' && is18thOctUnlocked()) {
-      return "2026-10-18";
+    if (typeof getTodayDateStr === 'function') {
+      return getTodayDateStr();
     }
-    return "2026-10-17";
+    return "2026-10-19";
   }
 
   /**
@@ -177,15 +177,23 @@ const CSAT_API = (function () {
    * Normalize Supabase DB row format into standard app question model
    */
   function normalizeSupabaseRows(rows) {
+    function cleanOpt(txt) {
+      if (!txt) return "";
+      return String(txt).replace(/^\([a-dA-D]\)\s*/, "").replace(/^[a-dA-D][\.\)]\s*/, "").trim();
+    }
+
     return rows.map((row, idx) => {
       let opts = { A: "", B: "", C: "", D: "" };
       if (Array.isArray(row.options)) {
-        opts.A = row.options[0] || "";
-        opts.B = row.options[1] || "";
-        opts.C = row.options[2] || "";
-        opts.D = row.options[3] || "";
+        opts.A = cleanOpt(row.options[0]);
+        opts.B = cleanOpt(row.options[1]);
+        opts.C = cleanOpt(row.options[2]);
+        opts.D = cleanOpt(row.options[3]);
       } else if (typeof row.options === "object" && row.options !== null) {
-        opts = row.options;
+        opts.A = cleanOpt(row.options.A);
+        opts.B = cleanOpt(row.options.B);
+        opts.C = cleanOpt(row.options.C);
+        opts.D = cleanOpt(row.options.D);
       }
 
       const letters = ["A", "B", "C", "D"];
@@ -365,12 +373,93 @@ const CSAT_API = (function () {
     }
   }
 
+  /**
+   * Fetch distinct dates available in Supabase daily_questions table
+   */
+  async function getAvailableDates() {
+    try {
+      const endpoint = `${SUPABASE_URL}/rest/v1/${TABLE_QUESTIONS}?select=test_date&order=test_date.desc`;
+      const response = await fetch(endpoint, {
+        method: "GET",
+        headers: {
+          "apikey": SUPABASE_ANON_KEY,
+          "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+          "Content-Type": "application/json"
+        }
+      });
+      const rows = await response.json();
+      if (Array.isArray(rows) && rows.length > 0) {
+        const unique = [...new Set(rows.map(r => r.test_date).filter(Boolean))].sort().reverse();
+        try {
+          localStorage.setItem("csat_available_dates", JSON.stringify(unique));
+        } catch (e) {}
+        return unique;
+      }
+    } catch (err) {
+      console.warn("Could not query available dates:", err);
+    }
+    try {
+      const cached = localStorage.getItem("csat_available_dates");
+      if (cached) return JSON.parse(cached);
+    } catch (e) {}
+    return ["2026-10-19", "2026-10-18", "2026-10-17", "2026-10-16", "2026-10-15"];
+  }
+
+  const DAY_METADATA_MAP = {
+    "2026-10-19": {
+      mockNum: 19,
+      dateTitle: "19 October 2026",
+      shortDesc: "10 Curated CSAT Questions across Data Interpretation & Sets, Liquid Replacement, Age Digits Reversal, Factorial Divisibility, Probability & Permutations, Linear Cost Equations, Syllogisms, Direction Sense, Work & Wages Pipes, and Letter-Number Series. (+2.5, -0.83).",
+      longTopics: "Includes curated high-yield questions on <strong>Data Interpretation & Set Theory</strong>, <strong>Successive Liquid Replacement & Alligations</strong>, <strong>Digit Reversal & Age Equations</strong>, <strong>Divisibility, Factors & Remainder Theorems</strong>, <strong>Permutations, Combinations & Probability</strong>, <strong>Algebra & Linear Expenditure Constraints</strong>, <strong>Syllogisms & Deductive Venn Logic</strong>, <strong>Orthogonal Direction Sense & Shortest Distance</strong>, <strong>Time and Work, Pipes & Cisterns</strong>, and <strong>Alphanumeric Series Coding-Decoding</strong>."
+    },
+    "2026-10-18": {
+      mockNum: 18,
+      dateTitle: "18 October 2026",
+      shortDesc: "10 Curated CSAT Questions across Prime Diophantine Equations, Linear Seating Data Sufficiency, Dishonest Dealer Weights, Quadratic Residues mod 4, Simple Interest, Colored Cubes, Escalator Relative Speed, Percentage Invariance, Legendre Factorial Divisibility & Alphabetical Sorting. Follows standard UPSC marking scheme (+2.5, -0.83).",
+      longTopics: "Includes curated high-yield questions on <strong>Prime Algebraic Diophantine Equation</strong>, <strong>Linear Seating Arrangement Data Sufficiency</strong>, <strong>Dishonest Dealer False Weights</strong>, <strong>Quadratic Residues & Modulo 4 Invariance</strong>, <strong>Simple Interest Capital Multipliers</strong>, <strong>Cubes & Colored Boundary Intersection</strong>, <strong>Moving Escalator Relative Speed</strong>, <strong>Expenditure Invariance</strong>, <strong>Legendre Formula Factorial Divisibility</strong>, and <strong>Alphabetical Sorting Invariance</strong>."
+    },
+    "2026-10-17": {
+      mockNum: 17,
+      dateTitle: "17 October 2026",
+      shortDesc: "10 Curated CSAT Questions across Relative Speed, Blood Relations Data Sufficiency, Linear Diophantine Equations, Trailing Zeroes, Clocks & Knights-Knaves Logic. Follows standard UPSC marking scheme (+2.5, -0.83).",
+      longTopics: "Includes curated high-yield questions on <strong>Relative Speed & Train Crossings</strong>, <strong>Kinship Gender Data Sufficiency</strong>, <strong>Linear Diophantine Integer Extremization</strong>, <strong>Trailing Zeroes in Factorial Powers</strong>, <strong>Divisibility by 72</strong>, and <strong>Knights & Knaves Logic</strong>."
+    },
+    "2026-10-16": {
+      mockNum: 16,
+      dateTitle: "16 October 2026",
+      shortDesc: "10 Curated CSAT Questions across Remainder Theorems, Expenditure Invariance, Relative Speed, Circular Tracks, and Calendar Logic.",
+      longTopics: "Includes curated high-yield questions on <strong>Binomial Remainder Theorem</strong>, <strong>Expenditure Invariance</strong>, <strong>Orthogonal Relative Motion</strong>, <strong>Circular Track Relative Velocity</strong>, <strong>Calendar Day Leap Invariance</strong>, and <strong>Conditional Syllogism</strong>."
+    },
+    "2026-10-15": {
+      mockNum: 15,
+      dateTitle: "15 October 2026",
+      shortDesc: "10 Curated CSAT Questions across Percentages, Clocks Angle & Overlap, Coordinate Direction Sense, and Combinatorial Permutations.",
+      longTopics: "Includes curated high-yield questions on <strong>Percentage & Expenditure Invariance</strong>, <strong>Clocks Angle & Overlap</strong>, <strong>Coordinate Geometry Direction Sense</strong>, and <strong>Digit Permutations & Divisibility</strong>."
+    }
+  };
+
+  function getDayMetadata(testDate = getDefaultDate()) {
+    if (DAY_METADATA_MAP[testDate]) {
+      return DAY_METADATA_MAP[testDate];
+    }
+    const dayNum = parseInt(testDate.slice(-2), 10) || 19;
+    return {
+      mockNum: dayNum,
+      dateTitle: `${dayNum} October 2026`,
+      shortDesc: `10 Curated CSAT Practice Questions adhering strictly to the official UPSC standard marking scheme (+2.5, -0.83).`,
+      longTopics: `Curated standard UPSC CSAT Mock Test covering Quantitative Aptitude, Logical Reasoning, and Data Interpretation.`
+    };
+  }
+
   return {
     loadDailyQuestions,
     syncProgressToCloud,
     restoreProgressFromCloud,
     checkActiveAttempt,
     clearActiveAttempt,
+    getAvailableDates,
+    getDayMetadata,
+    getDefaultDate,
     getCandidateName,
     setCandidateName,
     SUPABASE_URL,

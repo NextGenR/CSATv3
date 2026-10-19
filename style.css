@@ -2308,3 +2308,71 @@ html, body {
   font-size: 20px;
 }
 
+/* ==========================================================================
+   PULL-DOWN TO REFRESH COMPONENT (Telegram Native Aesthetic)
+   ========================================================================== */
+.tg-ptr-box {
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  transform: translate(-50%, -80px);
+  z-index: 99999;
+  pointer-events: none;
+  opacity: 0;
+  transition: transform 0.22s cubic-bezier(0.18, 0.89, 0.32, 1.25), opacity 0.2s ease;
+  will-change: transform, opacity;
+}
+
+.tg-ptr-box.tg-ptr-pulling {
+  transition: none; /* instant tracking while dragging */
+}
+
+.tg-ptr-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: rgba(23, 33, 43, 0.94);
+  border: 1px solid rgba(36, 129, 204, 0.45);
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.45), 0 0 16px rgba(36, 129, 204, 0.3);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  padding: 8px 18px;
+  border-radius: var(--tg-radius-pill, 30px);
+  color: var(--tg-blue-light, #52a7e7);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+.tg-ptr-icon-wrap {
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tg-ptr-icon {
+  font-size: 13px;
+  color: var(--tg-blue-light, #52a7e7);
+  transition: transform 0.18s ease;
+}
+
+.tg-ptr-text {
+  color: var(--tg-text-primary, #ffffff);
+  font-size: 12.5px;
+  font-weight: 500;
+}
+
+.tg-ptr-box.tg-ptr-refreshing .tg-ptr-icon {
+  animation: tgPtrSpin 0.75s linear infinite;
+  color: var(--tg-green, #4cd964);
+}
+
+@keyframes tgPtrSpin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+

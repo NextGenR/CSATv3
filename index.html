@@ -108,7 +108,7 @@
           </div>
           <div class="tg-header-titles">
             <h2>Daily 10 Questions - October 2026</h2>
-            <p id="header-available-count">17 Daily Mock Tests Available &bull; CSAT Practice Tracker</p>
+            <p id="header-available-count">19 Daily Mock Tests Available &bull; CSAT Practice Tracker</p>
           </div>
         </div>
         <div class="tg-header-right">
@@ -123,7 +123,7 @@
           </div>
           <div class="tg-header-stat-chip">
             <i class="fa-solid fa-check-double" style="color: var(--tg-green);"></i>
-            <span>Done: <strong id="stat-completed-count">16/17</strong></span>
+            <span>Done: <strong id="stat-completed-count">18/19</strong></span>
           </div>
         </div>
       </header>
@@ -137,11 +137,11 @@
             <div class="tg-hero-content">
               <div class="tg-tag-live">
                 <span class="tg-pulse-dot"></span>
-                <span>Live Today &bull; 17 October 2026</span>
+                <span>Live Today &bull; 19 October 2026</span>
               </div>
-              <h1 class="tg-hero-title">Quiz of Today: CSAT Mock 17</h1>
+              <h1 class="tg-hero-title">Quiz of Today: CSAT Mock 19</h1>
               <p class="tg-hero-desc">
-                10 Curated CSAT Questions across Relative Speed, Blood Relations Data Sufficiency, Linear Diophantine Equations, Trailing Zeroes, Clocks & Knights-Knaves Logic. Follows standard UPSC marking scheme (+2.5, -0.83).
+                10 Curated CSAT Questions across Data Interpretation & Sets, Liquid Replacement, Age Digits Reversal, Factorial Divisibility, Probability & Permutations, Linear Cost Equations, Syllogisms, Direction Sense, Work & Wages Pipes, and Letter-Number Series. (+2.5, -0.83).
               </p>
               <div class="tg-hero-meta">
                 <span><i class="fa-solid fa-list-ol"></i> 10 Questions</span>
@@ -151,7 +151,7 @@
               </div>
             </div>
             <div id="hero-action-container">
-              <a href="guidelines.html?date=2026-10-17" class="tg-btn-take-quiz" id="btn-start-today">
+              <a href="guidelines.html?date=2026-10-19" class="tg-btn-take-quiz" id="btn-start-today">
                 <i class="fa-solid fa-play"></i>
                 Take Today's Test
               </a>
@@ -212,124 +212,79 @@
   <script src="csat_data.js"></script>
   <script src="api.js"></script>
   <script>
-    // Dynamic October CSAT Test Series Tracker with 00:01 AM IST Time-Gating
+    // Dynamic Automated October CSAT Test Series Tracker & Tile Engine
     document.addEventListener("DOMContentLoaded", () => {
-      const isUnlocked18 = (typeof is18thOctUnlocked === 'function') ? is18thOctUnlocked() : false;
-      const todayDateStr = isUnlocked18 ? "2026-10-18" : "2026-10-17";
-      const todayMockNum = isUnlocked18 ? 18 : 17;
-      const totalAvailable = OCTOBER_HISTORY_DATA.length;
+      const todayDateStr = (typeof getTodayDateStr === 'function') ? getTodayDateStr() : '2026-10-19';
+      const todayMockNum = parseInt(todayDateStr.split('-')[2], 10) || 19;
+      let currentHistoryData = (typeof OCTOBER_HISTORY_DATA !== 'undefined' && OCTOBER_HISTORY_DATA.length > 0)
+        ? OCTOBER_HISTORY_DATA
+        : (typeof buildOctoberHistoryData === 'function' ? buildOctoberHistoryData(todayMockNum) : []);
+      let totalAvailable = currentHistoryData.length;
 
       // 1. Update Header Information
-      const availElem = document.getElementById("header-available-count");
-      if (availElem) {
-        availElem.innerHTML = `${totalAvailable} Daily Mock Tests Available &bull; CSAT Practice Tracker`;
-      }
-
-      // 2. Update Hero Card for 18th Oct when unlocked
-      if (isUnlocked18) {
-        const tagLive = document.querySelector("#hero-today-quiz .tg-tag-live");
-        if (tagLive) {
-          tagLive.innerHTML = `<span class="tg-pulse-dot"></span><span>Live Today &bull; 18 October 2026</span>`;
-        }
-        const heroTitle = document.querySelector(".tg-hero-title");
-        if (heroTitle) {
-          heroTitle.textContent = "Quiz of Today: CSAT Mock 18";
-        }
-        const heroDesc = document.querySelector(".tg-hero-desc");
-        if (heroDesc) {
-          heroDesc.textContent = "10 Curated CSAT Questions across Prime Diophantine Equations, Linear Seating Data Sufficiency, Dishonest Dealer Weights, Quadratic Residues mod 4, Simple Interest, Colored Cubes, Escalator Relative Speed, Percentage Invariance, Legendre Factorial Divisibility & Alphabetical Sorting. Follows standard UPSC marking scheme (+2.5, -0.83).";
-        }
-        const heroBtn = document.getElementById("btn-start-today");
-        if (heroBtn) {
-          heroBtn.href = "guidelines.html?date=2026-10-18";
+      function updateHeaderAvailableCount() {
+        const availElem = document.getElementById("header-available-count");
+        if (availElem) {
+          availElem.innerHTML = `${totalAvailable} Daily Mock Tests Available &bull; CSAT Practice Tracker`;
         }
       }
+      updateHeaderAvailableCount();
 
-      // 3. Render October Tiles Grid
+      // 2. Update Hero Card Dynamically for Active/Today's Mock Test
+      const dayMeta = (typeof CSAT_API !== 'undefined' && CSAT_API.getDayMetadata) 
+        ? CSAT_API.getDayMetadata(todayDateStr) 
+        : { mockNum: todayMockNum, dateTitle: `${todayMockNum} October 2026`, shortDesc: "10 Curated CSAT Questions." };
+
+      const tagLive = document.querySelector("#hero-today-quiz .tg-tag-live");
+      if (tagLive) {
+        tagLive.innerHTML = `<span class="tg-pulse-dot"></span><span>Live Today &bull; ${dayMeta.dateTitle}</span>`;
+      }
+      const heroTitle = document.querySelector(".tg-hero-title");
+      if (heroTitle) {
+        heroTitle.textContent = `Quiz of Today: CSAT Mock ${dayMeta.mockNum}`;
+      }
+      const heroDesc = document.querySelector(".tg-hero-desc");
+      if (heroDesc) {
+        heroDesc.textContent = dayMeta.shortDesc;
+      }
+      const heroBtn = document.getElementById("btn-start-today");
+      if (heroBtn) {
+        heroBtn.href = `guidelines.html?date=${todayDateStr}`;
+      }
+
+      // 3. Render Dynamic Grid of October Tiles
       const container = document.getElementById("october-tiles-container");
-      container.innerHTML = "";
 
-      OCTOBER_HISTORY_DATA.forEach(item => {
-        const tile = document.createElement("div");
-        tile.className = `tg-date-tile tg-date-tile-${item.dayNum}`;
+      function renderTilesGrid() {
+        if (!container) return;
+        container.innerHTML = "";
 
-        const is18Oct = (item.dayNum === 18);
-        const is17Oct = (item.dayNum === 17);
-        const is16Oct = (item.dayNum === 16);
-        const is15Oct = (item.dayNum === 15);
+        currentHistoryData.forEach(item => {
+          const tile = document.createElement("div");
+          tile.className = `tg-date-tile tg-date-tile-${item.dayNum}`;
+          const isTodayTile = (item.dayNum === todayMockNum || item.isToday);
+          if (isTodayTile) {
+            tile.classList.add("tg-tile-today");
+          }
 
-        let tileStatus = `
-          <span class="tg-tile-status-tag">
-            <i class="fa-solid fa-check"></i> Completed
-          </span>
-        `;
-        if (is18Oct) {
-          tileStatus = `
-            <span class="tg-tile-status-tag status-tag-18" style="background: rgba(36, 129, 204, 0.2); color: var(--tg-blue-light); border-color: rgba(36, 129, 204, 0.4);">
-              <i class="fa-solid fa-bolt"></i> Live Test
+          let tileStatus = `
+            <span class="tg-tile-status-tag status-tag-${item.dayNum}">
+              <i class="fa-solid fa-check"></i> Completed
             </span>
           `;
-        } else if (is17Oct) {
-          if (isUnlocked18) {
+          if (isTodayTile) {
             tileStatus = `
-              <span class="tg-tile-status-tag status-tag-17">
-                <i class="fa-solid fa-check"></i> Completed
-              </span>
-            `;
-          } else {
-            tileStatus = `
-              <span class="tg-tile-status-tag status-tag-17" style="background: rgba(36, 129, 204, 0.2); color: var(--tg-blue-light); border-color: rgba(36, 129, 204, 0.4);">
+              <span class="tg-tile-status-tag status-tag-${item.dayNum}" style="background: rgba(36, 129, 204, 0.2); color: var(--tg-blue-light); border-color: rgba(36, 129, 204, 0.4);">
                 <i class="fa-solid fa-bolt"></i> Live Test
               </span>
             `;
           }
-        } else if (is16Oct) {
-          tileStatus = `
-            <span class="tg-tile-status-tag status-tag-16">
-              <i class="fa-solid fa-check"></i> Completed
-            </span>
-          `;
-        } else if (is15Oct) {
-          tileStatus = `
-            <span class="tg-tile-status-tag status-tag-15">
-              <i class="fa-solid fa-check"></i> Completed
-            </span>
-          `;
-        }
 
-        let footerAction = `
-          <button class="tg-tile-btn btn-view-hist" data-day="${item.dayNum}">
-            <i class="fa-solid fa-magnifying-glass-chart"></i> View Test Details
-          </button>
-        `;
-
-        if (is18Oct) {
-          footerAction = `
-            <div style="display: flex; gap: 8px; width: 100%;">
-              <a href="guidelines.html?date=2026-10-18" class="tg-tile-btn btn-action-18" style="text-decoration: none; background: var(--tg-blue); color: #fff; flex: 1.2; text-align: center; justify-content: center;">
-                <i class="fa-solid fa-play"></i> Attempt Test
-              </a>
-              <button class="tg-tile-btn btn-view-hist" data-day="${item.dayNum}" style="flex: 1;">
-                <i class="fa-solid fa-chart-simple"></i> Details
-              </button>
-            </div>
-          `;
-        } else if (is17Oct) {
-          if (isUnlocked18) {
+          let footerAction = ``;
+          if (isTodayTile) {
             footerAction = `
               <div style="display: flex; gap: 8px; width: 100%;">
-                <a href="guidelines.html?date=2026-10-17" class="tg-tile-btn btn-action-17" style="text-decoration: none; background: var(--tg-panel-header); border: 1px solid var(--tg-border); color: var(--tg-text); flex: 1.2; text-align: center; justify-content: center;">
-                  <i class="fa-solid fa-rotate-left"></i> Retake
-                </a>
-                <button class="tg-tile-btn btn-view-hist" data-day="${item.dayNum}" style="flex: 1;">
-                  <i class="fa-solid fa-chart-simple"></i> Details
-                </button>
-              </div>
-            `;
-          } else {
-            footerAction = `
-              <div style="display: flex; gap: 8px; width: 100%;">
-                <a href="guidelines.html?date=2026-10-17" class="tg-tile-btn btn-action-17" style="text-decoration: none; background: var(--tg-blue); color: #fff; flex: 1.2; text-align: center; justify-content: center;">
+                <a href="guidelines.html?date=${item.fullDateStr || todayDateStr}" class="tg-tile-btn btn-action-${item.dayNum}" style="text-decoration: none; background: var(--tg-blue); color: #fff; flex: 1.2; text-align: center; justify-content: center;">
                   <i class="fa-solid fa-play"></i> Attempt Test
                 </a>
                 <button class="tg-tile-btn btn-view-hist" data-day="${item.dayNum}" style="flex: 1;">
@@ -337,67 +292,58 @@
                 </button>
               </div>
             `;
+          } else {
+            footerAction = `
+              <div style="display: flex; gap: 8px; width: 100%;">
+                <a href="guidelines.html?date=${item.fullDateStr}" class="tg-tile-btn btn-action-${item.dayNum}" style="text-decoration: none; background: var(--tg-panel-header); border: 1px solid var(--tg-border); color: var(--tg-text); flex: 1.2; text-align: center; justify-content: center;">
+                  <i class="fa-solid fa-rotate-left"></i> Retake
+                </a>
+                <button class="tg-tile-btn btn-view-hist" data-day="${item.dayNum}" style="flex: 1;">
+                  <i class="fa-solid fa-chart-simple"></i> Details
+                </button>
+              </div>
+            `;
           }
-        } else if (is16Oct) {
-          footerAction = `
-            <div style="display: flex; gap: 8px; width: 100%;">
-              <a href="guidelines.html?date=2026-10-16" class="tg-tile-btn btn-action-16" style="text-decoration: none; background: var(--tg-panel-header); border: 1px solid var(--tg-border); color: var(--tg-text); flex: 1.2; text-align: center; justify-content: center;">
-                <i class="fa-solid fa-rotate-left"></i> Retake
-              </a>
-              <button class="tg-tile-btn btn-view-hist" data-day="${item.dayNum}" style="flex: 1;">
-                <i class="fa-solid fa-chart-simple"></i> Details
-              </button>
+
+          tile.innerHTML = `
+            <div class="tg-tile-top">
+              <div>
+                <div class="tg-tile-date">${item.dateStr} 2026</div>
+                <div class="tg-tile-day">${item.dayName}</div>
+              </div>
+              ${tileStatus}
+            </div>
+
+            <div class="tg-tile-metrics">
+              <div class="tg-metric-box">
+                <span class="tg-metric-label">Score</span>
+                <span class="tg-metric-value">${item.score}</span>
+              </div>
+              <div class="tg-metric-box" style="text-align: right;">
+                <span class="tg-metric-label">Accuracy</span>
+                <span class="tg-metric-value accuracy-highlight">${item.accuracy}${typeof item.accuracy === 'number' ? '%' : ''}</span>
+              </div>
+            </div>
+
+            <div class="tg-tile-footer">
+              ${footerAction}
             </div>
           `;
-        } else if (is15Oct) {
-          footerAction = `
-            <div style="display: flex; gap: 8px; width: 100%;">
-              <a href="guidelines.html?date=2026-10-15" class="tg-tile-btn btn-action-15" style="text-decoration: none; background: var(--tg-panel-header); border: 1px solid var(--tg-border); color: var(--tg-text); flex: 1.2; text-align: center; justify-content: center;">
-                <i class="fa-solid fa-rotate-left"></i> Retake
-              </a>
-              <button class="tg-tile-btn btn-view-hist" data-day="${item.dayNum}" style="flex: 1;">
-                <i class="fa-solid fa-chart-simple"></i> Details
-              </button>
-            </div>
-          `;
-        }
 
-        tile.innerHTML = `
-          <div class="tg-tile-top">
-            <div>
-              <div class="tg-tile-date">${item.dateStr} 2026</div>
-              <div class="tg-tile-day">${item.dayName}</div>
-            </div>
-            ${tileStatus}
-          </div>
+          tile.querySelector(".btn-view-hist")?.addEventListener("click", (e) => {
+            e.stopPropagation();
+            showHistoryModal(item);
+          });
 
-          <div class="tg-tile-metrics">
-            <div class="tg-metric-box">
-              <span class="tg-metric-label">Score</span>
-              <span class="tg-metric-value">${item.score}</span>
-            </div>
-            <div class="tg-metric-box" style="text-align: right;">
-              <span class="tg-metric-label">Accuracy</span>
-              <span class="tg-metric-value accuracy-highlight">${item.accuracy}${typeof item.accuracy === 'number' ? '%' : ''}</span>
-            </div>
-          </div>
+          tile.addEventListener("click", () => {
+            showHistoryModal(item);
+          });
 
-          <div class="tg-tile-footer">
-            ${footerAction}
-          </div>
-        `;
-
-        tile.querySelector(".btn-view-hist")?.addEventListener("click", (e) => {
-          e.stopPropagation();
-          showHistoryModal(item);
+          container.appendChild(tile);
         });
+      }
 
-        tile.addEventListener("click", () => {
-          showHistoryModal(item);
-        });
-
-        container.appendChild(tile);
-      });
+      renderTilesGrid();
 
       // Search Filter
       const searchInput = document.getElementById("sidebar-search");
@@ -421,29 +367,18 @@
         if (e.target === modal) closeModal();
       });
 
-      function getAnalysisButtonHtml(dayNum) {
-        if (dayNum === 18) {
-          return '<div style="margin-top: 10px;"><a href="analysis.html?date=2026-10-18" class="tg-btn-start-green" style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px;"><i class="fa-solid fa-chart-line"></i> View Full Detailed Analysis</a></div>';
-        }
-        if (dayNum === 17) {
-          return '<div style="margin-top: 10px;"><a href="analysis.html?date=2026-10-17" class="tg-btn-start-green" style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px;"><i class="fa-solid fa-chart-line"></i> View 17 Oct Analysis</a></div>';
-        }
-        if (dayNum === 16) {
-          return '<div style="margin-top: 10px;"><a href="analysis.html?date=2026-10-16" class="tg-btn-start-green" style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px;"><i class="fa-solid fa-chart-line"></i> View 16 Oct Analysis</a></div>';
-        }
-        if (dayNum === 15) {
-          return '<div style="margin-top: 10px;"><a href="analysis.html?date=2026-10-15" class="tg-btn-start-green" style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px;"><i class="fa-solid fa-chart-line"></i> View 15 Oct Analysis</a></div>';
-        }
-        return 'Review the questions you missed to avoid repeating calculation traps in upcoming tests.';
-      }
-
       function showHistoryModal(data) {
         document.getElementById("hist-modal-title").innerHTML = `
           <i class="fa-solid fa-chart-pie" style="color: var(--tg-blue-light);"></i>
           Daily Test Summary: ${data.dateStr} 2026 (${data.dayName})
         `;
 
-        if (data.dayNum === 18 && !data.isCompleted) {
+        const isTodayUncompleted = (data.dayNum === todayMockNum && !data.isCompleted);
+        const meta = (typeof CSAT_API !== 'undefined' && CSAT_API.getDayMetadata) 
+          ? CSAT_API.getDayMetadata(data.fullDateStr) 
+          : { longTopics: "Standard UPSC CSAT Questions." };
+
+        if (isTodayUncompleted) {
           document.getElementById("hist-modal-body").innerHTML = `
             <div class="tg-guidelines-list" style="margin-bottom: 18px;">
               <div class="tg-rule-card">
@@ -464,45 +399,13 @@
               </div>
             </div>
             <div class="tg-instructions-text">
-              <h4><i class="fa-solid fa-bolt" style="color: var(--tg-blue-light);"></i> 18 October 2026 Mock Test Topics</h4>
+              <h4><i class="fa-solid fa-bolt" style="color: var(--tg-blue-light);"></i> ${data.dateStr} 2026 Mock Test Topics</h4>
               <p style="font-size: 13px; color: #a4b4c4; line-height: 1.5; margin-bottom: 14px;">
-                Includes curated high-yield questions on <strong>Prime Algebraic Diophantine Equation</strong>, <strong>Linear Seating Arrangement Data Sufficiency</strong>, <strong>Dishonest Dealer False Weights</strong>, <strong>Quadratic Residues & Modulo 4 Invariance</strong>, <strong>Simple Interest Capital Multipliers</strong>, <strong>Cubes & Colored Boundary Intersection</strong>, <strong>Moving Escalator Relative Speed</strong>, <strong>Expenditure Invariance</strong>, <strong>Legendre Formula Factorial Divisibility</strong>, and <strong>Alphabetical Sorting Invariance</strong>.
+                ${meta.longTopics}
               </p>
               <div>
-                <a href="guidelines.html?date=2026-10-18" class="tg-btn-start-green" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
-                  <i class="fa-solid fa-play"></i> Attempt 18 Oct Test
-                </a>
-              </div>
-            </div>
-          `;
-        } else if (data.dayNum === 17 && !data.isCompleted) {
-          document.getElementById("hist-modal-body").innerHTML = `
-            <div class="tg-guidelines-list" style="margin-bottom: 18px;">
-              <div class="tg-rule-card">
-                <div class="tg-rule-title">Marks Benchmark</div>
-                <div class="tg-rule-desc" style="color: var(--tg-green); font-size: 18px;">25.0 Marks (+2.5, -0.83)</div>
-              </div>
-              <div class="tg-rule-card">
-                <div class="tg-rule-title">Qualifying Cutoff</div>
-                <div class="tg-rule-desc" style="color: var(--tg-blue-light); font-size: 18px;">33% (8.25 Marks)</div>
-              </div>
-              <div class="tg-rule-card">
-                <div class="tg-rule-title">Question Count</div>
-                <div class="tg-rule-desc">10 UPSC CSAT Questions</div>
-              </div>
-              <div class="tg-rule-card">
-                <div class="tg-rule-title">Test Status</div>
-                <div class="tg-rule-desc" style="color: var(--tg-green);"><i class="fa-solid fa-circle-check"></i> Ready to Attempt</div>
-              </div>
-            </div>
-            <div class="tg-instructions-text">
-              <h4><i class="fa-solid fa-bolt" style="color: var(--tg-blue-light);"></i> 17 October 2026 Mock Test Topics</h4>
-              <p style="font-size: 13px; color: #a4b4c4; line-height: 1.5; margin-bottom: 14px;">
-                Includes curated high-yield questions on <strong>Relative Speed & Train Crossings</strong>, <strong>Kinship Gender Data Sufficiency</strong>, <strong>Linear Diophantine Integer Extremization</strong>, <strong>Trailing Zeroes in Factorial Powers</strong>, <strong>Divisibility by 72</strong>, and <strong>Knights & Knaves Logic</strong>.
-              </p>
-              <div>
-                <a href="guidelines.html?date=2026-10-17" class="tg-btn-start-green" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
-                  <i class="fa-solid fa-play"></i> Attempt 17 Oct Test
+                <a href="guidelines.html?date=${data.fullDateStr}" class="tg-btn-start-green" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+                  <i class="fa-solid fa-play"></i> Attempt ${data.dateStr} Test
                 </a>
               </div>
             </div>
@@ -531,7 +434,11 @@
               <h4><i class="fa-solid fa-lightbulb"></i> Performance Assessment</h4>
               <p style="font-size: 13px; color: #a4b4c4; line-height: 1.5;">
                 On ${data.dateStr}, your qualifying score was ${data.score}. Accuracy was ${data.accuracy}%.
-                ${getAnalysisButtonHtml(data.dayNum)}
+                <div style="margin-top: 10px;">
+                  <a href="analysis.html?date=${data.fullDateStr}" class="tg-btn-start-green" style="text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+                    <i class="fa-solid fa-chart-line"></i> View Detailed Analysis
+                  </a>
+                </div>
               </p>
             </div>
           `;
@@ -560,8 +467,8 @@
       if (backdrop) backdrop.addEventListener("click", closeMobileSidebar);
 
       function updateHeaderChips() {
-        const total = OCTOBER_HISTORY_DATA.length;
-        const completedTests = OCTOBER_HISTORY_DATA.filter(d => d.isCompleted);
+        const total = currentHistoryData.length;
+        const completedTests = currentHistoryData.filter(d => d.isCompleted);
         const countElem = document.getElementById("stat-completed-count");
         if (countElem) {
           countElem.textContent = `${completedTests.length}/${total}`;
@@ -578,11 +485,11 @@
       function applyTodayTestStatus(check) {
         if (!check) return;
         const heroContainer = document.getElementById("hero-action-container");
-        const tagLive = document.querySelector("#hero-today-quiz .tg-tag-live");
+        const tagLiveElem = document.querySelector("#hero-today-quiz .tg-tag-live");
         const activeTile = document.querySelector(`.tg-date-tile-${todayMockNum}`);
         const activeTileFooter = document.querySelector(`.tg-date-tile-${todayMockNum} .tg-tile-footer`);
         const activeTag = document.querySelector(`.status-tag-${todayMockNum}`);
-        const dayData = OCTOBER_HISTORY_DATA.find(d => d.dayNum === todayMockNum);
+        const dayData = currentHistoryData.find(d => d.dayNum === todayMockNum);
 
         // CASE 1: In-Progress Test -> Show BOTH Resume and Restart
         if (check.hasActive && !check.isCompleted) {
@@ -623,11 +530,11 @@
           }
 
           // 2. Update Live Tag in Hero
-          if (tagLive) {
-            tagLive.style.background = "rgba(36, 129, 204, 0.2)";
-            tagLive.style.borderColor = "rgba(36, 129, 204, 0.5)";
-            tagLive.style.color = "var(--tg-blue-light)";
-            tagLive.innerHTML = `
+          if (tagLiveElem) {
+            tagLiveElem.style.background = "rgba(36, 129, 204, 0.2)";
+            tagLiveElem.style.borderColor = "rgba(36, 129, 204, 0.5)";
+            tagLiveElem.style.color = "var(--tg-blue-light)";
+            tagLiveElem.innerHTML = `
               <span class="tg-pulse-dot" style="background: var(--tg-blue);"></span>
               <span>In Progress &bull; ${answersCount} of 10 Answered</span>
             `;
@@ -726,11 +633,11 @@
             });
           }
 
-          if (tagLive) {
-            tagLive.style.background = "rgba(52, 199, 89, 0.2)";
-            tagLive.style.borderColor = "rgba(52, 199, 89, 0.5)";
-            tagLive.style.color = "var(--tg-green)";
-            tagLive.innerHTML = `
+          if (tagLiveElem) {
+            tagLiveElem.style.background = "rgba(52, 199, 89, 0.2)";
+            tagLiveElem.style.borderColor = "rgba(52, 199, 89, 0.5)";
+            tagLiveElem.style.color = "var(--tg-green)";
+            tagLiveElem.innerHTML = `
               <span class="tg-pulse-dot" style="background: var(--tg-green);"></span>
               <span>Completed &bull; Score: ${scoreVal} / 25 (${accuracyVal}%)</span>
             `;
@@ -772,13 +679,13 @@
         }
       }
 
-      // Update past test tiles (Day 17, 16, 15, etc.)
+      // Update past test tiles (Day 18, 17, 16, 15, etc.)
       function applyPastTestStatus(dayNum, check) {
         if (!check) return;
         const tile = document.querySelector(`.tg-date-tile-${dayNum}`);
         const tileFooter = document.querySelector(`.tg-date-tile-${dayNum} .tg-tile-footer`);
         const tag = document.querySelector(`.status-tag-${dayNum}`);
-        const dayData = OCTOBER_HISTORY_DATA.find(d => d.dayNum === dayNum);
+        const dayData = currentHistoryData.find(d => d.dayNum === dayNum);
         const dateStr = `2026-10-${dayNum < 10 ? '0' + dayNum : dayNum}`;
 
         if (check.hasActive && !check.isCompleted) {
@@ -836,11 +743,11 @@
 
       // Check local cache synchronously first (0ms instantaneous render)
       try {
-        const localActiveStr = localStorage.getItem("csat_daily_test_state") || localStorage.getItem("csat_active_quiz_state");
-        const localResultStr = localStorage.getItem(`csat_result_${todayDateStr}`) || localStorage.getItem("csat_daily_test_result");
+        const localActiveStr = localStorage.getItem(`csat_active_quiz_state_${todayDateStr}`) || localStorage.getItem("csat_daily_test_state") || localStorage.getItem("csat_active_quiz_state");
+        const localResultStr = localStorage.getItem(`csat_test_result_${todayDateStr}`) || localStorage.getItem(`csat_result_${todayDateStr}`) || localStorage.getItem("csat_daily_test_result");
         if (localResultStr) {
           const res = JSON.parse(localResultStr);
-          if (res.testDate?.includes(String(todayMockNum)) || !res.testDate) {
+          if (res.testDate === todayDateStr || res.testDate?.includes(String(todayMockNum)) || !res.testDate) {
             applyTodayTestStatus({
               isCompleted: true,
               hasActive: false,
@@ -875,46 +782,59 @@
           }
         }
 
-        // Also check earlier days from local storage
-        if (isUnlocked18) {
-          const res17Str = localStorage.getItem("csat_result_2026-10-17");
-          if (res17Str) {
-            const res17 = JSON.parse(res17Str);
-            applyPastTestStatus(17, { isCompleted: true, score: res17.totalScore, accuracy: res17.accuracy });
+        // Also check all past days from local storage
+        currentHistoryData.forEach(item => {
+          if (item.dayNum !== todayMockNum) {
+            const resStr = localStorage.getItem(`csat_result_${item.fullDateStr}`) || localStorage.getItem(`csat_test_result_${item.fullDateStr}`);
+            if (resStr) {
+              try {
+                const res = JSON.parse(resStr);
+                applyPastTestStatus(item.dayNum, { isCompleted: true, score: res.totalScore, accuracy: res.accuracy });
+              } catch (e) {}
+            }
           }
-        }
-        const res16Str = localStorage.getItem("csat_result_2026-10-16");
-        if (res16Str) {
-          const res16 = JSON.parse(res16Str);
-          applyPastTestStatus(16, { isCompleted: true, score: res16.totalScore, accuracy: res16.accuracy });
-        }
+        });
       } catch (err) {
         console.warn("Immediate local check error:", err);
       }
 
       // Check for In-Progress / Completed tests from Supabase Cloud
       async function checkCloudStatus() {
-        if (typeof CSAT_API !== 'undefined' && CSAT_API.checkActiveAttempt) {
+        if (typeof CSAT_API !== 'undefined') {
           try {
-            // Check Today's live test
+            // 1. Sync available dates from Supabase
+            if (CSAT_API.getAvailableDates) {
+              const cloudDates = await CSAT_API.getAvailableDates();
+              if (Array.isArray(cloudDates) && cloudDates.length > 0) {
+                let highestDay = currentHistoryData[0]?.dayNum || 19;
+                cloudDates.forEach(cd => {
+                  const d = parseInt(cd.split('-')[2], 10);
+                  if (d && d > highestDay) highestDay = d;
+                });
+                if (highestDay > (currentHistoryData[0]?.dayNum || 19)) {
+                  currentHistoryData = buildOctoberHistoryData(highestDay);
+                  totalAvailable = currentHistoryData.length;
+                  updateHeaderAvailableCount();
+                  renderTilesGrid();
+                  updateHeaderChips();
+                }
+              }
+            }
+
+            // 2. Check today's active/completed status
             const checkToday = await CSAT_API.checkActiveAttempt(todayDateStr);
             if (checkToday && (checkToday.hasActive || checkToday.isCompleted)) {
               applyTodayTestStatus(checkToday);
             }
 
-            // Check 17 Oct if 18 Oct is today
-            if (isUnlocked18) {
-              const check17 = await CSAT_API.checkActiveAttempt("2026-10-17");
-              if (check17) applyPastTestStatus(17, check17);
+            // 3. Check past days from cloud (recent past tests)
+            const recentPast = currentHistoryData.filter(d => d.dayNum !== todayMockNum).slice(0, 6);
+            for (const item of recentPast) {
+              const checkPast = await CSAT_API.checkActiveAttempt(item.fullDateStr);
+              if (checkPast && (checkPast.hasActive || checkPast.isCompleted)) {
+                applyPastTestStatus(item.dayNum, checkPast);
+              }
             }
-
-            // Check 16 Oct
-            const check16 = await CSAT_API.checkActiveAttempt("2026-10-16");
-            if (check16) applyPastTestStatus(16, check16);
-
-            // Check 15 Oct
-            const check15 = await CSAT_API.checkActiveAttempt("2026-10-15");
-            if (check15) applyPastTestStatus(15, check15);
           } catch (err) {
             console.warn("Cloud test status check error:", err);
           }
@@ -923,17 +843,14 @@
 
       checkCloudStatus();
 
-      // Auto-unlock listener for 18th Oct 00:01 AM IST
-      if (!isUnlocked18) {
-        const nowIST = getNowIST();
-        const unlockIST = new Date("2026-10-18T00:01:00+05:30");
-        const msUntilUnlock = unlockIST.getTime() - nowIST.getTime();
-        if (msUntilUnlock > 0 && msUntilUnlock <= 86400000) {
-          console.log(`18th Oct test will automatically unlock in ${Math.round(msUntilUnlock / 1000)}s (at 00:01 AM IST)`);
-          setTimeout(() => {
-            window.location.reload();
-          }, msUntilUnlock + 500);
-        }
+      // Auto-unlock listener for next day 00:01 AM IST
+      const nowIST = getNowIST();
+      const nextMidnightIST = new Date(nowIST.getFullYear(), nowIST.getMonth(), nowIST.getDate() + 1, 0, 1, 0);
+      const msUntilNextDay = nextMidnightIST.getTime() - nowIST.getTime();
+      if (msUntilNextDay > 0 && msUntilNextDay <= 86400000) {
+        setTimeout(() => {
+          window.location.reload();
+        }, msUntilNextDay);
       }
     });
   </script>

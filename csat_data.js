@@ -1097,7 +1097,455 @@ const CSAT_QUESTIONS_18OCT = [
   }
 ];
 
-// Time Gating: 18th October Mock Test unlocks at exactly 00:01 AM IST on 18th Oct 2026
+
+// ============================================================================
+// 19TH OCTOBER 2026 UPSC CSAT QUESTIONS (Bilingual English + Hindi)
+// Source: Question_Seeder/19th_oct.json
+// ============================================================================
+const CSAT_QUESTIONS_19OCT = [
+  {
+    "id": 1,
+    "chapter": "Data Interpretation & Data Sufficiency",
+    "chapterHi": "आँकड़ा व्याख्या एवं आँकड़ा पर्याप्तता",
+    "category": "not_wrong",
+    "categoryTitle": "Questions Which Should Not Have Been Wrong",
+    "difficulty": "L2",
+    "en": {
+      "statement": "In an examination, 65% of candidates passed in Mathematics, 70% passed in English, and 15% failed in both subjects. If 300 candidates passed in both subjects, what was the total number of candidates who appeared for the examination?",
+      "options": {
+        "A": "500",
+        "B": "600",
+        "C": "750",
+        "D": "800"
+      },
+      "explanation": "Step 1: Find the percentage of candidates who passed in at least one subject:\nCandidates failing in both subjects = 15%.\nCandidates passing in at least one subject = n(M ∪ E) = 100% - 15% = 85%.\n\nStep 2: Use set theory formula to find percentage passing in both:\nn(M ∪ E) = n(M) + n(E) - n(M ∩ E)\n85% = 65% + 70% - n(M ∩ E)\n85% = 135% - n(M ∩ E)\nn(M ∩ E) = 135% - 85% = 50%.\n\nStep 3: Relate the percentage to the absolute number:\n50% of Total Candidates = 300.\nTotal Candidates = 300 / 0.50 = 600.\n\nHence, 600 candidates appeared for the examination."
+    },
+    "hi": {
+      "statement": "In an examination, 65% of candidates passed in Mathematics, 70% passed in English, and 15% failed in both subjects. If 300 candidates passed in both subjects, what was the total number of candidates who appeared for the examination?",
+      "options": {
+        "A": "500",
+        "B": "600",
+        "C": "750",
+        "D": "800"
+      },
+      "explanation": "Step 1: Find the percentage of candidates who passed in at least one subject:\nCandidates failing in both subjects = 15%.\nCandidates passing in at least one subject = n(M ∪ E) = 100% - 15% = 85%.\n\nStep 2: Use set theory formula to find percentage passing in both:\nn(M ∪ E) = n(M) + n(E) - n(M ∩ E)\n85% = 65% + 70% - n(M ∩ E)\n85% = 135% - n(M ∩ E)\nn(M ∩ E) = 135% - 85% = 50%.\n\nStep 3: Relate the percentage to the absolute number:\n50% of Total Candidates = 300.\nTotal Candidates = 300 / 0.50 = 600.\n\nHence, 600 candidates appeared for the examination."
+    },
+    "correctAnswer": "B",
+    "attemptRate": 78,
+    "optionDistribution": {
+      "A": 8,
+      "B": 78,
+      "C": 7,
+      "D": 7
+    },
+    "recommendedTimeSec": 60,
+    "forensicMeta": {
+      "cognitiveLoadScore": 2,
+      "scratchpadDemand": "Medium - Linear Scratchpad Work",
+      "idealTimeVsHallTime": "35s / 65s",
+      "primaryTrapArchetype": "Deceptive Boundary Miscalculation",
+      "riskIndex": "Low"
+    }
+  },
+  {
+    "id": 2,
+    "chapter": "Ratio, Proportion, Partnership & Mixtures Alligation",
+    "chapterHi": "अनुपात, समानुपात, साझेदारी एवं मिश्रण",
+    "category": "attempted",
+    "categoryTitle": "Questions Which Should Be Attempted",
+    "difficulty": "L3",
+    "en": {
+      "statement": "A container is initially filled with 100 litres of pure acid. 10 litres of acid are drawn off and replaced with water. Then, 20 litres of the mixture are drawn off and replaced with water. Finally, 25 litres of the mixture are drawn off and replaced with water.\nConsider the following statements:\nStatement 1: The quantity of pure acid remaining in the container is 54 litres.\nStatement 2: The ratio of pure acid to water in the final container is 27 : 23.\nWhich of the statements given above is/are correct?\n(a) 1 only\n(b) 2 only\n(c) Both 1 and 2\n(d) Neither 1 nor 2",
+      "options": {
+        "A": "1 only",
+        "B": "2 only",
+        "C": "Both 1 and 2",
+        "D": "Neither 1 nor 2"
+      },
+      "explanation": "Step 1: The container starts with 100 litres of pure acid. The total volume remains 100 litres after each replacement.\nStep 2: Calculate residual acid using successive multiplying factors for each withdrawal:\n- 1st operation (10 L removed from 100 L): fraction remaining = 1 - 10/100 = 9/10.\n- 2nd operation (20 L removed from 100 L): fraction remaining = 1 - 20/100 = 4/5.\n- 3rd operation (25 L removed from 100 L): fraction remaining = 1 - 25/100 = 3/4.\nStep 3: Final quantity of pure acid = 100 × (9/10) × (4/5) × (3/4).\nStep 4: Cancel terms: 100 × (9 × 4 × 3) / (10 × 5 × 4) = 100 × (108 / 200) = 54 litres.\nStep 5: Statement 1 states remaining pure acid is 54 litres. Statement 1 is CORRECT.\nStep 6: Quantity of water in the container = Total Volume - Pure Acid = 100 - 54 = 46 litres.\nStep 7: Ratio of pure acid to water = 54 : 46 = 27 : 23. Statement 2 is CORRECT.\nStep 8: Both Statement 1 and Statement 2 are correct."
+    },
+    "hi": {
+      "statement": "A container is initially filled with 100 litres of pure acid. 10 litres of acid are drawn off and replaced with water. Then, 20 litres of the mixture are drawn off and replaced with water. Finally, 25 litres of the mixture are drawn off and replaced with water.\nConsider the following statements:\nStatement 1: The quantity of pure acid remaining in the container is 54 litres.\nStatement 2: The ratio of pure acid to water in the final container is 27 : 23.\nWhich of the statements given above is/are correct?\n(a) 1 only\n(b) 2 only\n(c) Both 1 and 2\n(d) Neither 1 nor 2",
+      "options": {
+        "A": "1 only",
+        "B": "2 only",
+        "C": "Both 1 and 2",
+        "D": "Neither 1 nor 2"
+      },
+      "explanation": "Step 1: The container starts with 100 litres of pure acid. The total volume remains 100 litres after each replacement.\nStep 2: Calculate residual acid using successive multiplying factors for each withdrawal:\n- 1st operation (10 L removed from 100 L): fraction remaining = 1 - 10/100 = 9/10.\n- 2nd operation (20 L removed from 100 L): fraction remaining = 1 - 20/100 = 4/5.\n- 3rd operation (25 L removed from 100 L): fraction remaining = 1 - 25/100 = 3/4.\nStep 3: Final quantity of pure acid = 100 × (9/10) × (4/5) × (3/4).\nStep 4: Cancel terms: 100 × (9 × 4 × 3) / (10 × 5 × 4) = 100 × (108 / 200) = 54 litres.\nStep 5: Statement 1 states remaining pure acid is 54 litres. Statement 1 is CORRECT.\nStep 6: Quantity of water in the container = Total Volume - Pure Acid = 100 - 54 = 46 litres.\nStep 7: Ratio of pure acid to water = 54 : 46 = 27 : 23. Statement 2 is CORRECT.\nStep 8: Both Statement 1 and Statement 2 are correct."
+    },
+    "correctAnswer": "C",
+    "attemptRate": 65,
+    "optionDistribution": {
+      "A": 13,
+      "B": 11,
+      "C": 65,
+      "D": 11
+    },
+    "recommendedTimeSec": 60,
+    "forensicMeta": {
+      "cognitiveLoadScore": 3,
+      "scratchpadDemand": "Medium - Linear Scratchpad Work",
+      "idealTimeVsHallTime": "35s / 65s",
+      "primaryTrapArchetype": "Deceptive Boundary Miscalculation",
+      "riskIndex": "Low"
+    }
+  },
+  {
+    "id": 3,
+    "chapter": "Averages, Weighted Means & Age Problems",
+    "chapterHi": "औसत, भारित माध्य एवं आयु सम्बन्धी प्रश्न",
+    "category": "attempted",
+    "categoryTitle": "Questions Which Should Be Attempted",
+    "difficulty": "L4",
+    "en": {
+      "statement": "A person's age is a two-digit number. When the digits of his age are reversed, the number obtained is the age of his wife. The average of their ages is 66 years, and the person is older than his wife by 18 years.\nConsider the following statements:\nStatement 1: The husband is 75 years old.\nStatement 2: The product of the two digits of the wife's age is 35.\nWhich of the statements given above is/are correct?\n(a) 1 only\n(b) 2 only\n(c) Both 1 and 2\n(d) Neither 1 nor 2",
+      "options": {
+        "A": "1 only",
+        "B": "2 only",
+        "C": "Both 1 and 2",
+        "D": "Neither 1 nor 2"
+      },
+      "explanation": "Step 1: Let the husband's age be 10t + u and the wife's age be 10u + t, where t and u are non-zero single digits with t > u.\nStep 2: Average age = 66 years ⇒ Sum of their ages = 2 × 66 = 132 years.\nStep 3: (10t + u) + (10u + t) = 11(t + u) = 132 ⇒ t + u = 12.\nStep 4: Age difference = (10t + u) - (10u + t) = 9(t - u) = 18 ⇒ t - u = 2.\nStep 5: Solve the system: Adding gives 2t = 14 ⇒ t = 7; subtracting gives 2u = 10 ⇒ u = 5.\nStep 6: Husband's age = 75 years. Statement 1 is CORRECT.\nStep 7: Wife's age = 57 years. The digits are 5 and 7. Product = 5 × 7 = 35. Statement 2 is CORRECT.\nStep 8: Both Statement 1 and Statement 2 are correct."
+    },
+    "hi": {
+      "statement": "A person's age is a two-digit number. When the digits of his age are reversed, the number obtained is the age of his wife. The average of their ages is 66 years, and the person is older than his wife by 18 years.\nConsider the following statements:\nStatement 1: The husband is 75 years old.\nStatement 2: The product of the two digits of the wife's age is 35.\nWhich of the statements given above is/are correct?\n(a) 1 only\n(b) 2 only\n(c) Both 1 and 2\n(d) Neither 1 nor 2",
+      "options": {
+        "A": "1 only",
+        "B": "2 only",
+        "C": "Both 1 and 2",
+        "D": "Neither 1 nor 2"
+      },
+      "explanation": "Step 1: Let the husband's age be 10t + u and the wife's age be 10u + t, where t and u are non-zero single digits with t > u.\nStep 2: Average age = 66 years ⇒ Sum of their ages = 2 × 66 = 132 years.\nStep 3: (10t + u) + (10u + t) = 11(t + u) = 132 ⇒ t + u = 12.\nStep 4: Age difference = (10t + u) - (10u + t) = 9(t - u) = 18 ⇒ t - u = 2.\nStep 5: Solve the system: Adding gives 2t = 14 ⇒ t = 7; subtracting gives 2u = 10 ⇒ u = 5.\nStep 6: Husband's age = 75 years. Statement 1 is CORRECT.\nStep 7: Wife's age = 57 years. The digits are 5 and 7. Product = 5 × 7 = 35. Statement 2 is CORRECT.\nStep 8: Both Statement 1 and Statement 2 are correct."
+    },
+    "correctAnswer": "C",
+    "attemptRate": 52,
+    "optionDistribution": {
+      "A": 16,
+      "B": 16,
+      "C": 52,
+      "D": 16
+    },
+    "recommendedTimeSec": 60,
+    "forensicMeta": {
+      "cognitiveLoadScore": 4,
+      "scratchpadDemand": "Medium - Linear Scratchpad Work",
+      "idealTimeVsHallTime": "35s / 65s",
+      "primaryTrapArchetype": "Deceptive Boundary Miscalculation",
+      "riskIndex": "Medium"
+    }
+  },
+  {
+    "id": 4,
+    "chapter": "Number System, Divisibility, Factors & Remainder Theorems",
+    "chapterHi": "संख्या पद्धति, विभाज्यता, गुणनखंड एवं शेषफल प्रमेय",
+    "category": "not_wrong",
+    "categoryTitle": "Questions Which Should Not Have Been Wrong",
+    "difficulty": "L1",
+    "en": {
+      "statement": "What is the digit in the unit place of the product of all odd prime numbers less than 100?\n(a) 0\n(b) 1\n(c) 5\n(d) 9",
+      "options": {
+        "A": "0",
+        "B": "1",
+        "C": "5",
+        "D": "9"
+      },
+      "explanation": "1. The set of all odd prime numbers less than 100 is: {3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97}.\n2. Notice that 5 is an element of this set.\n3. The product of 5 with any odd number always yields a number with unit digit 5.\n4. Since all the numbers in the set are odd, there is no even factor (such as 2) to produce a zero at the unit place.\n5. Therefore, the unit digit of the product is 5."
+    },
+    "hi": {
+      "statement": "What is the digit in the unit place of the product of all odd prime numbers less than 100?\n(a) 0\n(b) 1\n(c) 5\n(d) 9",
+      "options": {
+        "A": "0",
+        "B": "1",
+        "C": "5",
+        "D": "9"
+      },
+      "explanation": "1. The set of all odd prime numbers less than 100 is: {3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97}.\n2. Notice that 5 is an element of this set.\n3. The product of 5 with any odd number always yields a number with unit digit 5.\n4. Since all the numbers in the set are odd, there is no even factor (such as 2) to produce a zero at the unit place.\n5. Therefore, the unit digit of the product is 5."
+    },
+    "correctAnswer": "C",
+    "attemptRate": 88,
+    "optionDistribution": {
+      "A": 4,
+      "B": 4,
+      "C": 88,
+      "D": 4
+    },
+    "recommendedTimeSec": 60,
+    "forensicMeta": {
+      "cognitiveLoadScore": 2,
+      "scratchpadDemand": "Medium - Linear Scratchpad Work",
+      "idealTimeVsHallTime": "35s / 65s",
+      "primaryTrapArchetype": "Deceptive Boundary Miscalculation",
+      "riskIndex": "Low"
+    }
+  },
+  {
+    "id": 5,
+    "chapter": "Permutations, Combinations & Probability",
+    "chapterHi": "क्रमचय, संचय एवं प्रायिकता",
+    "category": "avoided",
+    "categoryTitle": "Questions Which Should Have Been Avoided",
+    "difficulty": "L5",
+    "en": {
+      "statement": "A formal dinner is hosted by a married couple (Host and Hostess) for 4 other married couples (a total of 5 men and 5 women). The 10 guests are seated around a circular table of 10 seats such that men and women alternate.\nConsider the following statements:\nStatement 1: If the Host and Hostess must sit directly opposite to each other across the diameter of the table, the total number of distinct seating arrangements is 576.\nStatement 2: If the Host and Hostess can sit anywhere as long as men and women alternate, the total number of distinct seating arrangements is 2,880.\nWhich of the statements given above is/are correct?\n(a) 1 only\n(b) 2 only\n(c) Both 1 and 2\n(d) Neither 1 nor 2",
+      "options": {
+        "A": "1 only",
+        "B": "2 only",
+        "C": "Both 1 and 2",
+        "D": "Neither 1 nor 2"
+      },
+      "explanation": "Step 1: Analyze Statement 2 (Unrestricted alternating circular seating of 5 men and 5 women):\n- To break rotational symmetry in a circular arrangement, seat one person (say the Host) in a fixed seat (1 way).\n- This designates 5 alternating seats for men and 5 alternating seats for women.\n- The remaining 4 men can be seated in the remaining 4 male seats in 4! = 24 ways.\n- The 5 women can be seated in the 5 female seats in 5! = 120 ways.\n- Total distinct circular seating arrangements = 4! × 5! = 24 × 120 = 2,880. Statement 2 is correct.\nStep 2: Analyze Statement 1 (Host and Hostess sit directly opposite each other):\n- Number the 10 seats 1 to 10 sequentially in a circle: odd seats {1, 3, 5, 7, 9} are male seats; even seats {2, 4, 6, 8, 10} are female seats.\n- Seat the Host at Seat 1 (fixing rotation, 1 way).\n- The seat directly opposite Seat 1 is Seat (1 + 5) = Seat 6, which is an even (female) seat. The Hostess must sit at Seat 6 (1 way).\n- The remaining 4 men must be seated in the remaining 4 male seats {3, 5, 7, 9} in 4! = 24 ways.\n- The remaining 4 women must be seated in the remaining 4 female seats {2, 4, 8, 10} in 4! = 24 ways.\n- Total seating arrangements = 24 × 24 = 576. Statement 1 is correct.\nStep 3: Both Statement 1 and Statement 2 are correct."
+    },
+    "hi": {
+      "statement": "A formal dinner is hosted by a married couple (Host and Hostess) for 4 other married couples (a total of 5 men and 5 women). The 10 guests are seated around a circular table of 10 seats such that men and women alternate.\nConsider the following statements:\nStatement 1: If the Host and Hostess must sit directly opposite to each other across the diameter of the table, the total number of distinct seating arrangements is 576.\nStatement 2: If the Host and Hostess can sit anywhere as long as men and women alternate, the total number of distinct seating arrangements is 2,880.\nWhich of the statements given above is/are correct?\n(a) 1 only\n(b) 2 only\n(c) Both 1 and 2\n(d) Neither 1 nor 2",
+      "options": {
+        "A": "1 only",
+        "B": "2 only",
+        "C": "Both 1 and 2",
+        "D": "Neither 1 nor 2"
+      },
+      "explanation": "Step 1: Analyze Statement 2 (Unrestricted alternating circular seating of 5 men and 5 women):\n- To break rotational symmetry in a circular arrangement, seat one person (say the Host) in a fixed seat (1 way).\n- This designates 5 alternating seats for men and 5 alternating seats for women.\n- The remaining 4 men can be seated in the remaining 4 male seats in 4! = 24 ways.\n- The 5 women can be seated in the 5 female seats in 5! = 120 ways.\n- Total distinct circular seating arrangements = 4! × 5! = 24 × 120 = 2,880. Statement 2 is correct.\nStep 2: Analyze Statement 1 (Host and Hostess sit directly opposite each other):\n- Number the 10 seats 1 to 10 sequentially in a circle: odd seats {1, 3, 5, 7, 9} are male seats; even seats {2, 4, 6, 8, 10} are female seats.\n- Seat the Host at Seat 1 (fixing rotation, 1 way).\n- The seat directly opposite Seat 1 is Seat (1 + 5) = Seat 6, which is an even (female) seat. The Hostess must sit at Seat 6 (1 way).\n- The remaining 4 men must be seated in the remaining 4 male seats {3, 5, 7, 9} in 4! = 24 ways.\n- The remaining 4 women must be seated in the remaining 4 female seats {2, 4, 8, 10} in 4! = 24 ways.\n- Total seating arrangements = 24 × 24 = 576. Statement 1 is correct.\nStep 3: Both Statement 1 and Statement 2 are correct."
+    },
+    "correctAnswer": "C",
+    "attemptRate": 38,
+    "optionDistribution": {
+      "A": 22,
+      "B": 20,
+      "C": 38,
+      "D": 20
+    },
+    "recommendedTimeSec": 60,
+    "forensicMeta": {
+      "cognitiveLoadScore": 5,
+      "scratchpadDemand": "High - Iterative / Modular Case Enumeration",
+      "idealTimeVsHallTime": "50s / 110s",
+      "primaryTrapArchetype": "Deceptive Boundary Miscalculation",
+      "riskIndex": "High"
+    }
+  },
+  {
+    "id": 6,
+    "chapter": "Algebra, Linear Equations & Inequalities",
+    "chapterHi": "बीजगणित, रैखिक समीकरण एवं असमिकाएं",
+    "category": "not_wrong",
+    "categoryTitle": "Questions Which Should Not Have Been Wrong",
+    "difficulty": "L2",
+    "en": {
+      "statement": "How many integer values of x satisfy the inequality |2x - 5| <= 9?\n(a) 8\n(b) 9\n(c) 10\n(d) 11",
+      "options": {
+        "A": "8",
+        "B": "9",
+        "C": "10",
+        "D": "11"
+      },
+      "explanation": "Step 1: Unfold the absolute value inequality: -9 <= 2x - 5 <= 9.\nStep 2: Add 5 across the compound inequality: -9 + 5 <= 2x <= 9 + 5 ⇒ -4 <= 2x <= 14.\nStep 3: Divide by 2: -2 <= x <= 7.\nStep 4: The integers in this interval are: -2, -1, 0, 1, 2, 3, 4, 5, 6, 7.\nStep 5: Number of integers = 7 - (-2) + 1 = 10."
+    },
+    "hi": {
+      "statement": "How many integer values of x satisfy the inequality |2x - 5| <= 9?\n(a) 8\n(b) 9\n(c) 10\n(d) 11",
+      "options": {
+        "A": "8",
+        "B": "9",
+        "C": "10",
+        "D": "11"
+      },
+      "explanation": "Step 1: Unfold the absolute value inequality: -9 <= 2x - 5 <= 9.\nStep 2: Add 5 across the compound inequality: -9 + 5 <= 2x <= 9 + 5 ⇒ -4 <= 2x <= 14.\nStep 3: Divide by 2: -2 <= x <= 7.\nStep 4: The integers in this interval are: -2, -1, 0, 1, 2, 3, 4, 5, 6, 7.\nStep 5: Number of integers = 7 - (-2) + 1 = 10."
+    },
+    "correctAnswer": "C",
+    "attemptRate": 78,
+    "optionDistribution": {
+      "A": 8,
+      "B": 7,
+      "C": 78,
+      "D": 7
+    },
+    "recommendedTimeSec": 60,
+    "forensicMeta": {
+      "cognitiveLoadScore": 2,
+      "scratchpadDemand": "Medium - Linear Scratchpad Work",
+      "idealTimeVsHallTime": "35s / 65s",
+      "primaryTrapArchetype": "Deceptive Boundary Miscalculation",
+      "riskIndex": "Low"
+    }
+  },
+  {
+    "id": 7,
+    "chapter": "Syllogisms & Deductive Logic",
+    "chapterHi": "न्यायवाक्य एवं निगमनात्मक तर्कशक्ति",
+    "category": "not_wrong",
+    "categoryTitle": "Questions Which Should Not Have Been Wrong",
+    "difficulty": "L1",
+    "en": {
+      "statement": "Consider the following Statements and Conclusions:\n\nStatements:\n1. All ministers are politicians.\n2. No politician is illiterate.\n\nConclusions:\nI. No minister is illiterate.\nII. Some politicians are ministers.\n\nWhich of the conclusion(s) logically follow(s) from the given statements?",
+      "options": {
+        "A": "Only Conclusion I follows",
+        "B": "Only Conclusion II follows",
+        "C": "Both Conclusion I and Conclusion II follow",
+        "D": "Neither Conclusion I nor Conclusion II follows"
+      },
+      "explanation": "Step 1: Analyze Venn representations:\nLet M = Ministers, P = Politicians, I = Illiterate people.\nStatement 1: M ⊆ P (Ministers are entirely inside Politicians).\nStatement 2: P ∩ I = ∅ (Politicians and Illiterate people are mutually disjoint sets).\n\nStep 2: Evaluate Conclusion I ('No minister is illiterate'):\nSince M is inside P, and P has zero overlap with I, M can have zero overlap with I.\nM ∩ I = ∅.\nTherefore, no minister is illiterate. Conclusion I LOGICALLY FOLLOWS.\n\nStep 3: Evaluate Conclusion II ('Some politicians are ministers'):\nSince M ⊆ P and the set M is non-empty, the portion of P that contains M consists of ministers.\nTherefore, some politicians are definitely ministers (valid conversion of universal affirmative). Conclusion II LOGICALLY FOLLOWS.\n\nHence, both Conclusion I and Conclusion II follow."
+    },
+    "hi": {
+      "statement": "Consider the following Statements and Conclusions:\n\nStatements:\n1. All ministers are politicians.\n2. No politician is illiterate.\n\nConclusions:\nI. No minister is illiterate.\nII. Some politicians are ministers.\n\nWhich of the conclusion(s) logically follow(s) from the given statements?",
+      "options": {
+        "A": "Only Conclusion I follows",
+        "B": "Only Conclusion II follows",
+        "C": "Both Conclusion I and Conclusion II follow",
+        "D": "Neither Conclusion I nor Conclusion II follows"
+      },
+      "explanation": "Step 1: Analyze Venn representations:\nLet M = Ministers, P = Politicians, I = Illiterate people.\nStatement 1: M ⊆ P (Ministers are entirely inside Politicians).\nStatement 2: P ∩ I = ∅ (Politicians and Illiterate people are mutually disjoint sets).\n\nStep 2: Evaluate Conclusion I ('No minister is illiterate'):\nSince M is inside P, and P has zero overlap with I, M can have zero overlap with I.\nM ∩ I = ∅.\nTherefore, no minister is illiterate. Conclusion I LOGICALLY FOLLOWS.\n\nStep 3: Evaluate Conclusion II ('Some politicians are ministers'):\nSince M ⊆ P and the set M is non-empty, the portion of P that contains M consists of ministers.\nTherefore, some politicians are definitely ministers (valid conversion of universal affirmative). Conclusion II LOGICALLY FOLLOWS.\n\nHence, both Conclusion I and Conclusion II follow."
+    },
+    "correctAnswer": "C",
+    "attemptRate": 88,
+    "optionDistribution": {
+      "A": 4,
+      "B": 4,
+      "C": 88,
+      "D": 4
+    },
+    "recommendedTimeSec": 60,
+    "forensicMeta": {
+      "cognitiveLoadScore": 2,
+      "scratchpadDemand": "Medium - Linear Scratchpad Work",
+      "idealTimeVsHallTime": "35s / 65s",
+      "primaryTrapArchetype": "Deceptive Boundary Miscalculation",
+      "riskIndex": "Low"
+    }
+  },
+  {
+    "id": 8,
+    "chapter": "Direction Sense, Shortest Distance & Blood Relations",
+    "chapterHi": "दिशा ज्ञान, न्यूनतम दूरी एवं रक्त सम्बन्ध",
+    "category": "attempted",
+    "categoryTitle": "Questions Which Should Be Attempted",
+    "difficulty": "L3",
+    "en": {
+      "statement": "Symbols: 'P * Q' means P is father of Q; 'P + Q' means P is daughter of Q; 'P - Q' means P is son of Q; 'P / Q' means P is sister of Q.\n\nIn the expression 'A * B - C + D * E', how is A related to E?",
+      "options": {
+        "A": "Brother-in-law",
+        "B": "Son",
+        "C": "Nephew",
+        "D": "Father"
+      },
+      "explanation": "Break down 'A * B - C + D * E':\n1. 'A * B' → A is the father of B (A is male).\n2. 'B - C' → B is the son of C. Since A is already B's father, C must be B's mother! Thus, A and C are married (A is husband, C is wife).\n3. 'C + D' → C is the daughter of D.\n4. 'D * E' → D is the father of E.\n\nSynthesize the relationship:\n- D is the father of both C and E (C and E are siblings).\n- C is female (daughter of D).\n- A is married to C (A is C's husband).\n- Since A is the husband of E's sister (C), A is the BROTHER-IN-LAW of E!\n\nTherefore, A is the brother-in-law of E."
+    },
+    "hi": {
+      "statement": "Symbols: 'P * Q' means P is father of Q; 'P + Q' means P is daughter of Q; 'P - Q' means P is son of Q; 'P / Q' means P is sister of Q.\n\nIn the expression 'A * B - C + D * E', how is A related to E?",
+      "options": {
+        "A": "Brother-in-law",
+        "B": "Son",
+        "C": "Nephew",
+        "D": "Father"
+      },
+      "explanation": "Break down 'A * B - C + D * E':\n1. 'A * B' → A is the father of B (A is male).\n2. 'B - C' → B is the son of C. Since A is already B's father, C must be B's mother! Thus, A and C are married (A is husband, C is wife).\n3. 'C + D' → C is the daughter of D.\n4. 'D * E' → D is the father of E.\n\nSynthesize the relationship:\n- D is the father of both C and E (C and E are siblings).\n- C is female (daughter of D).\n- A is married to C (A is C's husband).\n- Since A is the husband of E's sister (C), A is the BROTHER-IN-LAW of E!\n\nTherefore, A is the brother-in-law of E."
+    },
+    "correctAnswer": "A",
+    "attemptRate": 65,
+    "optionDistribution": {
+      "A": 65,
+      "B": 13,
+      "C": 11,
+      "D": 11
+    },
+    "recommendedTimeSec": 60,
+    "forensicMeta": {
+      "cognitiveLoadScore": 3,
+      "scratchpadDemand": "Medium - Linear Scratchpad Work",
+      "idealTimeVsHallTime": "35s / 65s",
+      "primaryTrapArchetype": "Deceptive Boundary Miscalculation",
+      "riskIndex": "Low"
+    }
+  },
+  {
+    "id": 9,
+    "chapter": "Time and Work, Pipes & Cisterns, Work & Wages",
+    "chapterHi": "कार्य एवं समय, नल एवं टंकी, मजदूरी",
+    "category": "attempted",
+    "categoryTitle": "Questions Which Should Be Attempted",
+    "difficulty": "L4",
+    "en": {
+      "statement": "A piece of work can be completed by x men in y days. If there were 6 men more, the work could be finished in 4 days less. If there were 10 men less, the work would take 10 days more. What is the value of (x + y)?\n(a) 68\n(b) 72\n(c) 74\n(d) 80",
+      "options": {
+        "A": "68",
+        "B": "72",
+        "C": "74",
+        "D": "80"
+      },
+      "explanation": "1. Let total work W = x × y.\n2. Condition 1: (x + 6)(y - 4) = xy\n   xy - 4x + 6y - 24 = xy\n   -4x + 6y = 24 => -2x + 3y = 12.  (Equation 1)\n3. Condition 2: (x - 10)(y + 10) = xy\n   xy + 10x - 10y - 100 = xy\n   10x - 10y = 100 => x - y = 10 => x = y + 10.  (Equation 2)\n4. Substitute Equation 2 into Equation 1:\n   -2(y + 10) + 3y = 12\n   -2y - 20 + 3y = 12\n   y = 32 days.\n5. Find x:\n   x = 32 + 10 = 42 men.\n6. Check work: W = 42 × 32 = 1,344 man-days.\n   (42 + 6)(32 - 4) = 48 × 28 = 1,344.\n   (42 - 10)(32 + 10) = 32 × 42 = 1,344. Perfect!\n7. Value of (x + y) = 42 + 32 = 74."
+    },
+    "hi": {
+      "statement": "A piece of work can be completed by x men in y days. If there were 6 men more, the work could be finished in 4 days less. If there were 10 men less, the work would take 10 days more. What is the value of (x + y)?\n(a) 68\n(b) 72\n(c) 74\n(d) 80",
+      "options": {
+        "A": "68",
+        "B": "72",
+        "C": "74",
+        "D": "80"
+      },
+      "explanation": "1. Let total work W = x × y.\n2. Condition 1: (x + 6)(y - 4) = xy\n   xy - 4x + 6y - 24 = xy\n   -4x + 6y = 24 => -2x + 3y = 12.  (Equation 1)\n3. Condition 2: (x - 10)(y + 10) = xy\n   xy + 10x - 10y - 100 = xy\n   10x - 10y = 100 => x - y = 10 => x = y + 10.  (Equation 2)\n4. Substitute Equation 2 into Equation 1:\n   -2(y + 10) + 3y = 12\n   -2y - 20 + 3y = 12\n   y = 32 days.\n5. Find x:\n   x = 32 + 10 = 42 men.\n6. Check work: W = 42 × 32 = 1,344 man-days.\n   (42 + 6)(32 - 4) = 48 × 28 = 1,344.\n   (42 - 10)(32 + 10) = 32 × 42 = 1,344. Perfect!\n7. Value of (x + y) = 42 + 32 = 74."
+    },
+    "correctAnswer": "C",
+    "attemptRate": 52,
+    "optionDistribution": {
+      "A": 16,
+      "B": 16,
+      "C": 52,
+      "D": 16
+    },
+    "recommendedTimeSec": 60,
+    "forensicMeta": {
+      "cognitiveLoadScore": 4,
+      "scratchpadDemand": "Medium - Linear Scratchpad Work",
+      "idealTimeVsHallTime": "35s / 65s",
+      "primaryTrapArchetype": "Deceptive Boundary Miscalculation",
+      "riskIndex": "Medium"
+    }
+  },
+  {
+    "id": 10,
+    "chapter": "Letter & Number Series, Coding-Decoding",
+    "chapterHi": "वर्णमाला एवं संख्या शृंखला, कूटलेखन",
+    "category": "avoided",
+    "categoryTitle": "Questions Which Should Have Been Avoided",
+    "difficulty": "L5",
+    "en": {
+      "statement": "In the cryptarithmetic equation:\nABC + BCA + CAB = 2664\nwhere A, B, and C represent distinct non-zero single digits with A > B > C, what is the value of A² + B² + C²?",
+      "options": {
+        "A": "186",
+        "B": "194",
+        "C": "206",
+        "D": "214"
+      },
+      "explanation": "Step 1: Expand the three-digit numbers in base 10:\n• ABC = 100A + 10B + C\n• BCA = 100B + 10C + A\n• CAB = 100C + 10A + B\n\nStep 2: Sum the three numbers:\nABC + BCA + CAB = (100A + 10A + A) + (100B + 10B + B) + (100C + 10C + C)\n= 111A + 111B + 111C = 111(A + B + C).\n\nStep 3: Solve for (A + B + C):\n111(A + B + C) = 2,664\nA + B + C = 2,664 / 111 = 24.\n\nStep 4: Find the unique single-digit triplet {A, B, C}:\nA, B, C are distinct single digits (1 ≤ C < B < A ≤ 9).\nThe maximum possible sum of three distinct single digits is 9 + 8 + 7 = 24.\nSince the required sum is exactly 24, the ONLY possible set of digits is:\nA = 9, B = 8, C = 7.\n\nStep 5: Compute A² + B² + C²:\nA² + B² + C² = 9² + 8² + 7²\n= 81 + 64 + 49 = 194.\n\nHence, 194 is the value."
+    },
+    "hi": {
+      "statement": "In the cryptarithmetic equation:\nABC + BCA + CAB = 2664\nwhere A, B, and C represent distinct non-zero single digits with A > B > C, what is the value of A² + B² + C²?",
+      "options": {
+        "A": "186",
+        "B": "194",
+        "C": "206",
+        "D": "214"
+      },
+      "explanation": "Step 1: Expand the three-digit numbers in base 10:\n• ABC = 100A + 10B + C\n• BCA = 100B + 10C + A\n• CAB = 100C + 10A + B\n\nStep 2: Sum the three numbers:\nABC + BCA + CAB = (100A + 10A + A) + (100B + 10B + B) + (100C + 10C + C)\n= 111A + 111B + 111C = 111(A + B + C).\n\nStep 3: Solve for (A + B + C):\n111(A + B + C) = 2,664\nA + B + C = 2,664 / 111 = 24.\n\nStep 4: Find the unique single-digit triplet {A, B, C}:\nA, B, C are distinct single digits (1 ≤ C < B < A ≤ 9).\nThe maximum possible sum of three distinct single digits is 9 + 8 + 7 = 24.\nSince the required sum is exactly 24, the ONLY possible set of digits is:\nA = 9, B = 8, C = 7.\n\nStep 5: Compute A² + B² + C²:\nA² + B² + C² = 9² + 8² + 7²\n= 81 + 64 + 49 = 194.\n\nHence, 194 is the value."
+    },
+    "correctAnswer": "B",
+    "attemptRate": 38,
+    "optionDistribution": {
+      "A": 22,
+      "B": 38,
+      "C": 20,
+      "D": 20
+    },
+    "recommendedTimeSec": 60,
+    "forensicMeta": {
+      "cognitiveLoadScore": 5,
+      "scratchpadDemand": "High - Iterative / Modular Case Enumeration",
+      "idealTimeVsHallTime": "50s / 110s",
+      "primaryTrapArchetype": "Deceptive Boundary Miscalculation",
+      "riskIndex": "High"
+    }
+  }
+];
+
+// Time Gating & Dynamic Date Logic
 function getNowIST() {
   const now = new Date();
   const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
@@ -1105,19 +1553,44 @@ function getNowIST() {
   return new Date(utc + istOffset);
 }
 
-function is18thOctUnlocked() {
+function getTodayDateStr() {
   try {
     if (typeof window !== 'undefined' && window.location) {
       const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.get("date") === "2026-10-18" || urlParams.get("preview") === "true" || urlParams.get("previewDate") === "2026-10-18") {
-        return true;
+      const forced = urlParams.get("date") || urlParams.get("previewDate");
+      if (forced && /^\d{4}-\d{2}-\d{2}$/.test(forced)) {
+        return forced;
       }
     }
   } catch (e) {}
   const nowIST = getNowIST();
-  // 18 Oct 2026 00:01:00 IST
-  const unlockIST = new Date("2026-10-18T00:01:00+05:30");
-  return nowIST.getTime() >= unlockIST.getTime();
+  const y = nowIST.getFullYear();
+  const m = String(nowIST.getMonth() + 1).padStart(2, '0');
+  const d = String(nowIST.getDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
+}
+
+function isDateUnlocked(dateStr) {
+  if (!dateStr) return true;
+  try {
+    if (typeof window !== 'undefined' && window.location) {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get("date") === dateStr || urlParams.get("preview") === "true") {
+        return true;
+      }
+    }
+  } catch (e) {}
+  const targetUnlock = new Date(`${dateStr}T00:01:00+05:30`);
+  if (isNaN(targetUnlock.getTime())) return true;
+  return getNowIST().getTime() >= targetUnlock.getTime();
+}
+
+function is18thOctUnlocked() {
+  return isDateUnlocked("2026-10-18");
+}
+
+function is19thOctUnlocked() {
+  return isDateUnlocked("2026-10-19");
 }
 
 // ============================================================================
@@ -1497,54 +1970,111 @@ const CSAT_QUESTIONS_15OCT = [
 ];
 
 function getCSATQuestions(dateStr) {
-  if (!dateStr) {
-    return is18thOctUnlocked() ? CSAT_QUESTIONS_18OCT : CSAT_QUESTIONS_17OCT;
-  }
-  if (dateStr === "2026-10-18") return CSAT_QUESTIONS_18OCT;
-  if (dateStr === "2026-10-17") return CSAT_QUESTIONS_17OCT;
-  if (dateStr === "2026-10-16") return CSAT_QUESTIONS_16OCT;
-  if (dateStr === "2026-10-15") return CSAT_QUESTIONS_15OCT;
-  return CSAT_QUESTIONS_17OCT;
+  const target = dateStr || getTodayDateStr();
+  if (target === "2026-10-19") return CSAT_QUESTIONS_19OCT;
+  if (target === "2026-10-18") return CSAT_QUESTIONS_18OCT;
+  if (target === "2026-10-17") return CSAT_QUESTIONS_17OCT;
+  if (target === "2026-10-16") return CSAT_QUESTIONS_16OCT;
+  if (target === "2026-10-15") return CSAT_QUESTIONS_15OCT;
+  return CSAT_QUESTIONS_19OCT;
 }
 
 // Fallback questions based on active date
-const CSAT_QUESTIONS = (typeof is18thOctUnlocked === 'function' && is18thOctUnlocked()) ? CSAT_QUESTIONS_18OCT : CSAT_QUESTIONS_17OCT;
+const CSAT_QUESTIONS = getCSATQuestions();
 
-// October 2026 Past Test History Data
-// Accuracy randomized strictly within 70% to 90%
-const OCTOBER_PAST_DAYS = [
-  { dayNum: 16, dateStr: "16 Oct", dayName: "Friday", score: "21.6 / 25", accuracy: 87, questionsAttempted: 10, correct: 8, incorrect: 1, isCompleted: true },
-  { dayNum: 15, dateStr: "15 Oct", dayName: "Thursday", score: "22.5 / 25", accuracy: 88, questionsAttempted: 10, correct: 9, incorrect: 1, isCompleted: true },
-  { dayNum: 14, dateStr: "14 Oct", dayName: "Wednesday", score: "20.0 / 25", accuracy: 80, questionsAttempted: 10, correct: 8, incorrect: 2 },
-  { dayNum: 13, dateStr: "13 Oct", dayName: "Tuesday", score: "17.5 / 25", accuracy: 72, questionsAttempted: 9, correct: 7, incorrect: 2 },
-  { dayNum: 12, dateStr: "12 Oct", dayName: "Monday", score: "22.5 / 25", accuracy: 89, questionsAttempted: 10, correct: 9, incorrect: 1 },
-  { dayNum: 11, dateStr: "11 Oct", dayName: "Sunday", score: "20.0 / 25", accuracy: 82, questionsAttempted: 10, correct: 8, incorrect: 2 },
-  { dayNum: 10, dateStr: "10 Oct", dayName: "Saturday", score: "18.3 / 25", accuracy: 76, questionsAttempted: 10, correct: 7, incorrect: 3 },
-  { dayNum: 9, dateStr: "09 Oct", dayName: "Friday", score: "22.5 / 25", accuracy: 90, questionsAttempted: 10, correct: 9, incorrect: 1 },
-  { dayNum: 8, dateStr: "08 Oct", dayName: "Thursday", score: "20.0 / 25", accuracy: 83, questionsAttempted: 10, correct: 8, incorrect: 2 },
-  { dayNum: 7, dateStr: "07 Oct", dayName: "Wednesday", score: "17.5 / 25", accuracy: 74, questionsAttempted: 9, correct: 7, incorrect: 2 },
-  { dayNum: 6, dateStr: "06 Oct", dayName: "Tuesday", score: "21.6 / 25", accuracy: 87, questionsAttempted: 10, correct: 8, incorrect: 1 },
-  { dayNum: 5, dateStr: "05 Oct", dayName: "Monday", score: "19.1 / 25", accuracy: 79, questionsAttempted: 10, correct: 7, incorrect: 2 },
-  { dayNum: 4, dateStr: "04 Oct", dayName: "Sunday", score: "20.8 / 25", accuracy: 84, questionsAttempted: 10, correct: 8, incorrect: 2 },
-  { dayNum: 3, dateStr: "03 Oct", dayName: "Saturday", score: "18.3 / 25", accuracy: 75, questionsAttempted: 10, correct: 7, incorrect: 3 },
-  { dayNum: 2, dateStr: "02 Oct", dayName: "Friday", score: "22.5 / 25", accuracy: 90, questionsAttempted: 10, correct: 9, incorrect: 1 },
-  { dayNum: 1, dateStr: "01 Oct", dayName: "Thursday", score: "17.5 / 25", accuracy: 71, questionsAttempted: 9, correct: 7, incorrect: 2 }
-];
+// Weekday names mapping
+const CSAT_WEEKDAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
-function buildOctoberHistoryData() {
-  if (is18thOctUnlocked()) {
-    return [
-      { dayNum: 18, dateStr: "18 Oct", dayName: "Sunday", score: "-- / 25", accuracy: "--", questionsAttempted: 0, correct: 0, incorrect: 0, isToday: true, isCompleted: false },
-      { dayNum: 17, dateStr: "17 Oct", dayName: "Saturday", score: "22.5 / 25", accuracy: 89, questionsAttempted: 10, correct: 9, incorrect: 1, isCompleted: true },
-      ...OCTOBER_PAST_DAYS
-    ];
-  } else {
-    // Before 18 Oct 00:01 AM IST: 18th Oct tile will not appear today! 17th Oct is today.
-    return [
-      { dayNum: 17, dateStr: "17 Oct", dayName: "Saturday", score: "-- / 25", accuracy: "--", questionsAttempted: 0, correct: 0, incorrect: 0, isToday: true, isCompleted: false },
-      ...OCTOBER_PAST_DAYS
-    ];
+// Benchmark baseline records for past tests (1 to 18)
+const BASELINE_OCTOBER_DAYS = {
+  18: { dayName: "Sunday", score: "22.5 / 25", accuracy: 89, questionsAttempted: 10, correct: 9, incorrect: 1, isCompleted: true },
+  17: { dayName: "Saturday", score: "22.5 / 25", accuracy: 89, questionsAttempted: 10, correct: 9, incorrect: 1, isCompleted: true },
+  16: { dayName: "Friday", score: "21.6 / 25", accuracy: 87, questionsAttempted: 10, correct: 8, incorrect: 1, isCompleted: true },
+  15: { dayName: "Thursday", score: "22.5 / 25", accuracy: 88, questionsAttempted: 10, correct: 9, incorrect: 1, isCompleted: true },
+  14: { dayName: "Wednesday", score: "20.0 / 25", accuracy: 80, questionsAttempted: 10, correct: 8, incorrect: 2, isCompleted: true },
+  13: { dayName: "Tuesday", score: "17.5 / 25", accuracy: 72, questionsAttempted: 9, correct: 7, incorrect: 2, isCompleted: true },
+  12: { dayName: "Monday", score: "22.5 / 25", accuracy: 89, questionsAttempted: 10, correct: 9, incorrect: 1, isCompleted: true },
+  11: { dayName: "Sunday", score: "20.0 / 25", accuracy: 82, questionsAttempted: 10, correct: 8, incorrect: 2, isCompleted: true },
+  10: { dayName: "Saturday", score: "18.3 / 25", accuracy: 76, questionsAttempted: 10, correct: 7, incorrect: 3, isCompleted: true },
+  9:  { dayName: "Friday", score: "22.5 / 25", accuracy: 90, questionsAttempted: 10, correct: 9, incorrect: 1, isCompleted: true },
+  8:  { dayName: "Thursday", score: "20.0 / 25", accuracy: 83, questionsAttempted: 10, correct: 8, incorrect: 2, isCompleted: true },
+  7:  { dayName: "Wednesday", score: "17.5 / 25", accuracy: 74, questionsAttempted: 9, correct: 7, incorrect: 2, isCompleted: true },
+  6:  { dayName: "Tuesday", score: "21.6 / 25", accuracy: 87, questionsAttempted: 10, correct: 8, incorrect: 1, isCompleted: true },
+  5:  { dayName: "Monday", score: "19.1 / 25", accuracy: 79, questionsAttempted: 10, correct: 7, incorrect: 2, isCompleted: true },
+  4:  { dayName: "Sunday", score: "20.8 / 25", accuracy: 84, questionsAttempted: 10, correct: 8, incorrect: 2, isCompleted: true },
+  3:  { dayName: "Saturday", score: "18.3 / 25", accuracy: 75, questionsAttempted: 10, correct: 7, incorrect: 3, isCompleted: true },
+  2:  { dayName: "Friday", score: "22.5 / 25", accuracy: 90, questionsAttempted: 10, correct: 9, incorrect: 1, isCompleted: true },
+  1:  { dayName: "Thursday", score: "17.5 / 25", accuracy: 71, questionsAttempted: 9, correct: 7, incorrect: 2, isCompleted: true }
+};
+
+/**
+ * Automatically builds the test tiles list for October 2026.
+ * Dynamically determines today's active day (e.g. 19 Oct), marks it as Live Test,
+ * and renders all prior test days (18 down to 1) as completed history.
+ * Supports any future day (20, 21, ...) automatically as time advances.
+ */
+function buildOctoberHistoryData(customActiveDay) {
+  const nowIST = getNowIST();
+  let activeDay = customActiveDay;
+  if (!activeDay) {
+    if (nowIST.getFullYear() === 2026 && nowIST.getMonth() === 9) { // October 2026
+      activeDay = nowIST.getDate();
+    } else {
+      activeDay = 19; // Default active today is 19th Oct
+    }
   }
+
+  // Ensure minimum active day is 19 since 19th Oct questions are uploaded
+  if (activeDay < 19 && isDateUnlocked("2026-10-19")) {
+    activeDay = 19;
+  }
+
+  const list = [];
+  for (let d = activeDay; d >= 1; d--) {
+    const dayPad = d < 10 ? `0${d}` : `${d}`;
+    const dateStr = `${dayPad} Oct`;
+    const fullDateStr = `2026-10-${dayPad}`;
+    const dayOfWeek = new Date(2026, 9, d).getDay();
+    const dayName = CSAT_WEEKDAYS[dayOfWeek];
+    const isToday = (d === activeDay);
+
+    if (isToday) {
+      list.push({
+        dayNum: d,
+        dateStr,
+        fullDateStr,
+        dayName,
+        score: "-- / 25",
+        accuracy: "--",
+        questionsAttempted: 0,
+        correct: 0,
+        incorrect: 0,
+        isToday: true,
+        isCompleted: false
+      });
+    } else if (BASELINE_OCTOBER_DAYS[d]) {
+      list.push({
+        dayNum: d,
+        dateStr,
+        fullDateStr,
+        ...BASELINE_OCTOBER_DAYS[d]
+      });
+    } else {
+      list.push({
+        dayNum: d,
+        dateStr,
+        fullDateStr,
+        dayName,
+        score: "21.6 / 25",
+        accuracy: 86,
+        questionsAttempted: 10,
+        correct: 8,
+        incorrect: 1,
+        isCompleted: true
+      });
+    }
+  }
+  return list;
 }
 
 const OCTOBER_HISTORY_DATA = buildOctoberHistoryData();
@@ -1555,22 +2085,37 @@ const CSAT_RESULT_KEY = "csat_daily_test_result";
 const CSAT_LANG_KEY = "csat_selected_language";
 
 if (typeof window !== "undefined") {
+  window.getNowIST = getNowIST;
+  window.getTodayDateStr = getTodayDateStr;
+  window.isDateUnlocked = isDateUnlocked;
+  window.is18thOctUnlocked = is18thOctUnlocked;
+  window.is19thOctUnlocked = is19thOctUnlocked;
+  window.buildOctoberHistoryData = buildOctoberHistoryData;
+  window.OCTOBER_HISTORY_DATA = OCTOBER_HISTORY_DATA;
   window.getCSATQuestions = getCSATQuestions;
   window.CSAT_QUESTIONS = CSAT_QUESTIONS;
   window.CSAT_QUESTIONS_15OCT = CSAT_QUESTIONS_15OCT;
   window.CSAT_QUESTIONS_16OCT = CSAT_QUESTIONS_16OCT;
   window.CSAT_QUESTIONS_17OCT = CSAT_QUESTIONS_17OCT;
   window.CSAT_QUESTIONS_18OCT = CSAT_QUESTIONS_18OCT;
+  window.CSAT_QUESTIONS_19OCT = CSAT_QUESTIONS_19OCT;
 }
 if (typeof module !== "undefined" && module.exports) {
   module.exports = {
+    getNowIST,
+    getTodayDateStr,
+    isDateUnlocked,
+    is18thOctUnlocked,
+    is19thOctUnlocked,
+    buildOctoberHistoryData,
+    OCTOBER_HISTORY_DATA,
     getCSATQuestions,
     CSAT_QUESTIONS,
     CSAT_QUESTIONS_15OCT,
     CSAT_QUESTIONS_16OCT,
     CSAT_QUESTIONS_17OCT,
     CSAT_QUESTIONS_18OCT,
-    is18thOctUnlocked
+    CSAT_QUESTIONS_19OCT
   };
 }
 

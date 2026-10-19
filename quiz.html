@@ -209,7 +209,7 @@
     let timerInterval = null;
 
     const urlParams = new URLSearchParams(window.location.search);
-    const testDate = urlParams.get('date') || (typeof is18thOctUnlocked === 'function' && is18thOctUnlocked() ? '2026-10-18' : '2026-10-17');
+    const testDate = urlParams.get('date') || (typeof getTodayDateStr === 'function' ? getTodayDateStr() : '2026-10-19');
 
     // Load any saved state strictly for this testDate
     const dateStateKey = `csat_active_quiz_state_${testDate}`;
@@ -315,8 +315,8 @@
 
       const testDateElem = document.getElementById("test-date-display");
       if (testDateElem) {
-        const dStr = (testDate === '2026-10-18') ? '18 Oct 2026' : (testDate === '2026-10-17' ? '17 Oct 2026' : (testDate === '2026-10-16' ? '16 Oct 2026' : (testDate === '2026-10-15' ? '15 Oct 2026' : testDate)));
-        testDateElem.textContent = dStr;
+        const dayNum = parseInt(testDate.split('-')[2], 10) || 19;
+        testDateElem.textContent = `${dayNum} Oct 2026`;
       }
 
       renderNavigator();
@@ -778,7 +778,8 @@
       const attemptedTotal = correctCount + incorrectCount;
       const accuracyPercentage = attemptedTotal > 0 ? Math.round((correctCount / attemptedTotal) * 100) : 0;
 
-      const displayDateStr = testDate === "2026-10-18" ? "18 October 2026" : (testDate === "2026-10-17" ? "17 October 2026" : (testDate === "2026-10-16" ? "16 October 2026" : (testDate === "2026-10-15" ? "15 October 2026" : testDate)));
+      const dayNum = parseInt(testDate.split('-')[2], 10) || 19;
+      const displayDateStr = `${dayNum} October 2026`;
       const finalResult = {
         testDate: displayDateStr,
         totalScore: Math.max(0, totalMarksObtained).toFixed(2),
