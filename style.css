@@ -1276,7 +1276,16 @@ html, body {
   line-height: 1.6;
   color: #f0f4f8;
   margin-bottom: 24px;
-  white-space: pre-line;
+  white-space: normal;
+  word-break: break-word;
+}
+
+sup {
+  font-size: 0.75em;
+  vertical-align: baseline;
+  position: relative;
+  top: -0.45em;
+  line-height: 0;
 }
 
 /* Options */

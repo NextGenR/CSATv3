@@ -173,13 +173,38 @@ const CSAT_API = (function () {
     return null;
   }
 
+  function cleanMojibake(str) {
+    if (!str) return "";
+    return String(str)
+      .replace(/Â([²³¹°±×÷–—])/g, "$1")
+      .replace(/Â/g, "")
+      .replace(/â€¢/g, "•")
+      .replace(/â‰¤/g, "≤")
+      .replace(/â‰¥/g, "≥")
+      .replace(/â‰ /g, "≠")
+      .replace(/âŠ†/g, "⊆")
+      .replace(/âˆ©/g, "∩")
+      .replace(/âˆª/g, "∪")
+      .replace(/âˆ…/g, "∅")
+      .replace(/âŸ¹/g, "⇒")
+      .replace(/â‡’/g, "⇒")
+      .replace(/â†’/g, "→")
+      .replace(/â€“/g, "–")
+      .replace(/â€”/g, "—")
+      .replace(/â€˜/g, "‘")
+      .replace(/â€™/g, "’")
+      .replace(/â€œ/g, "“")
+      .replace(/â€ /g, "”")
+      .replace(/â€¦/g, "…");
+  }
+
   /**
    * Normalize Supabase DB row format into standard app question model
    */
   function normalizeSupabaseRows(rows) {
     function cleanOpt(txt) {
       if (!txt) return "";
-      return String(txt).replace(/^\([a-dA-D]\)\s*/, "").replace(/^[a-dA-D][\.\)]\s*/, "").trim();
+      return cleanMojibake(String(txt).replace(/^\([a-dA-D]\)\s*/, "").replace(/^[a-dA-D][\.\)]\s*/, "").trim());
     }
 
     return rows.map((row, idx) => {
@@ -202,6 +227,9 @@ const CSAT_API = (function () {
         answerKey = letters[row.correct_index] || "A";
       }
 
+      const cleanStatement = cleanMojibake(row.question || "");
+      const cleanExplanation = cleanMojibake(row.solution || row.trick || "Refer to standard solution methods.");
+
       return {
         id: row.question_number || (idx + 1),
         dbId: row.id,
@@ -211,14 +239,14 @@ const CSAT_API = (function () {
         categoryTitle: row.category_title || getCategoryTitle(row.category),
         difficulty: row.difficulty || "Moderate",
         en: {
-          statement: row.question || "",
+          statement: cleanStatement,
           options: opts,
-          explanation: row.solution || row.trick || "Refer to standard solution methods."
+          explanation: cleanExplanation
         },
         hi: {
-          statement: row.question || "",
+          statement: cleanStatement,
           options: opts,
-          explanation: row.solution || row.trick || "मानक समाधान विधि देखें।"
+          explanation: cleanExplanation
         },
         correctAnswer: answerKey,
         attemptRate: row.attempt_rate || 75,

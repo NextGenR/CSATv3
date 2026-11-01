@@ -387,24 +387,85 @@
     function formatQuestionText(rawText) {
       if (!rawText) return "";
       let str = String(rawText);
+
+      // 1. Sanitize common UTF-8 double-encoding mojibake artifacts
+      str = str
+        .replace(/Â([²³¹°±×÷–—])/g, "$1")
+        .replace(/Â/g, "")
+        .replace(/â€¢/g, "•")
+        .replace(/â‰¤/g, "≤")
+        .replace(/â‰¥/g, "≥")
+        .replace(/â‰ /g, "≠")
+        .replace(/âŠ†/g, "⊆")
+        .replace(/âˆ©/g, "∩")
+        .replace(/âˆª/g, "∪")
+        .replace(/âˆ…/g, "∅")
+        .replace(/âŸ¹/g, "⇒")
+        .replace(/â‡’/g, "⇒")
+        .replace(/â†’/g, "→")
+        .replace(/â€“/g, "–")
+        .replace(/â€”/g, "—")
+        .replace(/â€˜/g, "‘")
+        .replace(/â€™/g, "’")
+        .replace(/â€œ/g, "“")
+        .replace(/â€ /g, "”")
+        .replace(/â€¦/g, "…");
+
+      // 2. Normalize Windows CRLF line endings to LF
+      str = str.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
+
+      // 3. Strip trailing embedded option lists like \n(a) ... \n(b) ... if present in raw statement
       const optIdx = str.search(/\n\s*\(?[aA]\)[\s\S]*$/);
       if (optIdx !== -1) {
         str = str.substring(0, optIdx).trim();
       }
 
-      // Format mixed fractions first (e.g. "16 4/11", "8 16/23 %", "3 बजकर 16 4/11 मिनट")
+      // 4. Mathematical inequalities & symbol formatting
+      str = str.replace(/<=/g, "≤")
+               .replace(/>=/g, "≥")
+               .replace(/!=/g, "≠")
+               .replace(/<>/g, "≠")
+               .replace(/\+-/g, "±")
+               .replace(/==>/g, "⇒")
+               .replace(/<=>/g, "⇔")
+               .replace(/-->/g, "→");
+
+      // Standalone ASCII arrows between words/variables (e.g. 'A -> B' or 'A => B')
+      str = str.replace(/(\s)->(\s)/g, "$1→$2");
+      str = str.replace(/(\s)=>(\s)/g, "$1⇒$2");
+
+      // 5. Exponents / Powers formatting (Square & Power fix)
+      // Convert unicode superscripts (², ³, ¹) to styled <sup> elements
+      str = str.replace(/([0-9a-zA-Z\)])²/g, "$1<sup>2</sup>");
+      str = str.replace(/([0-9a-zA-Z\)])³/g, "$1<sup>3</sup>");
+      str = str.replace(/([0-9a-zA-Z\)])¹/g, "$1<sup>1</sup>");
+      // Convert caret notation like x^2, 17^2025, (A+B)^2, 2^(n-1) to <sup>
+      str = str.replace(/([0-9a-zA-Z\)]+)\^([0-9a-zA-Z\+\-]+)/g, "$1<sup>$2</sup>");
+
+      // 6. Format mixed fractions first (e.g. "16 4/11", "8 16/23 %", "3 बजकर 16 4/11 मिनट")
       str = str.replace(/(^|[^\d/])(\d+)\s+(\d{1,4})\s*\/\s*(\d{1,4})(?!\s*\/\s*\d)(?=[^\d/]|$)/g, (match, prefix, whole, num, den) => {
         return `${prefix}<span class="csat-frac csat-mixed-frac" role="math" aria-label="${whole} and ${num} over ${den}"><span class="csat-whole">${whole}</span><span class="csat-fraction"><span class="csat-num">${num}</span><span class="csat-den">${den}</span></span></span>`;
       });
 
-      // Format standalone fractions (e.g. "3/11", "11/2", "(60/11)", "180/11")
+      // 7. Format standalone fractions (e.g. "3/11", "11/2", "(60/11)", "180/11")
       // Avoid matching dates (e.g. 15/08/1947), units (km/h, m/s, °/min), or HTML attributes
       str = str.replace(/(^|[^\d/a-zA-Z°"'>])(\d{1,4})\s*\/\s*(\d{1,4})(?!\s*\/\s*\d)(?=[^\d/a-zA-Z°"'<]|$)/g, (match, prefix, num, den) => {
         return `${prefix}<span class="csat-frac" role="math" aria-label="${num} over ${den}"><span class="csat-fraction"><span class="csat-num">${num}</span><span class="csat-den">${den}</span></span></span>`;
       });
 
-      str = str.replace(/([0-9a-zA-Z\)]+)\^([0-9a-zA-Z\+]+)/g, "$1<sup>$2</sup>");
+      // 8. Vertical whitespace normalization & gap reduction
+      // Trim per-line trailing space
+      str = str.replace(/[ \t]+\n/g, "\n");
+      // Collapse 3 or more consecutive newlines down to max 2 (one blank line between paragraphs)
+      str = str.replace(/\n{3,}/g, "\n\n");
+      str = str.trim();
+
+      // Convert newlines to clean breaks
       str = str.replace(/\n/g, "<br>");
+
+      // Collapse stacked consecutive <br> tags
+      str = str.replace(/(<br\s*\/?>\s*){3,}/gi, "<br><br>");
+
       return str;
     }
 
@@ -740,7 +801,7 @@
 
             <div class="tg-drill-solution">
               <strong><i class="fa-solid fa-lightbulb"></i> Step-by-Step Explanation:</strong>
-              <div style="margin-top: 6px; white-space: pre-line;">${formatQuestionText(q.explanationEn)}</div>
+              <div style="margin-top: 6px; white-space: normal; line-height: 1.55;">${formatQuestionText(q.explanationEn)}</div>
             </div>
           </div>
         `;
@@ -777,7 +838,7 @@
 
         <div class="tg-drill-solution">
           <strong><i class="fa-solid fa-graduation-cap"></i> Complete Traditional Explanation:</strong>
-          <div style="margin-top: 8px; white-space: pre-line; line-height: 1.6;">${formatQuestionText(q.explanationEn)}</div>
+          <div style="margin-top: 8px; white-space: normal; line-height: 1.6;">${formatQuestionText(q.explanationEn)}</div>
         </div>
       `;
 
