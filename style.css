@@ -2384,4 +2384,341 @@ sup {
   }
 }
 
+/* ==========================================================================
+   Candidate Authentication & Login Card (Telegram Theme)
+   ========================================================================== */
+.tg-auth-container {
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  z-index: 2;
+  overflow-y: auto;
+}
+
+.tg-auth-card {
+  width: 100%;
+  max-width: 430px;
+  background: var(--tg-panel-bg, #17212b);
+  border: 1px solid var(--tg-border, #242f3d);
+  border-radius: var(--tg-radius-lg, 16px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.55), 0 0 20px rgba(36, 129, 204, 0.12);
+  padding: 34px 28px 30px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+}
+
+.tg-auth-brand {
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+.tg-auth-icon-wrap {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2481cc, #1b639e);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(36, 129, 204, 0.4);
+  margin-bottom: 12px;
+}
+
+.tg-auth-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--tg-text-primary, #ffffff);
+  margin-bottom: 4px;
+  letter-spacing: 0.2px;
+}
+
+.tg-auth-subtitle {
+  font-size: 12.5px;
+  color: var(--tg-text-secondary, #7f91a4);
+  line-height: 1.4;
+}
+
+.tg-auth-tabs {
+  display: flex;
+  background: rgba(14, 22, 33, 0.85);
+  border: 1px solid var(--tg-border, #232e3c);
+  border-radius: var(--tg-radius-pill, 30px);
+  padding: 4px;
+  margin-bottom: 20px;
+}
+
+.tg-auth-tab {
+  flex: 1;
+  padding: 8px 12px;
+  border: none;
+  background: transparent;
+  color: var(--tg-text-secondary, #7f91a4);
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: var(--tg-radius-pill, 24px);
+  cursor: pointer;
+  transition: all var(--tg-transition-fast, 0.18s ease);
+}
+
+.tg-auth-tab.active {
+  background: var(--tg-blue, #2481cc);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(36, 129, 204, 0.4);
+}
+
+.tg-auth-field {
+  margin-bottom: 16px;
+}
+
+.tg-auth-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--tg-text-secondary, #7f91a4);
+  margin-bottom: 6px;
+}
+
+.tg-auth-label-hint {
+  font-size: 11px;
+  color: var(--tg-text-muted, #5d6f80);
+  font-weight: normal;
+}
+
+.tg-auth-input-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.tg-auth-input-icon {
+  position: absolute;
+  left: 14px;
+  color: var(--tg-text-muted, #5d6f80);
+  font-size: 14px;
+  pointer-events: none;
+}
+
+.tg-auth-input {
+  width: 100%;
+  padding: 12px 14px 12px 40px;
+  background: #0e1621;
+  border: 1px solid var(--tg-border, #232e3c);
+  border-radius: var(--tg-radius-md, 12px);
+  color: var(--tg-text-primary, #ffffff);
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  transition: border-color var(--tg-transition-fast, 0.18s ease), box-shadow var(--tg-transition-fast, 0.18s ease);
+}
+
+.tg-auth-input:focus {
+  border-color: var(--tg-blue, #2481cc);
+  box-shadow: 0 0 0 3px rgba(36, 129, 204, 0.2);
+}
+
+.tg-auth-input-seat {
+  font-family: monospace, monospace;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.tg-auth-input-passcode {
+  font-family: monospace, monospace;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 4px;
+}
+
+.tg-auth-pw-toggle {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  color: var(--tg-text-muted, #5d6f80);
+  cursor: pointer;
+  padding: 4px;
+  font-size: 14px;
+}
+
+.tg-auth-pw-toggle:hover {
+  color: var(--tg-text-primary, #ffffff);
+}
+
+.tg-auth-alert {
+  display: none;
+  padding: 10px 14px;
+  border-radius: var(--tg-radius-md, 10px);
+  font-size: 12.5px;
+  line-height: 1.4;
+  margin-bottom: 16px;
+  align-items: center;
+  gap: 10px;
+}
+
+.tg-auth-alert.error {
+  display: flex;
+  background: rgba(229, 57, 53, 0.12);
+  border: 1px solid rgba(229, 57, 53, 0.35);
+  color: #ff6b68;
+}
+
+.tg-auth-alert.success {
+  display: flex;
+  background: rgba(52, 199, 89, 0.12);
+  border: 1px solid rgba(52, 199, 89, 0.35);
+  color: #4cd964;
+}
+
+.tg-auth-btn-submit {
+  width: 100%;
+  padding: 13px 20px;
+  background: var(--tg-blue, #2481cc);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--tg-radius-md, 12px);
+  font-size: 14.5px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all var(--tg-transition-fast, 0.18s ease);
+  box-shadow: 0 4px 14px rgba(36, 129, 204, 0.35);
+  margin-top: 6px;
+}
+
+.tg-auth-btn-submit:hover:not(:disabled) {
+  background: var(--tg-blue-hover, #2ba2f2);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(36, 129, 204, 0.5);
+}
+
+.tg-auth-btn-submit:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.tg-auth-btn-submit:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.tg-auth-active-card {
+  background: rgba(36, 129, 204, 0.1);
+  border: 1px solid rgba(36, 129, 204, 0.35);
+  border-radius: var(--tg-radius-md, 12px);
+  padding: 14px 16px;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.tg-auth-active-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--tg-blue, #2481cc);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.tg-auth-active-info {
+  flex: 1;
+}
+
+.tg-auth-active-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.tg-auth-active-seat {
+  font-size: 11.5px;
+  color: var(--tg-blue-light, #5288c1);
+  font-weight: 600;
+}
+
+/* Header Candidate Badge in App Bar */
+.tg-candidate-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--tg-surface, #242f3d);
+  border: 1px solid var(--tg-border-light, rgba(255, 255, 255, 0.08));
+  border-radius: var(--tg-radius-pill, 30px);
+  padding: 4px 10px 4px 6px;
+  color: var(--tg-text-primary, #ffffff);
+  font-size: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.tg-candidate-badge-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--tg-blue, #2481cc);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+}
+
+.tg-candidate-badge-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.tg-candidate-badge-name {
+  font-weight: 600;
+  font-size: 12px;
+  color: #ffffff;
+  max-width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tg-candidate-badge-seat {
+  font-size: 10px;
+  color: var(--tg-blue-light, #5288c1);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.tg-candidate-badge-logout {
+  background: none;
+  border: none;
+  color: var(--tg-text-muted, #5d6f80);
+  cursor: pointer;
+  padding: 2px 4px;
+  font-size: 12px;
+  border-radius: 4px;
+  transition: color var(--tg-transition-fast, 0.18s ease);
+}
+
+.tg-candidate-badge-logout:hover {
+  color: var(--tg-red, #e53935);
+}
+
+
 

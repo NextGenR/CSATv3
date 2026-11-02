@@ -9,16 +9,221 @@ const CSAT_API = (function () {
   const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndyemlkdG1xd2pibmFpbXFua3V6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIxNDc2NzgsImV4cCI6MjEwNzcyMzY3OH0.jCZSo0UPPa2eG6rKUBTwfGuLTvh3SjO_cNr9wzCoqYM";
   const TABLE_QUESTIONS = "daily_questions";
   const TABLE_ATTEMPTS = "user_test_attempts";
+  const TABLE_CANDIDATES = "candidates";
 
-  // Candidate Name (default: 'Shri')
+  // Candidate Name & Seat Number (Max 3 Digits: 001 - 999)
+  function getSeatNumber() {
+    return localStorage.getItem("csat_seat_number") || "";
+  }
+
+  function setSeatNumber(seat) {
+    if (seat !== undefined && seat !== null) {
+      const clean = String(seat).trim().replace(/\D/g, "").slice(0, 3);
+      if (clean) {
+        localStorage.setItem("csat_seat_number", clean.padStart(3, "0"));
+      } else {
+        localStorage.removeItem("csat_seat_number");
+      }
+    }
+  }
+
   function getCandidateName() {
-    return localStorage.getItem("csat_candidate_name") || "Shri";
+    return localStorage.getItem("csat_candidate_name") || "Candidate";
   }
 
   function setCandidateName(name) {
     if (name && name.trim()) {
       localStorage.setItem("csat_candidate_name", name.trim());
     }
+  }
+
+  function getCandidateIdentifier() {
+    const seat = getSeatNumber();
+    if (seat) return `Seat_${seat}`;
+    return getCandidateName() || "Candidate_001";
+  }
+
+  function getCandidateSession() {
+    try {
+      const raw = localStorage.getItem("csat_candidate_session");
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function isLoggedIn() {
+    const seat = getSeatNumber();
+    return !!(seat && seat.length > 0);
+  }
+
+  function requireAuth(redirectUrl = "login.html") {
+    if (!isLoggedIn()) {
+      if (typeof window !== "undefined") {
+        const path = window.location.pathname;
+        if (!path.endsWith("login.html")) {
+          const current = encodeURIComponent(window.location.pathname + window.location.search);
+          window.location.href = `${redirectUrl}?returnUrl=${current}`;
+          return false;
+        }
+      }
+      return false;
+    }
+    return true;
+  }
+
+  function saveSessionLocally(seatNumber, fullName) {
+    const padded = String(seatNumber).padStart(3, "0");
+    localStorage.setItem("csat_seat_number", padded);
+    localStorage.setItem("csat_candidate_name", fullName);
+    localStorage.setItem("csat_candidate_session", JSON.stringify({
+      seat_number: padded,
+      full_name: fullName,
+      logged_in_at: new Date().toISOString()
+    }));
+  }
+
+  function logoutCandidate() {
+    localStorage.removeItem("csat_seat_number");
+    localStorage.removeItem("csat_candidate_name");
+    localStorage.removeItem("csat_candidate_session");
+    if (typeof window !== "undefined") {
+      window.location.href = "login.html";
+    }
+  }
+
+  /**
+   * Register candidate: Seat Number (max 3 digits: 1-999), Full Name, 4-digit Passcode
+   */
+  async function registerCandidate(seatNumber, fullName, passcode) {
+    const rawSeat = String(seatNumber || "").trim().replace(/\D/g, "");
+    const cleanPass = String(passcode || "").trim().replace(/\D/g, "");
+    const cleanName = String(fullName || "").trim();
+
+    if (!rawSeat || rawSeat.length === 0 || rawSeat.length > 3) {
+      return { success: false, error: "Seat number must be 1 to 3 digits (e.g. 001 to 999)." };
+    }
+    if (!cleanPass || cleanPass.length !== 4) {
+      return { success: false, error: "Passcode must be exactly 4 digits." };
+    }
+    if (!cleanName) {
+      return { success: false, error: "Please enter your full name." };
+    }
+
+    const paddedSeat = rawSeat.padStart(3, "0");
+
+    // 1. Check if candidate seat already exists in Supabase
+    try {
+      const checkRes = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE_CANDIDATES}?seat_number=eq.${paddedSeat}&select=seat_number,full_name`, {
+        method: "GET",
+        headers: {
+          "apikey": SUPABASE_ANON_KEY,
+          "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+          "Content-Type": "application/json"
+        }
+      });
+
+      if (checkRes.ok) {
+        const found = await checkRes.json();
+        if (Array.isArray(found) && found.length > 0) {
+          return { success: false, error: `Seat #${paddedSeat} is already registered. Please login with your 4-digit passcode.` };
+        }
+      }
+
+      // 2. Insert new candidate into Supabase
+      const insertRes = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE_CANDIDATES}`, {
+        method: "POST",
+        headers: {
+          "apikey": SUPABASE_ANON_KEY,
+          "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+          "Content-Type": "application/json",
+          "Prefer": "return=representation"
+        },
+        body: JSON.stringify({
+          seat_number: paddedSeat,
+          full_name: cleanName,
+          passcode: cleanPass,
+          created_at: new Date().toISOString(),
+          last_login: new Date().toISOString()
+        })
+      });
+
+      if (!insertRes.ok) {
+        const errText = await insertRes.text();
+        console.warn("Candidates remote registration warning (table may need creation):", errText);
+      }
+    } catch (err) {
+      console.warn("Could not reach Supabase candidates table, saving locally:", err);
+    }
+
+    // Save session locally
+    saveSessionLocally(paddedSeat, cleanName);
+    return { success: true, candidate: { seat_number: paddedSeat, full_name: cleanName } };
+  }
+
+  /**
+   * Login candidate: Seat Number (max 3 digits) and 4-digit Passcode
+   */
+  async function loginCandidate(seatNumber, passcode) {
+    const rawSeat = String(seatNumber || "").trim().replace(/\D/g, "");
+    const cleanPass = String(passcode || "").trim().replace(/\D/g, "");
+
+    if (!rawSeat || rawSeat.length === 0 || rawSeat.length > 3) {
+      return { success: false, error: "Please enter your seat number (max 3 digits)." };
+    }
+    if (!cleanPass || cleanPass.length !== 4) {
+      return { success: false, error: "Please enter your 4-digit passcode." };
+    }
+
+    const paddedSeat = rawSeat.padStart(3, "0");
+
+    try {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE_CANDIDATES}?seat_number=eq.${paddedSeat}&select=*`, {
+        method: "GET",
+        headers: {
+          "apikey": SUPABASE_ANON_KEY,
+          "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+          "Content-Type": "application/json"
+        }
+      });
+
+      if (res.ok) {
+        const rows = await res.json();
+        if (Array.isArray(rows) && rows.length > 0) {
+          const cand = rows[0];
+          if (cand.passcode === cleanPass) {
+            saveSessionLocally(paddedSeat, cand.full_name || "Candidate");
+            // Asynchronously update last_login
+            fetch(`${SUPABASE_URL}/rest/v1/${TABLE_CANDIDATES}?seat_number=eq.${paddedSeat}`, {
+              method: "PATCH",
+              headers: {
+                "apikey": SUPABASE_ANON_KEY,
+                "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({ last_login: new Date().toISOString() })
+            }).catch(() => {});
+
+            return { success: true, candidate: { seat_number: paddedSeat, full_name: cand.full_name } };
+          } else {
+            return { success: false, error: `Incorrect 4-digit passcode for Seat #${paddedSeat}.` };
+          }
+        } else {
+          return { success: false, notRegistered: true, error: `Seat #${paddedSeat} is not registered yet. Switch to "Register" to create it.` };
+        }
+      }
+    } catch (err) {
+      console.warn("Candidate login query warning:", err);
+    }
+
+    // Local fallback check
+    const localSess = getCandidateSession();
+    if (localSess && localSess.seat_number === paddedSeat) {
+      saveSessionLocally(paddedSeat, localSess.full_name);
+      return { success: true, candidate: localSess };
+    }
+
+    return { success: false, error: `Could not verify Seat #${paddedSeat}. If you are new, please select Register.` };
   }
 
   function getDefaultDate() {
@@ -80,12 +285,15 @@ const CSAT_API = (function () {
    */
   async function syncProgressToCloud(progressPayload) {
     const candidateName = getCandidateName();
+    const candidateId = getCandidateIdentifier();
+    const seatNumber = getSeatNumber();
     const testDate = progressPayload.testDate || getDefaultDate();
-    const recordId = `${candidateName}_${testDate}`;
+    const recordId = `${candidateId}_${testDate}`;
 
     const body = {
       id: recordId,
       user_name: candidateName,
+      user_identifier: seatNumber ? `Seat_${seatNumber}` : "candidate_default",
       test_date: testDate,
       current_question_index: progressPayload.currentQuestionIndex || 0,
       answers: progressPayload.answers || {},
@@ -135,10 +343,11 @@ const CSAT_API = (function () {
    */
   async function restoreProgressFromCloud(testDate = getDefaultDate()) {
     const candidateName = getCandidateName();
-    const recordId = `${candidateName}_${testDate}`;
+    const candidateId = getCandidateIdentifier();
+    const recordId = `${candidateId}_${testDate}`;
 
     try {
-      // 1. Direct query for specific user record
+      // 1. Direct query for specific candidate record by identifier (Seat_XXX)
       let endpoint = `${SUPABASE_URL}/rest/v1/${TABLE_ATTEMPTS}?id=eq.${recordId}&select=*`;
       let response = await fetch(endpoint, {
         method: "GET",
@@ -151,6 +360,24 @@ const CSAT_API = (function () {
       let rows = await response.json();
       if (Array.isArray(rows) && rows.length > 0) {
         return rows[0];
+      }
+
+      // 1b. Legacy query by candidateName if seat-based id not found
+      const legacyId = `${candidateName}_${testDate}`;
+      if (legacyId !== recordId) {
+        endpoint = `${SUPABASE_URL}/rest/v1/${TABLE_ATTEMPTS}?id=eq.${legacyId}&select=*`;
+        response = await fetch(endpoint, {
+          method: "GET",
+          headers: {
+            "apikey": SUPABASE_ANON_KEY,
+            "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+            "Content-Type": "application/json"
+          }
+        });
+        rows = await response.json();
+        if (Array.isArray(rows) && rows.length > 0) {
+          return rows[0];
+        }
       }
 
       // 2. Fallback: check latest attempt for this test date
@@ -385,7 +612,8 @@ const CSAT_API = (function () {
     } catch (e) {}
 
     const candidateName = getCandidateName();
-    const recordId = `${candidateName}_${testDate}`;
+    const candidateId = getCandidateIdentifier();
+    const recordId = `${candidateId}_${testDate}`;
     try {
       const endpoint = `${SUPABASE_URL}/rest/v1/${TABLE_ATTEMPTS}?id=eq.${recordId}`;
       await fetch(endpoint, {
@@ -396,6 +624,18 @@ const CSAT_API = (function () {
           "Content-Type": "application/json"
         }
       });
+      // Also delete legacy attempt id if candidateName differed
+      const legacyId = `${candidateName}_${testDate}`;
+      if (legacyId !== recordId) {
+        await fetch(`${SUPABASE_URL}/rest/v1/${TABLE_ATTEMPTS}?id=eq.${legacyId}`, {
+          method: "DELETE",
+          headers: {
+            "apikey": SUPABASE_ANON_KEY,
+            "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+            "Content-Type": "application/json"
+          }
+        }).catch(() => {});
+      }
     } catch (err) {
       console.warn("Could not delete cloud attempt:", err);
     }
@@ -490,6 +730,15 @@ const CSAT_API = (function () {
     getDefaultDate,
     getCandidateName,
     setCandidateName,
+    getSeatNumber,
+    setSeatNumber,
+    getCandidateIdentifier,
+    getCandidateSession,
+    isLoggedIn,
+    requireAuth,
+    loginCandidate,
+    registerCandidate,
+    logoutCandidate,
     SUPABASE_URL,
     SUPABASE_ANON_KEY
   };

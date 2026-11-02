@@ -211,18 +211,29 @@
           </ul>
         </div>
 
-        <!-- Candidate Profile / Name -->
+        <!-- Candidate Profile / Seat -->
         <div class="tg-candidate-section" style="margin-bottom: 20px;">
           <label class="tg-lang-label" style="display: block; margin-bottom: 8px; font-weight: 500; font-size: 13.5px; color: var(--tg-text);">
             <i class="fa-solid fa-user-check" style="color: var(--tg-blue-light); margin-right: 6px;"></i>
-            Candidate Name / अभ्यर्थी का नाम:
+            Candidate Profile / अभ्यर्थी विवरण:
           </label>
-          <div style="position: relative; max-width: 320px;">
-            <input type="text" id="candidate-name-input" value="Shri" placeholder="Enter Candidate Name" style="width: 100%; padding: 10px 14px 10px 38px; background: var(--tg-bg); border: 1px solid var(--tg-border); border-radius: 8px; color: var(--tg-text); font-size: 14px; outline: none; transition: border-color 0.2s;" onfocus="this.style.borderColor='var(--tg-blue)';" onblur="this.style.borderColor='var(--tg-border)';">
-            <i class="fa-solid fa-user" style="position: absolute; left: 13px; top: 13px; color: var(--tg-text-muted); font-size: 13px;"></i>
+          <div style="display: flex; align-items: center; justify-content: space-between; background: var(--tg-panel-bg, #17212b); border: 1px solid var(--tg-border, #242f3d); border-radius: 10px; padding: 12px 16px; max-width: 440px;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <div style="width: 38px; height: 38px; border-radius: 50%; background: var(--tg-blue, #2481cc); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 15px;">
+                <i class="fa-solid fa-graduation-cap"></i>
+              </div>
+              <div>
+                <div style="font-weight: 700; font-size: 14.5px; color: #fff;" id="display-candidate-name">Candidate</div>
+                <div style="font-size: 12px; color: var(--tg-blue-light, #5288c1); font-weight: 700; letter-spacing: 0.5px;" id="display-candidate-seat">Seat #001</div>
+              </div>
+            </div>
+            <a href="login.html" style="font-size: 11.5px; color: var(--tg-text-muted); text-decoration: none; border: 1px solid var(--tg-border); padding: 5px 9px; border-radius: 6px; display: inline-flex; align-items: center; gap: 5px;">
+              <i class="fa-solid fa-arrows-rotate"></i> Switch Seat
+            </a>
           </div>
+          <input type="hidden" id="candidate-name-input" value="Candidate">
           <p style="font-size: 11.5px; color: var(--tg-text-muted); margin-top: 6px;">
-            Your responses and test analytics will be saved under this profile in the database.
+            Test attempt, answers, and time forensics are strictly associated with this Seat Number.
           </p>
         </div>
 
@@ -272,6 +283,13 @@
   <script src="csat_data.js"></script>
   <script src="api.js"></script>
   <script>
+    // Enforce candidate login
+    if (typeof CSAT_API !== 'undefined' && CSAT_API.requireAuth) {
+      if (!CSAT_API.requireAuth()) {
+        /* redirecting */
+      }
+    }
+
     let hasActiveTest = false;
     let savedIndex = 0;
 
@@ -286,10 +304,16 @@
       subElem.innerHTML = `Daily 10 Questions Practice &bull; ${dStr}`;
     }
 
-    // Pre-populate candidate name if saved previously
-    const savedName = localStorage.getItem("csat_candidate_name") || "Shri";
+    // Populate candidate profile from session
+    const currentSeat = (typeof CSAT_API !== 'undefined' && CSAT_API.getSeatNumber) ? CSAT_API.getSeatNumber() : (localStorage.getItem("csat_seat_number") || "001");
+    const currentName = (typeof CSAT_API !== 'undefined' && CSAT_API.getCandidateName) ? CSAT_API.getCandidateName() : (localStorage.getItem("csat_candidate_name") || "Candidate");
+
+    const dispName = document.getElementById("display-candidate-name");
+    const dispSeat = document.getElementById("display-candidate-seat");
     const nameInput = document.getElementById("candidate-name-input");
-    if (nameInput) nameInput.value = savedName;
+    if (dispName) dispName.textContent = currentName;
+    if (dispSeat) dispSeat.textContent = `Seat #${currentSeat}`;
+    if (nameInput) nameInput.value = currentName;
 
     // Check for active / in-progress attempt from local cache and Supabase
     async function checkExistingProgress() {

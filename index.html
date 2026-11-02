@@ -112,6 +112,20 @@
           </div>
         </div>
         <div class="tg-header-right">
+          <!-- Candidate Badge & Logout -->
+          <div class="tg-candidate-badge" id="tg-header-candidate-badge" title="Logged-in Candidate">
+            <div class="tg-candidate-badge-avatar">
+              <i class="fa-solid fa-user"></i>
+            </div>
+            <div class="tg-candidate-badge-text">
+              <span class="tg-candidate-badge-name" id="badge-candidate-name">Candidate</span>
+              <span class="tg-candidate-badge-seat" id="badge-candidate-seat">Seat #001</span>
+            </div>
+            <button class="tg-candidate-badge-logout" id="btn-header-logout" title="Switch Seat / Logout">
+              <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            </button>
+          </div>
+
           <!-- Chrome Install App Button -->
           <button class="tg-btn-chrome-install" id="btn-install-pwa" title="Install UPSC CSAT Daily App on this device">
             <i class="fa-solid fa-download"></i>
@@ -214,6 +228,34 @@
   <script>
     // Dynamic Automated October CSAT Test Series Tracker & Tile Engine
     document.addEventListener("DOMContentLoaded", () => {
+      // 0. Enforce Candidate Login
+      if (typeof CSAT_API !== 'undefined' && CSAT_API.requireAuth) {
+        if (!CSAT_API.requireAuth()) return;
+      }
+
+      // Populate Candidate Badge in Header
+      const candSeat = (typeof CSAT_API !== 'undefined' && CSAT_API.getSeatNumber) ? CSAT_API.getSeatNumber() : localStorage.getItem("csat_seat_number");
+      const candName = (typeof CSAT_API !== 'undefined' && CSAT_API.getCandidateName) ? CSAT_API.getCandidateName() : localStorage.getItem("csat_candidate_name");
+      const badgeSeat = document.getElementById("badge-candidate-seat");
+      const badgeName = document.getElementById("badge-candidate-name");
+      if (badgeSeat && candSeat) badgeSeat.textContent = `Seat #${candSeat}`;
+      if (badgeName && candName) badgeName.textContent = candName;
+
+      const btnHeaderLogout = document.getElementById("btn-header-logout");
+      if (btnHeaderLogout) {
+        btnHeaderLogout.addEventListener("click", () => {
+          if (confirm(`Logged in as ${candName || 'Candidate'} (Seat #${candSeat}).\nDo you want to switch seat or logout?`)) {
+            if (typeof CSAT_API !== 'undefined' && CSAT_API.logoutCandidate) {
+              CSAT_API.logoutCandidate();
+            } else {
+              localStorage.removeItem("csat_seat_number");
+              localStorage.removeItem("csat_candidate_name");
+              window.location.href = "login.html";
+            }
+          }
+        });
+      }
+
       const todayDateStr = (typeof getTodayDateStr === 'function') ? getTodayDateStr() : '2026-10-19';
       const todayMockNum = parseInt(todayDateStr.split('-')[2], 10) || 19;
       let currentHistoryData = (typeof OCTOBER_HISTORY_DATA !== 'undefined' && OCTOBER_HISTORY_DATA.length > 0)

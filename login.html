@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#17212b">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CSAT Daily">
+  <title>Candidate Portal | CSAT Daily 10 Questions</title>
+  <!-- PWA Manifest & Icons -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Telegram Repeating Math Wallpaper -->
+  <div class="tg-wallpaper"></div>
+
+  <div class="tg-auth-container">
+    <div class="tg-auth-card">
+
+      <!-- Brand Header -->
+      <div class="tg-auth-brand">
+        <div class="tg-auth-icon-wrap">
+          <i class="fa-solid fa-graduation-cap"></i>
+        </div>
+        <h1 class="tg-auth-title">CSAT Daily 10</h1>
+        <p class="tg-auth-subtitle">UPSC Civil Services Aptitude Test &bull; Candidate Portal</p>
+      </div>
+
+      <!-- Active Session Banner (if already logged in) -->
+      <div id="auth-active-session" class="tg-auth-active-card" style="display: none;">
+        <div class="tg-auth-active-avatar">
+          <i class="fa-solid fa-user-check"></i>
+        </div>
+        <div class="tg-auth-active-info">
+          <div class="tg-auth-active-name" id="active-session-name">Candidate Name</div>
+          <div class="tg-auth-active-seat" id="active-session-seat">Seat #001</div>
+        </div>
+        <button type="button" class="tg-candidate-badge-logout" id="btn-active-logout" title="Switch Seat / Logout" style="font-size: 15px; padding: 6px;">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        </button>
+      </div>
+
+      <div id="auth-active-actions" style="display: none; margin-bottom: 20px;">
+        <button type="button" class="tg-auth-btn-submit" id="btn-continue-dashboard">
+          <i class="fa-solid fa-arrow-right"></i> Continue to Daily Mock Tests
+        </button>
+        <div style="text-align: center; margin-top: 12px;">
+          <a href="#" id="link-switch-account" style="color: var(--tg-blue-light); font-size: 12.5px; text-decoration: none;">
+            <i class="fa-solid fa-arrows-rotate"></i> Switch to a different Seat
+          </a>
+        </div>
+      </div>
+
+      <!-- Form Section Container -->
+      <div id="auth-form-container">
+
+        <!-- Tabs: Login vs Register -->
+        <div class="tg-auth-tabs">
+          <button type="button" class="tg-auth-tab active" id="tab-login">
+            <i class="fa-solid fa-right-to-bracket"></i> Login
+          </button>
+          <button type="button" class="tg-auth-tab" id="tab-register">
+            <i class="fa-solid fa-user-plus"></i> Register
+          </button>
+        </div>
+
+        <!-- Alert Notification Box -->
+        <div class="tg-auth-alert" id="auth-alert">
+          <i class="fa-solid fa-circle-exclamation" id="auth-alert-icon"></i>
+          <span id="auth-alert-msg"></span>
+        </div>
+
+        <!-- Auth Form -->
+        <form id="auth-form" autocomplete="off">
+
+          <!-- Full Name Field (Register Mode Only) -->
+          <div class="tg-auth-field" id="field-fullname" style="display: none;">
+            <label class="tg-auth-label" for="input-fullname">
+              <span>Candidate Full Name</span>
+              <span class="tg-auth-label-hint">As per UPSC Admit Card</span>
+            </label>
+            <div class="tg-auth-input-box">
+              <i class="fa-solid fa-user tg-auth-input-icon"></i>
+              <input type="text" class="tg-auth-input" id="input-fullname" placeholder="e.g. Shri Sharma" maxlength="60">
+            </div>
+          </div>
+
+          <!-- Seat Number Field (Max 3 Digits: 1 - 999) -->
+          <div class="tg-auth-field">
+            <label class="tg-auth-label" for="input-seat">
+              <span>Seat Number</span>
+              <span class="tg-auth-label-hint">Max 3 Digits (1 &ndash; 999)</span>
+            </label>
+            <div class="tg-auth-input-box">
+              <i class="fa-solid fa-chair tg-auth-input-icon"></i>
+              <input type="text" inputmode="numeric" class="tg-auth-input tg-auth-input-seat" id="input-seat" placeholder="e.g. 042" maxlength="3" autofocus>
+            </div>
+          </div>
+
+          <!-- 4-Digit Passcode Field -->
+          <div class="tg-auth-field">
+            <label class="tg-auth-label" for="input-passcode">
+              <span>4-Digit Passcode</span>
+              <span class="tg-auth-label-hint">Numeric PIN (4 digits)</span>
+            </label>
+            <div class="tg-auth-input-box">
+              <i class="fa-solid fa-lock tg-auth-input-icon"></i>
+              <input type="password" inputmode="numeric" class="tg-auth-input tg-auth-input-passcode" id="input-passcode" placeholder="••••" maxlength="4">
+              <button type="button" class="tg-auth-pw-toggle" id="btn-toggle-pw" title="Show/Hide Passcode">
+                <i class="fa-solid fa-eye" id="icon-pw-toggle"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="tg-auth-btn-submit" id="btn-auth-submit">
+            <i class="fa-solid fa-arrow-right" id="submit-icon"></i>
+            <span id="submit-text">Log In to CSAT Portal</span>
+          </button>
+
+        </form>
+
+      </div>
+
+      <!-- Footer Info -->
+      <div style="margin-top: 24px; text-align: center; font-size: 11.5px; color: var(--tg-text-muted); line-height: 1.5;">
+        <span><i class="fa-solid fa-shield-halved" style="color: var(--tg-blue-light);"></i> Secure Candidate Session</span> &bull; 
+        <span>All 10-Question Attempts Tied to Seat</span>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="api.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const returnUrl = urlParams.get("returnUrl") ? decodeURIComponent(urlParams.get("returnUrl")) : "index.html";
+
+      let currentMode = "login"; // 'login' or 'register'
+
+      // DOM Elements
+      const tabLogin = document.getElementById("tab-login");
+      const tabRegister = document.getElementById("tab-register");
+      const fieldFullname = document.getElementById("field-fullname");
+      const inputFullname = document.getElementById("input-fullname");
+      const inputSeat = document.getElementById("input-seat");
+      const inputPasscode = document.getElementById("input-passcode");
+      const btnTogglePw = document.getElementById("btn-toggle-pw");
+      const iconPwToggle = document.getElementById("icon-pw-toggle");
+      const authForm = document.getElementById("auth-form");
+      const btnSubmit = document.getElementById("btn-auth-submit");
+      const submitText = document.getElementById("submit-text");
+      const submitIcon = document.getElementById("submit-icon");
+      const authAlert = document.getElementById("auth-alert");
+      const authAlertMsg = document.getElementById("auth-alert-msg");
+      const authAlertIcon = document.getElementById("auth-alert-icon");
+
+      // Active session elements
+      const authActiveSession = document.getElementById("auth-active-session");
+      const authActiveActions = document.getElementById("auth-active-actions");
+      const authFormContainer = document.getElementById("auth-form-container");
+      const activeSessionName = document.getElementById("active-session-name");
+      const activeSessionSeat = document.getElementById("active-session-seat");
+      const btnContinueDashboard = document.getElementById("btn-continue-dashboard");
+      const btnActiveLogout = document.getElementById("btn-active-logout");
+      const linkSwitchAccount = document.getElementById("link-switch-account");
+
+      // Restrict seat number to numeric only and max 3 digits
+      inputSeat.addEventListener("input", (e) => {
+        e.target.value = e.target.value.replace(/\D/g, "").slice(0, 3);
+      });
+
+      // Restrict passcode to numeric only and max 4 digits
+      inputPasscode.addEventListener("input", (e) => {
+        e.target.value = e.target.value.replace(/\D/g, "").slice(0, 4);
+      });
+
+      // Toggle password visibility
+      btnTogglePw.addEventListener("click", () => {
+        if (inputPasscode.type === "password") {
+          inputPasscode.type = "text";
+          iconPwToggle.className = "fa-solid fa-eye-slash";
+        } else {
+          inputPasscode.type = "password";
+          iconPwToggle.className = "fa-solid fa-eye";
+        }
+      });
+
+      function showAlert(msg, isError = true) {
+        authAlert.className = `tg-auth-alert ${isError ? "error" : "success"}`;
+        authAlertIcon.className = isError ? "fa-solid fa-circle-exclamation" : "fa-solid fa-circle-check";
+        authAlertMsg.textContent = msg;
+        authAlert.style.display = "flex";
+      }
+
+      function hideAlert() {
+        authAlert.style.display = "none";
+      }
+
+      function setMode(mode) {
+        currentMode = mode;
+        hideAlert();
+        if (mode === "login") {
+          tabLogin.classList.add("active");
+          tabRegister.classList.remove("active");
+          fieldFullname.style.display = "none";
+          submitText.textContent = "Log In to CSAT Portal";
+          submitIcon.className = "fa-solid fa-arrow-right";
+          inputSeat.focus();
+        } else {
+          tabRegister.classList.add("active");
+          tabLogin.classList.remove("active");
+          fieldFullname.style.display = "block";
+          submitText.textContent = "Register & Start Practice";
+          submitIcon.className = "fa-solid fa-user-plus";
+          inputFullname.focus();
+        }
+      }
+
+      tabLogin.addEventListener("click", () => setMode("login"));
+      tabRegister.addEventListener("click", () => setMode("register"));
+
+      // Check existing session
+      const existingSeat = (typeof CSAT_API !== "undefined" && CSAT_API.getSeatNumber) ? CSAT_API.getSeatNumber() : localStorage.getItem("csat_seat_number");
+      const existingName = (typeof CSAT_API !== "undefined" && CSAT_API.getCandidateName) ? CSAT_API.getCandidateName() : localStorage.getItem("csat_candidate_name");
+
+      if (existingSeat) {
+        activeSessionSeat.textContent = `Seat #${existingSeat}`;
+        activeSessionName.textContent = existingName || "Candidate";
+        authActiveSession.style.display = "flex";
+        authActiveActions.style.display = "block";
+        authFormContainer.style.display = "none";
+      }
+
+      btnContinueDashboard.addEventListener("click", () => {
+        window.location.href = returnUrl;
+      });
+
+      function handleLogout() {
+        if (typeof CSAT_API !== "undefined" && CSAT_API.logoutCandidate) {
+          CSAT_API.logoutCandidate();
+        } else {
+          localStorage.removeItem("csat_seat_number");
+          localStorage.removeItem("csat_candidate_name");
+          localStorage.removeItem("csat_candidate_session");
+        }
+        authActiveSession.style.display = "none";
+        authActiveActions.style.display = "none";
+        authFormContainer.style.display = "block";
+        setMode("login");
+        inputSeat.value = "";
+        inputPasscode.value = "";
+      }
+
+      btnActiveLogout.addEventListener("click", handleLogout);
+      linkSwitchAccount.addEventListener("click", (e) => {
+        e.preventDefault();
+        handleLogout();
+      });
+
+      // Form submission
+      authForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        hideAlert();
+
+        const seat = inputSeat.value.trim().replace(/\D/g, "");
+        const passcode = inputPasscode.value.trim().replace(/\D/g, "");
+        const fullName = inputFullname.value.trim();
+
+        if (!seat || seat.length === 0 || seat.length > 3) {
+          showAlert("Seat number must be between 1 and 3 digits (e.g. 001 to 999).", true);
+          inputSeat.focus();
+          return;
+        }
+
+        if (!passcode || passcode.length !== 4) {
+          showAlert("Please enter a valid 4-digit numeric passcode.", true);
+          inputPasscode.focus();
+          return;
+        }
+
+        if (currentMode === "register" && !fullName) {
+          showAlert("Please enter candidate's full name.", true);
+          inputFullname.focus();
+          return;
+        }
+
+        // Set Loading state
+        btnSubmit.disabled = true;
+        submitIcon.className = "fa-solid fa-spinner fa-spin";
+        submitText.textContent = currentMode === "login" ? "Verifying Credentials..." : "Registering Seat...";
+
+        try {
+          if (currentMode === "login") {
+            const res = await CSAT_API.loginCandidate(seat, passcode);
+            if (res.success) {
+              showAlert(`Welcome back, ${res.candidate.full_name || "Candidate"}! Redirecting...`, false);
+              setTimeout(() => {
+                window.location.href = returnUrl;
+              }, 450);
+            } else {
+              showAlert(res.error || "Login failed. Please verify seat number and passcode.", true);
+              if (res.notRegistered) {
+                // Pre-fill and switch to register
+                setTimeout(() => setMode("register"), 1200);
+              }
+            }
+          } else {
+            const res = await CSAT_API.registerCandidate(seat, fullName, passcode);
+            if (res.success) {
+              showAlert(`Seat #${res.candidate.seat_number} successfully registered! Welcome, ${res.candidate.full_name}.`, false);
+              setTimeout(() => {
+                window.location.href = returnUrl;
+              }, 450);
+            } else {
+              showAlert(res.error || "Registration failed. Please try a different seat number.", true);
+            }
+          }
+        } catch (err) {
+          showAlert("Network connection error. Please try again.", true);
+          console.error("Auth submit error:", err);
+        } finally {
+          btnSubmit.disabled = false;
+          submitIcon.className = currentMode === "login" ? "fa-solid fa-arrow-right" : "fa-solid fa-user-plus";
+          submitText.textContent = currentMode === "login" ? "Log In to CSAT Portal" : "Register & Start Practice";
+        }
+      });
+    });
+  </script>
+</body>
+</html>
+

@@ -232,6 +232,11 @@
     }
 
     async function initQuiz() {
+      // 0. Enforce Candidate Login
+      if (typeof CSAT_API !== 'undefined' && CSAT_API.requireAuth) {
+        if (!CSAT_API.requireAuth()) return;
+      }
+
       // 1. Fetch live questions from Supabase API for specified date (or fallback)
       try {
         if (typeof CSAT_API !== 'undefined' && CSAT_API.loadDailyQuestions) {
@@ -309,9 +314,13 @@
       // Display candidate profile & test date
       const candidateName = (typeof CSAT_API !== 'undefined' && CSAT_API.getCandidateName) 
         ? CSAT_API.getCandidateName() 
-        : (localStorage.getItem("csat_candidate_name") || "Shri");
+        : (localStorage.getItem("csat_candidate_name") || "Candidate");
+      const seatNumber = (typeof CSAT_API !== 'undefined' && CSAT_API.getSeatNumber)
+        ? CSAT_API.getSeatNumber()
+        : (localStorage.getItem("csat_seat_number") || "001");
+
       const candElem = document.getElementById("candidate-display");
-      if (candElem) candElem.textContent = `Candidate: ${candidateName}`;
+      if (candElem) candElem.textContent = `Candidate: ${candidateName} (Seat #${seatNumber})`;
 
       const testDateElem = document.getElementById("test-date-display");
       if (testDateElem) {
